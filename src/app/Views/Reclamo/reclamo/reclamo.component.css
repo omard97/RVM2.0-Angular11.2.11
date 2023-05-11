@@ -1,0 +1,147 @@
+.contenedorMiReclamo {
+    margin: 1rem 0 1rem 0;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: #f5f5f5;
+    box-shadow: 10px 9px 17px -7px rgba(189, 97, 5, 0.985);
+  -webkit-box-shadow: 10px 9px 17px -7px rgba(189, 97, 5, 0.985);
+  -moz-box-shadow: 10px 9px 17px -7px rgba(189, 97, 5, 0.985);
+  }
+  
+  table {
+    border-radius: 10px;
+    border-color: black 1px solid;
+  }
+  
+  .DescripcionReclamo {
+    height: 4rem;
+  }
+  
+  /* .fa-chevron-left {
+      font-size: 24px;
+      width: 50px;
+    
+      text-align: left;
+    } */
+  
+  .contenedorPrincipal {
+    margin-top: 10px;
+    background-color: #ededed;
+  }
+  
+  .botonRegresoHistorial {
+    padding: 5px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+  
+  .borde {
+  
+    border-bottom: 2px solid rgba(35, 35, 35, 0.311);
+    margin-bottom: 30px;
+  }
+  
+  
+  .mapa {
+    margin-top: 20px;
+  }
+  
+  .header {
+    color: #36a0ff;
+    font-size: 27px;
+    padding: 10px;
+  }
+  
+  .bigicon {
+    font-size: 35px;
+    color: #36a0ff;
+  }
+  
+  .form {
+    margin-top: 20px;
+  }
+  
+  
+  .titulos {
+    font-size: 18px;
+  }
+  
+  #tituloComponente {
+    font-size: 30px;
+    text-align: center;
+  
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  
+  }
+  .input_reclamo{
+    margin: 0.5rem 0 0.9rem 0;
+  }
+  .icono__input{
+    font-size: 16px;
+  }
+  /* .inputs {
+    border-color: brown;
+  } */
+  
+  #Alerta {
+    margin-top: 20px;
+  }
+  
+  .botones {
+    height: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .btn {
+    width: 50%;
+    height: 50%;
+    font-size: 20px;
+  }
+  
+  .fa-sync-alt {
+    margin-right: 20px;
+  }
+  
+  .fa-times {
+    margin-right: 10px;
+  }
+  
+  .fa-check-circle {
+    margin-right: 10px;
+  }
+  
+  /* ---- Preview Foto */
+  .contenedor--foto {
+    margin: 1rem 0 1rem 0;
+  }
+  
+  .preview--Foto {
+    width: 50%;
+  
+  }
+  
+  /* .titulo--dispositivo {
+    font-size: 1.75rem;
+  } */
+  
+  .dispositivos {
+    color: #495057;
+  }
+  
+  .boton--foto {
+    width: auto;
+    height: auto;
+    font-size: 1rem;
+  }
+  
+  .contenedor--camara,
+  .subir--Foto {
+  
+    margin: 1rem 0 0 0;
+  
+  }
+  
+  .camara--visor {
+    width: 40%;
+  }

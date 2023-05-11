@@ -1,0 +1,143 @@
+body {
+    background: #111 !important;
+}
+
+h5 {
+    font-size: 16px;
+    text-align: justify;
+    padding: 3px;
+}
+
+img {
+    height: 200px;
+
+}
+
+/*************  ID *************/
+#tituloHistorial {
+    text-align: center;
+
+}
+
+#filtros {
+    /* padding: 15px;
+    border: rgb(49, 49, 49) 1px solid; */
+    margin-top: 15px;
+    background-image: linear-gradient(0deg, #FAFBFBff, #E8E8E9ff);
+
+}
+
+#tituloFiltros {
+    padding: 5px;
+    min-width: 100px;
+
+    /* border: rgb(182, 180, 180) 1px solid;
+    border-radius: 50px; */
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(35, 35, 35, 0.311);
+}
+
+#principal {
+    border-radius: 63px;
+    background: #757580;
+    box-shadow: 5px 5px 10px #015bd1;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#IcoCarga {
+    margin-top: 5%;
+}
+
+#textoIcono {
+    padding: 5px;
+    font-size: 18px;
+}
+
+#IcoMensaje {
+    margin-top: 5%;
+}
+
+/************* Inputs *************/
+/* las clases de tipo de reclamo y estado */
+.form-select {
+    width: 100%;
+}
+
+.calendario {
+    text-align: center;
+    width: 100%;
+}
+
+#nombreUsuario {
+    width: 100%;
+}
+
+/************* Clases ************ */
+
+
+.busquedaFiltros {
+    text-align: center;
+    /* border: rgb(182, 180, 180) 1px solid; */
+    border-radius: 50px;
+    padding: 20px;
+}
+
+
+.card {
+    background-color: rgba(246, 245, 245, 0.776);
+    /* Color del fondo de la tarjeta */
+    color: rgba(21, 21, 21, 0.8);
+    margin-bottom: 2rem;
+}
+
+/* div del boton bsca */
+.buscar {
+    margin-top: 33px;
+}
+
+/* Boton buscar */
+.btn-primary {
+    width: 100%;
+    font-size: 22px;
+    border-radius: 10px;
+}
+
+/*icono de lupa del boton */
+.fa-search {
+    margin-right: 20px;
+}
+
+.btnActualizar {
+    /*  background-color: #f5f5f5; */
+    height: 3rem;
+    width: 3rem;
+}
+
+.btnEliminar {
+    height: 3rem;
+    width: 3rem;
+}
+
+.span-text {
+    font-weight: 700;
+}
+
+.tarjeta--informacion {
+    padding: 1rem 0 0 0;
+}
+
+.tarjeta--informacion p {
+    margin: .3rem 0 .3rem 0;
+}
+
+.botones--informacion {
+    /* padre */
+    margin-top: 1rem;
+}
+
+.card__reclamo{
+    height: 40rem;
+}

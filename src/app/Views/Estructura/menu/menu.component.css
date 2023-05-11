@@ -1,0 +1,211 @@
+/* span,i,a{
+    color: white!important;
+} */
+
+/* #0d6efd */
+
+/* span:hover,
+i:hover
+a:hover{
+    color: #0d6efd!important;
+    transition: all 0.2s ease;
+} */
+
+/* -------- Menu Angular Material ------ */
+.mat-nav-list {
+    padding-top: 0 !important;
+}
+
+.button-menu {
+    width: 90%;
+    /* ancho del menu de botones */
+}
+
+.sidenav-container {
+    height: 100%;
+}
+
+
+/* .mat-drawer{
+    background-color: #1f1f1f;
+} */
+
+.nav__menu--color {
+    background-color: #1f1f1f;
+}
+
+.menu__ancho {
+    width: 12rem !important;
+}
+
+@media (max-width: 570px) {
+    .menu__ancho {
+        width: 9rem !important;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+}
+
+/* --------  Fin Menu Angular Material ------  */
+
+.boton__nav {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.boton__nav--info {
+    margin-left: 10px;
+    color: rgb(207, 207, 207) !important;
+}
+
+.boton__nav--span {
+    padding-left: 5px;
+}
+
+.boton__nav:hover {
+    background-color: #333333;
+    transition: all 0.5s ease;
+}
+
+.boton__nav--info:hover {
+    color: #f1f1f1 !important;
+}
+
+@media (max-width: 573px) {
+
+    /* cuando la pantalla tiene un tamaño de 0 px y 573px */
+    .boton__nav {
+        width: 4rem;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .boton__nav--info {
+        margin-left: 0;
+        color: rgb(207, 207, 207) !important;
+    }
+
+    .boton__nav:hover {
+        background-color: #333333;
+        transition: all 0.5s ease;
+    }
+
+    .boton__nav--info:hover {
+        color: #f1f1f1 !important;
+    }
+}
+
+.lineaDivisora {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.boton_usuario:hover {
+    cursor: pointer;
+}
+
+.menu__usuario {
+    border-radius: 10px;
+
+}
+
+.dropdown-item {
+    border-radius: 5px;
+}
+
+.dropdown-item:hover {
+
+    transition: all 1s ease;
+
+
+}
+
+/* Iconos perfil */
+.icono__config,
+.icono__perfil {
+    padding-right: 5px;
+}
+
+/* Iconos menu */
+.bi-journal-text,
+.bi-geo-alt {
+    font-size: calc(1.275rem + .3vw) !important;
+}
+
+.bi-calendar3,
+.bi-journal-arrow-up {
+    font-size: calc(1.1rem + .3vw) !important;
+    margin-right: 10px;
+
+}
+
+
+
+/* Botones secundarios del menu o sub menu */
+
+.boton__subMenu {
+    color: rgb(207, 207, 207) !important;
+}
+
+.boton__subMenu:hover {
+    color: #f1f1f1 !important;
+}
+
+/* ------ Modal Perfil ------ */
+
+.imagen--perfil {
+    border-radius: 5rem;
+}
+
+.inputModal {
+    margin: 0rem 0 0.5rem 0;
+}
+.contenedor__inputPerfil{
+    padding: 1.5rem 1rem 0 1rem;
+}
+
+/* .inputModal:last-of-type {
+    margin: 0rem 0 0.5rem 0;
+} */
+
+/* 
+form{
+    visibility: hidden;
+} */
+
+.informacion__perfil {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    border-radius: 10px;
+
+    background-color: #e1e1e18b;
+    margin: 0.5rem 0 0.5rem 0;
+
+}
+
+.boton__editarPerfil {
+    padding: 0.3rem;
+    margin-left: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.boton__editarPerfil:hover {
+    font-size: 18px;
+    transition: all 0.1s ease;
+}
+
+.ico__editarPerfil {
+    display: flex;
+    justify-content: flex-end;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0;
+}
+
+.contenedor__botonPerfil{
+    margin-top: 31.9rem;
+}
