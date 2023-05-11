@@ -5,21 +5,21 @@
         <mat-nav-list class="menu__ancho"><!-- button-menu -->
             <div class="container">
                 <div class="row flex-nowrap nav__menu--color ">
-                    <div class=" flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <div class=" d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                         <!-- d-flex -->
                         <a routerLink="menu"
                             class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                            <span class="fs-5 d-none d-sm-inline">Menu</span>
+                            <span class="fs-5 d-none d-sm-inline">Menú</span>
                         </a>
                         <ul class="nav nav-pills flex-column mb-sm-auto col-12 align-items-center align-items-sm-start"
                             id="menu">
-                            <li class="nav-item boton__nav">
+                          <!--   <li class="nav-item boton__nav">
 
                                 <a class="nav-link align-middle px-0 boton__nav--info">
                                     <i class="fs-4 bi-house"></i> <span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Home</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="boton__nav" routerLink="./dashboard">
                                 <a class="nav-link px-0 align-middle boton__nav--info">
                                     <!-- data-bs-toggle="collapse" -->
@@ -60,10 +60,10 @@
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Mapas</span></a>
                             </li>
                             <li class="boton__nav">
-                                <a href="#submenu3" data-bs-toggle="collapse"
+                                <!-- <a href="#submenu3" data-bs-toggle="collapse"
                                     class="nav-link px-0 align-middle boton__nav--info">
                                     <i class="fs-4 bi-grid"></i> <span
-                                        class="ms-1 d-none d-sm-inline boton__nav--span">Products</span> </a>
+                                        class="ms-1 d-none d-sm-inline boton__nav--span">Products</span> </a> -->
                                 <!--  <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                                     <li class="w-100">
                                         <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span>
@@ -93,19 +93,12 @@
 
                         <div class="contenedor__botonPerfil">
 
-
-
-                            
-
-
-
-
-                            <div class="dropdown pb-4 boton_usuario ">
-                                <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle "
+                            <div class="dropdown pb-4 boton_user ">
+                                <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle boton_user--informacion p-2"
                                     id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="../../../../assets/img/usuario-Omar.jpg" alt="hugenerd" width="30"
                                         height="30" class="rounded-circle">
-                                    <span class="d-none d-sm-inline mx-1">{{usuario.nick}}</span>
+                                    <span class="d-none d-sm-inline mx-4">{{usuario.nick}}</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow menu__usuario"
                                     aria-labelledby="dropdownUser1">
