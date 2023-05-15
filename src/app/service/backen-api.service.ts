@@ -278,9 +278,9 @@ export class BackenApiService {
 
   /* ---------------------------- Configuracion ------------------------------------- */
 
-  getTipoEstadoAdmin(idRol:number){
-
-    return this.http.get<TipoEstado[]>('https://localhost:44363/tipoestadoadmin?idRol='+idRol);
+  getTipoEstadoAdmin(){
+    debugger
+    return this.http.get<TipoEstado[]>('https://localhost:44363/tipoestadoadmin');
   }
 
   getEstadosDelTipo(idTipoEstado:number){
