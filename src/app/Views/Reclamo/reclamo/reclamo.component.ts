@@ -11,6 +11,7 @@ import { TipoReclamo } from 'src/app/model/tipoReclamo';
 import { LoginApiService } from 'src/app/service/Login/login-api.service';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -98,7 +99,7 @@ export class ReclamoComponent implements OnInit {
   public previsualizacion: string = "";
   public imagenBase64: string = "";
 
-  constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router) { 
+  constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService) { 
 
     this.rutaURL = window.location.pathname.split('/');
     console.log(this.rutaURL)
@@ -204,28 +205,28 @@ export class ReclamoComponent implements OnInit {
     if (Number(this.tipoReclamoCtrl.value) == 1 && (this.tipoReclamoCtrl.value == '' || this.reclamoAmbientalCtrl.value == '' ||
       this.fechaCtrl.value == '' || this.horaCtrl.value == '' || this.ubicacionCtrl.value == '' ||
       this.descripcionCtrl.value == '' || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == '')) {
-    /*   this.toastr.warning(
+      this.toastr.warning(
         'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
         'Cuidado!',
         {
           timeOut: 5000,
           progressBar: true,
         }
-      ); */
+      );
 
       /* reclamo vial */
     } else if (Number(this.tipoReclamoCtrl.value) == 2 && (((this.dominioCtrl.value == '' || this.marcaAutoCtrl.value == '') &&
       this.tipoReclamoCtrl.value == '') || this.fechaCtrl.value == '' || this.horaCtrl.value == '' ||
       this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == '' || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == '' ||
       this.modeloAutoCtrl.value == '')) {
-   /*    this.toastr.warning(
+      this.toastr.warning(
         'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
         'Cuidado!',
         {
           timeOut: 5000,
           progressBar: true,
         }
-      ); */
+      );
     } else {
       var RegistroRecl: Reclamo = {
         fecha: this.fechaCtrl.value + '',
@@ -369,10 +370,10 @@ ambiental */
   }
 
   Notificacion() {
-   /*  this.toastr.success(
+    this.toastr.success(
       '¡Su reclamo fué creado correctamente!',
       'El estado del reclamo está pendiente'
-    ); */
+    );
   }
 
   limpiarPantalla() {
@@ -390,10 +391,10 @@ ambiental */
 
 
 
-    /* this.toastr.info('Será redirigido al menú principal', '', {
+    this.toastr.info('Será redirigido al menú principal', '', {
       timeOut: 5000,
 
-    }); */
+    });
     this.metodoRedireccion();
   }
   metodoRedireccion() {
@@ -470,23 +471,23 @@ ambiental */
     /* idEstadoReclamo */
     /* Roles 1=Administrador - 3=Usuario */
     if (this.estadoReclamoCtrl.value == '' && this.usuario.idRol == 1) {
-     /*  this.toastr.warning(
+      this.toastr.warning(
         'Para realizar la actualización ingrese el estado correspondiente al reclamo',
         'Atención',
         {
           timeOut: 5000,
           progressBar: true,
         }
-      ); */
+      );
     } else if (this.arregloDetalleReclamo[0].idTipoRec != this.idEstadoReclamo && this.usuario.idRol == 1) {
-    /*   this.toastr.warning(
+      this.toastr.warning(
         'Seleccione el estado correcto del reclamo',
         'Atención',
         {
           timeOut: 5000,
           progressBar: true,
         }
-      ); */
+      );
     } else {
       var putfecha: any;
       var putfoto: any;
@@ -691,10 +692,10 @@ ambiental */
     this.alturaCtrl.reset();
     this.dominioCtrl.reset();
     this.estadoReclamoCtrl.reset();
-  /*   this.toastr.success('Reclamo Actualizado con exito', '', {
+    this.toastr.success('Reclamo Actualizado con exito', '', {
       timeOut: 7000,
       progressBar: true,
-    }); */
+    });
   }
 
 
