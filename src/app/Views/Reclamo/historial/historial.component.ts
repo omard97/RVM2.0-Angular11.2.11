@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { EstadoReclamo } from 'src/app/model/filtrosHistorial/estadoReclamo';
 import { TipoReclamo } from 'src/app/model/tipoReclamo';
 import { LoginApiService } from 'src/app/service/Login/login-api.service';
@@ -55,7 +56,7 @@ export class HistorialComponent implements OnInit {
     rol: '',
     IDsesion:0,
   }
-  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router) 
+  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService) 
   {
 
     this.rutaURL = window.location.pathname.split('/');
@@ -323,14 +324,14 @@ export class HistorialComponent implements OnInit {
         this.banderaAlerta=true;
         this.banderaIconoCarga =false; 
 
-       /*  this.toastr.info(
+        this.toastr.info(
           'No se puede realizar la accion deseasa',
           'Atención',
           {
             timeOut: 5000,
             progressBar: true,
           }
-        ); */
+        );
       }
 
       /* {
@@ -406,14 +407,14 @@ export class HistorialComponent implements OnInit {
         this.banderaAlerta=true;
         this.banderaIconoCarga =false; 
 
-        /* this.toastr.info(
+        this.toastr.info(
           'No se puede realizar la accion deseasa',
           'Atención',
           {
             timeOut: 5000,
             progressBar: true,
           }
-        ); */
+        );
       }
     }
   }
@@ -442,25 +443,25 @@ export class HistorialComponent implements OnInit {
   }
 
   mensajeDelDia(){
-   /*  this.toastr.info(
+    this.toastr.info(
       'No se encuentran reclamos registrados en el dia de hoy ',
       'Atención',
       {
         timeOut: 3000,
         progressBar: true,
       }
-    ); */
+    );
   }
 
   mensajeRespuestaErrordeBusqueda(){
-  /*   this.toastr.info(
+    this.toastr.info(
       'No se encuentran reclamos registrados para la busqueda seleccionada ',
       'Atención',
       {
         timeOut: 5000,
         progressBar: true,
       }
-    ); */
+    );
   }
 
 }
