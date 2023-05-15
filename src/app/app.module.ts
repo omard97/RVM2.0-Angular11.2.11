@@ -27,6 +27,7 @@ import { HomeComponent } from './Views/home/home.component';
 import { NgxChartsModule} from '@swimlane/ngx-charts';
 import { CamaraService } from './service/camara/camara.service';
 import { ToastrModule } from 'ngx-toastr';
+import { ConfiguracionComponent } from './Views/Configuracion/configuracion/configuracion.component';
 
 
 
@@ -41,7 +42,8 @@ import { ToastrModule } from 'ngx-toastr';
     DashboardComponent,
     ReclamoComponent,
     HistorialComponent,
-    MapasComponent
+    MapasComponent,
+    ConfiguracionComponent
     
     
   ],
