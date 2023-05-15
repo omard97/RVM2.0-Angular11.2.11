@@ -325,11 +325,11 @@ export class HistorialComponent implements OnInit {
         this.banderaIconoCarga =false; 
 
         this.toastr.info(
-          'No se puede realizar la accion deseasa',
+          'No se puede realizar la accion deseada',
           'Atención',
           {
             timeOut: 5000,
-            progressBar: true,
+            
           }
         );
       }
@@ -412,7 +412,7 @@ export class HistorialComponent implements OnInit {
           'Atención',
           {
             timeOut: 5000,
-            progressBar: true,
+          
           }
         );
       }
@@ -444,11 +444,11 @@ export class HistorialComponent implements OnInit {
 
   mensajeDelDia(){
     this.toastr.info(
-      'No se encuentran reclamos registrados en el dia de hoy ',
+      'No se registraron reclamos en el dia de hoy',
       'Atención',
       {
-        timeOut: 3000,
-        progressBar: true,
+        timeOut: 4000,
+        positionClass:'toast-bottom-right'
       }
     );
   }
