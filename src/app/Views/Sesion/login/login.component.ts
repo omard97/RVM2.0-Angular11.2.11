@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { inicioSesion } from 'src/app/model/InicioSesion';
 import { LoginApiService } from 'src/app/service/Login/login-api.service';
 import { RegistroApiService } from 'src/app/service/Registro/registro-api.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
   usuarioCtrl = new FormControl('', [Validators.required]);
 
 
-  constructor(private serviceLogin: LoginApiService, private serviceRegistro: RegistroApiService, private router: Router) {
+  constructor(private serviceLogin: LoginApiService, private serviceRegistro: RegistroApiService, private router: Router, private toastr:ToastrService) {
     this.fechadehoy();
   }
 
@@ -60,6 +61,7 @@ export class LoginComponent implements OnInit {
 
   /* ----- Login ----- */
   validarUsuario() {
+    debugger
     var usuarioLogeado = {
       email: this.userLogCtrl.value,
       password: this.pasworLogCtrl.value,
@@ -67,18 +69,33 @@ export class LoginComponent implements OnInit {
 
     this.serviceLogin.getValidacionUsuario(usuarioLogeado.email, usuarioLogeado.password).subscribe(
       (data) => {
-        console.log('el usuario se logueo con exito')
+
+        if(data.length==0){
+          this.toastr.warning(
+            'El correo/contraseña no coinciden, intentelo de nuevo.',
+            'Atención',
+            {
+              timeOut: 5000,
+              positionClass:'toast-bottom-center'
+            }
+          );
+        }else{
+          console.log('el usuario se logueo con exito')
         console.log(data)
 
         this.listUsuariodata = data;
         console.log('Informacion usuario: ', this.listUsuariodata[0].idUser); /* obtengo el id del usuario y lo envio para postearlo */
         this.postInicioSesionUsuario(this.listUsuariodata[0].idUser);
+        }
+        debugger
+        
 
 
       },
       (error) => {
-        console.log('Hubo un problema y el usuario no se logueo con exito')
-        console.error(error);
+        debugger
+       
+        console.log(error)
 
       }
     )
@@ -108,12 +125,14 @@ export class LoginComponent implements OnInit {
           debugger
           this.router.navigate(['menu', this.listUsuariodata[0].idUser,'dashboard']); /* this.router.navigate(['main-nav', data[0].idUser]); */
         },
-        (err) => console.error(err)
+        (err) => {
+          
+        }
       );
   }
 
   fechadehoy() {
-    debugger
+    
 
     this.fechaLogin = formatDate(new Date(), 'yyyy-MM-dd', 'en-US')
     this.hora = String(this.date.getHours() + ':' + this.date.getMinutes());
@@ -123,13 +142,29 @@ export class LoginComponent implements OnInit {
   validarContrasenia() {
     var contrasenia = this.contraseniaCtrl.value + '';
     var confirmacion = this.confirmacionCtrl.value + '';
-    if (contrasenia === confirmacion) {
+
+    if ((contrasenia.length === confirmacion.length) && (contrasenia === confirmacion)) {
       debugger
       this.banderaContrasenia = true; /* si las contraseñas son iguales */
-      console.log('contrasenia iguales');
-    } else if (contrasenia != confirmacion) {
+      this.toastr.success(
+        'Las contraseñas coinciden',
+        'Atención',
+        {
+          timeOut: 1000,
+          positionClass:'toast-bottom-center'
+        }
+      );
+
+    } else if ((contrasenia != confirmacion) && (contrasenia.length === confirmacion.length)) {
       this.banderaContrasenia = false; /* si las contraseñas no son iguales */
-      console.log('contrasenia no son iguales');
+      this.toastr.warning(
+        'Las contraseñas NO coinciden',
+        'Atención',
+        {
+          timeOut: 1000,
+          positionClass:'toast-bottom-center'
+        }
+      );
     }
   }
 
@@ -137,7 +172,15 @@ export class LoginComponent implements OnInit {
   registrarUsuario() {
     debugger
     if (this.nombreCtrl.invalid || this.apellidoCtrl.invalid || this.telefonoCtrl.invalid || this.dniCtrl.invalid || this.usuarioCtrl.invalid || this.correoCtrl.invalid || this.contraseniaCtrl.invalid || this.confirmacionCtrl.invalid || this.banderaContrasenia == false) {
-      alert('faltan datos por agregar')
+      
+      this.toastr.warning(
+        'Complete el formulario para registrarse',
+        'Atención',
+        {
+          timeOut: 5000,
+          positionClass:'toast-bottom-center'
+        }
+      );
     } else {
 
       var usuario = {
@@ -156,11 +199,28 @@ export class LoginComponent implements OnInit {
 
       this.serviceRegistro.postRegistrarUsuario(usuario).subscribe(
         (data) => {
-          alert('Usuario registrado: ' + data)
+          
+          this.toastr.success(
+            usuario.Nick+' inicia sesion para comenzar a usar la app',
+            'Atención',
+            {
+              timeOut: 4000,
+              positionClass:'toast-bottom-full-width'
+            }
+          );
           this.banderaAlertaRegistro
+          
         },
         (error) => {
           alert('ocurrio un error al registarr el usuario: ' + error)
+          this.toastr.info(
+            'Ocurrío un problema, usuario no registrado',
+            'Atención',
+            {
+              timeOut: 5000,
+              positionClass:'toast-bottom-center'
+            }
+          );
         }
       )
     }
@@ -175,6 +235,7 @@ export class LoginComponent implements OnInit {
     this.usuarioCtrl.reset();
     this.correoCtrl.reset();
     this.contraseniaCtrl.reset();
+    this.confirmacionCtrl.reset();
   }
 
 
