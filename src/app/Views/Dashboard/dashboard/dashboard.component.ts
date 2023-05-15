@@ -8,10 +8,11 @@ import { RecuentoTarjetas } from 'src/app/model/Dashboard/V_RecuentoReclamos';
 import { RecuentoTotal } from 'src/app/model/Dashboard/V_RecuentoTotal';
 import { BackenApiService } from 'src/app/service/backen-api.service';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
 
@@ -50,6 +51,7 @@ export class DashboardComponent implements OnInit {
      this.getRecuentoTiposReclamos();
      this.getRecuentoRecAmbientales();
      this.getCantidadReclamosMesyAnio();
+     
    }
 
   ngOnInit(): void {
@@ -60,13 +62,49 @@ export class DashboardComponent implements OnInit {
     domain: ['#a8385d', '#E44D25', '#5AA454', '#aae3f5', '#CFC0BB'],
   };
   cardColor: string = '#163543';
+  fitContainerTarjetas=true;
+  animationTarjeta=true;
+  /* textColor="#ffffff"  *//* Para todos los contenedores */
   
  
   
   onSelect(event: any) {} 
+/*----------------------------------------------------------------------------------------------------  */
+  /* Nueva grafica - ggrafica de barras para tipos de reclamos */
 
+    multi!: any[];
+    
+    /* viewBarratipos: any[] = [5000, 100]; */ /* Dimension - altura y ancho */
+    fitContainerBarra=true;
+    // options
+    showXAxis = true;
+    showYAxis = true;
+    gradient = true;
+    showLegendBarra = false; /* ver la lista de barras */
+    showXAxisLabel = true;
+    xAxisLabel = 'Tipo De Reclamo';
+    showYAxisLabel = true;
+    yAxisLabel = 'Utilizados';
+    rotateXAxisTicks=true;
+
+
+    colorSchemeBarra = {
+      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    };
 
   /*----------------------------------------------------------------------------------------------------  */
+
+  /*----------------------------------------------------------------------------------------------------  */
+  /* grafico de reclamo ambientales - utiliza las mismas opciones de diseño pero se modifican los colores y textos */
+  colorSchemeBarraAmbiental="forest";
+  yAxisLabelAmbiental = 'Utilizados';
+  xAxisLabelAmbiental = 'Reclamos Ambientales';
+
+
+
+
+
+
 
   /* Estaditicas formato Torta */
   /* viewTorta: any[] = [700, 900]; */
@@ -108,10 +146,10 @@ export class DashboardComponent implements OnInit {
   showXAxis5 = true;
   showYAxis5 = true;
   gradient5 = true;
-  showLegend5 = true;
+  showLegend5 = false;
   showXAxisLabel5 = true;
   animacionBarras:boolean=true;
-  xAxisLabel5 = 'Meses - Año';
+  xAxisLabel5 = `Reclamos del Año`;
   showYAxisLabel5 = true;
   yAxisLabel5 = 'Cantidad';
   tituloLeyenda:string="Mes"

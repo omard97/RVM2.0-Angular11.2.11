@@ -4,10 +4,10 @@
 </Div> -->
 
 
-<div class="container-fluid bloquePrimario">
+<div class="container-fluid">
 
     <div class="row">
-      <div class="col-12 cajaPrincipal">
+      <div class="col-12 dashboard__tarjetas">
       
        <!--  <div class="row borde ">
           <div class="col-12 Centrado ">   
@@ -17,8 +17,9 @@
   
         <div class="row">
   
-          <div class="col-12 Centrado rounded rounded-4 " style="background-color: #163543;">   
+          <div class="col-12  rounded rounded-4 contenedor__estilo " >   
             <ngx-charts-number-card class="shadow-lg rounded rounded-4 " [scheme]="colorScheme" [results]="recuentoTarjeta" [cardColor]="cardColor"
+             [animations]="animationTarjeta" [animationTarjeta]="fitContainerBarra" 
             (select)="onSelect($event)">
           </ngx-charts-number-card>
           </div>
@@ -27,8 +28,121 @@
        
       </div>
   
-    </div>
-  
+    </div> <!-- row 1 -->
+
+    
+      
+        <div class="row  rounded rounded-4 row_2" >
+          
+          <div class="col-12  col-lg-3  dashboard__tiposReclamos " >
+            
+            <ngx-charts-bar-vertical class=" "
+              [fitContainerBarra]="fitContainerBarra"
+              [colorSchemeBarra]="colorSchemeBarra"
+              [results]="arregloTipoReclamos"
+              [gradient]="gradient"
+              [xAxis]="showXAxis"
+              [yAxis]="showYAxis"
+              [legend]="showLegendBarra"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxisLabel]="xAxisLabel"
+              [yAxisLabel]="yAxisLabel"
+              
+            
+              (select)="onSelect($event)">
+            </ngx-charts-bar-vertical>
+          </div>
+          <div class="col-12  col-lg-9  dashboard__tiposReclamos " >
+            
+            <ngx-charts-bar-vertical class=""
+              [fitContainerBarra]="fitContainerBarra"
+              scheme="flame"
+              [results]="arregloReclamosAmbientales"
+              [gradient]="gradient"
+              [xAxis]="showXAxis"
+              [yAxis]="showYAxis"
+              [legend]="showLegendBarra"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxisLabel]="xAxisLabelAmbiental"
+              [yAxisLabel]="yAxisLabelAmbiental"
+              [rotateXAxisTicks]="rotateXAxisTicks"
+              
+            
+              (select)="onSelect($event)">
+            </ngx-charts-bar-vertical>
+          </div>
+
+        </div> <!-- row 2 -->
+
+
+        <div class="row rounded rounded-4 shadow-lg " >
+          <!-- <div class="col-12 col-sm-12 col-md-5 col-lg-3  dashboard__tiposReclamos " >
+          </div> -->
+          <div class="col-12 dashboard__tablaAnio  rounded border border-3">
+     
+            <div class="row">
+              <div class="col-12 Centrado contenedor__tablaAnio">
+                <ngx-charts-bar-vertical
+                  scheme='night'
+                  [animations]="animacionBarras"
+                  [results]="arregloReclamosDeMesesyAnio"
+                  [gradient]="gradient5"
+                  [xAxis]="showXAxis5"
+                  [yAxis]="showYAxis5"
+                  [legend]="showLegend5"
+                  [legendTitle]="tituloLeyenda"
+                  [showXAxisLabel]="showXAxisLabel5"
+                  [showYAxisLabel]="showYAxisLabel5"
+                  [xAxisLabel]="xAxisLabel5"
+                  [yAxisLabel]="yAxisLabel5"
+                  (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+              </div>
+            </div>
+      
+            <div class="row input_busquedaAnio ">
+              <div class="col-4  p-3 ">
+      
+                <form class=" row g-3 needs-validation" novalidate>
+
+                  <div class="col-12 ">
+                    <div class="input-group flex-nowrap">
+
+                      <span class="input-group-text" id="addon-wrapping"><i class="fas fa-calendar-minus"></i></span>
+                      <input type="number" class="form-control" aria-describedby="inputGroupPrepend" required 
+                        [formControl]="txtAnio" placeholder="Busque sus reclamos por año">
+
+                    </div>
+
+                  </div>
+          
+                  <div class="col-12">
+                    <button class="btn btn-primary" type="submit" (click)="btnBuscarReclamosAnio()"><i class="fas fa-search"></i>   Buscar </button>
+                  </div>
+                </form>
+          
+              </div>
+              
+            </div>
+      
+            
+          </div>
+          
+
+        </div> <!-- row 2 -->
+
+        
+
+      
+     
+    
+
+      
+
+   
+  <!-- 
     <div class="row">
   
       <div class="col-12 col-sm-12 col-md-12 col-lg-5  cajaSecundaria  shadow-lg p-3 mb-5 rounded border border-3 ">
@@ -79,9 +193,7 @@
         </div>
   
       
-        <!-- <ngx-charts-pie-grid [view3]="view3" [animations3]="animations3" scheme='fire' [results]="arregloReclamosAmbientales"
-        [legend]="showLegend3" [legendTitle]="legendtitle"  (select)="onSelect($event)">
-        </ngx-charts-pie-grid> -->
+      
       </div>
     </div>
   </div>
@@ -92,11 +204,7 @@
   
     <div class="row">
       <div class="col-12 cajaCuarta  shadow-lg p-3 mb-5 rounded border border-3">
-       <!--  <ngx-charts-bar-vertical-2d [view4]="view4" [scheme]="colorScheme4" [results]="multi" [gradient4]="gradient4"
-          [xAxis]="showXAxis" [yAxis]="showYAxis" [legend4]="showLegend4" [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-          [legendTitle]="legendTitle" [animations4]="animations4" (select)="onSelect($event)">
-        </ngx-charts-bar-vertical-2d> -->
+     
         <div class="row  borde">
           <div class="col-12 Centrado  ">   
             <h5>Reclamos Realizados en el Año</h5>
@@ -157,6 +265,6 @@
         
       </div>
     </div>
-    
+     -->
   
   </div>

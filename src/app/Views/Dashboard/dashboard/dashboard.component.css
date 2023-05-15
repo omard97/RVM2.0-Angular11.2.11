@@ -2,14 +2,15 @@
     max-height: 50%;
   } */
 
-  .example-header-image {
-    background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
-    background-size: cover;
+  :host{
+    --colorAzulMarino: #163543;
   }
-  
-  .contenedorReporte {
+
+ 
+
+  /* .contenedorReporte {
     margin: 2%;
-  }
+  } */
   
   /* iframe{
     width:100%;
@@ -22,47 +23,52 @@
   /* .tarjeta__dashboard:hover{
     background-color:#193d4e ;
   } */
-  .Centrado {
-    /*IMPORTANTE*/
+  /* .Centrado {
+  
     display: flex;
     justify-content: center;
     align-items: center;
     
+  } */
+
+  .contenedor__estilo{
+    background-color: var(--colorAzulMarino);
+  }
+  .dashboard__tarjetas {
+    
+    margin: 0.7rem 0 1rem 0;
+  }
+
+  .row_2{
+    margin-bottom: 1rem;
+    background-color: #e4e4e4;
   }
   
-  .cajaPrincipal {
-    height: 200px; /* Alto */
-    margin-top: 10px;
+  .dashboard__tiposReclamos  {
+   height: 300px;
     /* background-color: rgb(224, 224, 224); */
   }
+
   
-  .cajaSecundaria {
-    height: 400px; /* Alto */
+  
+  
+/*   .cajaTercera {
+    height: 430px; 
+    background-color: rgb(224, 224, 224);
+  } */
+  
+  .dashboard__tablaAnio {
+    height: 420px; /* Alto */
     background-color: rgb(224, 224, 224);
   }
-  
-  .cajaTercera {
-    height: 430px; /* Alto */
-    background-color: rgb(224, 224, 224);
+
+  .input_busquedaAnio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
-  .cajaCuarta {
-    height: 550px; /* Alto */
-    background-color: rgb(224, 224, 224);
-  }
-  
-  .borde{
-    
-    border-bottom: 2px solid rgba(35, 35, 35, 0.311);
-  }
-  
-  .SegundaFila{
-    height: 430px;
-  }
-  .SegundaFilaTorta2{
-    height: 400px;
-  }
-  .SegundaFilaTabla{
+  .contenedor__tablaAnio{
     height: 300px;
   }
   .opciones{
@@ -79,4 +85,17 @@
     -webkit-appearance: none; 
     margin: 0; 
   }
+
+/*   .borde{
+    
+    border-bottom: 2px solid rgba(35, 35, 35, 0.311);
+  }
+
+  .SegundaFilaTorta2{
+    height: 400px;
+  }
+
+  .SegundaFila{
+    height: 430px;
+  } */
   
