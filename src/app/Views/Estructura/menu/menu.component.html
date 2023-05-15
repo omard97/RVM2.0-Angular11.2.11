@@ -20,7 +20,7 @@
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Home</span>
                                 </a>
                             </li> -->
-                            <li class="boton__nav" routerLink="./dashboard">
+                            <li class="boton__nav" routerLink="./dashboard" routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info">
                                     <!-- data-bs-toggle="collapse" -->
                                     <i class="fs-4 bi-speedometer2"></i> <span
@@ -40,21 +40,21 @@
                                 </ul> -->
                             </li>
 
-                            <li class="boton__nav" routerLink="./reclamo">
+                            <li class="boton__nav" routerLink="reclamo" routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info ">
                                     <i class="bi bi-journal-text"></i><span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Reclamo</span>
                                 </a>
 
                             </li>
-                            <li class="boton__nav" routerLink="./historial">
+                            <li class="boton__nav" routerLink="historial" routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info ">
                                     <i class="bi bi-calendar3" style="margin-right: 0;"></i><span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Historial</span>
                                 </a>
                             </li>
 
-                            <li class="boton__nav" routerLink="mapa">
+                            <li class="boton__nav" routerLink="mapa" routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info">
                                     <i class="bi bi-geo-alt"></i> <span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Mapas</span></a>
@@ -103,7 +103,7 @@
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow menu__usuario"
                                     aria-labelledby="dropdownUser1">
 
-                                    <li><a class="dropdown-item"><i
+                                    <li><a class="dropdown-item" routerLink="./configuracion"><i
                                                 class="bi bi-gear-fill icono__config"></i>Configuración</a></li>
                                     <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#registroModal"
                                             (click)="getDatosPerfil()"><i
