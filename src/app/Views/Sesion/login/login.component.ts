@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
           /* 'principal',
         ]); */ /* this.router.navigate(['main-nav', data[0].idUser]); */
           debugger
-          this.router.navigate(['menu', this.listUsuariodata[0].idUser]); /* this.router.navigate(['main-nav', data[0].idUser]); */
+          this.router.navigate(['menu', this.listUsuariodata[0].idUser,'dashboard']); /* this.router.navigate(['main-nav', data[0].idUser]); */
         },
         (err) => console.error(err)
       );
