@@ -1,1 +1,1160 @@
-<p>configuracion works!</p>
+<div class="container-fluid shadow-lg p-3 mb-5 rounded border border-2 divPrimario">
+    <div class="container-fluid Centrado Bordes">
+        <h3>Configuraciones</h3>
+    </div>
+
+    <!-- Estado -->
+    <div class="accordion margen">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    Estados
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 margenTitulosModal">
+                                <div class="container-fluid Centrado">
+                                    <h3>Estados</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col-11">
+                                        <div class="container-fluid Centrado">
+                                            <small>Seleccione el Tipo de Estado para poder realizar las configuraciones
+                                                necesarias</small>
+                                        </div>
+
+                                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                            (change)="obtenerIDTipoEstado($event)">
+                                            <option *ngFor="let item of objTipoEstado" value="{{item.idTipoEstado}}">
+                                                {{item.nombre}}</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-1">
+                                        <button type="button" class="btn btn-primary btn-sm botonTR"
+                                            data-bs-toggle="modal" data-bs-target="#modalEstados"
+                                            (click)="visualizarModal(modalEstados)">
+                                            Nuevo
+                                        </button>
+                                        <!--  data-bs-toggle="modal" data-bs-target="#modalEstados" -->
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-12 divTabla" *ngIf="selectIDTipEstado!=0">
+                                <table class="table table-hover table-bordered table-striped">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col"> - - </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of objEstadosDelTipo">
+                                            <th scope="row">{{item.nombreTipoEstado}}</th>
+                                            <td>{{item.nombre}}</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button"
+                                                            class="btn btn-outline-primary btn-sm dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fas fa-chevron-down"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                            <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                        class="far fa-edit">
+                                                                        Editar</i></a></li>
+                                                            <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                        class="far fa-trash-alt">
+                                                                        Borrar</i></a></li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Vehiculo -->
+    <div class="accordion margen">
+        <h2 class="accordion-header" id="headingVehiculos">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseVehiculos" aria-expanded="false" aria-controls="collapseVehiculos">
+                Vehiculos
+            </button>
+        </h2>
+        <div id="collapseVehiculos" class="accordion-collapse collapse" aria-labelledby="headingVehiculos"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="container-fluid Centrado">
+                                <h3>Vehiculos</h3>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="container-fluid Centrado">
+                                        <small>Seleccione la Marca para realizar las configuraciones
+                                            necesarias</small>
+                                    </div>
+                                    <select class="form-select form-select-sm " aria-label=".form-select-sm example"
+                                        [formControl]="selectMarcaVehiculo" (change)="obtenerIDMarcaVehiculo($event)">
+                                        <option value="{{item.idMarca}}" style="color: black;"
+                                            *ngFor="let item of objListaMarcaVehiculo" selected>
+                                            {{item.marcaVehiculo}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-5">
+                                    <div class="container-fluid Centrado">
+                                        <small>Seleccione el Modelo para realizar las configuraciones
+                                            necesarias</small>
+                                    </div>
+
+                                    <select class="form-select form-select-sm " aria-label=".form-select-sm example"
+                                        [formControl]="selectModeloVehiculo" (change)="obtenerIDModeloVehiculo($event)">
+                                        <option value="{{item.idModelo}}" style="color: black;"
+                                            *ngFor="let item of objListaModeloVehiculo" selected>
+                                            {{item.modeloVehiculo}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn btn-success btn-sm botonTR "
+                                        (click)="GetBuscarVehiculos()">Buscar</button>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" (click)="visualizarModalVehiculos(modalVehiculos)"
+                                        class="btn btn-primary btn-sm botonTR ">Nuevo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 divTabla" *ngIf="objListaVehiculos!=null">
+                            <table class="table table-hover table-bordered table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">N Vehiculo</th>
+                                        <th scope="col">Tipo Vehiculo</th>
+                                        <th scope="col">Dominio</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Modelo</th>
+                                        <th scope="col">Color</th>
+                                        <th scope="col">N° Chasis </th>
+                                        <th scope="col">N° Motor</th>
+                                        <th scope="col">Estado </th>
+                                        <th scope="col"> - - </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of objListaVehiculos">
+                                        <!-- style="display: none" -->
+                                        <td>{{item.idVehiculo}}</td>
+                                        <th scope="row">{{item.nombreTipoVehiculo}}</th>
+                                        <td>{{item.dominio}}</td>
+                                        <td>{{item.marcaAuto}}</td>
+                                        <td>{{item.nombreModelo}}</td>
+                                        <td>{{item.color}}</td>
+                                        <td>{{item.chasis}}</td>
+                                        <td>{{item.numMotor}}</td>
+                                        <td>{{item.nombreEstado}}</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button"
+                                                        class="btn btn-outline-primary btn-sm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                        <li style="cursor: pointer"><a
+                                                                (click)="openPutModalVehiculo(modalPutVehiculo,item.idVehiculo)"
+                                                                class="dropdown-item"><i
+                                                                    class="far fa-edit">Editar</i></a></li>
+                                                        <li style="cursor: pointer"><a class="dropdown-item">
+                                                                <i class="far fa-trash-alt">Borrar</i></a></li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Marca de Vehiculos -->
+    <div class="accordion margen">
+        <h2 class="accordion-header" id="headingMarca">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseMarca" aria-expanded="false" aria-controls="collapseMarca">
+                Marcas
+            </button>
+        </h2>
+        <div id="collapseMarca" class="accordion-collapse collapse" aria-labelledby="headingMarca"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="container-fluid Centrado">
+                                <h3>Marcas</h3>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-11">
+                                    <div class="container-fluid Centrado">
+                                        <small>Seleccione la Marca para realizar las configuraciones
+                                            necesarias</small>
+                                    </div>
+                                    <select class="form-select form-select-sm " aria-label=".form-select-sm example"
+                                        [formControl]="selectMarca" (change)="obtenerIDMarca($event)">
+                                        <option value="{{item.idMarca}}" style="color: black;"
+                                            *ngFor="let item of objListaMarcaVehiculo" selected>
+                                            {{item.marcaVehiculo}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" (click)="visualizarModalMarca(modalMarca)"
+                                        class="btn btn-primary btn-sm botonTR ">Nuevo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 divTabla" *ngIf="objListaIDMarca!=null">
+                            <table class="table table-hover table-bordered table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col"> - - </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of objListaIDMarca">
+                                        <th scope="row">{{item.nombre}}</th>
+
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button"
+                                                        class="btn btn-outline-primary btn-sm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                    class="far fa-edit">
+                                                                    Editar</i></a></li>
+                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                    class="far fa-trash-alt">
+                                                                    Borrar</i></a></li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modelo de Vehiculos -->
+    <div class="accordion margen">
+        <h2 class="accordion-header" id="headingModelo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseModelo" aria-expanded="false" aria-controls="collapseModelo">
+                Modelo
+            </button>
+        </h2>
+        <div id="collapseModelo" class="accordion-collapse collapse" aria-labelledby="headingModelo"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="container-fluid Centrado">
+                                <h3>Modelos</h3>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-11">
+                                    <div class="container-fluid Centrado">
+                                        <small>Seleccione el Modelo para realizar las configuraciones
+                                            necesarias</small>
+                                    </div>
+                                    <select class="form-select form-select-sm " aria-label=".form-select-sm example"
+                                        [formControl]="selectModelo" (change)="obtenerIDModelo($event)">
+                                        <option value="{{item.idModelo}}" style="color: black;"
+                                            *ngFor="let item of objListaModeloVehiculo" selected>
+                                            {{item.modeloVehiculo}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" (click)="visualizarModalModelo(modalModelo)"
+                                        class="btn btn-primary btn-sm botonTR ">Nuevo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 divTabla" *ngIf="">
+                            <table class="table table-hover table-bordered table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col"> - - </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of ">
+                                        <th scope="row"></th>
+
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button"
+                                                        class="btn btn-outline-primary btn-sm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                    class="far fa-edit">
+                                                                    Editar</i></a></li>
+                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                    class="far fa-trash-alt">
+                                                                    Borrar</i></a></li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Perfil -->
+    <div class="accordion margen">
+        <h2 class="accordion-header" id="cuarto">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseCuarto" aria-expanded="false" aria-controls="collapseCuarto">
+                Perfiles
+            </button>
+        </h2>
+        <div id="collapseCuarto" class="accordion-collapse collapse" aria-labelledby="headingCuarto"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="container-fluid Centrado">
+                                <h3>Perfiles</h3>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-11">
+                                    <div class="container-fluid Centrado">
+                                        <small>Seleccione el Tipo de Perfil para poder realizar las configuraciones
+                                            necesarias</small>
+                                    </div>
+                                    <select class="form-select form-select-sm " disabled
+                                        aria-label=".form-select-sm example" (change)="obtenerIDTipoPerfil($event)">
+                                        <option *ngFor="let item of objTipoPerfil" value="{{item.idPerfil}}" selected>
+                                            {{item.nombre}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" (click)="visualizarModalPerfil(modalPerfil)"
+                                        class="btn btn-primary btn-sm botonTR ">Nuevo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 divTabla">
+                            <table class="table table-hover table-bordered table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Tipo Perfil</th>
+                                        <th scope="col"> - - </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of objTipoPerfil">
+                                        <th scope="row">{{item.nombre}}</th>
+
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button"
+                                                        class="btn btn-outline-primary btn-sm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                    class="far fa-edit">
+                                                                    Editar</i></a></li>
+                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                    class="far fa-trash-alt">
+                                                                    Borrar</i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Tipos de Reclamos -->
+    <div class="accordion margen">
+        <h2 class="accordion-header" id="headingTiposReclamos">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTiposReclamos" aria-expanded="false" aria-controls="collapseTiposReclamos">
+                Tipos de Reclamos
+            </button>
+        </h2>
+        <div id="collapseTiposReclamos" class="accordion-collapse collapse" aria-labelledby="headingTiposReclamos"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="container-fluid Centrado">
+                                <h3>Tipos de Reclamos</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-11">
+                                    <div class="container-fluid Centrado">
+                                        <small>Seleccione el Tipo de Reclamo para poder realizar las configuraciones
+                                            necesarias</small>
+                                    </div>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                        (change)="obtenerIDTipoReclamo($event)">
+
+                                        <option *ngFor="let item of objTipoDeReclamo" value="{{item.idTipoReclamo}}"
+                                            selected>
+                                            {{item.nombre}}</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn btn-primary btn-sm botonTR "
+                                        (click)="visualizarModalTiposReclamos(modalTiposReclamos)">Nuevo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 divTabla" *ngIf="selectIDTipReclamo!=0">
+                            <table class="table table-hover table-bordered table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Tipo Reclamo</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col"> - - </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of objListaTipoReclamo">
+                                        <th scope="row">{{item.nombre}}</th>
+                                        <td>{{item.descripcion}}</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button"
+                                                        class="btn btn-outline-primary btn-sm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                    class="far fa-edit">
+                                                                    Editar</i></a></li>
+                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                    class="far fa-trash-alt">
+                                                                    Borrar</i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Tipos de Vehiculos -->
+    <div class="accordion margen">
+        <h2 class="accordion-header" id="headingTiposVehiculos">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTiposVehiculos" aria-expanded="false" aria-controls="collapseTiposVehiculos">
+                Tipos de Vehiculos
+            </button>
+        </h2>
+        <div id="collapseTiposVehiculos" class="accordion-collapse collapse" aria-labelledby="headingTiposVehiculos"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="container-fluid Centrado">
+                                <h3>Tipos de Vehiculo</h3>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-11">
+                                    <div class="container-fluid Centrado">
+                                        <small>Seleccione el Tipo de Vehiculo para poder realizar las configuraciones
+                                            necesarias</small>
+                                    </div>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                        (change)="obtenerIDTipoVehiculo($event)">
+                                        <option *ngFor="let item of objTipVehiculo" value="{{item.idTipoVehiculo}}"
+                                            selected>
+                                            {{item.nombre}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-1">
+                                    <button type="button" class="btn btn-primary btn-sm botonTR "
+                                        (click)="visualizarModalTiposVehiculos(modalTiposVehiculos)">Nuevo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 divTabla" *ngIf="selectIDTipVehiculo!=0">
+                            <table class="table table-hover table-bordered table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Tipo Vehiculo</th>
+                                        <th scope="col">Dominio</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Modelo</th>
+                                        <th scope="col">Color</th>
+                                        <th scope="col">N° Chasis </th>
+                                        <th scope="col">N° Motor</th>
+                                        <th scope="col">Estado </th>
+                                        <th scope="col"> - - </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of objListaTipVehiculos">
+                                        <th scope="row">{{item.nombreTipoVehiculo}}</th>
+                                        <td>{{item.dominio}}</td>
+                                        <td>{{item.marcaAuto}}</td>
+                                        <td>{{item.nombreModelo}}</td>
+                                        <td>{{item.color}}</td>
+                                        <td>{{item.chasis}}</td>
+                                        <td>{{item.numMotor}}</td>
+                                        <td>{{item.nombreEstado}}</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button"
+                                                        class="btn btn-outline-primary btn-sm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                    class="far fa-edit">
+                                                                    Editar</i></a></li>
+                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
+                                                                    class="far fa-trash-alt">
+                                                                    Borrar</i></a></li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Modal Tipos de Estados  -->
+<ng-template #modalEstados let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Nuevo {{textoEstadoModal}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="botonCerrarNuevoEstado()"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder={{textoEstadoModal}} [formControl]="nombreEstadoCtrl">
+
+                    </div>
+
+                    <div class="row" style="margin-top:3px ;">
+                        <div class="col-1">
+
+                        </div>
+
+                        <div class="col-11">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                    id="flexSwitchCheckDefault" (click)="switchTipoEstadoModal()"
+                                    value="animacionSwitch" [formControl]="switchTipoEstadoCtrl">
+                                <label class="form-check-label" for="flexSwitchCheckDefault"> <small>Agregar un tipo de
+                                        estado</small></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 margenTitulosModal" *ngIf="banderaSwitch!=false">
+
+                        <label for="formGroupExampleInput2" class="form-label">Tipo Estado</label>
+
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                            (change)="obtenerIDTipoEstadoModal($event)" [formControl]="listaTipoEstadoCtrl">
+                            <option *ngFor="let item of objModalTipoEstado" value="{{item.idTipoEstado}}" selected>
+                                {{item.nombre}}</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                (click)="botonCerrarNuevoEstado()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="botonCrearNuevoEstado()">Crear</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- Modal Tipo Reclamo -->
+<ng-template #modalTiposReclamos let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Tipo Reclamo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="botonCerrarTipoReclamo()"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Escriba el nombre del Tipo de Reclamo deseado"
+                            [formControl]="nombreTipoReclamoCtrl">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            [formControl]="descripcionTipoReclamoCtrl">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                (click)="botonCerrarTipoReclamo()">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="botonCrearNuevoTipoReclamo()">Crear</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- Modal Tipos de Vehiculos -->
+<ng-template #modalTiposVehiculos let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Tipo De Vehiculo</h5>
+            <button (click)="botonCerrarNuevoTipoVehiculoModal()" type="button" class="btn-close"
+                data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Nombre del Tipo de Vehiculo deseado"
+                            [formControl]="nombreTipoVehiculoCtrlModal">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            [formControl]="descripcionTipoVehiculoModal">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarNuevoTipoVehiculoModal()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="botonCrearTipoVehiculoModal()">Crear</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- Modal Vehiculo -->
+<ng-template #modalVehiculos let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Vehiculo</h5>
+            <button (click)="botonCerrarVehiculo()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+
+                <div class="col-12 ">
+                    <label for="formGroupExampleInput" class="form-label">Tipo Vehiculo</label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        [formControl]="nombreTipoVehiculoCtrl">
+                        <option *ngFor="let item of objTipVehiculo" value="{{item.idTipoVehiculo}}" selected>
+                            {{item.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">Marca</label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        [formControl]="marcaCtrl">
+                        <option value="{{item.idMarca}}" style="color: black;"
+                            *ngFor="let item of objListaMarcaVehiculo" selected>
+                            {{item.marcaVehiculo}}
+                        </option>
+                    </select>
+
+                </div>
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">Modelo</label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        [formControl]="modeloCtrl">
+                        <option value="{{item.idModelo}}" style="color: black;"
+                            *ngFor="let item of objListaModeloVehiculo" selected>
+                            {{item.modeloVehiculo}}
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">Dominio</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Número de Dominio"
+                        [formControl]="dominioCtrl">
+                </div>
+
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">Color</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre de Color"
+                        [formControl]="colorCtrl">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">N° Chasis</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Número de Chasis"
+                        [formControl]="numChasisCtrl">
+                </div>
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">N° Motor</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Número de Motor"
+                        [formControl]="numMotorCtrl">
+                </div>
+                <div class="col-12 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">Estado</label>
+
+
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        [formControl]="listaEstadoVehiculoCtrl">
+                        <option *ngFor="let item of objListaEstadoVehiculo" value="{{item.idEstado}}" selected>
+                            {{item.nombreEstado}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarVehiculo()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" (click)="botonCrearVehiculo()" class="btn btn-primary">Crear</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- Modal Marcas -->
+<ng-template #modalMarca let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Nueva Marca</h5>
+            <button (click)="botonCerrarMarca()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre de Marca"
+                            [formControl]="nombreModalMarcaCrtl">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarMarca()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="PostMarcaModal()">Crear</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- Modal Modelo -->
+<ng-template #modalModelo let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Modelo</h5>
+            <button (click)="botonCerrarModelo()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                        <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Ej: 2022"
+                            [formControl]="nombreModalModelo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarModelo()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="postModeloVehiculo()">Crear</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- Modal Perfil -->
+<ng-template #modalPerfil let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Perfil</h5>
+            <button (click)="botonCerrarModalPerfil()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Nombre del nuevo Perfil" [formControl]="nombreModalPerfil">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarModalPerfil()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="botonCrearPerfilModal()">Crear</button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ************************* MODAL PARA ACTUALIZAR DATOS ************************* -->
+
+
+<!-- Put Modal Estados -->
+
+<!-- Put Modal Vehiculos -->
+<ng-template #modalPutVehiculo let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Actualizar Vehiculo</h5>
+            <button (click)="botonCerrarVehiculo()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+
+                <div class="col-12 ">
+                    <label for="formGroupExampleInput" class="form-label">Tipo Vehiculo</label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        [formControl]="nombreTipoVehiculoCtrl">
+                        <option value="{{item.id_TipoVehiculo}}" *ngFor="let item of objVehiculoModal"  selected>
+                            {{item.nombreTipoVehiculo}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">Marca</label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        [formControl]="marcaCtrl">
+                        <option value="{{item.id_Marcavehiculo}}" style="color: black;"
+                            *ngFor="let item of objVehiculoModal" selected>
+                            {{item.marcaAuto}}
+                        </option>
+                    </select>
+
+                </div>
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">Modelo</label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        [formControl]="modeloCtrl">
+                        <option value="{{item.id_ModeloV}}" style="color: black;"
+                            *ngFor="let item of objVehiculoModal" selected>
+                            {{item.nombreModelo}}
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">Dominio</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Número de Dominio"
+                        [formControl]="dominioCtrl"> 
+                </div>
+
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">Color</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre de Color"
+                        [formControl]="colorCtrl"> 
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">N° Chasis</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Número de Chasis"
+                        [formControl]="numChasisCtrl">
+                </div>
+                <div class="col-6 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">N° Motor</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Número de Motor"
+                        [formControl]="numMotorCtrl"> 
+                </div>
+                <div class="col-12 margenTitulosModal">
+                    <label for="formGroupExampleInput" class="form-label">Estado</label>
+
+
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        [formControl]="listaEstadoVehiculoCtrl">
+                        <option *ngFor="let item of objVehiculoModal" value="{{item.id_Estado}}" selected>
+                            {{item.nombreEstado}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarVehiculo()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" (click)="botonCrearVehiculo()" class="btn btn-primary">Crear</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- Put Modal Marca -->
+
+<!-- Put Modal Modelo -->
+
+<!-- Put Modal Perfil -->
+
+<!-- Put Modal Tipo Reclamo -->
+
+<!-- Put Modal Tipo Vehiculo -->
+
+
+<!-- Modal configuracion Estado -->
+<!-- <div #contenido class="modal fade" id="modalEstados" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Nuevo Estado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <label for="formGroupExampleInput" class="form-label">Nombre</label>
+
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="Escriba el nombre del estado deseado">
+                        </div>
+
+                        <div class="col-10 EstiloMargen">
+                            <label for="formGroupExampleInput2" class="form-label">Tipo Estado</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Lista</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-primary btn-sm botonIndex">
+                                Nuevo
+                            </button>
+                        </div>
+                        <div class="col-12 EstiloMargen">
+                            <label for="formGroupExampleInput2" class="form-label">Nombre</label>
+                            <input class="form-control" type="text" placeholder="Escriba el Tipo de Estado"
+                                aria-label="default input example">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Crear</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- Dividirlo en card como los hace el facu -->
+
+<!--   <div class="row">
+        <div class="col col-3">
+            <small style="text-align: center;">
+                <h4>Estados</h4>
+            </small>
+            <table class="table table-striped hover">
+
+                <thead>
+                    <tr>
+                        <th style="display:none;">ID</th>
+                        <th>Nombre</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="display:none;" >id</td>
+                        <td> Nombre Estado</td>
+                        <td>
+                            <button id="botonActualizar" class="btn btn-primary d-inline-block botonTabla" tabindex="0"
+                                data-bs-toggle="tooltip" title="Actualizar"><i class="fas fa-sync fa-sm"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="display:none;">id</td>
+                        <td> <input class="textoEstado" type="text" placeholder="Nombre Estado" id=""></td>
+                        <td> <button id="botonConfirmar" class="btn btn-success d-inline-block botonTabla" tabindex="0"
+                                data-bs-toggle="tooltip" title="Confrimar"><i class="fas fa-check fa-sm"></i></button>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+        
+    </div> -->
