@@ -8,6 +8,7 @@ import { PerfilComponent } from './Views/Usuario/perfil/perfil.component';
 import { DashboardComponent } from './Views/Dashboard/dashboard/dashboard.component';
 import { ReclamoComponent } from './Views/Reclamo/reclamo/reclamo.component';
 import { HistorialComponent } from './Views/Reclamo/historial/historial.component';
+import { ConfiguracionComponent } from './Views/Configuracion/configuracion/configuracion.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'reclamo', component: ReclamoComponent },
       { path: 'historial', component: HistorialComponent },
       { path: 'mapa', component: HistorialComponent },
+      {path: 'configuracion', component:ConfiguracionComponent}
     ]
   },
 
