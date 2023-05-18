@@ -1,54 +1,62 @@
 .divPrimario {
-    margin-top: 20px;
-    background-color: rgb(228, 228, 228);
-  }
-  
-  .Centrado {
-    /*IMPORTANTE*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .Bordes {
-    border-bottom: 2px solid rgba(35, 35, 35, 0.311);
-  }
-  
-  
-  .divTabla {
-    margin-top: 20px;
-  }
-  
-  small {
-    color: rgba(123, 123, 123, 0.771);
-  }
-  
-  .botonTR {
-    margin-top: 20px;
-  }
-  .margen{
-      margin-top: 20px;
-  }
-  .margenTitulosModal{
-    margin-top: 10px;
-  }
-  #botonNuevoEstado{
-    margin-top: 45px;
-  }
-  #botonNuevoVehiculo{
-    margin-top: 35px;
-  }
-  
-  /* edicion del controlador tipo numerico, para que no aprezan
+  margin-top: 20px;
+  background-color: rgb(228, 228, 228);
+}
+
+.Centrado {
+  /*IMPORTANTE*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Bordes {
+  border-bottom: 2px solid rgba(35, 35, 35, 0.311);
+}
+
+
+.divTabla {
+  margin-top: 20px;
+}
+
+small {
+  color: rgba(123, 123, 123, 0.771);
+}
+
+.botonTR {
+  margin-top: 20px;
+}
+
+.margen {
+  margin-top: 20px;
+}
+
+.margenTitulosModal {
+  margin-top: 10px;
+}
+
+#botonNuevoEstado {
+  margin-top: 45px;
+}
+
+#botonNuevoVehiculo {
+  margin-top: 35px;
+}
+
+/* edicion del controlador tipo numerico, para que no aprezan
   letras, solamente numeros */
-  /* Chrome, Safari, Edge, Opera */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  
-  /* Firefox */
-  /* input[type=number] {
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+/* input[type=number] {
     -moz-appearance: textfield;
   } */
-  
+
+ .dropdown-menu i{
+  font-style: normal!important;
+ }

@@ -32,14 +32,14 @@
                                         <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                                             (change)="obtenerIDTipoEstado($event)">
                                             <option value="" disabled selected> Selecione el Estado </option>
-                                            <option value="{{item.idTipoEstado}}" *ngFor="let item of objTipoEstado" >
+                                            <option value="{{item.idTipoEstado}}" *ngFor="let item of objTipoEstado">
                                                 {{item.nombre}}</option>
 
                                         </select>
 
-                                       
-    
-                                    
+
+
+
                                     </div>
                                     <div class="col-1">
                                         <button type="button" class="btn btn-primary btn-sm botonTR"
@@ -76,11 +76,11 @@
                                                             <i class="fas fa-chevron-down"></i>
                                                         </button>
                                                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                            <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                        class="far fa-edit">
+                                                            <li class="boton__tabla" ><a class="dropdown-item"><i
+                                                                        class="bi bi-pencil-square">
                                                                         Editar</i></a></li>
-                                                            <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                        class="far fa-trash-alt">
+                                                            <li ><a class="dropdown-item"><i
+                                                                        class="bi bi-trash">
                                                                         Borrar</i></a></li>
 
                                                         </ul>
@@ -127,8 +127,8 @@
                                     <select class="form-select form-select-sm " aria-label=".form-select-sm example"
                                         [formControl]="selectMarcaVehiculo" (change)="obtenerIDMarcaVehiculo($event)">
                                         <option value="" disabled> Selecione la Marca </option>
-                                        <option value="{{item.idMarca}}"
-                                            *ngFor="let item of objListaMarcaVehiculo" selected>
+                                        <option value="{{item.idMarca}}" *ngFor="let item of objListaMarcaVehiculo"
+                                            selected>
                                             {{item.marcaVehiculo}}
                                         </option>
                                     </select>
@@ -142,8 +142,8 @@
                                     <select class="form-select form-select-sm " aria-label=".form-select-sm example"
                                         [formControl]="selectModeloVehiculo" (change)="obtenerIDModeloVehiculo($event)">
                                         <option value="" disabled> Selecione el Modelo</option>
-                                        <option value="{{item.idModelo}}"
-                                            *ngFor="let item of objListaModeloVehiculo" selected>
+                                        <option value="{{item.idModelo}}" *ngFor="let item of objListaModeloVehiculo"
+                                            selected>
                                             {{item.modeloVehiculo}}
                                         </option>
                                     </select>
@@ -196,12 +196,12 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li style="cursor: pointer"><a
+                                                        <li ><a
                                                                 (click)="openPutModalVehiculo(modalPutVehiculo,item.idVehiculo)"
                                                                 class="dropdown-item"><i
-                                                                    class="far fa-edit">Editar</i></a></li>
-                                                        <li style="cursor: pointer"><a class="dropdown-item">
-                                                                <i class="far fa-trash-alt">Borrar</i></a></li>
+                                                                    class="bi bi-pencil-square">Editar</i></a></li>
+                                                        <li ><a class="dropdown-item">
+                                                                <i class="bi bi-trash">Borrar</i></a></li>
 
                                                     </ul>
                                                 </div>
@@ -247,8 +247,8 @@
                                     <select class="form-select form-select-sm " aria-label=".form-select-sm example"
                                         [formControl]="selectMarca" (change)="obtenerIDMarca($event)">
                                         <option value="" disabled> Selecione la Marca </option>
-                                        <option value="{{item.idMarca}}" 
-                                            *ngFor="let item of objListaMarcaVehiculo" selected>
+                                        <option value="{{item.idMarca}}" *ngFor="let item of objListaMarcaVehiculo"
+                                            selected>
                                             {{item.marcaVehiculo}}
                                         </option>
                                     </select>
@@ -281,11 +281,11 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                    class="far fa-edit">
+                                                        <li ><a class="dropdown-item"><i
+                                                                    class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
-                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                    class="far fa-trash-alt">
+                                                        <li ><a class="dropdown-item"><i
+                                                                    class="bi bi-trash">
                                                                     Borrar</i></a></li>
 
                                                     </ul>
@@ -332,8 +332,8 @@
                                     <select class="form-select form-select-sm " aria-label=".form-select-sm example"
                                         [formControl]="selectModelo" (change)="obtenerIDModelo($event)">
                                         <option value="" disabled> Selecione el Modelo </option>
-                                        <option value="{{item.idModelo}}" 
-                                            *ngFor="let item of objListaModeloVehiculo" selected>
+                                        <option value="{{item.idModelo}}" *ngFor="let item of objListaModeloVehiculo"
+                                            selected>
                                             {{item.modeloVehiculo}}
                                         </option>
                                     </select>
@@ -366,11 +366,11 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                    class="far fa-edit">
+                                                        <li ><a class="dropdown-item"><i
+                                                                    class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
-                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                    class="far fa-trash-alt">
+                                                        <li ><a class="dropdown-item"><i
+                                                                    class="bi bi-trash">
                                                                     Borrar</i></a></li>
 
                                                     </ul>
@@ -449,11 +449,11 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                    class="far fa-edit">
+                                                        <li ><a class="dropdown-item"><i
+                                                                    class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
-                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                    class="far fa-trash-alt">
+                                                        <li ><a class="dropdown-item"><i
+                                                                    class="bi bi-trash">
                                                                     Borrar</i></a></li>
                                                     </ul>
                                                 </div>
@@ -534,11 +534,11 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                    class="far fa-edit">
+                                                        <li ><a class="dropdown-item"><i
+                                                                    class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
-                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                    class="far fa-trash-alt">
+                                                        <li ><a class="dropdown-item"><i
+                                                                    class="bi bi-trash">
                                                                     Borrar</i>
                                                             </a>
                                                         </li>
@@ -630,11 +630,11 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                    class="far fa-edit">
+                                                        <li ><a class="dropdown-item"><i
+                                                                    class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
-                                                        <li style="cursor: pointer"><a class="dropdown-item"><i
-                                                                    class="far fa-trash-alt">
+                                                        <li ><a class="dropdown-item"><i
+                                                                    class="bi bi-trash">
                                                                     Borrar</i></a></li>
 
                                                     </ul>
@@ -993,7 +993,7 @@
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                         [formControl]="nombreTipoVehiculoCtrl">
                         <option value="" disabled> Seleccione el Tipo de Vehiculo </option>
-                        <option value="{{item.id_TipoVehiculo}}" *ngFor="let item of objVehiculoModal"  selected>
+                        <option value="{{item.id_TipoVehiculo}}" *ngFor="let item of objVehiculoModal" selected>
                             {{item.nombreTipoVehiculo}}</option>
                     </select>
                 </div>
@@ -1017,8 +1017,8 @@
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                         [formControl]="modeloCtrl">
                         <option value="" disabled> Selecione el Modelo </option>
-                        <option value="{{item.id_ModeloV}}" style="color: black;"
-                            *ngFor="let item of objVehiculoModal" selected>
+                        <option value="{{item.id_ModeloV}}" style="color: black;" *ngFor="let item of objVehiculoModal"
+                            selected>
                             {{item.nombreModelo}}
                         </option>
                     </select>
@@ -1029,13 +1029,13 @@
                 <div class="col-6 margenTitulosModal">
                     <label for="formGroupExampleInput" class="form-label">Dominio</label>
                     <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Número de Dominio"
-                        [formControl]="dominioCtrl"> 
+                        [formControl]="dominioCtrl">
                 </div>
 
                 <div class="col-6 margenTitulosModal">
                     <label for="formGroupExampleInput" class="form-label">Color</label>
                     <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre de Color"
-                        [formControl]="colorCtrl"> 
+                        [formControl]="colorCtrl">
                 </div>
             </div>
 
@@ -1049,7 +1049,7 @@
                 <div class="col-6 margenTitulosModal">
                     <label for="formGroupExampleInput" class="form-label">N° Motor</label>
                     <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Número de Motor"
-                        [formControl]="numMotorCtrl"> 
+                        [formControl]="numMotorCtrl">
                 </div>
                 <div class="col-12 margenTitulosModal">
                     <label for="formGroupExampleInput" class="form-label">Estado</label>
