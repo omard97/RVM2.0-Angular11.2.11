@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
 import { EstadoReclamo } from 'src/app/model/filtrosHistorial/estadoReclamo';
 import { TipoReclamo } from 'src/app/model/tipoReclamo';
 import { LoginApiService } from 'src/app/service/Login/login-api.service';
@@ -26,7 +27,7 @@ export class HistorialComponent implements OnInit {
 
   rutaURL:any;
   IDUsuario: any;
-  /* IDRol: any; */
+  IDRol: any;
   IDSesion: any;
 
   Dreclamos: any;
@@ -61,10 +62,11 @@ export class HistorialComponent implements OnInit {
 
     this.rutaURL = window.location.pathname.split('/');
     this.usuario.idUsuario = this.rutaURL[2];
+    
+    this.fecha = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); /* fecha del dia */
+
     this.getRolUsuario();
-    this.fechadehoy();
     this.getTipoReclamo();
-    this.getDetalleReclamosHoy(); /* Traer los reclamos del dia de hoy */
    }
 
   ngOnInit(): void {
@@ -79,7 +81,11 @@ export class HistorialComponent implements OnInit {
             this.usuario.idRol = data[0].idRol,
             this.usuario.rol=data[0].rol
             
-            this.getIDSesionUsuarioLogueado(); /* de esos datos utilizo el idUsuario para obtener el id de sesion */
+            if(this.usuario.idRol==3){
+              this.getIDSesionUsuarioLogueado(); /* de esos datos utilizo el idUsuario para obtener el id de sesion */
+            }
+            this.getDetalleReclamosHoy(); /* Traer los reclamos del dia de hoy */
+           
         },
         (error) => {
           console.error(error);
@@ -100,8 +106,10 @@ export class HistorialComponent implements OnInit {
 
   
   getDetalleReclamosHoy() {
-    
+    debugger
+    console.log('rol usuario: '+this.usuario.idRol)
     if (this.usuario.idRol == 1 || this.usuario.idRol == 2) {
+     
       this.detalleReclamo.getHistorialHoy(this.fecha,this.usuario.idUsuario,1,5,this.usuario.idRol).subscribe(
         (info) => {
           console.log(info);
@@ -439,7 +447,7 @@ export class HistorialComponent implements OnInit {
 
     console.log("dia: "+dia);
     this.fecha = today.getFullYear() + '-' + mes+'-'+ dia; */
-    this.fecha = formatDate(new Date(), 'yyyy-MM-dd', 'en-US')
+    
   }
 
   mensajeDelDia(){
