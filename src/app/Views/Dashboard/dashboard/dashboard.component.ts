@@ -6,6 +6,7 @@ import { CantReclamoMesyAnio } from 'src/app/model/Dashboard/V_CantidadRecPorMes
 import { RecuentoTipReclamos } from 'src/app/model/Dashboard/V_CantidadTipReclamoUsuario';
 import { RecuentoTarjetas } from 'src/app/model/Dashboard/V_RecuentoReclamos';
 import { RecuentoTotal } from 'src/app/model/Dashboard/V_RecuentoTotal';
+import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
 
 
@@ -37,24 +38,24 @@ export class DashboardComponent implements OnInit {
   arregloReclamosAmbientales!:RecuentoRecAmbiental[];
 
   arregloReclamosDeMesesyAnio!:CantReclamoMesyAnio[];
-  constructor( private Estadistica: BackenApiService,private toastr: ToastrService) {
+
+  usuario = {
+    idUsuario: 0,
+    nick: '',
+    idRol: 0,
+    rol: ''
+  }
+  constructor(private serviceUsuario: MenuApiService, private Estadistica: BackenApiService, private toastr: ToastrService) {
      /* Object.assign(this, { multi }); */
      this.ruta = window.location.pathname.split('/');
-     this.IDUsuario = this.ruta[2];
-     this.IDRol =
-       this.ruta[3]; /* Siempre la posicion 3 es el ROL osea el tipo de usuario */
-     this.IDSesion = this.ruta[4];
- 
+     this.usuario.idUsuario = this.ruta[2];
      console.clear();
-     this.getRecuentoTarjetas();
-     this.getRecuentoTotal();
-     this.getRecuentoTiposReclamos();
-     this.getRecuentoRecAmbientales();
-     this.getCantidadReclamosMesyAnio();
-     
+     this.getRolUsuario();
+    
    }
 
   ngOnInit(): void {
+    
   }
 
   
@@ -159,14 +160,33 @@ export class DashboardComponent implements OnInit {
   colorScheme5 = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
-  
+  /* utilizado solamente para visualizar etiquetas que dependen del rol del usuario */
+    getRolUsuario() {
+    this.serviceUsuario.getRolUsuario(this.usuario.idUsuario).subscribe (
+      (data) => {
+        this.usuario.idUsuario = data[0].idUsuario,
+          this.usuario.nick = data[0].nick,
+          this.usuario.idRol = data[0].idRol,
+          this.usuario.rol = data[0].rol
+        
+         this.getRecuentoRecAmbientales();
+
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
+
+  }
+
   getRecuentoTarjetas() {
     /* Admin */
-    if(this.IDRol==1 || this.IDRol==2){
+    if(this.usuario.idRol ==1 || this.usuario.idRol ==2){
       this.Estadistica.getRecuentoReclamos().subscribe(
         (data) => {
           
          this.recuentoTarjeta=data;
+         this.getRecuentoTotal();
          
         },
         (error) => {
@@ -174,10 +194,11 @@ export class DashboardComponent implements OnInit {
         }
       );
     }else{
-      this.Estadistica.getCantidadReclamosUsuario(this.IDUsuario).subscribe(
+      this.Estadistica.getCantidadReclamosUsuario(this.usuario.idUsuario).subscribe(
         (data) => {
           
          this.recuentoTarjeta=data;
+         this.getRecuentoTotal();
         },
         (error) => {
           console.log(error);
@@ -188,15 +209,16 @@ export class DashboardComponent implements OnInit {
    /* tarjeta con el total de reclamos */
   getRecuentoTotal() {
     /* Admin */
-    if(this.IDRol==1 || this.IDRol==2){
+    if(this.usuario.idRol ==1 || this.usuario.idRol ==2){
       
-      this.Estadistica.getReclamosTotales(0,this.IDRol).subscribe(
+      this.Estadistica.getReclamosTotales(0,this.usuario.idRol ).subscribe(
         (resp) => {
           
           this.arregloRecuentoTotal=resp;
 
           /* Se le adjunta el total a las tarjetas */
           this.recuentoTarjeta = this.recuentoTarjeta.concat(this.arregloRecuentoTotal);
+          this.getRecuentoTiposReclamos();
           
         },
         (error) => {
@@ -205,12 +227,13 @@ export class DashboardComponent implements OnInit {
       );
 
     }else{
-      this.Estadistica.getReclamosTotales(this.IDUsuario,this.IDRol).subscribe(
+      this.Estadistica.getReclamosTotales(this.usuario.idUsuario,this.usuario.idRol ).subscribe(
         (resp) => {
           this.arregloRecuentoTotal=resp;
 
           /* Se le adjunta el total a las tarjetas */
           this.recuentoTarjeta = this.recuentoTarjeta.concat(this.arregloRecuentoTotal);
+          this.getRecuentoTiposReclamos();
           
         },
         (error) => {
@@ -224,11 +247,12 @@ export class DashboardComponent implements OnInit {
   /* Grafico Torta - cantidad de reclamos */
   getRecuentoTiposReclamos(){
     /* Administrador */
-    if(this.IDRol==1 || this.IDRol==2){
+    if(this.usuario.idRol ==1 || this.usuario.idRol ==2){
 
-      this.Estadistica.getRecuentoTiposReclamosUsuario(0,this.IDRol).subscribe(
+      this.Estadistica.getRecuentoTiposReclamosUsuario(0,this.usuario.idRol ).subscribe(
         (info)=>{
           this.arregloTipoReclamos=info;
+          this.getCantidadReclamosMesyAnio();
         },
         (error) => {
           console.log(error);
@@ -236,9 +260,10 @@ export class DashboardComponent implements OnInit {
       )
     }else{
       /* Usuario */
-      this.Estadistica.getRecuentoTiposReclamosUsuario(this.IDUsuario,0).subscribe(
+      this.Estadistica.getRecuentoTiposReclamosUsuario(this.usuario.idUsuario,0).subscribe(
         (info)=>{
           this.arregloTipoReclamos=info;
+          this.getCantidadReclamosMesyAnio();
         },
         (error) => {
           console.log(error);
@@ -249,11 +274,12 @@ export class DashboardComponent implements OnInit {
 
   /* grafico de torta tipos de reclamos ambientales */
   getRecuentoRecAmbientales(){
-    if(this.IDRol==1 || this.IDRol==2){
+    if(this.usuario.idRol ==1 || this.usuario.idRol ==2){
 
-      this.Estadistica.getRecuentoReclamosAmbientalesUsuario(0,this.IDRol).subscribe(
+      this.Estadistica.getRecuentoReclamosAmbientalesUsuario(0,this.usuario.idRol ).subscribe(
         (dato)=>{
           this.arregloReclamosAmbientales=dato;
+          this.getRecuentoTarjetas();
         },
         (error) => {
           console.log(error);
@@ -261,9 +287,10 @@ export class DashboardComponent implements OnInit {
       )
 
     }else{
-      this.Estadistica.getRecuentoReclamosAmbientalesUsuario(this.IDUsuario,this.IDRol).subscribe(
+      this.Estadistica.getRecuentoReclamosAmbientalesUsuario(this.usuario.idUsuario,this.usuario.idRol ).subscribe(
         (dato)=>{
           this.arregloReclamosAmbientales=dato;
+          this.getRecuentoTarjetas();
         },
         (error) => {
           console.log(error);
@@ -277,7 +304,7 @@ export class DashboardComponent implements OnInit {
     
       this.anio=this.date.getFullYear();
 
-      this.Estadistica.getRecuentoReclamosDelAnio(this.IDUsuario,this.anio+'',this.IDRol).subscribe(
+      this.Estadistica.getRecuentoReclamosDelAnio(this.usuario.idUsuario,this.anio+'',this.usuario.idRol ).subscribe(
         (dato)=>{
           
           this.arregloReclamosDeMesesyAnio=dato;
@@ -303,9 +330,11 @@ export class DashboardComponent implements OnInit {
     }else{
      
         
-        this.Estadistica.getRecuentoReclamosDelAnio(this.IDUsuario,this.txtAnio.value,this.IDRol).subscribe(
+        this.Estadistica.getRecuentoReclamosDelAnio(this.usuario.idUsuario,this.txtAnio.value,this.usuario.idRol ).subscribe(
           (dato)=>{
+            alert('rol usuario en recuento de reclamos del anio '+ this.usuario.idRol)
             this.arregloReclamosDeMesesyAnio=dato;
+            
           },
           (error) => {
             console.log(error);
