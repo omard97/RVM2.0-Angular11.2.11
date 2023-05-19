@@ -168,14 +168,14 @@ export class BackenApiService {
 
   /* Busqueda de reclamos por filtro usando tipo de reclamo, su estado y una fecha - administrador o usuario */
   getDetalleReclamoPorfechayNombreUsuario(idTipoR:number,idEstadoReclamo:number,fechaDesde:string, idrol:number,nombreUsuario:string ){
-    debugger
+    
     /* https://localhost:44363/FiltroRangoFechas?idTipoReclamo=1&idEstado=1&fechaDesde=2021-10-13&fechaHasta=2021-10-22&idRol=1&nombreUsuario=- */
     return this.http.get<DetalleReclamo[]>('https://localhost:44363/FiltroRangoFechas?'+'idTipoReclamo='+idTipoR+'&'+'idEstado='+idEstadoReclamo+'&'+'fechaDesde='+fechaDesde+'&'+'idRol='+idrol+'&'+'nombreUsuario='+nombreUsuario);
   }
 
    /****** Busqueda por filtros tipo reclamo y estado siendo usuario***/
    getDetalleReclamoFiltradoUsuario(idTipoR:number,idEstado:number,idRol:number,idUsuario:number): Observable<any> {
-    debugger
+    
    return this.http.get<DetalleReclamo[]>('https://localhost:44363/FiltrosReclamos?'+'idTipoR='+idTipoR+'&'+'idEstado='+idEstado+'&'+'idRol='+idRol+'&'+'idUsuario='+idUsuario);
   }
 
@@ -279,7 +279,7 @@ export class BackenApiService {
   /* ---------------------------- Configuracion ------------------------------------- */
 
   getTipoEstadoAdmin(){
-    debugger
+    
     return this.http.get<TipoEstado[]>('https://localhost:44363/tipoestadoadmin');
   }
 
