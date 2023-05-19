@@ -60,3 +60,8 @@ input::-webkit-inner-spin-button {
  .dropdown-menu i{
   font-style: normal!important;
  }
+
+ .config__estilo{
+  background-color: white;
+  border-radius: 10px;
+ }
