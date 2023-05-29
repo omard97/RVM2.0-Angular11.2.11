@@ -28,6 +28,8 @@ import { NgxChartsModule} from '@swimlane/ngx-charts';
 import { CamaraService } from './service/camara/camara.service';
 import { ToastrModule } from 'ngx-toastr';
 import { ConfiguracionComponent } from './Views/Configuracion/configuracion/configuracion.component';
+import { MapsModule } from './Views/Mapas/maps/maps.module';
+
 
 
 
@@ -62,8 +64,8 @@ import { ConfiguracionComponent } from './Views/Configuracion/configuracion/conf
     ToastrModule.forRoot({
       preventDuplicates: true,
     }),
-    
-    NgxChartsModule
+    NgxChartsModule,
+    MapsModule
   ],
   providers: [CamaraService],
   bootstrap: [AppComponent]
