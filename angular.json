@@ -38,7 +38,7 @@
               
             ],
             "scripts": [
-              
+              "src/assets/js/geolocalizacion/ubicacionDinamica.js"
             ]
           },
           "configurations": {
