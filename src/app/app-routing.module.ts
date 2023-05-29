@@ -9,6 +9,7 @@ import { DashboardComponent } from './Views/Dashboard/dashboard/dashboard.compon
 import { ReclamoComponent } from './Views/Reclamo/reclamo/reclamo.component';
 import { HistorialComponent } from './Views/Reclamo/historial/historial.component';
 import { ConfiguracionComponent } from './Views/Configuracion/configuracion/configuracion.component';
+import { MapasComponent } from './Views/Mapas/mapas/mapas.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,7 +23,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'reclamo', component: ReclamoComponent },
       { path: 'historial', component: HistorialComponent },
-      { path: 'mapa', component: HistorialComponent },
+      { path: 'mapa', component: MapasComponent },
       {path: 'configuracion', component:ConfiguracionComponent}
     ]
   },
