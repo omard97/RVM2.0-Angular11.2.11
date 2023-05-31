@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LugaresService } from 'src/app/service/maps';
+
 
 @Component({
   selector: 'app-barra-de-busqueda',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarraDeBusquedaComponent implements OnInit {
 
-  constructor() { }
+  private debounceTimer?: NodeJS.Timeout;
+
+  constructor(private lugaresService:LugaresService) { }
 
   ngOnInit(): void {
   }
+
+  onQueryChanged(query: string = '') {
+    if (this.debounceTimer) clearTimeout(this.debounceTimer);
+
+    this.debounceTimer = setTimeout(() => {
+
+     this.lugaresService.getLugaresPorBusqueda( query );
+      
+    }, 1000)
+  }
+
+
 
 }
