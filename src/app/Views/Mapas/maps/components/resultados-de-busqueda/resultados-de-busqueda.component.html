@@ -1,4 +1,4 @@
-<div class=" alert alert-primary mt-2 text-center">
+<div *ngIf="isLoadingPlaces" class=" alert alert-primary mt-2 text-center">
     <h6>Cargando <div class="spinner-border text-primary spinner-border-sm" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -6,12 +6,12 @@
     <span>Espere por favor...</span>
 </div>
 
-<ul class="list-group mt-2">
+<ul *ngIf="places.length >0" class="list-group mt-2">
 
-    <li class="list-group-item list-group-item-action pointer">
-        <h6>Lugar</h6>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus!</p>
-        <button class="btn btn-sm btn-outline-primary"> 
+    <li *ngFor=" let places of places" (click)="flyTo(places)" [class.active]="places.id === selectedId" class="list-group-item list-group-item-action pointer">
+        <h6>{{places.text_es}}</h6>
+        <p>{{places.place_name}}</p>
+        <button class="btn btn-sm" [ngClass]="(places.id === selectedId) ? 'btn-outline-light': 'btn-outline-primary'">
             Direcciones
         </button>
     </li>

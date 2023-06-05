@@ -49,6 +49,11 @@ export class LugaresService {
   //getPlacesByQuery
   getLugaresPorBusqueda(query: string = '') {
     // todo: evaluar cuando el query es nulo
+    if( query.length === 0 ){
+      this.lugares = [];
+      this.isLoadingPlaces = false;
+      return;
+    }
 
     if (!this.userLocation) throw Error('No hay userlocation');
 
@@ -60,7 +65,7 @@ export class LugaresService {
       }
     }).subscribe(resp => {
 
-      console.log(resp.features)
+      
       this.isLoadingPlaces = false;
       this.lugares = resp.features;
 
