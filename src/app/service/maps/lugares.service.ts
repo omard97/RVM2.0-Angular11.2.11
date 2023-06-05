@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PlacesApiClient } from 'src/app/Views/Mapas/maps/api/placesApiClient';
+
 import { Feature, LugaresResponse } from 'src/app/Views/Mapas/maps/interfaces/lugares';
 
 
@@ -10,7 +12,7 @@ import { Feature, LugaresResponse } from 'src/app/Views/Mapas/maps/interfaces/lu
 export class LugaresService {
 
   public userLocation?: [number, number] | undefined;
-  
+
   //obtener los lugares previamente de la busqueda
   public isLoadingPlaces: boolean = false;
   public lugares: Feature[] = [];
@@ -19,7 +21,7 @@ export class LugaresService {
     return !!this.userLocation;
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private placesApiClient: PlacesApiClient) {
     this.getUserLocation();
   }
 
@@ -48,14 +50,20 @@ export class LugaresService {
   getLugaresPorBusqueda(query: string = '') {
     // todo: evaluar cuando el query es nulo
 
-    this.isLoadingPlaces=true;
+    if (!this.userLocation) throw Error('No hay userlocation');
 
-    this.http.get<LugaresResponse>(`https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?country=ar&proximity=-73.990593%2C40.740121&access_token=pk.eyJ1Ijoib21hcmQ5NyIsImEiOiJjbGhpdGE4d3MwMGNtM2dwc3lnZjc0ZTk3In0.OdWECTi0zDbRihpSeWKSOg`).subscribe(resp => {
+    this.isLoadingPlaces = true;
 
-    console.log(resp.features)
-    this.isLoadingPlaces = false;
-    this.lugares = resp.features;
+    this.placesApiClient.get<LugaresResponse>(`/${query}.json`, {
+      params: {
+        proximity: this.userLocation.join(','),
+      }
+    }).subscribe(resp => {
 
-    })
-  }
+      console.log(resp.features)
+      this.isLoadingPlaces = false;
+      this.lugares = resp.features;
+
+    });
+  };
 }

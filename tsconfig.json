@@ -17,6 +17,7 @@
     "target": "es2015",
     "module": "es2020",
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false, // borrar por las dudas
     "lib": [
       "es2018",
       "dom"
