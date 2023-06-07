@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 import { PlacesApiClient } from 'src/app/Views/Mapas/maps/api/placesApiClient';
 
 import { Feature, LugaresResponse } from 'src/app/Views/Mapas/maps/interfaces/lugares';
+import { MapaService } from './mapa.service';
 
 
 
@@ -21,7 +22,7 @@ export class LugaresService {
     return !!this.userLocation;
   }
 
-  constructor(private placesApiClient: PlacesApiClient) {
+  constructor(private placesApiClient: PlacesApiClient, private mapService:MapaService) {
     this.getUserLocation();
   }
 
@@ -68,6 +69,7 @@ export class LugaresService {
       
       this.isLoadingPlaces = false;
       this.lugares = resp.features;
+      this.mapService.createMarkersFromPlaces(this.lugares); // o la respuesta resp.features
 
     });
   };
