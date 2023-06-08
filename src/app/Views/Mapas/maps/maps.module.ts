@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MapScreenComponent } from './screens/map-screen/map-screen.component';
 import { MapViewComponent } from './components/map-view/map-view.component';
 import { LoadingComponent } from './components/loading/loading.component';
-import { BtnMenuComponent } from './components/btn-menu/btn-menu.component';
+
 import { BtnUbicacionComponent } from './components/btn-ubicacion/btn-ubicacion.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { BarraDeBusquedaComponent } from './components/barra-de-busqueda/barra-de-busqueda.component';
@@ -17,7 +17,6 @@ import { ResultadosDeBusquedaComponent } from './components/resultados-de-busque
     MapScreenComponent,
     MapViewComponent,
     LoadingComponent,
-    BtnMenuComponent,
     BtnUbicacionComponent,
     LogoComponent,
     BarraDeBusquedaComponent,
