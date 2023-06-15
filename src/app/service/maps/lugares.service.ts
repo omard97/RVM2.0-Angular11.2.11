@@ -34,7 +34,7 @@ export class LugaresService {
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => {
           this.userLocation = [coords.longitude, coords.latitude];
-
+          console.log(this.userLocation);
           resolve(this.userLocation);
         },
         (err) => {
@@ -66,7 +66,7 @@ export class LugaresService {
       }
     }).subscribe(resp => {
 
-      
+     
       this.isLoadingPlaces = false;
       this.lugares = resp.features;
       this.mapService.createMarkersFromPlaces(this.lugares); // o la respuesta resp.features

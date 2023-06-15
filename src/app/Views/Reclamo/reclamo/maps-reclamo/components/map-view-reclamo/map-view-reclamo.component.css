@@ -1,23 +1,21 @@
 .map-container {
-    position: fixed;
-    top: 15rem;
+    height: 50vh;
     right: 0px;
-    width: 100vw;
-    height: 70vh;
+    top: 0px;
+    width:auto;
     
 }
+/* .miUbicacion{
+    position: absolute;
+    top: 200px;
+    z-index: 999;
+} */
 
-/* cuando se usa en un monitor 24 pulgadas ya que el alto del mapa no se ajusta al cambiar de monitor */
-@media (min-height:1045px) {
-    .map-container {
-   
-        height: 77vh;
-        
-    }
-    
-    
-}
 
+
+
+
+/* lista */
 #coordenadas {     
     display: table;
     position: relative;
@@ -30,5 +28,5 @@
     font-size: 12px;
     text-align: center;
     color: #222;
-    background: #fff;
+    background: #7d1e1e;
 }

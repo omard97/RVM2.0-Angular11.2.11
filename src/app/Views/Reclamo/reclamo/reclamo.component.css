@@ -43,8 +43,9 @@
   
   
   .mapa {
-    margin-top: 20px;
+    /* margin-top: 20px; */
   }
+  
   
   .header {
     color: #36a0ff;
@@ -71,6 +72,8 @@
     text-align: center;
   
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: -1rem 0px 0px 0px;
+
   
   }
   .input_reclamo{
@@ -88,15 +91,16 @@
   }
   
   .botones {
-    height: 50%;
+    
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
   }
   
   .btn {
-    width: 50%;
-    height: 50%;
-    font-size: 20px;
+   /*  width: 50%; */
+   /*  height: 50%; */
+    
   }
   
   .fa-sync-alt {
@@ -145,3 +149,13 @@
   .camara--visor {
     width: 40%;
   }
+
+  
+
+  /* .mapa{
+    width: 120px;
+    height: 120px;
+    background-color: skyblue;
+    border: 2px solid black;
+  } */
+  

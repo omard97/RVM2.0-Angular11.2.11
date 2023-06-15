@@ -1,0 +1,15 @@
+/* caja del buscador de direcciones */
+.search-container {
+
+    background-color: rgba(255, 255, 255, 0.437);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    margin-bottom: 5px;
+    z-index: 999;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 250px;
+}

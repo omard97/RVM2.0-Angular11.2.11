@@ -26,7 +26,8 @@ import { ResultadosDeBusquedaComponent } from './components/resultados-de-busque
     CommonModule
   ],
   exports:[
-    MapScreenComponent
+    MapScreenComponent,
+    MapViewComponent
   ]
 })
 export class MapsModule { }

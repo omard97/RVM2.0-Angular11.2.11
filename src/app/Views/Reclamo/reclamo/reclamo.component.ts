@@ -12,6 +12,8 @@ import { LoginApiService } from 'src/app/service/Login/login-api.service';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
 import { ToastrService } from 'ngx-toastr';
+import { LugaresService } from 'src/app/service/maps';
+import { PlacesReclamoService } from './maps-reclamo/services';
 
 
 
@@ -24,6 +26,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ReclamoComponent implements OnInit {
 
+  private debounceTimer?: NodeJS.Timeout;
 
   tipoReclamoCtrl = new FormControl('', [Validators.required]);
   reclamoAmbientalCtrl = new FormControl('', [Validators.required]);
@@ -99,12 +102,13 @@ export class ReclamoComponent implements OnInit {
   public previsualizacion: string = "";
   public imagenBase64: string = "";
 
-  constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService) { 
+  constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService,
+    private placesReclamoServices: PlacesReclamoService) { 
 
     this.rutaURL = window.location.pathname.split('/');
     console.log(this.rutaURL)
     this.usuario.idUsuario = this.rutaURL[2];
-    debugger
+    
     this.IDDetalleR = this.rutaURL[5]; /* en la posicion 5 esta el detalle del reclamo a actualizar */
     this.getRolUsuario(); /*obtengo todos los datos */
     
@@ -199,7 +203,7 @@ export class ReclamoComponent implements OnInit {
   }
 
   registrarReclamo() {
-    debugger
+    
     /* Validacion en el caso que registre un input vacio o cambie de tipo de reclamo y tenga un input vacio */
     /* reclamo Ambiental */
     if (Number(this.tipoReclamoCtrl.value) == 1 && (this.tipoReclamoCtrl.value == '' || this.reclamoAmbientalCtrl.value == '' ||
@@ -435,7 +439,7 @@ ambiental */
   }
   getDetalleVehicularParaActualizar(idDetalleReclamo: number) {
 
-    debugger
+    
     this.service.getDetalleReclamoVehicular(idDetalleReclamo).subscribe(
       (info) => {
       
@@ -466,7 +470,7 @@ ambiental */
   } */
 
   MetodoActualizarReclamo() {
-    debugger
+    
 
     /* idEstadoReclamo */
     /* Roles 1=Administrador - 3=Usuario */
@@ -494,7 +498,7 @@ ambiental */
       var puthora: any;
       var putID_TipoReclamo: any;
       var putID_Estado: any;
-      debugger
+      
 
       if (this.estadoReclamoCtrl.value == '') {
         putID_Estado = this.arregloDetalleReclamo[0].idEstado;
@@ -539,11 +543,11 @@ ambiental */
         ID_Estado: putID_Estado,
       };
 
-      debugger
+      
 
       this.service.putActualizarReclamo(reclamo).subscribe(
         (data) => {
-          debugger
+          
           this.MetodoActualizarDetalleReclamo();
         },
         (error) => {
@@ -553,7 +557,7 @@ ambiental */
     }
   }
   MetodoActualizarDetalleReclamo() {
-    debugger
+    
     var putDescripcion: any;
     var putUbicacion: any;
     var putAltura: any;
@@ -608,7 +612,7 @@ ambiental */
         ;
         /*1= reclamo ambiental  */
         if (this.arregloDetalleReclamo[0].idTipoRec == 1) {
-          debugger
+          
           this.ResetearFormulariosActualizacionReclamo();
           this.metodo_VisualEditarReclamo(this.IDDetalleR);
         } else if (this.arregloDetalleReclamo[0].idTipoRec == 2) {
@@ -627,7 +631,7 @@ ambiental */
     var putID_Marca: any;
     var putID_Modelo: any;
 
-    debugger
+    
 
     if (this.selectIdMarcaVehiculo == 0) {
       putID_Marca = Number(this.arregloDetalleReclamo[0].iD_marca);
@@ -699,7 +703,25 @@ ambiental */
   }
 
 
+/* buscar lugar */
+  onQueryChanged(query: string = '') {
+    if (this.debounceTimer) clearTimeout(this.debounceTimer);
+
+    this.debounceTimer = setTimeout(() => {
+
+      this.placesReclamoServices.getPlacesByQuery( query );
+      /* this.lugaresService.getLugaresPorBusqueda(query); */
+      console.log('Enviar este query: ', query)
+
+    }, 1000)
+  }
   
+  /* almacenarUbicacion */
+  almacenarUbicacion(lng:number , lat:number){
+    console.log('Estoy almacenando mi ubicacion en ', lng , ' y ', ' ',lat )
+  }
+
+
 
   
 
