@@ -32,7 +32,7 @@ export class ResultadosLugaresReclamoComponent implements OnInit {
     this.selectedId = place.id; /* ya se que id de ubicacion es */
     console.log('ID Selecionado: ', this.selectedId)
     const[ lng , lat ] = place.center;
-    this.reclamoService.almacenarUbicacion(lng,lat);
+    this.reclamoService.almacenarUbicacion(lng,lat); /* se lo envio al componente reclamo para luego poder guardar la ubicacion en el mapa */
     this.mapReclamoService.flyTo([lng , lat])
     
   }

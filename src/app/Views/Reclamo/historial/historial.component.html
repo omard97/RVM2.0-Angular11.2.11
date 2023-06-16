@@ -1,4 +1,4 @@
-<form id="filtros" class="container-fluid shadow-lg p-3 mb-5 rounded border border-2" >
+<form class="container-fluid shadow-lg mb-2 rounded border border-2 container-filtros" >
 
     <!--  <div id="tituloHistorial">
       <h1> Historial </h1>
@@ -24,8 +24,8 @@
         <div class="col col-sm-6 col-md-6 col-lg-3 col-xl-3">
   
           <h5>Tipo de Reclamo</h5>
-          <div class="seleccionFiltros">
-            <select class="form-select d-inline-block " data-bs-toggle="tooltip"
+          <div>
+            <select class="form-select d-inline-block seleccionFiltros " data-bs-toggle="tooltip"
               data-bs-placement="top" title="Tipo de Reclamo" placeholder="Clic para abrir"
               (change)="obtenerIDTipoReclamo($event)" aria-label="" [formControl]="tipoReclamoCtrl">
               <!-- Default select example -->
@@ -40,8 +40,8 @@
         <div class="col col-sm-6 col-md-6 col-lg-3 col-xl-3">
   
           <h5>Estado</h5>
-          <div class="seleccionFiltros">
-            <select class="form-select" data-bs-toggle="tooltip"
+          <div >
+            <select class="form-select seleccionFiltros" data-bs-toggle="tooltip"
               data-bs-placement="top" title="Estado de Reclamo" aria-label="" (change)="obtenerIDEstadoReclamo($event)"
               [formControl]="estadoReclamoCtrl">
               <option value="" disabled> --- Estado no selecionado --- </option>
@@ -77,16 +77,16 @@
   
         <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)" class="col col-md-6">
           <h5>Usuario</h5>
-          <div class="seleccionFiltros">
-            <input type="text" class="form-control d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top"
+          <div>
+            <input type="text" class="form-control d-inline-block seleccionFiltros" data-bs-toggle="tooltip" data-bs-placement="top"
               title="Nombre del Usuario" id="nombreUsuario" placeholder="Nombre del Usuario" [formControl]="nombreUsuarioCtrl">
           </div>
         </div>
         <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)" class="col col-sm-12 col-md-6">
           <div class="buscar">
-            <button class="btn btn-primary d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top"
+            <button class="btn btn-primary d-inline-block btnBuscar" data-bs-toggle="tooltip" data-bs-placement="top"
               title="Buscar Reclamo" (click)="btnBuscarReclamosFiltrados()"><i
-                class="fas fa-search fa-lg"></i>Buscar</button>
+                class="bi bi-search"></i>Buscar</button>
           </div>
   
         </div>
@@ -94,9 +94,9 @@
         <div *ngIf="( this.usuario.idRol==3)" class="row">
           <div class="col col-sm-12 col-md-12 col-lg-12">
             <div class="buscar">
-              <button class="btn btn-primary d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top"
+              <button class="btn btn-primary w-100 " data-bs-toggle="tooltip" data-bs-placement="top"
                 title="Buscar Reclamos" (click)="btnBuscarReclamosFiltrados()"><i
-                  class="fas fa-search fa-lg"></i>Buscar</button>
+                  class="bi bi-search"></i>Buscar</button>
             </div>
   
           </div>
@@ -173,16 +173,16 @@
     </div> -->
   </form>
   
-  <div *ngIf="banderaIconoCarga==true" id="IcoCarga" class="d-flex justify-content-center">
+  <div *ngIf="banderaIconoCarga==true" id="" class="d-flex justify-content-center IcoCarga">
     <div class="spinner-border text-primary" role="status">
       <span class="sr-only">Loading...</span>
     </div>
-    <small id="textoIcono" class="justify-content-center">Cargando Historial...</small>
+    <small  class="justify-content-center textoIcono">Cargando Historial...</small>
   </div>
   
-  <div *ngIf="banderaAlerta==true" id="IcoMensaje" class="d-flex justify-content-center">
+  <div *ngIf="banderaAlerta==true" id="" class="d-flex justify-content-center icoMensaje">
     <i class="fa-solid fa-circle-exclamation fa-2x"></i>
-    <small id="textoIcono" class="justify-content-center">{{mensajeCarga}}</small>
+    <small  class="justify-content-center textoIcono">{{mensajeCarga}}</small>
   </div>
   
   <form action="" [formControl]="formTarjetas">
@@ -219,17 +219,18 @@
             </div>
             <div class="container botones--informacion">
               <div class="row">
-                <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" class="col col-sm-2  ">
+                <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" class="col col-sm-2  col-md-3">
                   <!-- col-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 -->
                   <!-- 1 admin 2 empleado 3 usuario -->
-                  <button type="button" class="btn btn-outline-primary btnActualizar" data-bs-toggle="tooltip"
+                  <button type="button" class="btn btn-outline-primary " data-bs-toggle="tooltip"
                     data-bs-placement="top" title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"><i
                       class="fas fa-edit"></i>
                     <!-- item.nombre,item.idTipoRec,item.idRecAmb,item.nombreRecAmbiental,item.nombreTRec,item.descripcion,item.fecha,item.hora,item.direccion,item.altura -->
                   </button> <!-- routerLink="/main-nav/historial/reclamos" -->
                 </div>
-                <div class="col col-sm-2 "> <!-- col-3 col-md-3 col-lg-3 col-xl-6 col-xxl-3 -->
-                  <button type="button" class="btn btn-outline-danger d-inline-block btnEliminar" data-bs-toggle="tooltip"
+
+                <div class="col col-sm-2 col-md-4  "> <!-- col-3 col-md-3 col-lg-3 col-xl-6 col-xxl-3 -->
+                  <button type="button" class="btn btn-outline-danger d-inline-block " data-bs-toggle="tooltip"
                     data-bs-placement="top" title="Cancelar Reclamo"><i class="fas fa-trash-alt"></i>
                   </button>
                 </div>

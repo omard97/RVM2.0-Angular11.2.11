@@ -333,7 +333,7 @@ export class HistorialComponent implements OnInit {
         this.banderaIconoCarga =false; 
 
         this.toastr.info(
-          'No se puede realizar la accion deseada',
+          'No se puede realizar la acción deseada',
           'Atención',
           {
             timeOut: 5000,
@@ -416,7 +416,7 @@ export class HistorialComponent implements OnInit {
         this.banderaIconoCarga =false; 
 
         this.toastr.info(
-          'No se puede realizar la accion deseasa',
+          'No se puede realizar la acción deseasa',
           'Atención',
           {
             timeOut: 5000,
@@ -452,7 +452,7 @@ export class HistorialComponent implements OnInit {
 
   mensajeDelDia(){
     this.toastr.info(
-      'No se registraron reclamos en el dia de hoy',
+      'No se registraron reclamos en el día de hoy',
       'Atención',
       {
         timeOut: 4000,

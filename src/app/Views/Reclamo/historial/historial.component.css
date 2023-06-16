@@ -19,7 +19,7 @@ img {
 
 }
 
-#filtros {
+.container-filtros {
     /* padding: 15px;
     border: rgb(49, 49, 49) 1px solid; */
     margin-top: 15px;
@@ -27,36 +27,35 @@ img {
 
 }
 
-#tituloFiltros {
+/* #tituloFiltros {
     padding: 5px;
     min-width: 100px;
 
-    /* border: rgb(182, 180, 180) 1px solid;
-    border-radius: 50px; */
+    
     text-align: center;
     margin-bottom: 20px;
     border-bottom: 2px solid rgba(35, 35, 35, 0.311);
-}
+} */
 
-#principal {
+/* #principal {
     border-radius: 63px;
     background: #757580;
     box-shadow: 5px 5px 10px #015bd1;
     padding-top: 2rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
-}
+} */
 
-#IcoCarga {
+.IcoCarga {
     margin-top: 5%;
 }
 
-#textoIcono {
+.textoIcono {
     padding: 5px;
     font-size: 18px;
 }
 
-#IcoMensaje {
+.icoMensaje {
     margin-top: 5%;
 }
 
@@ -69,10 +68,14 @@ img {
 .calendario {
     text-align: center;
     width: 100%;
+    font-size: 14px;
 }
 
 #nombreUsuario {
     width: 100%;
+}
+.seleccionFiltros{
+    font-size: 14px;
 }
 
 /************* Clases ************ */
@@ -82,7 +85,7 @@ img {
     text-align: center;
     /* border: rgb(182, 180, 180) 1px solid; */
     border-radius: 50px;
-    padding: 20px;
+    padding: 5px 10px 20px 10px;
 }
 
 
@@ -99,15 +102,15 @@ img {
 }
 
 /* Boton buscar */
-.btn-primary {
-    width: 100%;
-    font-size: 22px;
-    border-radius: 10px;
+.btnBuscar {
+    width: 100%!important;
+    font-size: 16px;
+    border-radius: 5px;
 }
 
 /*icono de lupa del boton */
-.fa-search {
-    margin-right: 20px;
+.bi-search {
+    margin-right: 10px;
 }
 
 .btnActualizar {
@@ -135,7 +138,7 @@ img {
 
 .botones--informacion {
     /* padre */
-    margin-top: 1rem;
+    
 }
 
 .card__reclamo{

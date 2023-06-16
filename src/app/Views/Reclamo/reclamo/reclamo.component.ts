@@ -61,6 +61,12 @@ export class ReclamoComponent implements OnInit {
     rol: '',
     IDsesion:0,
   }
+
+  ubicacionReclamo = {
+    longitud: 0,
+    latitud: 0,
+  }
+
   rutaURL:any;
   
 
@@ -718,7 +724,12 @@ ambiental */
   
   /* almacenarUbicacion */
   almacenarUbicacion(lng:number , lat:number){
-    console.log('Estoy almacenando mi ubicacion en ', lng , ' y ', ' ',lat )
+    this.ubicacionReclamo ={
+      longitud:lng,
+      latitud: lat,
+
+    }
+    console.log('Estoy almacenando mi ubicacion en ', this.ubicacionReclamo )
   }
 
 
