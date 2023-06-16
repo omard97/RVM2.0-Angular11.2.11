@@ -214,7 +214,7 @@ export class ReclamoComponent implements OnInit {
     /* reclamo Ambiental */
     if (Number(this.tipoReclamoCtrl.value) == 1 && (this.tipoReclamoCtrl.value == '' || this.reclamoAmbientalCtrl.value == '' ||
       this.fechaCtrl.value == '' || this.horaCtrl.value == '' || this.ubicacionCtrl.value == '' ||
-      this.descripcionCtrl.value == '' || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == '')) {
+      this.descripcionCtrl.value == '' || this.urlFotoCtrl.value == '' )) { /* || this.alturaCtrl.value == '' */
       this.toastr.warning(
         'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
         'Cuidado!',
@@ -227,8 +227,8 @@ export class ReclamoComponent implements OnInit {
       /* reclamo vial */
     } else if (Number(this.tipoReclamoCtrl.value) == 2 && (((this.dominioCtrl.value == '' || this.marcaAutoCtrl.value == '') &&
       this.tipoReclamoCtrl.value == '') || this.fechaCtrl.value == '' || this.horaCtrl.value == '' ||
-      this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == '' || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == '' ||
-      this.modeloAutoCtrl.value == '')) {
+      this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == '' || this.urlFotoCtrl.value == ''  ||
+      this.modeloAutoCtrl.value == '')) { /* || this.alturaCtrl.value == '' */
       this.toastr.warning(
         'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
         'Cuidado!',
@@ -274,14 +274,16 @@ export class ReclamoComponent implements OnInit {
       var RegistroDetReclamo: DetalleReclamo = {
         descripcion: this.descripcionCtrl.value + '',
         direccion: this.ubicacionCtrl.value + '',
-        altura: Number(this.alturaCtrl.value),
-        dominio: this.dominioCtrl.value + '',
+        altura: 0, /*  */
+        dominio:  '-',
         ID_ReclamoAmbiental: Number(this.selectIdinfoReclamo),
         /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
         ID_Reclamo: infoRec.idReclamo,
+        longitud: this.ubicacionReclamo.longitud + '',
+        latitud: this.ubicacionReclamo.latitud+ ''
       };
 
-      
+      debugger
       this.service.postDetalleReclamo(RegistroDetReclamo).subscribe(
         (res) => {
           this.Notificacion();
@@ -297,11 +299,13 @@ export class ReclamoComponent implements OnInit {
       var RegistroDetReclamo: DetalleReclamo = {
         descripcion: this.descripcionCtrl.value + '',
         direccion: this.ubicacionCtrl.value + '',
-        altura: Number(this.alturaCtrl.value),
+        altura: 0, /* Number(this.alturaCtrl.value) */
         dominio: this.dominioCtrl.value + '',
         ID_ReclamoAmbiental: 0,
         /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
         ID_Reclamo: infoRec.idReclamo,
+        longitud: this.ubicacionReclamo.longitud + '',
+        latitud: this.ubicacionReclamo.latitud + ''
       };
       /* DETALLE RECLAMO */
       this.service.postDetalleReclamo(RegistroDetReclamo).subscribe(
@@ -611,6 +615,8 @@ ambiental */
       dominio: String(putDominio),
       ID_ReclamoAmbiental: Number(putID_ReclamoAmbiental),
       ID_Reclamo: Number(this.arregloDetalleReclamo[0].iD_Reclamo),
+      longitud: this.ubicacionReclamo.longitud+ '',
+      latitud: this.ubicacionReclamo.latitud+ ''
     };
     
     this.service.putActualizarDetalleReclamo(detalleReclamo).subscribe(
@@ -709,6 +715,8 @@ ambiental */
   }
 
 
+  /* Acciones con el mapa */
+
 /* buscar lugar */
   onQueryChanged(query: string = '') {
     if (this.debounceTimer) clearTimeout(this.debounceTimer);
@@ -724,6 +732,7 @@ ambiental */
   
   /* almacenarUbicacion */
   almacenarUbicacion(lng:number , lat:number){
+    debugger
     this.ubicacionReclamo ={
       longitud:lng,
       latitud: lat,

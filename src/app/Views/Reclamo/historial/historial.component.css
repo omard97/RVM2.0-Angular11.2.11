@@ -126,21 +126,23 @@ img {
 
 .span-text {
     font-weight: 700;
+    
 }
 
 .tarjeta--informacion {
     padding: 1rem 0 0 0;
+    font-size: 14px;
 }
 
 .tarjeta--informacion p {
     margin: .3rem 0 .3rem 0;
 }
 
-.botones--informacion {
-    /* padre */
+/* .botones--informacion {
     
-}
+    
+} */
 
 .card__reclamo{
-    height: 40rem;
+    height: 37rem;
 }

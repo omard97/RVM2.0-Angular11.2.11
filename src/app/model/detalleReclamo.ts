@@ -7,6 +7,8 @@ export interface DetalleReclamo {
   dominio?: string;
   ID_ReclamoAmbiental?: number;
   ID_Reclamo?: number;
+  longitud?: string,
+  latitud?: string,
 }
 
 /* cuando es vehicular */
