@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 import { EstadoReclamo } from 'src/app/model/filtrosHistorial/estadoReclamo';
@@ -57,7 +58,7 @@ export class HistorialComponent implements OnInit {
     rol: '',
     IDsesion:0,
   }
-  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService) 
+  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal) 
   {
 
     this.rutaURL = window.location.pathname.split('/');
@@ -470,6 +471,11 @@ export class HistorialComponent implements OnInit {
         progressBar: true,
       }
     );
+  }
+
+  /* Modal */
+  visualizarModalMapa(content: any) {
+    this.modal.open(content,{centered: true });
   }
 
 }

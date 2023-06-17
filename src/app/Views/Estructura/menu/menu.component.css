@@ -12,6 +12,9 @@ a:hover{
 } */
 
 /* -------- Menu Angular Material ------ */
+.mat-sidenav-contenedor{
+    background-color: #ffffff;
+}
 .mat-nav-list {
     padding-top: 0 !important;
 }

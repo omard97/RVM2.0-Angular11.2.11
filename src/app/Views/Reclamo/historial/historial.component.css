@@ -1,11 +1,11 @@
 body {
-    background: #111 !important;
+    background-color: rgb(255, 255, 255);
 }
 
 h5 {
     font-size: 16px;
-    text-align: justify;
-    padding: 3px;
+    text-align: center;
+    margin: 5px 0px 3px 0px;
 }
 
 img {
@@ -53,11 +53,21 @@ img {
 .textoIcono {
     padding: 5px;
     font-size: 18px;
+    transition: all 0.5s ease;
+}
+@media (max-width: 378px) {
+    
+   .textoIcono, .icoMensaje{
+    font-size: 14px!important;
+    transition: all 0.5s ease;
+   }
 }
 
 .icoMensaje {
     margin-top: 5%;
+    transition: all 0.5s ease;
 }
+
 
 /************* Inputs *************/
 /* las clases de tipo de reclamo y estado */
@@ -146,3 +156,4 @@ img {
 .card__reclamo{
     height: 37rem;
 }
+
