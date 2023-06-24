@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -9,6 +9,8 @@ import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { putUsuario } from 'src/app/model/perfil';
 import { PerfilApiService } from 'src/app/service/Perfil/perfil-api.service';
 import { UsuarioApiService } from 'src/app/service/Usuario/usuario-api.service';
+import { MapReclamoService } from '../../Reclamo/reclamo/maps-reclamo/services';
+import { Marker, Popup, Map } from 'mapbox-gl';
 
 @Component({
   selector: 'app-menu',
@@ -16,6 +18,9 @@ import { UsuarioApiService } from 'src/app/service/Usuario/usuario-api.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+
+  @ViewChild('mapaDiv')
+  mapDivElement!: ElementRef
 
   nombrePersonaCtrl = new FormControl('', [Validators.required]);
   apellidoPersonaCtrl = new FormControl('', [Validators.required]);
@@ -45,9 +50,11 @@ export class MenuComponent implements OnInit {
 
   banderaActualizarPerfil: boolean = false;
 
+   direccion: string='';
 
 
-  constructor(private breakpointObserver: BreakpointObserver, private serviceM: MenuApiService, private _route: ActivatedRoute, private servicePerfil: PerfilApiService, private serviceUsuario: UsuarioApiService, private _router: Router) {
+
+  constructor(private breakpointObserver: BreakpointObserver, private serviceM: MenuApiService, private _route: ActivatedRoute, private servicePerfil: PerfilApiService, private serviceUsuario: UsuarioApiService, private _router: Router, private mapaReclamoService:MapReclamoService) {
 
     this.idUsuario = this._route.snapshot.paramMap.get('id');
 
@@ -194,5 +201,40 @@ export class MenuComponent implements OnInit {
     debugger
     
     this.getDatosPerfil();
+  
   }
+
+  verMapadesdeHistorial(lng:string , lat:string, direc:string){
+    /* recibo los las cooerdenadas de la funcion verMapa del historial component para luego crear y mostrar un mapa con la ubicacion del reclamo */
+    var longitd = Number(lng);
+    var latitud = Number(lat)
+    this.direccion = direc;
+
+    
+    const map = new Map({
+      container: this.mapDivElement.nativeElement, // container ID
+      style: 'mapbox://styles/mapbox/streets-v12', // style URL
+      center: [longitd, latitud], // starting position [lng, lat]
+      zoom: 15, // starting zoom
+    });
+
+    /* Popup */
+    const popup = new Popup()
+      .setHTML(`
+        <div style="text-align: center;">
+          <h6 style>Aquí estoy</h6>
+          <span>Estoy en este lugar del mundo</span>
+        </div>
+        `);
+
+    /* Market - Marcador */
+    new Marker({ color: 'red' })
+      .setLngLat([longitd, latitud ])
+      .setPopup(popup)
+      .addTo(map);
+      this.mapaReclamoService.setMap( map );
+
+  }
+
+
 }

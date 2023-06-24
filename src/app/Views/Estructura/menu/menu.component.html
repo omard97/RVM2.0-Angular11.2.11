@@ -13,31 +13,14 @@
                         </a>
                         <ul class="nav nav-pills flex-column mb-sm-auto col-12 align-items-center align-items-sm-start"
                             id="menu">
-                          <!--   <li class="nav-item boton__nav">
-
-                                <a class="nav-link align-middle px-0 boton__nav--info">
-                                    <i class="fs-4 bi-house"></i> <span
-                                        class="ms-1 d-none d-sm-inline boton__nav--span">Home</span>
-                                </a>
-                            </li> -->
+                         
                             <li class="boton__nav" routerLink="dashboard" routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info">
                                     <!-- data-bs-toggle="collapse" -->
                                     <i class="fs-4 bi-speedometer2"></i> <span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Dashboard</span>
                                 </a>
-
-                                <!--  <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                                    <li class="w-100">
-                                        <a href="#" class="nav-link px-0" routerLink="./dashboard">
-                                            <span class="d-none d-sm-inline">Estadistica</span> 1
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2
-                                        </a>
-                                    </li>
-                                </ul> -->
+                          
                             </li>
 
                             <li class="boton__nav" routerLink="reclamo" routerLinkActive="active">
@@ -59,37 +42,10 @@
                                     <i class="bi bi-geo-alt"></i> <span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Mapas</span></a>
                             </li>
-                            <li class="boton__nav">
-                                <!-- <a href="#submenu3" data-bs-toggle="collapse"
-                                    class="nav-link px-0 align-middle boton__nav--info">
-                                    <i class="fs-4 bi-grid"></i> <span
-                                        class="ms-1 d-none d-sm-inline boton__nav--span">Products</span> </a> -->
-                                <!--  <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                                    <li class="w-100">
-                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span>
-                                            1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span>
-                                            2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span>
-                                            3</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span>
-                                            4</a>
-                                    </li>
-                                </ul> -->
-                            </li>
-                            <!--  <li class="boton__nav">
-                                <a href="#" class="nav-link px-0 align-middle boton__nav--info">
-                                    <i class="fs-4 bi-people"></i> <span
-                                        class="ms-1 d-none d-sm-inline boton__nav--span">Customers</span>
-                                </a>
-                            </li> -->
+                            
+                            
                         </ul>
+                        
 
                         <div class="contenedor__botonPerfil">
 
@@ -122,13 +78,14 @@
                     </div>
                 </div>
 
-
             </div>
 
-
-
-
         </mat-nav-list>
+
+        <!-- Button trigger modal -->
+
+  
+ 
     </mat-sidenav>
     <!-- boton desplieque menu -->
     <mat-sidenav-content class="mat-sidenav-contenedor">
@@ -138,17 +95,43 @@
         </button>
 
         <!-- Add Content Here -->
-
         <div class="container-fluid">
-            <!-- p-4 - antes tenia ese formato pero se modifico para que el historila tome todo el ancho del contenedor  -->
-            <!-- En las demas pantallas no hay modificaciones pero en la que se nota para mejor es en el historial -->
-            <!-- Se puede modificar -->
+            <!-- se visualiza los componentes hijos -->
             <router-outlet></router-outlet>
+
         </div>
 
-        <app-footer></app-footer>
+        
     </mat-sidenav-content>
 </mat-sidenav-container>
+
+<!-- Modal utilizado para visualizar la ubicacion de donde se hizo el reclamo -->
+<div class="modal fade " id="mapaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mapaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1  class="modal-title fs-5" id="mapaModalLabel">{{direccion}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+           
+          <div #mapaDiv class="mapa-container rounded" >
+       
+        </div>
+        
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+ 
 
 <!-- Modal registro usaurio -->
 <div class="modal fade" id="registroModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -360,12 +343,3 @@
 
 </div> <!-- modal -->
 
-<!-- <div class="container-fluid">
-    <div class="row flex-nowrap">
-      
-
-        <div style="width: 83%;">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
-</div> -->

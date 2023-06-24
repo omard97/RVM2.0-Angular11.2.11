@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +10,9 @@ import { TipoReclamo } from 'src/app/model/tipoReclamo';
 import { LoginApiService } from 'src/app/service/Login/login-api.service';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
+import { Popup, Map, Marker } from 'mapbox-gl';
+import { MapReclamoService } from '../reclamo/maps-reclamo/services';
+import { MenuComponent } from '../../Estructura/menu/menu.component';
 
 
 @Component({
@@ -19,6 +22,8 @@ import { BackenApiService } from 'src/app/service/backen-api.service';
 })
 export class HistorialComponent implements OnInit {
 
+  
+  
   tipoReclamoCtrl = new FormControl('', [Validators.required]);
   estadoReclamoCtrl = new FormControl('', [Validators.required]);
   fechaDesdeCtrl = new FormControl('', [Validators.required]);
@@ -58,7 +63,16 @@ export class HistorialComponent implements OnInit {
     rol: '',
     IDsesion:0,
   }
-  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal) 
+
+  /* Mapa */
+  coordonadas: string='';
+  longitud: string='';
+  latitud: string='';
+  direccion: string='';
+
+
+
+  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private mapaReclamoService:MapReclamoService, private menuComponent: MenuComponent) 
   {
 
     this.rutaURL = window.location.pathname.split('/');
@@ -71,6 +85,9 @@ export class HistorialComponent implements OnInit {
    }
 
   ngOnInit(): void {
+   
+    
+    
   }
 
     /* utilizado solamente para visualizar etiquetas que dependen del rol del usuario */
@@ -107,7 +124,7 @@ export class HistorialComponent implements OnInit {
 
   
   getDetalleReclamosHoy() {
-    debugger
+   
     console.log('rol usuario: '+this.usuario.idRol)
     if (this.usuario.idRol == 1 || this.usuario.idRol == 2) {
      
@@ -197,7 +214,7 @@ export class HistorialComponent implements OnInit {
 
   /* Funcion para ir de la pantalla historial hacia el reclamo y editarlo */
   editarReclamo(idDetalleReclamo: any) {
-    debugger
+    
     console.clear();
 
    /*  this.router.navigate([
@@ -238,6 +255,7 @@ export class HistorialComponent implements OnInit {
               this.banderaIconoCarga =false; /* No se visualiza */
               this.banderaAlerta=false;/* No se visualiza */
               this.Dreclamos = res;
+             
               if (res.length == 0) {
                 this.banderaAlerta=true;/*se visualiza */
                 this.mensajeRespuestaErrordeBusqueda();
@@ -286,7 +304,7 @@ export class HistorialComponent implements OnInit {
         );
         /* Busqueda por una fecha, estado y tiporeclamo */
       }else if((this.tipoReclamoCtrl.value!="" && this.estadoReclamoCtrl.value!="" )&& this.fechaDesdeCtrl.value!="" && this.nombreUsuarioCtrl.value==""){
-        ;
+        
         this.detalleReclamo.getDetalleReclamoPorfecha(Number(this.tipoReclamoCtrl.value),Number(this.estadoReclamoCtrl.value),this.fechaDesdeCtrl.value+'',this.usuario.idRol).subscribe(
           (res)=>{
             
@@ -359,8 +377,9 @@ export class HistorialComponent implements OnInit {
     
       } */
 
+      /* siendo usuario */
     } else if(this.usuario.idRol==3)  {
-      debugger
+      
       filtroIDTReclamo = this.selectIDTipReclamo;
       filtroIDEstadoReclamo = this.selectIDEstadoReclamo;
       filtroFechaInicio = this.fechaDesdeCtrl.value;
@@ -369,7 +388,7 @@ export class HistorialComponent implements OnInit {
       /* Filtro los reclamos por el tipo y el estado pero sin fecha */
       if ((this.tipoReclamoCtrl.value !='' && this.estadoReclamoCtrl.value!='') && this.fechaDesdeCtrl.value=='') {
   
-        debugger
+      
         
         this.detalleReclamo
           .getDetalleReclamoFiltradoUsuario(filtroIDTReclamo,filtroIDEstadoReclamo,this.usuario.idRol,this.usuario.idUsuario)
@@ -475,7 +494,30 @@ export class HistorialComponent implements OnInit {
 
   /* Modal */
   visualizarModalMapa(content: any) {
+
     this.modal.open(content,{centered: true });
+   
+    
+    
+  }
+
+  verMapa(dato:any){
+  
+    
+   this.coordonadas = dato.target.value.split(',');
+   this.longitud = this.coordonadas[0];
+    this.latitud = this.coordonadas[1];
+    this.direccion = this.coordonadas[2];
+    
+  
+    /* apreto el boton y automaticamente envio las coordenadas a la funcion verMapadesdeHistorial del menuComponent */
+    this.menuComponent.verMapadesdeHistorial(this.longitud,this.latitud, this.direccion)
+
+    this.longitud='';
+    this.latitud='';
+    this.direccion='';
+    
+    
   }
 
 }

@@ -233,4 +233,35 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0;
 }
+/* .map-container {
+    height: 25vh;
+    right: 0px;
+    top: 0px;
+    width:auto;
+    
+    
+} */
+.modal-content{
+    width: 82%!important;
+}
+.mapa-container {
+    height:25vh;
+    width: 40vh; 
+}
+
+.titulo__modal{
+    position: relative;
+}
+.titulo__direccion{
+    
+    display: flex;
+    
+    align-items: center;
+    
+}
+.titulo__direccion h5{
+    margin-right: 1rem;
+}
+ 
+
 
