@@ -150,12 +150,12 @@
     width: 40%;
   }
 
+  .map-container {
+    height: 20vh;
+    right: 0px;
+    top: 0px;
+    width:auto;
   
-
-  /* .mapa{
-    width: 120px;
-    height: 120px;
-    background-color: skyblue;
-    border: 2px solid black;
-  } */
+    
+}
   

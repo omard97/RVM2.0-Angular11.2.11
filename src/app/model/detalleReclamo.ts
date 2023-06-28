@@ -36,6 +36,8 @@ export interface DetalleReclamoActualizar {
   dominio: null;
   nick: string;
   foto: string;
+  longitud?: string,
+  latitud?: string,
 }
 
 export interface DetalleReclamoVehicularActualizar{

@@ -27,7 +27,9 @@ import { BusquedaLugaresReclamoComponent } from './components/busqueda-lugares-r
   exports: [
     MapScreenReclamoComponent,
     LoadingReclamoComponent,
-    MapViewReclamoComponent
+    MapViewReclamoComponent,
+    BusquedaLugaresReclamoComponent,
+    ResultadosLugaresReclamoComponent
   ]
 })
 export class MapsReclamoModule { }

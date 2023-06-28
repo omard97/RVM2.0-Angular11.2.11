@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DetalleReclamo, vehiculoXDetalle } from 'src/app/model/detalleReclamo';
@@ -13,7 +13,8 @@ import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { LugaresService } from 'src/app/service/maps';
-import { PlacesReclamoService } from './maps-reclamo/services';
+import { MapReclamoService, PlacesReclamoService } from './maps-reclamo/services';
+import { Popup, Map, Marker } from 'mapbox-gl';
 
 
 
@@ -27,6 +28,9 @@ import { PlacesReclamoService } from './maps-reclamo/services';
 export class ReclamoComponent implements OnInit {
 
   private debounceTimer?: NodeJS.Timeout;
+
+  @ViewChild('mapDiv')
+  mapDivElement!: ElementRef
 
   tipoReclamoCtrl = new FormControl('', [Validators.required]);
   reclamoAmbientalCtrl = new FormControl('', [Validators.required]);
@@ -101,6 +105,12 @@ export class ReclamoComponent implements OnInit {
   idEstadoReclamo: any;
   objetEstadoReclamo: any;
 
+  /* Mapa - detalle reclamo - editar */
+  banderaVerMapa:string= ''; /* bandera utilizada para visualizar el mapa comun y el mapa ya posicionado en las coordenadas del reclamo a editar */
+  longitud: string='';
+  latitud: string='';
+  direccion: string='';
+
   public datosHistorial: Array<any> = [];
 
   /* para la foto */
@@ -109,7 +119,7 @@ export class ReclamoComponent implements OnInit {
   public imagenBase64: string = "";
 
   constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService,
-    private placesReclamoServices: PlacesReclamoService) { 
+    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService) { 
 
     this.rutaURL = window.location.pathname.split('/');
     console.log(this.rutaURL)
@@ -122,7 +132,9 @@ export class ReclamoComponent implements OnInit {
     this.getListReclamoAmbiental();
     this.getListMarca();
     this.getListModelo();
+    /* utilizado como bandera y ver la tabla del detalle del reclamo */
     if(this.IDDetalleR!= undefined){
+      this.banderaVerMapa='editar';
       this.metodo_VisualEditarReclamo(this.IDDetalleR);
     }
    
@@ -402,6 +414,7 @@ ambiental */
     this.urlFotoCtrl.reset();
     this.alturaCtrl.reset();
     this.dominioCtrl.reset();
+    this.banderaVerMapa='reclamo'
 
 
 
@@ -432,6 +445,12 @@ ambiental */
           /* Acá pregunto si es ambiental o vial, si es ambiental sigo lo comun si es vial traigo los datos del auto */
           if (info[0].idTipoRec == 1) {
             this.arregloDetalleReclamo = info;
+            console.log(this.arregloDetalleReclamo)
+            /* al obtener los datos muestro el mapa con la ubicacion del reclamo */
+
+            this.verMapaReclamo(this.arregloDetalleReclamo[0].longitud,this.arregloDetalleReclamo[0].latitud)
+            
+            
             
           } else {
 
@@ -730,15 +749,40 @@ ambiental */
     }, 1000)
   }
   
-  /* almacenarUbicacion */
+  /* coordenadas del reclamo y utilizadas para mostrarlo en el mapa a la hora de buscar dicha direccion */
   almacenarUbicacion(lng:number , lat:number){
     debugger
     this.ubicacionReclamo ={
       longitud:lng,
       latitud: lat,
-
     }
     console.log('Estoy almacenando mi ubicacion en ', this.ubicacionReclamo )
+  }
+
+  verMapaReclamo(longitud:any, latitud:any){
+
+    const map = new Map({
+      container: this.mapDivElement.nativeElement, // container ID
+      style: 'mapbox://styles/mapbox/streets-v12', // style URL
+      center: [longitud, latitud], // starting position [lng, lat]
+      zoom: 16, // starting zoom
+    });
+
+    /* Popup */
+    const popup = new Popup()
+      .setHTML(`
+        <div style="text-align: center;">
+          <h6 style>Aquí estoy</h6>
+          <span>Estoy en este lugar del mundo</span>
+        </div>
+        `);
+
+    /* Market - Marcador */
+    new Marker({ color: 'red' })
+      .setLngLat([longitud, latitud ])
+      .setPopup(popup)
+      .addTo(map);
+      this.mapaReclamoService.setMap( map );
   }
 
 

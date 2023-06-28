@@ -1,6 +1,6 @@
 <div class="container-fluid shadow-lg p-3 mb-5 rounded border border-2 contenedorPrincipal">
 
-    <div class="row borde">
+    <div class="row borde animate__animated animate__fadeInDown">
         <div class="col-12">
             <h2 id="tituloComponente" *ngIf="banderaEdicionReclamo==false">Nuevo Reclamo</h2>
             <h2 id="tituloComponente" *ngIf="banderaEdicionReclamo==true"> Actualizar Reclamo</h2>
@@ -9,11 +9,11 @@
 
 
 
-    <div class="row">
+    <div class="row ">
         <div class="well well-sm">
             <form class="form-horizontal" method="post">
                 <fieldset>
-                    <div class="row" style="margin: 0 auto">
+                    <div class="row animate__animated animate__fadeInDown" style="margin: 0 auto">
                         <div class="col-md-5">
 
                             <!-- Tipo Reclamo -->
@@ -373,15 +373,20 @@
 
                         <!-- Mapa -->
                         <div class="form-group input_reclamo shadow-lg p-3 rounded border border-2  ">
-                            <div class="col-12  ">
+                            <div *ngIf="banderaVerMapa!='editar'" class="col-12  ">
                                 <app-map-screen-reclamo></app-map-screen-reclamo>
+                            </div>
+                            <div *ngIf="banderaVerMapa=='editar'" class="col-12  ">
+                                <div #mapDiv class="map-container rounded" >
+                                    
+                                </div>
                             </div>
                         </div>
 
                     </div>
 
                     <!-- Descripcion del reclamo a editar / solo aparece cuando vamos del historial hacia el reclamo -->
-                    <div class="container-fluid  rounded border border-2 contenedorMiReclamo"
+                    <div class="container-fluid  rounded border border-2 contenedorMiReclamo animate__animated animate__fadeInLeft"
                         *ngFor="let item of arregloDetalleReclamo" style="text-align: center;">
 
                         <h3>Mi Reclamo</h3>
@@ -396,7 +401,9 @@
                                     <th scope="col">Marca Auto</th>
                                     <th scope="col">Fecha</th>
                                     <th scope="col">Hora</th>
-                                    <th scope="col">Direccion</th>
+                                    <th scope="col">Direccion 
+                                        
+                                    </th>
                                     <th scope="col">Altura</th>
                                     <th scope="col">Descripción</th>
                                     <th scope="col">Foto</th>
@@ -426,7 +433,7 @@
 
 
 
-                        <div class=" col-12 col-sm-4  " *ngIf="banderaEdicionReclamo==false"> <!--text-center d-inline-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 botones -->
+                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInLeft  " *ngIf="banderaEdicionReclamo==false"> <!--text-center d-inline-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 botones -->
 
                             <button type="button" class="btn btn-success botones " [disabled]="( (tipoReclamoCtrl.invalid && (reclamoAmbientalCtrl.invalid && marcaAutoCtrl.invalid && dominioCtrl.invalid)) || fechaCtrl.invalid || horaCtrl.invalid || ubicacionCtrl.invalid || urlFotoCtrl.invalid ||  descripcionCtrl.invalid)" (click)="registrarReclamo()" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Enviar Reclamo"> <!--  || alturaCtrl.invalid -->
@@ -436,7 +443,7 @@
                         </div>
 
 
-                        <div class="col-12 col-sm-4 "  *ngIf="banderaEdicionReclamo==true"><!-- true -->
+                        <div class="col-12 col-sm-4 animate__animated animate__fadeInLeft "  *ngIf="banderaEdicionReclamo==true"><!-- true -->
 
                             <button type="button" class="btn btn-outline-success botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Actualizar Reclamo"
@@ -445,7 +452,7 @@
                         </div>
 
 
-                        <div class=" col-12 col-sm-4 ">
+                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInUp ">
                             <button type="button" class="btn btn-outline-danger botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Cancelar Reclamo" (click)="limpiarPantalla()"><i
                                     class="fas fa-times fa-lg"></i>
@@ -453,7 +460,7 @@
                         </div>
 
 
-                        <div class=" col-12 col-sm-4 "> 
+                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInRight "> 
                             <button type="button" class="btn btn-outline-primary botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Regresar al Historial" (click)='regresarHistorial()'><i
                                     class="fas fa-undo"></i> Mi

@@ -72,7 +72,7 @@ export class HistorialComponent implements OnInit {
 
 
 
-  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private mapaReclamoService:MapReclamoService, private menuComponent: MenuComponent) 
+  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private menuComponent: MenuComponent) 
   {
 
     this.rutaURL = window.location.pathname.split('/');
@@ -492,30 +492,21 @@ export class HistorialComponent implements OnInit {
     );
   }
 
-  /* Modal */
-  visualizarModalMapa(content: any) {
-
-    this.modal.open(content,{centered: true });
-   
-    
-    
-  }
-
-  verMapa(dato:any){
+  verMapa(longitud:any, latitud:any, direccion:any){
   
     
-   this.coordonadas = dato.target.value.split(',');
+   /* this.coordonadas = dato.target.value.split(',');
    this.longitud = this.coordonadas[0];
     this.latitud = this.coordonadas[1];
-    this.direccion = this.coordonadas[2];
+    this.direccion = this.coordonadas[2]; */
     
   
     /* apreto el boton y automaticamente envio las coordenadas a la funcion verMapadesdeHistorial del menuComponent */
-    this.menuComponent.verMapadesdeHistorial(this.longitud,this.latitud, this.direccion)
+    this.menuComponent.verMapadesdeHistorial(longitud,latitud,direccion)
 
-    this.longitud='';
+    /* this.longitud='';
     this.latitud='';
-    this.direccion='';
+    this.direccion='' */
     
     
   }
