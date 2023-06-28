@@ -14,7 +14,7 @@
                         <ul class="nav nav-pills flex-column mb-sm-auto col-12 align-items-center align-items-sm-start"
                             id="menu">
                          
-                            <li class="boton__nav" routerLink="dashboard" routerLinkActive="active">
+                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="dashboard" routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info">
                                     <!-- data-bs-toggle="collapse" -->
                                     <i class="fs-4 bi-speedometer2"></i> <span
@@ -23,21 +23,21 @@
                           
                             </li>
 
-                            <li class="boton__nav" routerLink="reclamo" routerLinkActive="active">
+                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="reclamo" routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info ">
                                     <i class="bi bi-journal-text"></i><span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Reclamo</span>
                                 </a>
 
                             </li>
-                            <li class="boton__nav" routerLink="historial" routerLinkActive="active">
+                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="historial" routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info ">
                                     <i class="bi bi-calendar3" style="margin-right: 0;"></i><span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Historial</span>
                                 </a>
                             </li>
 
-                            <li class="boton__nav" routerLink="mapa" routerLinkActive="active">
+                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="mapa" routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info">
                                     <i class="bi bi-geo-alt"></i> <span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Mapas</span></a>
@@ -47,7 +47,7 @@
                         </ul>
                         
 
-                        <div class="contenedor__botonPerfil">
+                        <div class="contenedor__botonPerfil animate__animated animate__fadeInUp">
 
                             <div class="dropdown pb-4 boton_user ">
                                 <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle boton_user--informacion p-2"
@@ -56,7 +56,7 @@
                                         height="30" class="rounded-circle">
                                     <span class="d-none d-sm-inline mx-4">{{usuario.nick}}</span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow menu__usuario"
+                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow menu__usuario animate__animated animate__fadeIn"
                                     aria-labelledby="dropdownUser1">
 
                                     <li *ngIf="this.usuario.idRol!=3"><a class="dropdown-item" routerLink="./configuracion"><i

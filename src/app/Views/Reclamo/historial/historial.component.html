@@ -85,54 +85,20 @@
 
       </div>
 
+    </div> <!-- row -->
 
-
-
-    </div>
-
-    <div class="row">
-
-
-      <!-- <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)" class="col-12 col-sm-6 col-md-6 animate__animated animate__fadeIn">
-          <h5>Usuario</h5>
-          <div>
-            <input type="text" class="form-control d-inline-block seleccionFiltros" data-bs-toggle="tooltip"
-              data-bs-placement="top" title="Nombre del Usuario" id="nombreUsuario" placeholder="Nombre del Usuario"
-              [formControl]="nombreUsuarioCtrl">
-          </div>
-        </div> -->
-      <!--  <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)" class="col-12  col-md-12 animate__animated animate__fadeIn">
-          <div class="buscar">
-            <button class="btn btn-primary d-inline-block btnBuscar" data-bs-toggle="tooltip" data-bs-placement="top"
-              title="Buscar Reclamo" (click)="btnBuscarReclamosFiltrados()"><i class="bi bi-search"></i>Buscar</button>
-          </div>
-
-        </div> -->
-
-      <!-- <div *ngIf="( this.usuario.idRol==3)" class="row">
-          <div class="col col-sm-6 col-md-12 col-lg-12">
-            <div class="contenedor_buscar animate__animated animate__fadeIn">
-              <button class="btn btn-primary w-100 " data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Buscar Reclamos" (click)="btnBuscarReclamosFiltrados()"><i
-                  class="bi bi-search"></i>Buscar</button>
-            </div>
-
-          </div>
-        </div> -->
-    </div>
-
-  </div>
+  </div> <!-- .busquedaFiltros -->
 
 </form>
 
-<div *ngIf="banderaIconoCarga==true" id="" class="d-flex justify-content-center IcoCarga">
+<div *ngIf="banderaIconoCarga==true" id="" class="d-flex justify-content-center IcoCarga animate__animated animate__fadeIn">
   <div class="spinner-border text-primary" role="status">
     <span class="sr-only">Loading...</span>
   </div>
   <small class="justify-content-center textoIcono">Cargando Historial...</small>
 </div>
 
-<div *ngIf="banderaAlerta==true" id="" class="d-flex justify-content-center icoMensaje">
+<div *ngIf="banderaAlerta==true" id="" class="d-flex justify-content-center icoMensaje animate__animated animate__fadeIn">
   <i class="fa-solid fa-circle-exclamation fa-2x"></i>
   <small class="justify-content-center textoIcono">{{mensajeCarga}}</small>
 </div>
