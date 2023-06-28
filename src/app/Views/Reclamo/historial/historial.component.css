@@ -1,4 +1,3 @@
-
 body {
     background-color: rgb(255, 255, 255);
 }
@@ -108,8 +107,8 @@ img {
 }
 
 /* div del boton bsca */
-.buscar {
-    margin-top: 33px;
+.contenedor_buscar {
+    margin-top: 1.5rem;
 }
 
 /* Boton buscar */

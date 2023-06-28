@@ -1,198 +1,213 @@
+<form class="container-fluid shadow-lg mb-2 rounded border border-2 container-filtros">
 
-  
-  <form class="container-fluid shadow-lg mb-2 rounded border border-2 container-filtros">
-
-    <div class="row">
-      <div id="tituloHistorial">
-        <h1> Historial </h1>
-      </div>
-
+  <div class="row">
+    <div class="animate__animated animate__fadeInDown" id="tituloHistorial">
+      <h1> Historial </h1>
     </div>
 
-    <div class="container-fluid busquedaFiltros">
-      <div class="row ">
+  </div>
 
-        <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+  <div class="container-fluid busquedaFiltros ">
+    <div class="row ">
 
-          <h5>Tipo de Reclamo</h5>
-          <div>
-            <select class="form-select d-inline-block seleccionFiltros " data-bs-toggle="tooltip"
-              data-bs-placement="top" title="Tipo de Reclamo" placeholder="Clic para abrir"
-              (change)="obtenerIDTipoReclamo($event)" aria-label="" [formControl]="tipoReclamoCtrl">
-              <!-- Default select example -->
-              <option value="" disabled> --- Tipo de Reclamo no selecionado --- </option>
-              <option *ngFor="let item of TR" value="{{item.idTipoReclamo}}" selected>{{item.nombre}}</option>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 animate__animated animate__fadeIn">
 
-            </select>
-          </div>
+        <h5>Tipo de Reclamo</h5>
+        <div>
+          <select class="form-select d-inline-block seleccionFiltros  " data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Tipo de Reclamo" placeholder="Clic para abrir" (change)="obtenerIDTipoReclamo($event)" aria-label=""
+            [formControl]="tipoReclamoCtrl">
+            <!-- Default select example -->
+            <option value="" disabled> --- Tipo de Reclamo no selecionado --- </option>
+            <option *ngFor="let item of TR" value="{{item.idTipoReclamo}}" selected>{{item.nombre}}</option>
 
+          </select>
         </div>
 
-        <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+      </div>
 
-          <h5>Estado</h5>
-          <div>
-            <select class="form-select seleccionFiltros" data-bs-toggle="tooltip" data-bs-placement="top"
-              title="Estado de Reclamo" aria-label="" (change)="obtenerIDEstadoReclamo($event)"
-              [formControl]="estadoReclamoCtrl">
-              <option value="" disabled> --- Estado no selecionado --- </option>
-              <option value="{{item.idEstado}}" *ngFor="let item of estadosReclamoFiltro" selected>{{item.nombre}}
-              </option>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 animate__animated animate__fadeIn">
 
-            </select>
-          </div>
+        <h5>Estado</h5>
+        <div>
+          <select class="form-select seleccionFiltros" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Estado de Reclamo" aria-label="" (change)="obtenerIDEstadoReclamo($event)"
+            [formControl]="estadoReclamoCtrl">
+            <option value="" disabled> --- Estado no selecionado --- </option>
+            <option value="{{item.idEstado}}" *ngFor="let item of estadosReclamoFiltro" selected>{{item.nombre}}
+            </option>
 
+          </select>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+      </div>
 
-          <div class="row">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-2 animate__animated animate__fadeIn">
+        <h5>Fecha Inicio</h5>
+        <input id="Fecha" class="calendario" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha Inicio"
+          name="name" type="date" placeholder="Fecha" [formControl]="fechaDesdeCtrl">
+        <!--   <div class="row">
             <div class="col">
-              <h5>Fecha Inicio</h5>
-              <input id="Fecha" class="calendario" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha Inicio"
-                name="name" type="date" placeholder="Fecha" [formControl]="fechaDesdeCtrl">
+              
             </div>
-            <!--  <div class="col-md-6">
+             <div class="col-md-6">
                 <h5 for="">Fecha Fin</h5>
                 <input id="Fecha" class="calendario d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top"
                   title="Fecha Fin" name="name" type="date" placeholder="Fecha" [formControl]="fechaHastaCtrl">
-              </div> -->
-          </div>
+              </div> 
+          </div> -->
+      </div>
+      <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)"
+        class="col-12 col-sm-6 col-md-6 col-lg-2 animate__animated animate__fadeIn">
+        <h5>Usuario</h5>
+        <div>
+          <input type="text" class="form-control d-inline-block seleccionFiltros" data-bs-toggle="tooltip"
+            data-bs-placement="top" title="Nombre del Usuario" id="nombreUsuario" placeholder="Nombre del Usuario"
+            [formControl]="nombreUsuarioCtrl">
+        </div>
+      </div>
+
+      <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)"
+        class="col-12  col-md-6 col-lg-2 animate__animated animate__fadeIn">
+        <div class="contenedor_buscar">
+          <button class="btn btn-primary d-inline-block btnBuscar" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Buscar Reclamo" (click)="btnBuscarReclamosFiltrados()"><i class="bi bi-search"></i>Buscar</button>
         </div>
 
       </div>
 
-      <div class="row">
+
+      <div *ngIf="( this.usuario.idRol==3)" class="col-12 col-sm-6 col-md-12 col-lg-4">
+        <div class="contenedor_buscar animate__animated animate__fadeIn">
+          <button class="btn btn-primary w-100 " data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Buscar Reclamos" (click)="btnBuscarReclamosFiltrados()"><i class="bi bi-search"></i>Buscar</button>
+        </div>
+
+      </div>
 
 
-        <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)" class="col col-md-6">
+
+
+    </div>
+
+    <div class="row">
+
+
+      <!-- <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)" class="col-12 col-sm-6 col-md-6 animate__animated animate__fadeIn">
           <h5>Usuario</h5>
           <div>
             <input type="text" class="form-control d-inline-block seleccionFiltros" data-bs-toggle="tooltip"
               data-bs-placement="top" title="Nombre del Usuario" id="nombreUsuario" placeholder="Nombre del Usuario"
               [formControl]="nombreUsuarioCtrl">
           </div>
-        </div>
-        <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)" class="col col-sm-12 col-md-6">
+        </div> -->
+      <!--  <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)" class="col-12  col-md-12 animate__animated animate__fadeIn">
           <div class="buscar">
             <button class="btn btn-primary d-inline-block btnBuscar" data-bs-toggle="tooltip" data-bs-placement="top"
               title="Buscar Reclamo" (click)="btnBuscarReclamosFiltrados()"><i class="bi bi-search"></i>Buscar</button>
           </div>
 
-        </div>
+        </div> -->
 
-        <div *ngIf="( this.usuario.idRol==3)" class="row">
-          <div class="col col-sm-12 col-md-12 col-lg-12">
-            <div class="buscar">
+      <!-- <div *ngIf="( this.usuario.idRol==3)" class="row">
+          <div class="col col-sm-6 col-md-12 col-lg-12">
+            <div class="contenedor_buscar animate__animated animate__fadeIn">
               <button class="btn btn-primary w-100 " data-bs-toggle="tooltip" data-bs-placement="top"
                 title="Buscar Reclamos" (click)="btnBuscarReclamosFiltrados()"><i
                   class="bi bi-search"></i>Buscar</button>
             </div>
 
           </div>
-        </div>
-      </div>
-
+        </div> -->
     </div>
 
-  </form>
-
-  <div *ngIf="banderaIconoCarga==true" id="" class="d-flex justify-content-center IcoCarga">
-    <div class="spinner-border text-primary" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
-    <small class="justify-content-center textoIcono">Cargando Historial...</small>
   </div>
 
-  <div *ngIf="banderaAlerta==true" id="" class="d-flex justify-content-center icoMensaje">
-    <i class="fa-solid fa-circle-exclamation fa-2x"></i>
-    <small class="justify-content-center textoIcono">{{mensajeCarga}}</small>
+</form>
+
+<div *ngIf="banderaIconoCarga==true" id="" class="d-flex justify-content-center IcoCarga">
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
   </div>
+  <small class="justify-content-center textoIcono">Cargando Historial...</small>
+</div>
 
-  <form action="" [formControl]="formTarjetas">
+<div *ngIf="banderaAlerta==true" id="" class="d-flex justify-content-center icoMensaje">
+  <i class="fa-solid fa-circle-exclamation fa-2x"></i>
+  <small class="justify-content-center textoIcono">{{mensajeCarga}}</small>
+</div>
 
- 
-    <div class="container-fluid">
+<form action="" [formControl]="formTarjetas">
 
-      <div class="row">
-        <div *ngFor="let item of Dreclamos " class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3 " name="fieldName"
-          ngDefaultControl>
 
-          <div #tarjeta class="card shadow-lg p-3 mb-5 rounded border border-3 card__reclamo ">
+  <div class="container-fluid">
 
-            <!-- shadow-lg p-3 mb-5 rounded border border-3 -->
-            <img loading="lazy" class="card-img-top fotoReclamo" alt="Foto" [src]="item.foto">
-            <div class="card-body tarjeta--informacion">
+    <div class="row">
+      <div *ngFor="let item of Dreclamos "
+        class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3 animate__animated animate__fadeIn" name="fieldName"
+        ngDefaultControl>
 
-              <p><i class="far fa-user"></i><span class="span-text"> Usuario: </span>{{item.nick}}</p>
-              <p><i class="far fa-bookmark"></i> <span class="span-text"> Nrº Reclamo: </span>{{item.iD_Reclamo}} </p>
-              <p><i class="far fa-bookmark"></i> <span class="span-text"> Estado: </span>{{item.nombre}}</p>
-              <p><i class="far fa-bookmark"></i><span class="span-text"> Reclamo: </span>{{item.nombreRecAmbiental}}</p>
-              <p><i class="far fa-bookmark"></i><span class="span-text"> Tipo:</span> {{item.nombreTRec}}</p>
-              <p><i class="far fa-comment-dots"></i><span class="span-text"> Descripción: </span>{{item.descripcion}}
-              </p>
-              <p><i class="far fa-calendar-alt"></i><span class="span-text"> Fecha: </span>{{item.fecha}}</p>
-              <p><i class="far fa-clock"></i><span class="span-text"> Hora: </span>{{item.hora}}</p>
-              <p *ngIf="item.dominio!='' " class="card-text"><i class="fas fa-car"></i> <span class="span-text">
-                  Dominio:</span>{{item.dominio}}</p>
-              <p><i class="fas fa-map-signs"></i><span class="span-text"> Dirección: </span>{{item.direccion}} </p>
-              <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p>
-            </div> <!-- .tarjeta--informacion -->
+        <div #tarjeta class="card shadow-lg p-3 mb-5 rounded border border-3 card__reclamo ">
 
-            <div class="container botones--informacion">
-              <div class="row">
-                <div class="col col-sm-2 col-md-3">    
+          <!-- shadow-lg p-3 mb-5 rounded border border-3 -->
+          <img loading="lazy" class="card-img-top fotoReclamo" alt="Foto" [src]="item.foto">
+          <div class="card-body tarjeta--informacion">
 
-                  <button type="button" class="btn btn-primary" (click)="verMapa(item.longitud, item.latitud, item.direccion)"  value="{{item.longitud}},{{item.latitud}},{{item.direccion}}" data-bs-toggle="modal" data-bs-target="#mapaModal">
-                    <i class="bi bi-map"></i>
-                  </button>
-                </div>
+            <p><i class="far fa-user"></i><span class="span-text"> Usuario: </span>{{item.nick}}</p>
+            <p><i class="far fa-bookmark"></i> <span class="span-text"> Nrº Reclamo: </span>{{item.iD_Reclamo}} </p>
+            <p><i class="far fa-bookmark"></i> <span class="span-text"> Estado: </span>{{item.nombre}}</p>
+            <p><i class="far fa-bookmark"></i><span class="span-text"> Reclamo: </span>{{item.nombreRecAmbiental}}</p>
+            <p><i class="far fa-bookmark"></i><span class="span-text"> Tipo:</span> {{item.nombreTRec}}</p>
+            <p><i class="far fa-comment-dots"></i><span class="span-text"> Descripción: </span>{{item.descripcion}}
+            </p>
+            <p><i class="far fa-calendar-alt"></i><span class="span-text"> Fecha: </span>{{item.fecha}}</p>
+            <p><i class="far fa-clock"></i><span class="span-text"> Hora: </span>{{item.hora}}</p>
+            <p *ngIf="item.dominio!='' " class="card-text"><i class="fas fa-car"></i> <span class="span-text">
+                Dominio:</span>{{item.dominio}}</p>
+            <p><i class="fas fa-map-signs"></i><span class="span-text"> Dirección: </span>{{item.direccion}} </p>
+            <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p>
+          </div> <!-- .tarjeta--informacion -->
 
-                <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)"
-                  class="col col-sm-2  col-md-3">
-                  <!-- col-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 -->
-                  <!-- 1 admin 2 empleado 3 usuario -->
-                  <button type="button" class="btn btn-outline-primary " data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"><i
-                      class="bi bi-pencil-square"></i>
-                    <!-- item.nombre,item.idTipoRec,item.idRecAmb,item.nombreRecAmbiental,item.nombreTRec,item.descripcion,item.fecha,item.hora,item.direccion,item.altura -->
-                  </button> <!-- routerLink="/main-nav/historial/reclamos" -->
-                </div>
+          <div class="container botones--informacion">
+            <div class="row">
+              <div class="col col-sm-2 col-md-3">
 
-                <div class="col col-sm-2 col-md-4  "> <!-- col-3 col-md-3 col-lg-3 col-xl-6 col-xxl-3 -->
-                  <button type="button" class="btn btn-outline-danger d-inline-block " data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Cancelar Reclamo"><i class="bi bi-trash3-fill"></i>
-                  </button>
-                </div>
-
+                <button type="button" class="btn btn-primary"
+                  (click)="verMapa(item.longitud, item.latitud, item.direccion)"
+                  value="{{item.longitud}},{{item.latitud}},{{item.direccion}}" data-bs-toggle="modal"
+                  data-bs-target="#mapaModal">
+                  <i class="bi bi-map"></i>
+                </button>
               </div>
 
-            </div> <!-- botones -->
-          </div> <!-- card -->
+              <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)"
+                class="col col-sm-2  col-md-3">
+                <!-- col-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 -->
+                <!-- 1 admin 2 empleado 3 usuario -->
+                <button type="button" class="btn btn-outline-primary " data-bs-toggle="tooltip" data-bs-placement="top"
+                  title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"><i
+                    class="bi bi-pencil-square"></i>
+                  <!-- item.nombre,item.idTipoRec,item.idRecAmb,item.nombreRecAmbiental,item.nombreTRec,item.descripcion,item.fecha,item.hora,item.direccion,item.altura -->
+                </button> <!-- routerLink="/main-nav/historial/reclamos" -->
+              </div>
 
-        </div><!-- columna -->
+              <div class="col col-sm-2 col-md-4  "> <!-- col-3 col-md-3 col-lg-3 col-xl-6 col-xxl-3 -->
+                <button type="button" class="btn btn-outline-danger d-inline-block " data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="Cancelar Reclamo"><i class="bi bi-trash3-fill"></i>
+                </button>
+              </div>
 
-      </div><!-- row - fila de tarjeta-->
-    </div><!-- container fluid -->
+            </div>
 
-    <!-- fondo de las tarjetas -->
+          </div> <!-- botones -->
+        </div> <!-- card -->
 
-  </form> <!-- formulario -->
-  <!-- Button trigger modal -->
+      </div><!-- columna -->
 
- 
+    </div><!-- row - fila de tarjeta-->
+  </div><!-- container fluid -->
 
+  <!-- fondo de las tarjetas -->
 
-
-
-
-  
-  
- 
-
-
-
-
-
-
-
+</form> <!-- formulario -->
+<!-- Button trigger modal -->
