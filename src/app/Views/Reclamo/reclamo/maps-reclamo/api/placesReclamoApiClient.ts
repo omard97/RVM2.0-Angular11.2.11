@@ -26,7 +26,7 @@ export class PlacesReclamoApiClient extends HttpClient {
 
         return super.get<T>(url, {
             params: {
-                limit: 5,
+                limit: 3,
                 language: 'es',
                 access_token: environment.apiKey,
                 ...options.params
