@@ -1,18 +1,18 @@
-<div *ngIf="isLoadingPlaces" class=" alert alert-primary mt-2 text-center">
+<div *ngIf="isLoadingPlaces" class=" alert alert-primary mt-2 text-center animate__animated animate__fadeIn">
     <h6>Cargando <div class="spinner-border text-primary spinner-border-sm" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">Cargando Ubicaciones...</span>
         </div>
     </h6>
     <span>Espere por favor...</span>
 </div>
-<ul *ngIf="places.length >0" class="list-group mt-2 listaResultado" >
+<ul *ngIf="places.length >0" class="list-group mt-2 listaResultado animate__animated animate__fadeIn" >
 
-    <li *ngFor=" let places of places" (click)="flyTo(places)" [class.active]="places.id === selectedId" class="list-group-item list-group-item-action pointer">
+    <li *ngFor=" let places of places" (click)="flyTo(places)" [class.active]="places.id === selectedId" class="list-group-item list-group-item-action pointer  animate__animated animate__fadeIn">
         <h6>{{places.text_es}}</h6>
         <p>{{places.place_name}}</p>
-        <button class="btn btn-sm" [ngClass]="(places.id === selectedId) ? 'btn-primary': 'btn-outline-primary'">
+        <!-- <button class="btn btn-sm" [ngClass]="(places.id === selectedId) ? 'btn-primary': 'btn-outline-primary'">
             Direcciones
-        </button>
+        </button> -->
     </li>
 
 </ul>
