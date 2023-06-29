@@ -5,7 +5,8 @@
         <mat-nav-list class="menu__ancho"><!-- button-menu -->
             <div class="container">
                 <div class="row flex-nowrap nav__menu--color ">
-                    <div class=" d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <div
+                        class=" d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                         <!-- d-flex -->
                         <a routerLink="menu"
                             class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -13,39 +14,43 @@
                         </a>
                         <ul class="nav nav-pills flex-column mb-sm-auto col-12 align-items-center align-items-sm-start"
                             id="menu">
-                         
-                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="dashboard" routerLinkActive="active">
+
+                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="dashboard"
+                                routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info">
                                     <!-- data-bs-toggle="collapse" -->
                                     <i class="fs-4 bi-speedometer2"></i> <span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Dashboard</span>
                                 </a>
-                          
+
                             </li>
 
-                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="reclamo" routerLinkActive="active">
+                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="reclamo"
+                                routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info ">
                                     <i class="bi bi-journal-text"></i><span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Reclamo</span>
                                 </a>
 
                             </li>
-                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="historial" routerLinkActive="active">
+                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="historial"
+                                routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info ">
                                     <i class="bi bi-calendar3" style="margin-right: 0;"></i><span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Historial</span>
                                 </a>
                             </li>
 
-                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="mapa" routerLinkActive="active">
+                            <li class="boton__nav animate__animated animate__fadeInLeft" routerLink="mapa"
+                                routerLinkActive="active">
                                 <a class="nav-link px-0 align-middle boton__nav--info">
                                     <i class="bi bi-geo-alt"></i> <span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Mapas</span></a>
                             </li>
-                            
-                            
+
+
                         </ul>
-                        
+
 
                         <div class="contenedor__botonPerfil animate__animated animate__fadeInUp">
 
@@ -59,7 +64,8 @@
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow menu__usuario animate__animated animate__fadeIn"
                                     aria-labelledby="dropdownUser1">
 
-                                    <li *ngIf="this.usuario.idRol!=3"><a class="dropdown-item" routerLink="./configuracion"><i
+                                    <li *ngIf="this.usuario.idRol!=3"><a class="dropdown-item"
+                                            routerLink="./configuracion"><i
                                                 class="bi bi-gear-fill icono__config"></i>Configuración</a></li>
                                     <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#registroModal"
                                             (click)="getDatosPerfil()"><i
@@ -84,8 +90,8 @@
 
         <!-- Button trigger modal -->
 
-  
- 
+
+
     </mat-sidenav>
     <!-- boton desplieque menu -->
     <mat-sidenav-content class="mat-sidenav-contenedor">
@@ -101,37 +107,35 @@
 
         </div>
 
-        
+
     </mat-sidenav-content>
 </mat-sidenav-container>
 
 <!-- Modal utilizado para visualizar la ubicacion de donde se hizo el reclamo -->
-<div class="modal fade " id="mapaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mapaModalLabel" aria-hidden="true">
+<div class="modal fade " id="mapaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="mapaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1  class="modal-title fs-5" id="mapaModalLabel">{{direccion}}</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        
-        <div class="modal-body">
-           
-          <div #mapaDiv class="mapa-container rounded" >
-       
-        </div>
-        
-        </div>
-        <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button> -->
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="mapaModalLabel">{{direccion}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
- 
+            <div class="modal-body">
+
+                <div #mapaDiv class="mapa-container rounded">
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <!-- Modal registro usaurio -->
 <div class="modal fade" id="registroModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -342,4 +346,3 @@
     </div>
 
 </div> <!-- modal -->
-
