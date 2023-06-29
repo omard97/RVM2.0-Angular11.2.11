@@ -13,7 +13,7 @@
         <div class="well well-sm">
             <form class="form-horizontal" method="post">
                 <fieldset>
-                    <div class="row animate__animated animate__fadeInDown" style="margin: 0 auto">
+                    <div class="row animate__animated animate__fadeIn" style="margin: 0 auto">
                         <div class="col-md-5">
 
                             <!-- Tipo Reclamo -->
@@ -378,7 +378,7 @@
                             </div>
                             <div *ngIf="banderaVerMapa=='editar'" class="col-12  ">
                                 <div #mapDiv class="map-container rounded" >
-                                    
+                                    <app-busqueda-lugares-reclamo></app-busqueda-lugares-reclamo>
                                 </div>
                             </div>
                         </div>
@@ -433,7 +433,7 @@
 
 
 
-                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInLeft  " *ngIf="banderaEdicionReclamo==false"> <!--text-center d-inline-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 botones -->
+                        <div class=" col-12 col-sm-4 animate__animated  animate__fadeInUp" *ngIf="banderaEdicionReclamo==false"> <!--text-center d-inline-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 botones -->
 
                             <button type="button" class="btn btn-success botones " [disabled]="( (tipoReclamoCtrl.invalid && (reclamoAmbientalCtrl.invalid && marcaAutoCtrl.invalid && dominioCtrl.invalid)) || fechaCtrl.invalid || horaCtrl.invalid || ubicacionCtrl.invalid || urlFotoCtrl.invalid ||  descripcionCtrl.invalid)" (click)="registrarReclamo()" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Enviar Reclamo"> <!--  || alturaCtrl.invalid -->
@@ -443,7 +443,7 @@
                         </div>
 
 
-                        <div class="col-12 col-sm-4 animate__animated animate__fadeInLeft "  *ngIf="banderaEdicionReclamo==true"><!-- true -->
+                        <div class="col-12 col-sm-4 animate__animated animate__fadeInUp"  *ngIf="banderaEdicionReclamo==true"><!-- true -->
 
                             <button type="button" class="btn btn-outline-success botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Actualizar Reclamo"
@@ -452,7 +452,7 @@
                         </div>
 
 
-                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInUp ">
+                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInUp">
                             <button type="button" class="btn btn-outline-danger botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Cancelar Reclamo" (click)="limpiarPantalla()"><i
                                     class="fas fa-times fa-lg"></i>
@@ -460,7 +460,7 @@
                         </div>
 
 
-                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInRight "> 
+                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInUp"> 
                             <button type="button" class="btn btn-outline-primary botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Regresar al Historial" (click)='regresarHistorial()'><i
                                     class="fas fa-undo"></i> Mi
