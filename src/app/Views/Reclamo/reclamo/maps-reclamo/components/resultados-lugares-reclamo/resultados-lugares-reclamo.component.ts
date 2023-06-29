@@ -35,6 +35,8 @@ export class ResultadosLugaresReclamoComponent implements OnInit {
     this.reclamoService.almacenarUbicacion(lng,lat); /* se lo envio al componente reclamo para luego poder guardar la ubicacion en el mapa */
     this.mapReclamoService.flyTo([lng , lat])
     
+    this.placesReclamoService.ocultarListaResultados();
+
   }
 
 }

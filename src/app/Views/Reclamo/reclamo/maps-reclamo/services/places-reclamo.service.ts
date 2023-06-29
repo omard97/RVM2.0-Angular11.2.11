@@ -69,4 +69,8 @@ export class PlacesReclamoService {
         this.mapReclamoService.createMarkersFromPlaces(this.places);
       });
   }
+
+  ocultarListaResultados(){
+    this.places = [];
+  }
 }
