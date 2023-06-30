@@ -1,10 +1,57 @@
 <div class="container-fluid shadow-lg p-3 mb-5 rounded border border-2 contenedorPrincipal">
 
-    <div class="row borde animate__animated animate__fadeInDown">
+    <div class="row borde  animate__animated animate__fadeInDown">
         <div class="col-12">
             <h2 id="tituloComponente" *ngIf="banderaEdicionReclamo==false">Nuevo Reclamo</h2>
             <h2 id="tituloComponente" *ngIf="banderaEdicionReclamo==true"> Actualizar Reclamo</h2>
         </div>
+    </div>
+
+    <div class="  animate__animated animate__fadeIn" *ngFor="let item of arregloDetalleReclamo">
+
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100">
+                    <table>
+                        <thead>
+                            <tr class="table100-head">
+                                <!-- <th class="column1">Altura</th> -->
+                                <th class="column2">Descripción</th>
+                                <th class="column3">Dirección</th>
+                                <th class="column4">Dominio</th>
+                                <th class="column5">Fecha</th>
+                                <th class="column6">Foto</th>
+                                <th class="column7">Hora</th>
+                                <th class="column8">Motivo</th>
+                                <th class="column9">Marca</th>
+                                <th class="column10">Modelo</th>
+                                <th class="column11">Tipo Reclamo </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <!-- <td class="column1">{{item.altura}} </td> -->
+                                <td class="column2">{{item.descripcion}}</td>
+                                <td class="column3">{{item.direccion}}</td>
+                                <td  class="column4">{{item.dominio}}</td>
+                                <td class="column5">{{item.fecha}} </td>
+                                <td class="column6"><img class="rounded-3" src="{{item.foto}}" alt="Foto"
+                                        style="width: 150px; height: 100px;"></td>
+                                <td class="column7">{{item.hora}}</td>
+                                <td class="column8">{{item.nombreRecAmbiental}}</td>
+                                <td class="column9">{{item.nombreMarca}}</td>
+                                <td class="column10">{{item.nombreModelo}}</td>
+                                <td class="column11">{{item.nombreTRec}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!--.container-table100 -->
+
+        
+
     </div>
 
 
@@ -234,8 +281,9 @@
 
                                 <span class="input-group-text" id="addon-wrapping"><i
                                         class="bi bi-geo-alt icono__input"></i></span>
-                                <input id="Ubicacion" name="phone" type="text" placeholder="Calle y Altura" class="form-control "
-                                    [formControl]="ubicacionCtrl"  #txtQuery (keyup)="onQueryChanged(txtQuery.value)">
+                                <input id="Ubicacion" name="phone" type="text" placeholder="Calle y Altura"
+                                    class="form-control " [formControl]="ubicacionCtrl" #txtQuery
+                                    (keyup)="onQueryChanged(txtQuery.value)">
 
                             </div>
 
@@ -251,7 +299,7 @@
                                 </div>
                             </div> -->
 
-                          <!--   <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
+                            <!--   <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Tipo De Reclamo">
                                 <span class="input-group-text" id="addon-wrapping"><i
                                         class="bi bi-sort-numeric-up-alt icono__input"></i></span>
@@ -377,7 +425,7 @@
                                 <app-map-screen-reclamo></app-map-screen-reclamo>
                             </div>
                             <div *ngIf="banderaVerMapa=='editar'" class="col-12  ">
-                                <div #mapDiv class="map-container rounded" >
+                                <div #mapDiv class="map-container rounded">
                                     <app-busqueda-lugares-reclamo></app-busqueda-lugares-reclamo>
                                 </div>
                             </div>
@@ -386,64 +434,28 @@
                     </div>
 
                     <!-- Descripcion del reclamo a editar / solo aparece cuando vamos del historial hacia el reclamo -->
-                    <div class="container-fluid  rounded border border-2 contenedorMiReclamo animate__animated animate__fadeInLeft"
-                        *ngFor="let item of arregloDetalleReclamo" style="text-align: center;">
 
-                        <h3>Mi Reclamo</h3>
-                        <table class="table table-striped table-bordered border-dark table-responsive">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Tipo Reclamo</th>
-                                    <th scope="col">Motivo Del Reclamo {{item.nombreTRec}}</th>
-
-                                    <th scope="col">Dominio</th>
-                                    <th scope="col">Modelo</th>
-                                    <th scope="col">Marca Auto</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Hora</th>
-                                    <th scope="col">Direccion 
-                                        
-                                    </th>
-                                    <th scope="col">Altura</th>
-                                    <th scope="col">Descripción</th>
-                                    <th scope="col">Foto</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{item.nombreTRec}}</td>
-                                    <td>{{item.nombreRecAmbiental}}</td>
-                                    <td>{{item.dominio}}</td>
-                                    <td>{{item.nombreModelo}}</td>
-                                    <td>{{item.nombreMarca}}</td>
-                                    <td>{{item.fecha}}</td>
-                                    <td>{{item.hora}}</td>
-                                    <td>{{item.direccion}}</td>
-                                    <td>{{item.altura}}</td>
-                                    <td>{{item.descripcion}}</td>
-                                    <td><img class="rounded-3" src="{{item.foto}}" alt="Foto"
-                                            style="width: 150px; height: 100px;"></td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
 
                     <div class="row">
 
 
 
-                        <div class=" col-12 col-sm-4 animate__animated  animate__fadeInUp" *ngIf="banderaEdicionReclamo==false"> <!--text-center d-inline-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 botones -->
+                        <div class=" col-12 col-sm-4 animate__animated  animate__fadeInUp"
+                            *ngIf="banderaEdicionReclamo==false">
+                            <!--text-center d-inline-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 botones -->
 
-                            <button type="button" class="btn btn-success botones " [disabled]="( (tipoReclamoCtrl.invalid && (reclamoAmbientalCtrl.invalid && marcaAutoCtrl.invalid && dominioCtrl.invalid)) || fechaCtrl.invalid || horaCtrl.invalid || ubicacionCtrl.invalid || urlFotoCtrl.invalid ||  descripcionCtrl.invalid)" (click)="registrarReclamo()" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="Enviar Reclamo"> <!--  || alturaCtrl.invalid -->
+                            <button type="button" class="btn btn-success botones "
+                                [disabled]="( (tipoReclamoCtrl.invalid && (reclamoAmbientalCtrl.invalid && marcaAutoCtrl.invalid && dominioCtrl.invalid)) || fechaCtrl.invalid || horaCtrl.invalid || ubicacionCtrl.invalid || urlFotoCtrl.invalid ||  descripcionCtrl.invalid)"
+                                (click)="registrarReclamo()" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Enviar Reclamo"> <!--  || alturaCtrl.invalid -->
                                 <i class="far fa-check-circle fa-lg"></i>Enviar
 
                             </button>
                         </div>
 
 
-                        <div class="col-12 col-sm-4 animate__animated animate__fadeInUp"  *ngIf="banderaEdicionReclamo==true"><!-- true -->
+                        <div class="col-12 col-sm-4 animate__animated animate__fadeInUp"
+                            *ngIf="banderaEdicionReclamo==true"><!-- true -->
 
                             <button type="button" class="btn btn-outline-success botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Actualizar Reclamo"
@@ -460,7 +472,7 @@
                         </div>
 
 
-                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInUp"> 
+                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInUp">
                             <button type="button" class="btn btn-outline-primary botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Regresar al Historial" (click)='regresarHistorial()'><i
                                     class="fas fa-undo"></i> Mi
@@ -545,3 +557,38 @@
     </script> -->
 
 </div>
+
+<!--     <table class="table table-striped table-bordered border-dark table-responsive">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tipo Reclamo</th>
+                                    <th scope="col">Motivo Del Reclamo {{item.nombreTRec}}</th>
+                                    <th scope="col">Dominio</th>
+                                    <th scope="col">Modelo</th>
+                                    <th scope="col">Marca Auto</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Direccion</th>
+                                    <th scope="col">Altura</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Foto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{item.nombreTRec}}</td>
+                                    <td>{{item.nombreRecAmbiental}}</td>
+                                    <td>{{item.dominio}}</td>
+                                    <td>{{item.nombreModelo}}</td>
+                                    <td>{{item.nombreMarca}}</td>
+                                    <td>{{item.fecha}}</td>
+                                    <td>{{item.hora}}</td>
+                                    <td>{{item.direccion}}</td>
+                                    <td>{{item.altura}}</td>
+                                    <td>{{item.descripcion}}</td>
+                                    <td><img class="rounded-3" src="{{item.foto}}" alt="Foto"
+                                            style="width: 150px; height: 100px;"></td>
+                                </tr>
+
+                            </tbody>
+                        </table> -->
