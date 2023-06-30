@@ -589,7 +589,7 @@ ambiental */
     
     var putDescripcion: any;
     var putUbicacion: any;
-    var putAltura: any;
+    /* var putAltura: any; */ /* no se usa, la altura se agrega en la descripcion */
     var putDominio: any;
     var putID_ReclamoAmbiental: any;
 
@@ -613,12 +613,12 @@ ambiental */
     if (this.ubicacionCtrl.value != '') {
       putUbicacion = this.ubicacionCtrl.value + '';
     }
-    if (this.alturaCtrl.value == '') {
+    /* if (this.alturaCtrl.value == '') {
       putAltura = this.arregloDetalleReclamo[0].altura;
     }
     if (this.alturaCtrl.value != '') {
       putAltura = this.alturaCtrl.value + '';
-    }
+    } */
     if (this.dominioCtrl.value == '') {
       putDominio = this.arregloDetalleReclamo[0].dominio;
     }
@@ -630,13 +630,14 @@ ambiental */
       IDDetalleReclamo: Number(this.arregloDetalleReclamo[0].idDetalleReclamo),
       descripcion: String(putDescripcion),
       direccion: String(putUbicacion),
-      altura: Number(putAltura),
+      altura: 0,
       dominio: String(putDominio),
       ID_ReclamoAmbiental: Number(putID_ReclamoAmbiental),
       ID_Reclamo: Number(this.arregloDetalleReclamo[0].iD_Reclamo),
       longitud: this.ubicacionReclamo.longitud+ '',
       latitud: this.ubicacionReclamo.latitud+ ''
     };
+    debugger
     
     this.service.putActualizarDetalleReclamo(detalleReclamo).subscribe(
       (data) => {
