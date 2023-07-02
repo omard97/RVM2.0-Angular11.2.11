@@ -103,6 +103,45 @@
   <small class="justify-content-center textoIcono">{{mensajeCarga}}</small>
 </div>
 
+<div class="container-table100 ">
+  <div class="wrap-table100">
+      <div class="table100">
+          <table *ngIf="Dreclamos.length!=0" class=" animate__animated animate__fadeIn">
+              <thead>
+                  <tr class="table100-head">
+                      
+                      <th class="column1">Nº Reclamo</th>
+                      <th class="column2">Estado</th>
+                      <th class="column3">Fecha</th>
+                      <th class="column4">Reclamo</th>
+                      <th class="column5">Tipo</th>
+                      <th class="column6"> </th>
+                     
+                  </tr>
+              </thead>
+              <tbody *ngFor="let item of Dreclamos; let i = index "  >
+                  <tr [ngClass]="i % 2 === 0 ? 'white-row' : 'grey-row'">
+                    
+                      <td class="column1">{{item.iD_Reclamo}}</td>
+                      <td class="column2">{{item.nombre}}</td>
+                      <td  class="column3">{{item.fecha}}</td>
+                      <td class="column4">{{item.nombreRecAmbiental}}</td>
+                      <td class="column5">{{item.nombreTRec}}</td>
+                      <td class="column6">botones</td>
+                 
+                  </tr>
+              
+                  
+
+             
+
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div><!--.container-table100 -->
+
+
 <form action="" [formControl]="formTarjetas">
 
 

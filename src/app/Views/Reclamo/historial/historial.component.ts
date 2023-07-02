@@ -15,6 +15,7 @@ import { MapReclamoService } from '../reclamo/maps-reclamo/services';
 import { MenuComponent } from '../../Estructura/menu/menu.component';
 
 
+
 @Component({
   selector: 'app-historial',
   templateUrl: './historial.component.html',
@@ -396,6 +397,7 @@ export class HistorialComponent implements OnInit {
             (res) => {
               this.formTarjetas.reset();
               delete this.Dreclamos;
+              debugger
               this.banderaIconoCarga =false; /* No se visualiza */
               this.banderaAlerta=false;/* No se visualiza */
               this.Dreclamos = res;
