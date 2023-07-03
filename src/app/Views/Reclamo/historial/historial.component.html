@@ -84,78 +84,120 @@
         </div>
 
       </div>
+      
 
     </div> <!-- row -->
 
   </div> <!-- .busquedaFiltros -->
 
+  <div class="form-check form-switch input__switch">
+    <input class="form-check-input" (click)="vistaSwitchReclamos()" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+    <label class="form-check-label" for="flexSwitchCheckDefault">Historial Completo / Resumen</label>
+  </div>
+  
+
 </form>
 
-<div *ngIf="banderaIconoCarga==true" id="" class="d-flex justify-content-center IcoCarga animate__animated animate__fadeIn">
+<div *ngIf="banderaIconoCarga==true" id=""
+  class="d-flex justify-content-center IcoCarga animate__animated animate__fadeIn">
   <div class="spinner-border text-primary" role="status">
     <span class="sr-only">Loading...</span>
   </div>
   <small class="justify-content-center textoIcono">Cargando Historial...</small>
 </div>
 
-<div *ngIf="banderaAlerta==true" id="" class="d-flex justify-content-center icoMensaje animate__animated animate__fadeIn">
+<div *ngIf="banderaAlerta==true" id=""
+  class="d-flex justify-content-center icoMensaje animate__animated animate__fadeIn">
   <i class="fa-solid fa-circle-exclamation fa-2x"></i>
   <small class="justify-content-center textoIcono">{{mensajeCarga}}</small>
 </div>
 
-<div class="container-table100 ">
+<div *ngIf="banderaVistaHistorial==true" class="container-table100 ">
   <div class="wrap-table100">
-      <div class="table100">
-          <table *ngIf="Dreclamos.length!=0" class=" animate__animated animate__fadeIn">
-              <thead>
-                  <tr class="table100-head">
-                      
-                      <th class="column1">Nº Reclamo</th>
-                      <th class="column2">Estado</th>
-                      <th class="column3">Fecha</th>
-                      <th class="column4">Reclamo</th>
-                      <th class="column5">Tipo</th>
-                      <th class="column6"> </th>
-                     
-                  </tr>
-              </thead>
-              <tbody *ngFor="let item of Dreclamos; let i = index "  >
-                  <tr [ngClass]="i % 2 === 0 ? 'white-row' : 'grey-row'">
-                    
-                      <td class="column1">{{item.iD_Reclamo}}</td>
-                      <td class="column2">{{item.nombre}}</td>
-                      <td  class="column3">{{item.fecha}}</td>
-                      <td class="column4">{{item.nombreRecAmbiental}}</td>
-                      <td class="column5">{{item.nombreTRec}}</td>
-                      <td class="column6">botones</td>
-                 
-                  </tr>
-              
-                  
+    <div class="table100">
+      <table *ngIf="Dreclamos.length!=0" class=" animate__animated animate__fadeIn">
+        <thead>
+          <tr class="table100-head">
 
-             
+            <th class="column1">Nº Reclamo</th>
+            <th class="column2">Estado</th>
+            <th class="column3">Fecha</th>
+            <th class="column4">Reclamo</th>
+            <th class="column5">Tipo</th>
+            <th class="column6"> </th>
 
-              </tbody>
-          </table>
-      </div>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of Dreclamos; let i = index ">
+          <tr [ngClass]="i % 2 === 0 ? 'white-row' : 'grey-row'">
+
+            <td class="column1">{{item.iD_Reclamo}}</td>
+            <td class="column2">{{item.nombre}}</td>
+            <td class="column3">{{item.fecha}}</td>
+            <td class="column4">{{item.nombreRecAmbiental}}</td>
+            <td class="column5">{{item.nombreTRec}}</td>
+            <td class="column6">
+              <div class="container d-flex justify-content-start">
+                <div class="row">
+                  <div class="col col-sm-2 col-md-3">
+
+                    <button type="button" class="btn btn-primary"
+                      (click)="verMapa(item.longitud, item.latitud, item.direccion)"
+                      value="{{item.longitud}},{{item.latitud}},{{item.direccion}}" data-bs-toggle="modal"
+                      data-bs-target="#mapaModal">
+                      <i class="bi bi-geo-alt-fill"></i>
+                    </button>
+                  </div>
+
+                  <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)"
+                    class="col col-sm-2  col-md-3">
+                    <!-- col-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 -->
+                    <!-- 1 admin 2 empleado 3 usuario -->
+                    <button type="button" class="btn btn-outline-primary " data-bs-toggle="tooltip"
+                      data-bs-placement="top" title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"><i
+                        class="bi bi-pencil-square"></i>
+                      <!-- item.nombre,item.idTipoRec,item.idRecAmb,item.nombreRecAmbiental,item.nombreTRec,item.descripcion,item.fecha,item.hora,item.direccion,item.altura -->
+                    </button> <!-- routerLink="/main-nav/historial/reclamos" -->
+                  </div>
+
+                  <div class="col col-sm-2 col-md-4  "> <!-- col-3 col-md-3 col-lg-3 col-xl-6 col-xxl-3 -->
+                    <button type="button" class="btn btn-outline-danger d-inline-block " data-bs-toggle="tooltip"
+                      data-bs-placement="top" title="Cancelar Reclamo"><i class="bi bi-trash3-fill"></i>
+                    </button>
+                  </div>
+
+                </div>
+
+              </div> <!-- botones -->
+            </td>
+
+          </tr>
+
+
+
+
+
+        </tbody>
+      </table>
+    </div>
   </div>
 </div><!--.container-table100 -->
 
 
-<form action="" [formControl]="formTarjetas">
+<form  action="" [formControl]="formTarjetas" >
 
 
-  <div class="container-fluid">
+  <div *ngIf="banderaVistaHistorial!=true"  class="container-fluid">
 
     <div class="row">
-      <div *ngFor="let item of Dreclamos "
-        class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3 animate__animated animate__fadeIn" name="fieldName"
+      <div   *ngFor="let item of Dreclamos "
+        class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 animate__animated animate__fadeIn" name="fieldName"
         ngDefaultControl>
 
-        <div #tarjeta class="card shadow-lg p-3 mb-5 rounded border border-3 card__reclamo ">
+        <div #tarjeta class="card shadow-lg rounded border border-3 card__reclamo "> <!-- card -->
 
           <!-- shadow-lg p-3 mb-5 rounded border border-3 -->
-          <img loading="lazy" class="card-img-top fotoReclamo" alt="Foto" [src]="item.foto">
+          <img loading="lazy" class="card-img-top " alt="Foto" [src]="item.foto">
           <div class="card-body tarjeta--informacion">
 
             <p><i class="far fa-user"></i><span class="span-text"> Usuario: </span>{{item.nick}}</p>
@@ -167,13 +209,13 @@
             </p>
             <p><i class="far fa-calendar-alt"></i><span class="span-text"> Fecha: </span>{{item.fecha}}</p>
             <p><i class="far fa-clock"></i><span class="span-text"> Hora: </span>{{item.hora}}</p>
-            <p *ngIf="item.dominio!='' " class="card-text"><i class="fas fa-car"></i> <span class="span-text">
+            <p *ngIf="(item.dominio!='-' || item.dominio!='') " class="card-text"><i class="fas fa-car"></i> <span class="span-text">
                 Dominio:</span>{{item.dominio}}</p>
             <p><i class="fas fa-map-signs"></i><span class="span-text"> Dirección: </span>{{item.direccion}} </p>
             <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p>
           </div> <!-- .tarjeta--informacion -->
 
-          <div class="container botones--informacion">
+          <div class="container botones--informacion ">
             <div class="row">
               <div class="col col-sm-2 col-md-3">
 
@@ -181,7 +223,7 @@
                   (click)="verMapa(item.longitud, item.latitud, item.direccion)"
                   value="{{item.longitud}},{{item.latitud}},{{item.direccion}}" data-bs-toggle="modal"
                   data-bs-target="#mapaModal">
-                  <i class="bi bi-map"></i>
+                  <i class="bi bi-geo-fill"></i>
                 </button>
               </div>
 
