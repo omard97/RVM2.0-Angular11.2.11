@@ -1,4 +1,3 @@
-
 <!-- <Div class="contenedorReporte zoom">
   <iframe  src="https://app.powerbi.com/reportEmbed?reportId=8cf37a37-a3b3-4bb8-9c04-801a07cbd95f&autoAuth=true&ctid=9c230c21-e33c-4189-8f00-98e6c371204e&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1iLXByaW1hcnktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQvIn0%3D" frameborder="0" allowFullScreen="true"></iframe>
 </Div> -->
@@ -6,142 +5,111 @@
 
 <div class="container-fluid">
 
-    <div class="row">
-      <div class="col-12 dashboard__tarjetas">
-      
-       <!--  <div class="row borde ">
+  <div class="row">
+    <div class="col-12 dashboard__tarjetas  animate__animated animate__fadeIn">
+
+      <!--  <div class="row borde ">
           <div class="col-12 Centrado ">   
             <h5>Cantidad de Reclamos</h5>
           </div>
         </div> -->
-  
-        <div class="row">
-  
-          <div class="col-12  rounded rounded-4 contenedor__estilo " >   
-            <ngx-charts-number-card class="shadow-lg rounded rounded-4 " [scheme]="colorScheme" [results]="recuentoTarjeta" [cardColor]="cardColor"
-             [animations]="animationTarjeta" [animationTarjeta]="fitContainerBarra" 
-            (select)="onSelect($event)">
+
+      <div class="row">
+
+        <div class="col-12  rounded rounded-4 contenedor__estilo ">
+          <ngx-charts-number-card class="shadow-lg rounded rounded-4 " [scheme]="colorScheme"
+            [results]="recuentoTarjeta" [cardColor]="cardColor" [animations]="animationTarjeta"
+            [animationTarjeta]="fitContainerBarra" (select)="onSelect($event)">
           </ngx-charts-number-card>
-          </div>
         </div>
-  
-       
       </div>
-  
-    </div> <!-- row 1 -->
-
-    
-      
-        <div class="row  rounded rounded-4 row_2" >
-          
-          <div class="col-12  col-lg-3  dashboard__tiposReclamos " >
-            
-            <ngx-charts-bar-vertical class=" "
-              [fitContainerBarra]="fitContainerBarra"
-              [colorSchemeBarra]="colorSchemeBarra"
-              [results]="arregloTipoReclamos"
-              [gradient]="gradient"
-              [xAxis]="showXAxis"
-              [yAxis]="showYAxis"
-              [legend]="showLegendBarra"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="xAxisLabel"
-              [yAxisLabel]="yAxisLabel"
-              
-            
-              (select)="onSelect($event)">
-            </ngx-charts-bar-vertical>
-          </div>
-          <div class="col-12  col-lg-9  dashboard__tiposReclamos " >
-            
-            <ngx-charts-bar-vertical class=""
-              [fitContainerBarra]="fitContainerBarra"
-              scheme="flame"
-              [results]="arregloReclamosAmbientales"
-              [gradient]="gradient"
-              [xAxis]="showXAxis"
-              [yAxis]="showYAxis"
-              [legend]="showLegendBarra"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="xAxisLabelAmbiental"
-              [yAxisLabel]="yAxisLabelAmbiental"
-              [rotateXAxisTicks]="rotateXAxisTicks"
-              
-            
-              (select)="onSelect($event)">
-            </ngx-charts-bar-vertical>
-          </div>
-
-        </div> <!-- row 2 -->
 
 
-        <div class="row rounded rounded-4 shadow-lg " >
-          <!-- <div class="col-12 col-sm-12 col-md-5 col-lg-3  dashboard__tiposReclamos " >
+    </div>
+
+  </div> <!-- row 1 -->
+
+
+
+  <div class="row  rounded rounded-4 row_2  animate__animated animate__fadeIn">
+
+    <div class="col-12  col-lg-3  dashboard__tiposReclamos ">
+
+      <ngx-charts-bar-vertical class=" " [fitContainerBarra]="fitContainerBarra" [colorSchemeBarra]="colorSchemeBarra"
+        [results]="arregloTipoReclamos" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+        [legend]="showLegendBarra" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+      </ngx-charts-bar-vertical>
+    </div>
+    <div class="col-12  col-lg-9  dashboard__tiposReclamos ">
+
+      <ngx-charts-bar-vertical class="" [fitContainerBarra]="fitContainerBarra" scheme="flame"
+        [results]="arregloReclamosAmbientales" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+        [legend]="showLegendBarra" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabelAmbiental" [yAxisLabel]="yAxisLabelAmbiental" [rotateXAxisTicks]="rotateXAxisTicks"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical>
+    </div>
+
+  </div> <!-- row 2 -->
+
+
+  <div class="row rounded rounded-4 shadow-lg  animate__animated animate__fadeIn">
+    <!-- <div class="col-12 col-sm-12 col-md-5 col-lg-3  dashboard__tiposReclamos " >
           </div> -->
-          <div class="col-12 dashboard__tablaAnio  rounded border border-3">
-     
-            <div class="row">
-              <div class="col-12 Centrado contenedor__tablaAnio">
-                <ngx-charts-bar-vertical
-                  scheme='night'
-                  [animations]="animacionBarras"
-                  [results]="arregloReclamosDeMesesyAnio"
-                  [gradient]="gradient5"
-                  [xAxis]="showXAxis5"
-                  [yAxis]="showYAxis5"
-                  [legend]="showLegend5"
-                  [legendTitle]="tituloLeyenda"
-                  [showXAxisLabel]="showXAxisLabel5"
-                  [showYAxisLabel]="showYAxisLabel5"
-                  [xAxisLabel]="xAxisLabel5"
-                  [yAxisLabel]="yAxisLabel5"
-                  (select)="onSelect($event)">
-                </ngx-charts-bar-vertical>
+    <div class="col-12 dashboard__tablaAnio  rounded border border-3">
+
+      <div class="row">
+        <div class="col-12 Centrado contenedor__tablaAnio">
+          <ngx-charts-bar-vertical scheme='night' [animations]="animacionBarras" [results]="arregloReclamosDeMesesyAnio"
+            [gradient]="gradient5" [xAxis]="showXAxis5" [yAxis]="showYAxis5" [legend]="showLegend5"
+            [legendTitle]="tituloLeyenda" [showXAxisLabel]="showXAxisLabel5" [showYAxisLabel]="showYAxisLabel5"
+            [xAxisLabel]="xAxisLabel5" [yAxisLabel]="yAxisLabel5" (select)="onSelect($event)">
+          </ngx-charts-bar-vertical>
+        </div>
+      </div>
+
+      <div class="row input_busquedaAnio ">
+        <div class="col-4  p-3 ">
+
+          <form class=" row g-3 needs-validation" novalidate>
+
+            <div class="col-12 ">
+              <div class="input-group flex-nowrap">
+
+                <span class="input-group-text" id="addon-wrapping"><i class="fas fa-calendar-minus"></i></span>
+                <input type="number" class="form-control" aria-describedby="inputGroupPrepend" required
+                  [formControl]="txtAnio" placeholder="Busque sus reclamos por año">
+
               </div>
+
             </div>
-      
-            <div class="row input_busquedaAnio ">
-              <div class="col-4  p-3 ">
-      
-                <form class=" row g-3 needs-validation" novalidate>
 
-                  <div class="col-12 ">
-                    <div class="input-group flex-nowrap">
-
-                      <span class="input-group-text" id="addon-wrapping"><i class="fas fa-calendar-minus"></i></span>
-                      <input type="number" class="form-control" aria-describedby="inputGroupPrepend" required 
-                        [formControl]="txtAnio" placeholder="Busque sus reclamos por año">
-
-                    </div>
-
-                  </div>
-          
-                  <div class="col-12">
-                    <button class="btn btn-primary" type="submit" (click)="btnBuscarReclamosAnio()"><i class="fas fa-search"></i>   Buscar </button>
-                  </div>
-                </form>
-          
-              </div>
-              
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit" (click)="btnBuscarReclamosAnio()"><i
+                  class="fas fa-search"></i> Buscar </button>
             </div>
-      
-            
-          </div>
-          
+          </form>
 
-        </div> <!-- row 2 -->
+        </div>
 
-        
+      </div>
 
-      
-     
-    
 
-      
+    </div>
 
-   
+
+  </div> <!-- row 2 -->
+
+
+
+
+
+
+
+
+
+
   <!-- 
     <div class="row">
   
@@ -266,5 +234,5 @@
       </div>
     </div>
      -->
-  
-  </div>
+
+</div>
