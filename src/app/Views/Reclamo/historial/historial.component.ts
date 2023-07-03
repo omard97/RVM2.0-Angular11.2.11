@@ -37,7 +37,7 @@ export class HistorialComponent implements OnInit {
   IDRol: any;
   IDSesion: any;
 
-  Dreclamos: any;
+  Dreclamos: any[] = [];
   TR: TipoReclamo[] = []; /* le asigno el nombre del modelo a una variable */
   /* tiene que ser el mismo nombre sino angular no encuentra el modelo */
 
@@ -70,6 +70,9 @@ export class HistorialComponent implements OnInit {
   longitud: string='';
   latitud: string='';
   direccion: string='';
+
+  /* Switch */
+  banderaVistaHistorial: boolean=true; /* True porque es para ver en lista detallada */
 
 
 
@@ -251,7 +254,7 @@ export class HistorialComponent implements OnInit {
           .getDetalleReclamoFiltrado(filtroIDTReclamo, filtroIDEstadoReclamo,this.usuario.idRol).subscribe(
             (res) => {
               this.formTarjetas.reset();
-              delete this.Dreclamos;
+              this.Dreclamos =[];
 
               this.banderaIconoCarga =false; /* No se visualiza */
               this.banderaAlerta=false;/* No se visualiza */
@@ -272,7 +275,7 @@ export class HistorialComponent implements OnInit {
           .getDetalleReclamoFiltradoNombre(filtroIDTReclamo, filtroIDEstadoReclamo,this.nombreUsuarioCtrl.value+'').subscribe(
             (res) => {
               this.formTarjetas.reset();
-              delete this.Dreclamos;
+              this.Dreclamos =[];
               
               this.banderaIconoCarga =false; /* No se visualiza */
               this.banderaAlerta=false;/* No se visualiza */
@@ -291,7 +294,7 @@ export class HistorialComponent implements OnInit {
         this.detalleReclamo.getDetalleReclamoFiltradoNombreUsuario(this.filtroNombreUsuario).subscribe(
           (res) => {
             this.formTarjetas.reset();//elimino las tarjetas
-            delete this.Dreclamos;//borro el objeto con toda la informacion
+            this.Dreclamos =[];//vacio el array con toda la informacion
             this.banderaIconoCarga =false; /* No se visualiza */
             this.banderaAlerta=false;/* No se visualiza */
             
@@ -310,7 +313,7 @@ export class HistorialComponent implements OnInit {
           (res)=>{
             
             this.formTarjetas.reset();//elimino las tarjetas
-            delete this.Dreclamos;//borro el objeto con toda la informacion
+            this.Dreclamos =[];;//vacio el array con toda la informacion
             this.banderaIconoCarga =false;
             this.banderaAlerta=false;
             this.Dreclamos = res;
@@ -332,7 +335,7 @@ export class HistorialComponent implements OnInit {
           (res)=>{
             
             this.formTarjetas.reset();//elimino las tarjetas
-            delete this.Dreclamos;//borro el objeto con toda la informacion
+            this.Dreclamos =[];//vacio el array con toda la informacion
             this.banderaIconoCarga =false;
             this.banderaAlerta=false;
             this.Dreclamos = res;
@@ -396,8 +399,8 @@ export class HistorialComponent implements OnInit {
           .subscribe(
             (res) => {
               this.formTarjetas.reset();
-              delete this.Dreclamos;
-              debugger
+              this.Dreclamos =[];
+              
               this.banderaIconoCarga =false; /* No se visualiza */
               this.banderaAlerta=false;/* No se visualiza */
               this.Dreclamos = res;
@@ -419,7 +422,7 @@ export class HistorialComponent implements OnInit {
           .subscribe(
             (res) => {
               this.formTarjetas.reset();
-              delete this.Dreclamos;
+              this.Dreclamos =[];
               this.banderaIconoCarga =false; /* No se visualiza */
               this.banderaAlerta=false;/* No se visualiza */
               this.Dreclamos = res;
@@ -511,6 +514,19 @@ export class HistorialComponent implements OnInit {
     this.direccion='' */
     
     
+  }
+
+  vistaSwitchReclamos(){
+    
+    if (this.banderaVistaHistorial == true)
+    {
+
+      this.banderaVistaHistorial = false;
+
+    }else{
+
+      this.banderaVistaHistorial = true;
+    }
   }
 
 }
