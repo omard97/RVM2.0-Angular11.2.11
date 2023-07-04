@@ -70,6 +70,8 @@ export class ReclamoComponent implements OnInit {
     longitud: 0,
     latitud: 0,
   }
+  
+
 
   rutaURL:any;
   
@@ -547,7 +549,6 @@ ambiental */
       if (this.fechaCtrl.value != '') {
         putfecha = this.fechaCtrl.value + '';
       }
-      ;
       if (this.horaCtrl.value == '') {
         puthora = this.arregloDetalleReclamo[0].hora;
       }
@@ -592,6 +593,9 @@ ambiental */
     /* var putAltura: any; */ /* no se usa, la altura se agrega en la descripcion */
     var putDominio: any;
     var putID_ReclamoAmbiental: any;
+    var putLongitud:any;
+    var putLatitud:any;
+    debugger
 
     if (this.selectIdinfoReclamo == 0) {
       putID_ReclamoAmbiental = this.arregloDetalleReclamo[0].idRecAmb;
@@ -625,7 +629,25 @@ ambiental */
     if (this.dominioCtrl.value != '') {
       putDominio = this.dominioCtrl.value + '';
     }
-    ;
+    debugger
+    /* cuando no busque otro direccion */
+    if (this.ubicacionReclamo.longitud == 0) {
+      putLongitud = this.arregloDetalleReclamo[0].longitud;
+    }
+    /* cuando busque otra direccion y tengo su coordenada */
+    if (this.ubicacionReclamo.longitud  != 0) {
+      putLongitud = this.ubicacionReclamo.longitud;
+    }
+
+     /* cuando no busque otro direccion */
+     if (this.ubicacionReclamo.latitud == 0) {
+      putLatitud = this.arregloDetalleReclamo[0].latitud;
+    }
+    /* cuando busque otra direccion y tengo su coordenada */
+    if (this.ubicacionReclamo.latitud  != 0) {
+      putLatitud = this.ubicacionReclamo.latitud;
+    }
+
     var detalleReclamo: DetalleReclamo = {
       IDDetalleReclamo: Number(this.arregloDetalleReclamo[0].idDetalleReclamo),
       descripcion: String(putDescripcion),
@@ -634,8 +656,8 @@ ambiental */
       dominio: String(putDominio),
       ID_ReclamoAmbiental: Number(putID_ReclamoAmbiental),
       ID_Reclamo: Number(this.arregloDetalleReclamo[0].iD_Reclamo),
-      longitud: this.ubicacionReclamo.longitud+ '',
-      latitud: this.ubicacionReclamo.latitud+ ''
+      longitud: putLongitud + '',
+      latitud: putLatitud +''
     };
     debugger
     
@@ -739,18 +761,20 @@ ambiental */
 
 /* buscar lugar */
   onQueryChanged(query: string = '') {
+   
     if (this.debounceTimer) clearTimeout(this.debounceTimer);
 
     this.debounceTimer = setTimeout(() => {
 
       this.placesReclamoServices.getPlacesByQuery( query );
       /* this.lugaresService.getLugaresPorBusqueda(query); */
-      console.log('Enviar este query: ', query)
+      console.log('nombre Ubicacion: ', query)
 
     }, 1000)
   }
   
   /* coordenadas del reclamo y utilizadas para mostrarlo en el mapa a la hora de buscar dicha direccion */
+  /* se utiliza en busqueda-lugares-reclamo */
   almacenarUbicacion(lng:number , lat:number){
     debugger
     this.ubicacionReclamo ={
