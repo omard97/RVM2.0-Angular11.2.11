@@ -84,17 +84,18 @@
         </div>
 
       </div>
-      
+
 
     </div> <!-- row -->
 
   </div> <!-- .busquedaFiltros -->
 
   <div class="form-check form-switch input__switch">
-    <input class="form-check-input" (click)="vistaSwitchReclamos()" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+    <input class="form-check-input" (click)="vistaSwitchReclamos()" type="checkbox" role="switch"
+      id="flexSwitchCheckDefault" checked>
     <label class="form-check-label" for="flexSwitchCheckDefault">Historial Completo / Resumen</label>
   </div>
-  
+
 
 </form>
 
@@ -184,17 +185,16 @@
 </div><!--.container-table100 -->
 
 
-<form  action="" [formControl]="formTarjetas" >
+<form class="" action="" [formControl]="formTarjetas" name="formularioTarjetas">
 
 
-  <div *ngIf="banderaVistaHistorial!=true"  class="container-fluid">
+  <div class="container-fluid ">
 
     <div class="row">
-      <div   *ngFor="let item of Dreclamos "
-        class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 animate__animated animate__fadeIn" name="fieldName"
-        ngDefaultControl>
+      <div *ngFor="let item of Dreclamos " class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 " name="fieldName">
 
-        <div #tarjeta class="card shadow-lg rounded border border-3 card__reclamo "> <!-- card -->
+        <div *ngIf="banderaVistaHistorial==false" class="card shadow-lg rounded border border-3 card__reclamo animate__animated animate__fadeIn ">
+          <!-- card -->
 
           <!-- shadow-lg p-3 mb-5 rounded border border-3 -->
           <img loading="lazy" class="card-img-top " alt="Foto" [src]="item.foto">
@@ -209,7 +209,7 @@
             </p>
             <p><i class="far fa-calendar-alt"></i><span class="span-text"> Fecha: </span>{{item.fecha}}</p>
             <p><i class="far fa-clock"></i><span class="span-text"> Hora: </span>{{item.hora}}</p>
-            <p *ngIf="(item.dominio!='-' || item.dominio!='') " class="card-text"><i class="fas fa-car"></i> <span class="span-text">
+            <p *ngIf="(item.dominio!='-' )" class="card-text"><i class="fas fa-car"></i> <span class="span-text">
                 Dominio:</span>{{item.dominio}}</p>
             <p><i class="fas fa-map-signs"></i><span class="span-text"> Dirección: </span>{{item.direccion}} </p>
             <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p>
