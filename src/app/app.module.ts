@@ -30,6 +30,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ConfiguracionComponent } from './Views/Configuracion/configuracion/configuracion.component';
 import { MapsModule } from './Views/Mapas/maps/maps.module';
 import { MapsReclamoModule } from './Views/Reclamo/reclamo/maps-reclamo/maps-reclamo.module';
+import { CamaraComponent } from './Views/Component/camara/camara.component';
 
 
 
@@ -47,7 +48,8 @@ import { MapsReclamoModule } from './Views/Reclamo/reclamo/maps-reclamo/maps-rec
     ReclamoComponent,
     HistorialComponent,
     MapasComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
+    CamaraComponent
     
     
   ],
