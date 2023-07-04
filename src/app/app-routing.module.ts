@@ -12,7 +12,7 @@ import { ConfiguracionComponent } from './Views/Configuracion/configuracion/conf
 import { MapasComponent } from './Views/Mapas/mapas/mapas.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
 
   /*estando en el meu luego de iniciar sesion  */
