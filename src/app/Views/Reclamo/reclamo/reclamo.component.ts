@@ -32,6 +32,16 @@ export class ReclamoComponent implements OnInit {
   @ViewChild('mapDiv')
   mapDivElement!: ElementRef
 
+  /* ------------ Camara -------- */
+
+  @ViewChild('videoPlayer') videoPlayer!: ElementRef;
+  @ViewChild('canvas') canvas!: ElementRef;
+
+  isCameraStarted = false;
+  capturedPhoto!: string;
+
+  /* ------------ Camara -------- */
+
   tipoReclamoCtrl = new FormControl('', [Validators.required]);
   reclamoAmbientalCtrl = new FormControl('', [Validators.required]);
   marcaAutoCtrl = new FormControl('', [Validators.required]);
@@ -57,6 +67,7 @@ export class ReclamoComponent implements OnInit {
     ID_TipoReclamo: 1,
     ID_Estado: 1,
   };
+  fotoCamara:string=''
 
   usuario = {
     idUsuario: 0,
@@ -228,7 +239,7 @@ export class ReclamoComponent implements OnInit {
     /* reclamo Ambiental */
     if (Number(this.tipoReclamoCtrl.value) == 1 && (this.tipoReclamoCtrl.value == '' || this.reclamoAmbientalCtrl.value == '' ||
       this.fechaCtrl.value == '' || this.horaCtrl.value == '' || this.ubicacionCtrl.value == '' ||
-      this.descripcionCtrl.value == '' || this.urlFotoCtrl.value == '' )) { /* || this.alturaCtrl.value == '' */
+      this.descripcionCtrl.value == ''  )) { /*  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == '' */
       this.toastr.warning(
         'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
         'Cuidado!',
@@ -241,7 +252,7 @@ export class ReclamoComponent implements OnInit {
       /* reclamo vial */
     } else if (Number(this.tipoReclamoCtrl.value) == 2 && (((this.dominioCtrl.value == '' || this.marcaAutoCtrl.value == '') &&
       this.tipoReclamoCtrl.value == '') || this.fechaCtrl.value == '' || this.horaCtrl.value == '' ||
-      this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == '' || this.urlFotoCtrl.value == ''  ||
+      this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == ''  ||
       this.modeloAutoCtrl.value == '')) { /* || this.alturaCtrl.value == '' */
       this.toastr.warning(
         'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
@@ -254,12 +265,14 @@ export class ReclamoComponent implements OnInit {
     } else {
       var RegistroRecl: Reclamo = {
         fecha: this.fechaCtrl.value + '',
-        foto: this.urlFotoCtrl.value + '', /* cambiar por el input file */
+        foto: this.capturedPhoto, /* cambiar por el input file */
         hora: this.horaCtrl.value + '',
         ID_Sesion: Number(this.usuario.IDsesion),
         ID_TipoReclamo: Number(this.selectIdTipoReclamo),
         ID_Estado: 1 /* estado Activo */,
       };
+
+      debugger
       
       /* si es vial que se agrege el estado pendiente de vial sino queda en 1 para el ambiental */
       if (this.selectIdTipoReclamo == 2) {
@@ -413,8 +426,8 @@ ambiental */
     this.horaCtrl.reset();
     this.ubicacionCtrl.reset();
     this.descripcionCtrl.reset();
-    this.urlFotoCtrl.reset();
-    this.alturaCtrl.reset();
+    /* this.urlFotoCtrl.reset();
+    this.alturaCtrl.reset(); */
     this.dominioCtrl.reset();
     this.banderaVerMapa='reclamo'
 
@@ -809,6 +822,60 @@ ambiental */
       .addTo(map);
       this.mapaReclamoService.setMap( map );
   }
+
+
+
+  /* -------------------- Camara ------------------- */
+
+
+  startCamera() {
+    const video = this.videoPlayer.nativeElement;
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          video.srcObject = stream;
+          video.play();
+          this.isCameraStarted = true;
+        })
+        .catch(error => {
+          console.log('Error al acceder a la cámara:', error);
+        });
+    } else {
+      console.log('La API MediaDevices no está disponible');
+    }
+  }
+
+  capturePhoto() {
+    const video = this.videoPlayer.nativeElement;
+    const canvas = this.canvas.nativeElement;
+    const context = canvas.getContext('2d');
+
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    this.capturedPhoto = canvas.toDataURL('image/jpg');
+    
+    this.stopCamera();
+    
+  }
+
+  stopCamera() {
+    const video = this.videoPlayer.nativeElement;
+    const stream = video.srcObject as MediaStream;
+  
+    if (stream) {
+      const tracks = stream.getTracks();
+  
+      tracks.forEach(track => {
+        track.stop();
+      });
+  
+      video.srcObject = null;
+      this.isCameraStarted = false;
+    }
+  }
+
+  /* -------------------- Fin Camara ------------------- */
 
 
 
