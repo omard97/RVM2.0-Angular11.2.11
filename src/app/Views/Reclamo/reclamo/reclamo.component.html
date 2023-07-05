@@ -33,7 +33,7 @@
                                 <!-- <td class="column1">{{item.altura}} </td> -->
                                 <td class="column2">{{item.descripcion}}</td>
                                 <td class="column3">{{item.direccion}}</td>
-                                <td  class="column4">{{item.dominio}}</td>
+                                <td class="column4">{{item.dominio}}</td>
                                 <td class="column5">{{item.fecha}} </td>
                                 <td class="column6"><img class="rounded-3" src="{{item.foto}}" alt="Foto"
                                         style="width: 150px; height: 100px;"></td>
@@ -50,7 +50,7 @@
             </div>
         </div><!--.container-table100 -->
 
-        
+
 
     </div>
 
@@ -311,88 +311,47 @@
                         </div>
 
 
-
+                        <!-- columna que divide en 2 partes -->
                         <div class="col-md-7">
 
                             <!-- Foto -->
                             <div class="col-md-12">
 
-                                <!--<span class="titulos col-md-1 col-md-offset-2 text-center">
-                                    <i class="fa fa-camera bigicon" style="color: black; font-size: 25px;"></i>
-                                    Foto / Dispositivos
-                                </span> -->
+                                <div class=" input_reclamo">
+                                
+                              <!--       <textarea class="form-control " id="UrlFoto" name="urlFoto" placeholder="URL Foto"
+                                        rows="1" [formControl]="urlFotoCtrl"></textarea> -->
 
-                                <!--<div class="row">
-                                    <div class="col-12  col-lg-3">
-                                        <button type="button" class="btn btn-outline-secondary boton--foto"
-                                            id="boton">Tomar Foto</button>
-                                    </div>
-                                    <div class="col-12 col-lg-9">
+                                    <div class="form-group input_reclamo">
 
-                                        <select class="form-select dispositivos" aria-label="Default select example"
-                                            name="listaDeDispositivos" id="listaDeDispositivos"></select>
-                                    </div>
-                                </div> -->
-
-
-                                <div class="form-group input_reclamo">
-                                    <!-- <input type="file" accept="image/*" capture="camera" id="camera" class="inputget">
-                                         <div class="container-photo">
-                                             <img id="photo" class="photo">
-                                         </div> -->
-
-                                    <div class="form-group">
-                                        <!--   <span class="titulos col-md-1 col-md-offset-2 text-center subir--Foto">
-                                            <i class="far fa-images" style="color: black; font-size: 25px;"></i>
-                                            Buscar Foto</span> -->
-
-                                        <div class="input-group mb-3 ">
-
-                                            <input type="file" class="form-control" id="inputGroupFile02"> <!--  -->
-                                            <label class="input-group-text" for="inputGroupFile02"><i
-                                                    class="bi bi-camera icono__input"></i></label>
+                                        <div class="col-md-12 text-center p-0">
+                                            <textarea class="form-control DescripcionReclamo" name="message"
+                                                placeholder="Describa la causa del reclamo" rows="4"
+                                                [formControl]="descripcionCtrl"></textarea>
                                         </div>
-
-                                        <div class="container-fluid">
-                                            <!-- webcam -->
-                                            <!-- <div class="row">
-                                                <div class=" col-12 contenedor--camara text-center">
-                                                    <div> <video class="camara--visor" muted="muted" id="video"></video>
-                                                        <canvas id="canvas" style="display: none;"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-
-                                            <div class="row">
-
-                                                <!-- preview foto -->
-                                                <div class="col-12 text-center contenedor--foto ">
-                                                    <img *ngIf="previsualizacion" class="preview--Foto"
-                                                        [src]="previsualizacion" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <textarea class="form-control " id="UrlFoto" name="urlFoto"
-                                            placeholder="URL Foto" rows="1" [formControl]="urlFotoCtrl"></textarea>
-
-                                        <div class="form-group input_reclamo">
-                                            <!--  <span class="titulos col-md-1 col-md-offset-2 text-center"><i
-                                                   class="fa fa-pencil-square-o bigicon"
-                                                        style="color: black; font-size: 25px;"></i> Descripción</span> -->
-                                            <div class="col-md-12 text-center p-0">
-                                                <textarea class="form-control DescripcionReclamo" name="message"
-                                                    placeholder="Describa la causa del reclamo" rows="4"
-                                                    [formControl]="descripcionCtrl"></textarea>
-                                            </div>
-                                        </div>
-
-
-
                                     </div>
-
 
                                 </div>
+
+                                <div class="input_reclamo">
+                                    <div class="row">
+                                       
+
+                                        <!-- subir archivos -->
+                                        <div class="co-12 col-sm-12 ">
+                                            <div class="input-group mb-3 mt-1 ">
+                                                <input type="file" class="form-control" id="inputGroupFile02">
+                                                <!--  -->
+                                                <label class="input-group-text" for="inputGroupFile02"><i
+                                                        class="bi bi-image"></i></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Camara -->
+                                    <app-camara></app-camara>
+                                </div>
+
+                                
 
                                 <!-- Estados Reclamos -->
                                 <div class="form-group"
@@ -492,103 +451,4 @@
         </div>
 
     </div>
-
-
-    <!--  <div class="container-fluid contenedorMiReclamo" *ngFor="let item of arregloDetalleReclamo"
-        style="text-align: center;">
-        
-        <h3>Mi Reclamo</h3>
-        <table class="table  table-striped table-bordered border-dark table-responsive">
-            <thead>
-                <tr>
-                    <th scope="col">Tipo Reclamo</th>
-                    <th scope="col">Motivo Del Reclamo {{item.nombreTRec}}</th>
-
-                    <th scope="col">Dominio</th>
-                    <th scope="col">Modelo</th>
-                    <th scope="col">Marca Auto</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Hora</th>
-                    <th scope="col">Direccion</th>
-                    <th scope="col">Altura</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Foto</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{item.nombreTRec}}</td>
-                    <td>{{item.nombreRecAmbiental}}</td>
-                    <td>{{item.dominio}}</td>
-                    <td>{{item.nombreModelo}}</td>
-                    <td>{{item.nombreMarca}}</td>
-                    <td>{{item.fecha}}</td>
-                    <td>{{item.hora}}</td>
-                    <td>{{item.direccion}}</td>
-                    <td>{{item.altura}}</td>
-                    <td>{{item.descripcion}}</td>
-                    <td><img class="rounded-3" src="{{item.foto}}" alt="Foto" style="width: 150px; height: 100px;"></td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
- -->
-
-
-
-
-
-    <!--  <script>
-
-
-        var rAmbiental;
-        rAmbiental = document.getElementsByName("Tipos");
-        debugger
-        console.log(rAmbiental);
-
-        function ocultarElemento() {
-            debugger
-            rAmbiental = document.getElementsByName("Tipos");
-
-            console.log(rAmbiental);
-        }
-
-    </script> -->
-
 </div>
-
-<!--     <table class="table table-striped table-bordered border-dark table-responsive">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Tipo Reclamo</th>
-                                    <th scope="col">Motivo Del Reclamo {{item.nombreTRec}}</th>
-                                    <th scope="col">Dominio</th>
-                                    <th scope="col">Modelo</th>
-                                    <th scope="col">Marca Auto</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Hora</th>
-                                    <th scope="col">Direccion</th>
-                                    <th scope="col">Altura</th>
-                                    <th scope="col">Descripción</th>
-                                    <th scope="col">Foto</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{item.nombreTRec}}</td>
-                                    <td>{{item.nombreRecAmbiental}}</td>
-                                    <td>{{item.dominio}}</td>
-                                    <td>{{item.nombreModelo}}</td>
-                                    <td>{{item.nombreMarca}}</td>
-                                    <td>{{item.fecha}}</td>
-                                    <td>{{item.hora}}</td>
-                                    <td>{{item.direccion}}</td>
-                                    <td>{{item.altura}}</td>
-                                    <td>{{item.descripcion}}</td>
-                                    <td><img class="rounded-3" src="{{item.foto}}" alt="Foto"
-                                            style="width: 150px; height: 100px;"></td>
-                                </tr>
-
-                            </tbody>
-                        </table> -->
