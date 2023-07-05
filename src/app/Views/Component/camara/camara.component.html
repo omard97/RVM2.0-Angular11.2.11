@@ -1,12 +1,12 @@
 <div class="camera-container">
     <div class="row">
 
-        <div class="col-6">
+        <div class="col-12 col-sm-6">
             <button class="btn_ancho btn btn-primary" (click)="startCamera()"><i class="bi bi-camera"></i> Iniciar
             </button>
         </div>
 
-        <div class="col-6">
+        <div class="col-12 col-sm-6">
             <button *ngIf="isCameraStarted" class=" btn_ancho btn btn-primary" (click)="capturePhoto()" [disabled]="!isCameraStarted">Capturar</button>
         </div>
 
