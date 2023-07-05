@@ -442,3 +442,29 @@ tbody tr:hover {
     padding-right: 15px;
   }
 } */
+
+
+/* ------------ CAMARA ------------ */
+
+video {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 10px;
+}
+
+
+
+
+.captured-photo {
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+  border-radius: 10px;
+
+}
+
+.btn_ancho {
+  width: 100%;
+  margin: 5px 0px 5px 0px;
+}
