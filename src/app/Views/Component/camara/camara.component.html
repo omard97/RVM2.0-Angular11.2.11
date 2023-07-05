@@ -1,0 +1,36 @@
+<div class="camera-container">
+    <div class="row">
+
+        <div class="col-6">
+            <button class="btn_ancho btn btn-primary" (click)="startCamera()"><i class="bi bi-camera"></i> Iniciar
+            </button>
+        </div>
+
+        <div class="col-6">
+            <button *ngIf="isCameraStarted" class=" btn_ancho btn btn-primary" (click)="capturePhoto()" [disabled]="!isCameraStarted">Capturar</button>
+        </div>
+
+
+        <div class="row">
+            <div class="col-6">
+                <video #videoPlayer [hidden]="!isCameraStarted"></video>
+                <canvas #canvas style="display: none;"></canvas>
+            </div>
+            <div class="col-6">
+                <img [src]="capturedPhoto" *ngIf="capturedPhoto" class="captured-photo">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <div class="camera-container">
+    <video #videoPlayer></video>
+    <div class="camera-controls">
+      <button (click)="startCamera()">Iniciar cámara</button>
+      <button (click)="capturePhoto()" [disabled]="!isCameraStarted">Capturar foto</button>
+    </div>
+    <canvas #canvas style="display: none;"></canvas>
+    <img [src]="capturedPhoto" *ngIf="capturedPhoto" class="captured-photo">
+  </div> -->
