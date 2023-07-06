@@ -20,7 +20,10 @@ import { Marker, Popup, Map } from 'mapbox-gl';
 export class MenuComponent implements OnInit {
 
   @ViewChild('mapaDiv')
-  mapDivElement!: ElementRef
+  mapDivElement!: ElementRef;
+
+  /* Guardar foto de perfil para actualizar */
+  imagePerfilDataUrl!:string;
 
   nombrePersonaCtrl = new FormControl('', [Validators.required]);
   apellidoPersonaCtrl = new FormControl('', [Validators.required]);
@@ -41,11 +44,13 @@ export class MenuComponent implements OnInit {
 
   idUsuario: any;
   datosPerfil: any;
+  /* utilizado al hacer click en perfil */
   usuario = {
     idUsuario: 0,
     nick: '',
     idRol: 0,
-    rol: ''
+    rol: '',
+    foto:''
   }
 
   banderaActualizarPerfil: boolean = false;
@@ -72,7 +77,9 @@ export class MenuComponent implements OnInit {
           this.usuario.idUsuario = data[0].idUsuario,
             this.usuario.nick = data[0].nick,
             this.usuario.idRol = data[0].idRol,
-            this.usuario.rol = data[0].rol
+            this.usuario.rol = data[0].rol,
+            this.usuario.foto = data[0].foto
+            debugger
         },
         (error) => {
           console.error(error);
@@ -85,7 +92,7 @@ export class MenuComponent implements OnInit {
   /*  ------- Botones Menu ------ */
 
   getDatosPerfil() {
-
+    debugger
     this.servicePerfil.getdatosPerfil(Number(this.idUsuario)).subscribe(
       (data) => {
         console.log('datos del perfil logueado: ', data)
@@ -118,7 +125,8 @@ export class MenuComponent implements OnInit {
       Celular: '',
       Contrasenia: '',
       id_Perfil: this.datosPerfil[0].id_Perfil,
-      id_Estado: this.datosPerfil[0].id_Estado
+      id_Estado: this.datosPerfil[0].id_Estado,
+      foto: '',
     }
 
     debugger
@@ -161,13 +169,24 @@ export class MenuComponent implements OnInit {
     } else {
       putUser.Contrasenia = this.contraseniaCtrl.value + '';
     }
+
+
     if (this.nombreUsuarioCtrl.value == '') {
 
       putUser.Nick = this.datosPerfil[0].nombreUsuario + '';
 
     } else {
-      putUser.Nick = this.contraseniaCtrl.value + '';
+      putUser.Nick = this.nombreUsuarioCtrl.value + '';
     }
+
+    debugger
+    /* si esta vacio quiere decir que no se actualizo la foto */
+    if(this.imagePerfilDataUrl==''){
+      putUser.foto = this.datosPerfil[0].foto + '';
+    }else{
+      putUser.foto = this.imagePerfilDataUrl+'';
+    }
+
 
     if (this.banderaActualizarPerfil == true) {
       debugger
@@ -235,6 +254,27 @@ export class MenuComponent implements OnInit {
       this.mapaReclamoService.setMap( map );
 
   }
+
+  /* ---------------------- Input file ----------------------*/
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      this.uploadImage(file);
+    }
+  }
+/* leer el contenido del archivo seleccionado y convertirlo en un formato utilizable, como una URL de datos */
+  uploadImage(file: File) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePerfilDataUrl = reader.result as string;
+      
+      
+      // Aquí puedes realizar acciones adicionales con la imagen,
+      // como enviarla al servidor o mostrarla en la interfaz de usuario.
+    };
+    reader.readAsDataURL(file);
+  }
+  /* ---------------------- Fin Input file ----------------------*/
 
 
 }
