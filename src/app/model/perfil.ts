@@ -8,6 +8,7 @@ export interface datosperfil {
   telefonoUsuario?: number;
   nombrePerfil?: string;
   nombreEstado?: string;
+  foto?:string; //utilizado cuando quiero ver mi perfil
 }
 
 export interface putUsuario{
@@ -22,4 +23,5 @@ export interface putUsuario{
  
   id_Perfil:number;
   id_Estado:number;
+  foto?:string;
 }
