@@ -42,6 +42,12 @@ export class ReclamoComponent implements OnInit {
 
   /* ------------ Camara -------- */
 
+  /* ------------ Input File ------------  */
+  imageReclamoDataUrl!:string;
+  /* ------------ Input File ------------  */
+
+  
+
   tipoReclamoCtrl = new FormControl('', [Validators.required]);
   reclamoAmbientalCtrl = new FormControl('', [Validators.required]);
   marcaAutoCtrl = new FormControl('', [Validators.required]);
@@ -265,7 +271,7 @@ export class ReclamoComponent implements OnInit {
     } else {
       var RegistroRecl: Reclamo = {
         fecha: this.fechaCtrl.value + '',
-        foto: this.capturedPhoto, /* cambiar por el input file */
+        foto: this.imageReclamoDataUrl, /* cambiar por el input file */
         hora: this.horaCtrl.value + '',
         ID_Sesion: Number(this.usuario.IDsesion),
         ID_TipoReclamo: Number(this.selectIdTipoReclamo),
@@ -569,11 +575,11 @@ ambiental */
       if (this.horaCtrl.value != '') {
         puthora = this.horaCtrl.value + '';
       }
-      if (this.urlFotoCtrl.value == '') {
+      if (this.imageReclamoDataUrl == '') {
         putfoto = this.arregloDetalleReclamo[0].foto;
       }
-      if (this.urlFotoCtrl.value != '') {
-        putfoto = this.urlFotoCtrl.value + '';
+      if (this.imageReclamoDataUrl != '') {
+        putfoto = this.imageReclamoDataUrl;
       }
 
       var reclamo: Reclamo = {
@@ -877,7 +883,26 @@ ambiental */
 
   /* -------------------- Fin Camara ------------------- */
 
+  /* Input File */
 
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      this.uploadImage(file);
+    }
+  }
+/* leer el contenido del archivo seleccionado y convertirlo en un formato utilizable, como una URL de datos */
+  uploadImage(file: File) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageReclamoDataUrl = reader.result as string;
+      
+      
+      // Aquí puedes realizar acciones adicionales con la imagen,
+      // como enviarla al servidor o mostrarla en la interfaz de usuario.
+    };
+    reader.readAsDataURL(file);
+  }
 
   
 
