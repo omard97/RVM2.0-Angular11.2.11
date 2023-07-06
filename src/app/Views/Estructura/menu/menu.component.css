@@ -184,14 +184,15 @@ a:hover{
 /* ------ Modal Perfil ------ */
 
 .imagen--perfil {
-    border-radius: 5rem;
+    border-radius: 1rem;
 }
 
 .inputModal {
     margin: 0rem 0 0.5rem 0;
 }
+
 .contenedor__inputPerfil{
-    padding: 1.5rem 1rem 0 1rem;
+    padding: 1rem 0rem 0rem 0rem;
 }
 
 /* .inputModal:last-of-type {
@@ -203,31 +204,11 @@ form{
     visibility: hidden;
 } */
 
-.informacion__perfil {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-    border-radius: 10px;
 
-    background-color: #e1e1e18b;
-    margin: 0.5rem 0 0.5rem 0;
 
-}
 
-.boton__editarPerfil {
-    padding: 0.3rem;
-    margin-left: 0.5rem;
-    display: flex;
-    justify-content: flex-end;
-}
 
-.boton__editarPerfil:hover {
-    font-size: 18px;
-    transition: all 0.1s ease;
-}
 
-.ico__editarPerfil {
-    display: flex;
-    justify-content: flex-end;
-}
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
@@ -241,7 +222,7 @@ input[type=number]::-webkit-outer-spin-button {
     
     
 } */
-.modal-content{
+.contenedor__Mapa{
     width: 90%!important;
 }
 .mapa-container {
@@ -263,5 +244,6 @@ input[type=number]::-webkit-outer-spin-button {
     margin-right: 1rem;
 }
  
+
 
 
