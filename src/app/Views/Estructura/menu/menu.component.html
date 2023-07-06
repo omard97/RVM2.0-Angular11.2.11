@@ -57,9 +57,9 @@
                             <div class="dropdown pb-4 boton_user ">
                                 <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle boton_user--informacion p-2"
                                     id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="../../../../assets/img/usuario-Omar.jpg" alt="hugenerd" width="30"
-                                        height="30" class="rounded-circle">
-                                    <span class="d-none d-sm-inline mx-4">{{usuario.nick}}</span>
+                                    <img src={{usuario.foto}} alt="hugenerd" width="40"
+                                        height="40" class="rounded-circle">
+                                    <span class="d-none d-sm-inline mx-3">{{usuario.nick}}</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow menu__usuario animate__animated animate__fadeIn"
                                     aria-labelledby="dropdownUser1">
@@ -115,7 +115,7 @@
 <div class="modal fade " id="mapaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="mapaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content contenedor__Mapa">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="mapaModalLabel">{{direccion}}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -146,63 +146,65 @@
                 <h5 class="modal-title" id="exampleModalLabel">Mí Perfil</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="padding-bottom: 0;">
 
-                <div class="container-fluid shadow p-2 rounded ">
+                <div class="container-fluid  ">
                     <div class="row">
 
-                        <div class=" col-12 text-center">
-                            <img class="imagen--perfil" height="150" width="120"
-                                src='../../../../assets/img/usuario-Omar.jpg' alt="">
+                        <div class=" col-3 p-0 ">
+                            <img *ngFor="let item of datosPerfil " class="imagen--perfil" height="150" width="120"
+                                src={{item.foto}} alt="">
+                        </div>
+                        <div *ngFor="let item of datosPerfil " class=" col-9 text-center ">
+                            <div class="row ">
+                                <div class="col-12 col-sm-6 "> <!-- shadow rounded border border-1 -->
+                                    <h5>Nombre</h5>
+                                    <label for="">{{item.nombrePersona}}</label>
+
+                                </div>
+                                <div class="col-12 col-sm-6 ">
+                                    <h5>Apellido</h5>
+                                    <label for="">{{item.apellidoPersona}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-6 ">
+                                    <h5>Celular</h5>
+                                    <label for="">{{item.telefonoUsuario}}</label>
+
+                                </div>
+                                <div class="col-12 col-sm-6 ">
+                                    <h5>DNI</h5>
+                                    <label for="">{{item.dniUsuario}}</label>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-12 col-sm-6  ">
+                                    <h5>Correo</h5>
+                                    <label for="">{{item.correoUsuario}}</label>
+
+                                </div>
+                                <div class="col-12 col-sm-6 ">
+                                    <h5>Usuario</h5>
+                                    <label for="">{{item.nombreUsuario}}</label>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
+                    <div>
 
-                    <div class="">
-                        <button type="button" class="btn boton__editarPerfil" (click)="formularioPerfil()"><i
-                                class="fa-regular fa-pen-to-square fa-sm ico__editarPerfil "></i></button>
+                    </div>
+                    <div style="margin-bottom: 5px;">
+                        <button type="button" class="btn btn-light" (click)="formularioPerfil()"><i class="bi bi-pen-fill"></i>  Editar</button>
                     </div>
 
 
-                    <div *ngFor="let item of datosPerfil " class="container-fluid text-center">
-                        <div class="row informacion__perfil">
-                            <div class="col-12 col-sm-6"> <!-- shadow rounded border border-1 -->
-                                <h5>Nombre</h5>
-                                <label for="">{{item.nombrePersona}}</label>
 
-                            </div>
-                            <div class="col-12 col-sm-6 ">
-                                <h5>Apellido</h5>
-                                <label for="">{{item.apellidoPersona}}</label>
-                            </div>
-                        </div>
-                        <div class="row informacion__perfil">
-                            <div class="col-12 col-sm-6 ">
-                                <h5>Celular</h5>
-                                <label for="">{{item.telefonoUsuario}}</label>
-
-                            </div>
-                            <div class="col-12 col-sm-6 ">
-                                <h5>DNI</h5>
-                                <label for="">{{item.dniUsuario}}</label>
-                            </div>
-                        </div>
-                        <div class="row informacion__perfil">
-                            <div class="col-12 col-sm-6 ">
-                                <h5>Correo</h5>
-                                <label for="">{{item.correoUsuario}}</label>
-
-                            </div>
-                            <div class="col-12 col-sm-6 ">
-                                <h5>Usuario</h5>
-                                <label for="">{{item.nombreUsuario}}</label>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
                 <div *ngIf="this.banderaActualizarPerfil==true;
-                " class="container-fluid contenedor__inputPerfil ">
+                " class="container-fluid contenedor__inputPerfil animate__animated animate__fadeIn">
 
                     <form *ngFor="let item of datosPerfil">
                         <div class="row">
@@ -316,6 +318,7 @@
                                 <div class="input-group flex-nowrap inputModal">
 
                                     <input type="file" class="form-control" placeholder="Foto Perfil"
+                                        (change)="onFileSelected($event)" accept="image/*"
                                         aria-label="Foto Perfil"><span class="input-group-text" id="addon-wrapping"><i
                                             class="bi bi-image"></i></span>
 
