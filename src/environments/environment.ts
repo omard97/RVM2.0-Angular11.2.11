@@ -5,6 +5,16 @@
 export const environment = {
   production: false,
   apiKey: 'pk.eyJ1Ijoib21hcmQ5NyIsImEiOiJjbGhpdGE4d3MwMGNtM2dwc3lnZjc0ZTk3In0.OdWECTi0zDbRihpSeWKSOg',
+
+  
+  /* apiUrl: 'http://192.168.0.113:5000', */ /* dirección IP IPv4/puerto */
+  /* direccion que va en el celular  */
+
+  /* iniciar la app en otra consola con el mismo puerto de la app de angular*/
+  /* ng serve --host 0.0.0.0 --port 4200 */
+
+
+
 };
 
 /*
