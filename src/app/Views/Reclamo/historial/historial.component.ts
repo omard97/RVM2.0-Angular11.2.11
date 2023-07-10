@@ -272,7 +272,7 @@ export class HistorialComponent implements OnInit {
         filtroIDTReclamo = this.selectIDTipReclamo;
         filtroIDEstadoReclamo = this.selectIDEstadoReclamo;
         this.detalleReclamo
-          .getDetalleReclamoFiltradoNombre(filtroIDTReclamo, filtroIDEstadoReclamo,this.nombreUsuarioCtrl.value+'').subscribe(
+          .getDetalleReclamoFiltradoNombre(filtroIDTReclamo, filtroIDEstadoReclamo,this.nombreUsuarioCtrl.value+'', this.usuario.idRol).subscribe(
             (res) => {
               this.formTarjetas.reset();
               this.Dreclamos =[];
@@ -498,22 +498,25 @@ export class HistorialComponent implements OnInit {
   }
 
   verMapa(longitud:any, latitud:any, direccion:any){
-  
-    
-   /* this.coordonadas = dato.target.value.split(',');
-   this.longitud = this.coordonadas[0];
-    this.latitud = this.coordonadas[1];
-    this.direccion = this.coordonadas[2]; */
-    
-  
     /* apreto el boton y automaticamente envio las coordenadas a la funcion verMapadesdeHistorial del menuComponent */
-    this.menuComponent.verMapadesdeHistorial(longitud,latitud,direccion)
-
-    /* this.longitud='';
-    this.latitud='';
-    this.direccion='' */
-    
-    
+    debugger
+    if(longitud == null || latitud == null){
+      this.toastr.info(
+        'El reclamo seleccionado no posee una geolocalización,',
+        'Atención',
+        {
+          timeOut: 5000,
+          positionClass: 'toast-bottom-full-width'
+          
+        }
+      );
+      
+    }else{
+      this.menuComponent.verMapadesdeHistorial(longitud,latitud,direccion)
+      this.longitud='';
+      this.latitud='';
+      this.direccion=''
+    }
   }
 
   vistaSwitchReclamos(){
