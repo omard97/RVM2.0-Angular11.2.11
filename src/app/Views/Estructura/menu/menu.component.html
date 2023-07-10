@@ -57,7 +57,9 @@
                             <div class="dropdown pb-4 boton_user ">
                                 <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle boton_user--informacion p-2"
                                     id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src={{usuario.foto}} alt="hugenerd" width="40"
+                                    <img *ngIf="usuario.foto!=null" src={{usuario.foto}} alt="hugenerd" width="40"
+                                        height="40" class="rounded-circle">
+                                        <img *ngIf="usuario.foto==null"  src='../../../../assets/img/img_usuario.png' alt="hugenerd" width="40"
                                         height="40" class="rounded-circle">
                                     <span class="d-none d-sm-inline mx-3">{{usuario.nick}}</span>
                                 </a>
@@ -151,9 +153,15 @@
                 <div class="container-fluid  ">
                     <div class="row">
 
-                        <div class=" col-3 p-0 ">
+                        <div *ngIf="usuario.foto!=null"  class=" col-3 p-0 "> 
                             <img *ngFor="let item of datosPerfil " class="imagen--perfil" height="150" width="120"
                                 src={{item.foto}} alt="">
+                                
+                        </div>
+                        <div *ngIf="usuario.foto==null"  class=" col-3 p-0 "> 
+                            <img  class="imagen--perfil" height="150" width="120"
+                            src='../../../../assets/img/img_usuario.png' alt="">
+                                
                         </div>
                         <div *ngFor="let item of datosPerfil " class=" col-9 text-center ">
                             <div class="row ">
