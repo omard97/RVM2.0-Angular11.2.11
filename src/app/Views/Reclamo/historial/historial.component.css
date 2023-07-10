@@ -154,8 +154,8 @@ img {
 .botones--informacion {
     
     margin-bottom: 1rem;
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
 }
 
 .card__reclamo{
