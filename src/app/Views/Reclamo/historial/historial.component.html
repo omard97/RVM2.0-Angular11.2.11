@@ -138,20 +138,20 @@
             <td class="column4">{{item.nombreRecAmbiental}}</td>
             <td class="column5">{{item.nombreTRec}}</td>
             <td class="column6">
-              <div class="container d-flex justify-content-start">
+              <div class="container ">
                 <div class="row">
-                  <div class="col col-sm-2 col-md-3">
+                  <div class="col col-sm-1 col-md-1">
 
-                    <button type="button" class="btn btn-primary"
+                    <button *ngIf="item.longitud || item.latitud"  type="button" class="btn btn-primary boton__tabla"
                       (click)="verMapa(item.longitud, item.latitud, item.direccion)"
-                      value="{{item.longitud}},{{item.latitud}},{{item.direccion}}" data-bs-toggle="modal"
+                      data-bs-toggle="modal"
                       data-bs-target="#mapaModal">
                       <i class="bi bi-geo-alt-fill"></i>
                     </button>
                   </div>
 
                   <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)"
-                    class="col col-sm-2  col-md-3">
+                    class="col col-sm-1  col-md-1 boton__tabla">
                     <!-- col-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 -->
                     <!-- 1 admin 2 empleado 3 usuario -->
                     <button type="button" class="btn btn-outline-primary " data-bs-toggle="tooltip"
@@ -161,7 +161,7 @@
                     </button> <!-- routerLink="/main-nav/historial/reclamos" -->
                   </div>
 
-                  <div class="col col-sm-2 col-md-4  "> <!-- col-3 col-md-3 col-lg-3 col-xl-6 col-xxl-3 -->
+                  <div class="col col-sm-1 col-md-1 boton__tabla "> <!-- col-3 col-md-3 col-lg-3 col-xl-6 col-xxl-3 -->
                     <button type="button" class="btn btn-outline-danger d-inline-block " data-bs-toggle="tooltip"
                       data-bs-placement="top" title="Cancelar Reclamo"><i class="bi bi-trash3-fill"></i>
                     </button>
@@ -215,38 +215,32 @@
             <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p>
           </div> <!-- .tarjeta--informacion -->
 
-          <div class="container botones--informacion ">
-            <div class="row">
-              <div class="col col-sm-2 col-md-3">
-
-                <button type="button" class="btn btn-primary"
+          <div class="container botones--informacion">
+            <div class="row justify-content-center align-items-center">
+              <div class="col-12 col-sm-3 col-md-3">
+                <button *ngIf="item.longitud || item.latitud" type="button" class="btn btn-primary"
                   (click)="verMapa(item.longitud, item.latitud, item.direccion)"
-                  value="{{item.longitud}},{{item.latitud}},{{item.direccion}}" data-bs-toggle="modal"
-                  data-bs-target="#mapaModal">
+                  data-bs-toggle="modal" data-bs-target="#mapaModal">
                   <i class="bi bi-geo-fill"></i>
                 </button>
               </div>
-
+          
               <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)"
-                class="col col-sm-2  col-md-3">
-                <!-- col-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 -->
-                <!-- 1 admin 2 empleado 3 usuario -->
-                <button type="button" class="btn btn-outline-primary " data-bs-toggle="tooltip" data-bs-placement="top"
-                  title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"><i
-                    class="bi bi-pencil-square"></i>
-                  <!-- item.nombre,item.idTipoRec,item.idRecAmb,item.nombreRecAmbiental,item.nombreTRec,item.descripcion,item.fecha,item.hora,item.direccion,item.altura -->
-                </button> <!-- routerLink="/main-nav/historial/reclamos" -->
-              </div>
-
-              <div class="col col-sm-2 col-md-4  "> <!-- col-3 col-md-3 col-lg-3 col-xl-6 col-xxl-3 -->
-                <button type="button" class="btn btn-outline-danger d-inline-block " data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="Cancelar Reclamo"><i class="bi bi-trash3-fill"></i>
+                class="col-12 col-sm-3 col-md-3">
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                  title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)">
+                  <i class="bi bi-pencil-square"></i>
                 </button>
               </div>
-
+          
+              <div class="col-12 col-sm-3 col-md-3">
+                <button type="button" class="btn btn-outline-danger d-inline-block" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="Cancelar Reclamo">
+                  <i class="bi bi-trash3-fill"></i>
+                </button>
+              </div>
             </div>
-
-          </div> <!-- botones -->
+          </div>
         </div> <!-- card -->
 
       </div><!-- columna -->
