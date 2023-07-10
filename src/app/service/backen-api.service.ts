@@ -155,9 +155,9 @@ export class BackenApiService {
    }
 
    /* Busqueda por tipo reclamo, estado y nombre (no ingresó la fecha) - administrador o usuario*/
-   getDetalleReclamoFiltradoNombre(idTipoR:number,idEstadoReclamo:number, nombreUsuario:string): Observable<any>{
-    
-    return this.http.get<DetalleReclamo[]>('https://localhost:44363/FiltrosReclamos?'+'idtipor='+idTipoR+"&"+'idestado='+idEstadoReclamo+'&'+'nombreUsuario='+nombreUsuario);
+   getDetalleReclamoFiltradoNombre(idTipoR:number,idEstadoReclamo:number, nombreUsuario:string, idRol:number): Observable<any>{
+    debugger
+    return this.http.get<DetalleReclamo[]>('https://localhost:44363/FiltrosReclamos?'+'idtipor='+idTipoR+"&"+'idestado='+idEstadoReclamo+'&'+'nombreUsuario='+nombreUsuario+'&'+'idRol='+idRol);
   }
 
    /* Busqueda de reclamos por filtro usando el nombre del usuario - administrador */
