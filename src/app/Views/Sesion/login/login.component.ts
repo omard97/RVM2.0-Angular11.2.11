@@ -93,7 +93,14 @@ export class LoginComponent implements OnInit {
 
       },
       (error) => {
-        debugger
+        this.toastr.warning(
+          'no hay conecxiónn con la BD',
+          'Atención',
+          {
+            timeOut: 5000,
+            positionClass:'toast-bottom-center'
+          }
+        );
        
         console.log(error)
 
