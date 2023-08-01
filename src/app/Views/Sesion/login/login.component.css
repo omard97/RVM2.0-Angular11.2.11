@@ -9,8 +9,8 @@ body {
   height: 100vh;
   background-color: var(--colorFondo);
   background-image: var(--fondoHome);
-  font-family: sans-serif;
-  font-size: 18px;
+
+ 
   background-attachment: fixed;
   background-size: cover;
 
@@ -85,18 +85,7 @@ body {
 }
 
 /* botones navbar */
-.navbar__botones {
-  margin-right: 2rem;
-}
 
-.boton__home {
-  width: 3rem;
-  text-align: center;
-}
-
-.boton__home--icono {
-  font-size: 20px;
-}
 
 
 
@@ -208,3 +197,5 @@ button:active {
   color: rgb(113, 113, 113)!important;
   transition-duration: 0.4s;
 }
+
+
