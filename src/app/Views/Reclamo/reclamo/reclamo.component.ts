@@ -12,9 +12,10 @@ import { LoginApiService } from 'src/app/service/Login/login-api.service';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
 import { ToastrService } from 'ngx-toastr';
-import { LugaresService } from 'src/app/service/maps';
+
 import { MapReclamoService, PlacesReclamoService } from './maps-reclamo/services';
 import { Popup, Map, Marker } from 'mapbox-gl';
+
 
 
 
@@ -43,7 +44,7 @@ export class ReclamoComponent implements OnInit {
   /* ------------ Camara -------- */
 
   /* ------------ Input File ------------  */
-  imageReclamoDataUrl!:string;
+  imageReclamoDataUrl:string | undefined;
   /* ------------ Input File ------------  */
 
   
@@ -57,7 +58,7 @@ export class ReclamoComponent implements OnInit {
   horaCtrl = new FormControl('', [Validators.required]);
   ubicacionCtrl = new FormControl('', [Validators.required]);
   descripcionCtrl = new FormControl('', [Validators.required]);
-  urlFotoCtrl = new FormControl('', [Validators.required]);
+  FotoCtrl = new FormControl('', [Validators.required]);
   alturaCtrl = new FormControl('', [Validators.required]);
   dominioCtrl = new FormControl('', [Validators.required]);
   ID_Reclamo = new FormControl('', [Validators.required]);
@@ -466,9 +467,10 @@ ambiental */
           /* Acá pregunto si es ambiental o vial, si es ambiental sigo lo comun si es vial traigo los datos del auto */
           if (info[0].idTipoRec == 1) {
             this.arregloDetalleReclamo = info;
-            console.log(this.arregloDetalleReclamo)
+            console.log(this.arregloDetalleReclamo);
+            debugger
+            
             /* al obtener los datos muestro el mapa con la ubicacion del reclamo */
-
             this.verMapaReclamo(this.arregloDetalleReclamo[0].longitud,this.arregloDetalleReclamo[0].latitud)
             
             
@@ -575,13 +577,15 @@ ambiental */
       if (this.horaCtrl.value != '') {
         puthora = this.horaCtrl.value + '';
       }
-      if (this.imageReclamoDataUrl == '') {
+      debugger
+      if (this.FotoCtrl.value =='') {
         putfoto = this.arregloDetalleReclamo[0].foto;
+        
       }
-      if (this.imageReclamoDataUrl != '') {
+      if (this.FotoCtrl.value != '' ) {
         putfoto = this.imageReclamoDataUrl;
       }
-
+      debugger
       var reclamo: Reclamo = {
         IDReclamo: this.arregloDetalleReclamo[0].iD_Reclamo,
         fecha: putfecha,
@@ -765,14 +769,16 @@ ambiental */
     this.horaCtrl.reset();
     this.ubicacionCtrl.reset();
     this.descripcionCtrl.reset();
-    this.urlFotoCtrl.reset();
+    /* this.urlFotoCtrl.reset(); */
     this.alturaCtrl.reset();
     this.dominioCtrl.reset();
     this.estadoReclamoCtrl.reset();
+
     this.toastr.success('Reclamo Actualizado con exito', '', {
       timeOut: 7000,
-      progressBar: true,
+      
     });
+    this.metodoRedireccion()
   }
 
 
