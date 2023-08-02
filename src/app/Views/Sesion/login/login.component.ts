@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
       },
       (error) => {
         this.toastr.warning(
-          'no hay conecxiónn con la BD',
+          'no hay conexión con la Base de Datos.',
           'Atención',
           {
             timeOut: 5000,
