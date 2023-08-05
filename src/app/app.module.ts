@@ -31,6 +31,7 @@ import { ConfiguracionComponent } from './Views/Configuracion/configuracion/conf
 import { MapsModule } from './Views/Mapas/maps/maps.module';
 import { MapsReclamoModule } from './Views/Reclamo/reclamo/maps-reclamo/maps-reclamo.module';
 import { CamaraComponent } from './Views/Component/camara/camara.component';
+import { FooterComponent } from './Views/Component/footer/footer.component';
 
 
 
@@ -49,7 +50,8 @@ import { CamaraComponent } from './Views/Component/camara/camara.component';
     HistorialComponent,
     MapasComponent,
     ConfiguracionComponent,
-    CamaraComponent
+    CamaraComponent,
+    FooterComponent
     
     
   ],
