@@ -10,10 +10,12 @@ import { ReclamoComponent } from './Views/Reclamo/reclamo/reclamo.component';
 import { HistorialComponent } from './Views/Reclamo/historial/historial.component';
 import { ConfiguracionComponent } from './Views/Configuracion/configuracion/configuracion.component';
 import { MapasComponent } from './Views/Mapas/mapas/mapas.component';
+import { NosotrosComponent } from './Views/nosotros/nosotros.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+  {path: 'nosotros', component: NosotrosComponent },
 
   /*estando en el meu luego de iniciar sesion  */
   {
