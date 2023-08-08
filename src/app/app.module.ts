@@ -33,6 +33,8 @@ import { MapsReclamoModule } from './Views/Reclamo/reclamo/maps-reclamo/maps-rec
 import { CamaraComponent } from './Views/Component/camara/camara.component';
 import { FooterComponent } from './Views/Component/footer/footer.component';
 
+import { NosotrosComponent } from './Views/nosotros/nosotros.component';
+
 
 
 
@@ -51,7 +53,8 @@ import { FooterComponent } from './Views/Component/footer/footer.component';
     MapasComponent,
     ConfiguracionComponent,
     CamaraComponent,
-    FooterComponent
+    FooterComponent,
+    NosotrosComponent
     
     
   ],
