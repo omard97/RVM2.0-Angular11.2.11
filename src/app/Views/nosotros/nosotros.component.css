@@ -1,0 +1,179 @@
+:host {
+    --colorPrincipal: #e6621f;
+    --colorComplementario: #EDEDEE;
+    --colorSegmentario: #898989;
+    --colorOscuro: #333333;
+    --colorFondoCuadros: rgb(224, 224, 224);
+    --colorFondoEstructura:#f8f9fa;
+    --colorTexto: #6d6d6d;
+  }
+  
+  
+  html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+  
+  }
+
+  /* ---------------------- NavBar ------------------- */
+.contenedor__imagenlogin {
+    width: 10rem;
+  }
+  
+  .imagen__login {
+    height: 20px;
+    width: 100px;
+    padding-left: 1rem;
+  }
+  
+  /* fondo del navbar */
+  .navbar {
+    background-color: #303030 !important;
+    color: #e9e9e9 !important;
+    box-shadow: 0px 16px 84px -9px rgba(0, 0, 0, 0.91);
+    -webkit-box-shadow: 0px 16px 84px -9px rgba(0, 0, 0, 0.91);
+    -moz-box-shadow: 0px 16px 84px -9px rgba(0, 0, 0, 0.91);
+  
+  }
+
+
+  
+  body {
+    background-color: var(--colorFondoEstructura);
+    
+  }
+  
+  
+  h1 {
+    font-size: 24px;
+    transition-duration: 0.4s;
+  }
+  
+  h2 {
+    font-size: 22px;
+    transition-duration: 0.4s;
+    color: var(--colorPrincipal);
+  }
+
+
+  @media (max-width: 576px) {
+    h1{
+      font-size: 20px;
+     
+    }
+    h2{
+      font-size: 18px;
+      
+    }
+
+  }
+  
+  
+  
+  .borde {
+    border-bottom: 2px solid rgba(35, 35, 35, 0.311);
+  }
+  
+  /*  Scroll snap */
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  
+  .header__imagen {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 50%;
+  }
+  
+  .contenedor__titulo {
+    text-align: center;
+    margin: 3rem auto 0 auto;
+    transition-duration: 0.4s;
+  }
+  
+  .titulo__nosotros {
+    color: var(--colorPrincipal);
+  }
+  .nosotros__informacion{
+    text-align: justify;
+  }
+  
+  .container__tarjeta{
+    transition-duration: 0.4s;
+  }
+  .tecnologia__imagen {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  
+ 
+  
+  .subtitulo__nosotros, 
+  .tecnologias__subtitulos{
+    font-size: 1.3rem;
+    color: var(--colorTexto);
+  }
+  
+  
+  /* Tarjeta Integrantes */
+  
+  .integrantes {
+    margin: 2rem auto;
+  }
+  
+  .informacion__nombre {
+    font-size: 2.5rem;
+    color: var(--colorPrincipal);
+  }
+  
+  .informacion__rol {
+    font-size: 1.8rem;
+    color: var(--colorSegmentario)
+  }
+  
+  .informacion__nombre,
+  .informacion__rol {
+    /* font-family: var(--fuentePrincipal); */
+    margin: 1rem 0;
+    text-align: center;
+    line-height: 1.2;
+  }
+  
+  @media (max-width: 1200px) {
+  
+    .img_goto{
+      transition: all 0.2s ease;
+    }
+
+    .informacion__nombre {
+      font-size: 20px;
+  
+      
+    }
+  
+    .informacion__rol {
+      font-size: 18px;
+     
+    }
+  
+  }
+  
+  .tecnologias {
+    background-color: var(--colorFondoCuadros)
+  }
+  
+  .tecnologias__informacion {
+    text-align: center;
+    
+  }
+  
