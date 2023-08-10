@@ -7,7 +7,7 @@ a,p{
     color: rgb(184, 184, 184)!important;
 }
 
-.a_nosotros{
+.a_nosotros, .a_login{
     border-radius: 10px;
 }
 a:hover{
