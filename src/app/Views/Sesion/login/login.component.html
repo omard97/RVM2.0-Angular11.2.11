@@ -112,7 +112,7 @@
 
                   <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-circle-user"></i></span>
                   <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario"
-                    [formControl]="usuarioCtrl">
+                    [formControl]="usuarioCtrl"  #txtQuery (keyup)="validarUsuarioRepetido(txtQuery.value)">
 
                 </div>
                 <!-- Correo -->
@@ -120,7 +120,7 @@
 
                   <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-at"></i></span>
                   <input type="text" class="form-control" placeholder="Correo" aria-label="Correo"
-                    [formControl]="correoCtrl">
+                    [formControl]="correoCtrl" #txtCorreo (keyup)="validarCorreoRepetido(txtCorreo.value)">
 
                 </div>
                 <!-- Contraseña -->
