@@ -28,6 +28,11 @@ export class LoginApiService {
     return this.http.get<nickUsuario[]>('https://localhost:44363/V_listaUsuariosNick/' + nick);
   }
 
+  getConfirmarCorreoUsuario(correo:string){
+    return this.http.get<nickUsuario[]>('https://localhost:44363/V_listaUsuariosNick?'+"correo="+correo);
+    
+  }
+
 
 
   /* traer el id de sesion y utilizarlo para crear el reclamo */
