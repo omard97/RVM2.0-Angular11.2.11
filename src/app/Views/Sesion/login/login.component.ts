@@ -64,15 +64,6 @@ export class LoginComponent implements OnInit {
     ID_Usuario: 0,
   }
 
-  objUsuario = {
-    idusuario: 0,
-    nick: '',
-    correo: ''
-  }
-
-
-
-
   ngOnInit(): void { }
 
   /* ----- Login ----- */
@@ -149,7 +140,15 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['menu', this.listUsuariodata[0].idUser, 'dashboard']); /* this.router.navigate(['main-nav', data[0].idUser]); */
         },
         (err) => {
-
+          this.toastr.warning(
+            'no hay conexión con la Base de Datos.',
+            'Atención',
+            {
+              timeOut: 5000,
+              positionClass: 'toast-bottom-center'
+            }
+          );
+          console.log(err)
         }
       );
   }
@@ -245,6 +244,7 @@ export class LoginComponent implements OnInit {
               positionClass: 'toast-bottom-center'
             }
           );
+          console.log(error);
         }
       )
     }
@@ -260,6 +260,9 @@ export class LoginComponent implements OnInit {
     this.correoCtrl.reset();
     this.contraseniaCtrl.reset();
     this.confirmacionCtrl.reset();
+    this.banderaContrasenia = false; 
+    this.banderaUsuarioValido = false;
+    this.banderaCorreoValido = false;
   }
 
   /* --------- Validar Usuario Repetido --------- */
@@ -269,86 +272,102 @@ export class LoginComponent implements OnInit {
 
     this.debounceTimer = setTimeout(() => {
 
-      this.serviceLogin.getConfirmarNickUsuario(nick).subscribe(
-        (data) => {
+      if (nick != '') {
+        this.serviceLogin.getConfirmarNickUsuario(nick).subscribe(
+          (data) => {
 
-          debugger
-
-          /* Luego se utiliza para verificar el correo en la proxima funcion */
-          this.objUsuario = {
-            idusuario: data[0].idUsuario,
-            nick: data[0].nick,
-            correo: data[0].correo
-          }
-
-
-
-          if (data.length == 0) {
             debugger
-            this.banderaUsuarioValido = true;
-            this.toastr.success(
-              'El nombre de usuario es valido para registrarse',
-              'Atención',
-              {
-                timeOut: 4000,
-                positionClass: 'toast-bottom-full-width'
-              }
-            );
-          } else {
+
+            if (data.length == 0) {
+              debugger
+              this.banderaUsuarioValido = true;
+              this.toastr.success(
+                'El nombre de usuario es valido para registrarse',
+                'Atención',
+                {
+                  timeOut: 4000,
+                  positionClass: 'toast-bottom-full-width'
+                }
+              );
+            } else {
+
+              debugger
+              this.toastr.info(
+                'Ya hay un usuario con el mismo nombre, intente utilizar otro nombre',
+                'Atención',
+                {
+                  timeOut: 5000,
+                  positionClass: 'toast-bottom-center'
+                }
+              );
+            }
+          },
+          (error) => {
             debugger
             this.toastr.info(
-              'Ya hay un usuario con el mismo nombre, intente utilizar otro nombre',
+              'Ocurrío un problema ',
               'Atención',
               {
                 timeOut: 5000,
                 positionClass: 'toast-bottom-center'
               }
             );
+            console.log(error);
           }
-        },
-        (error) => {
-          debugger
-          this.toastr.info(
-            'Ocurrío un problema ',
-            'Atención',
-            {
-              timeOut: 5000,
-              positionClass: 'toast-bottom-center'
-            }
-          );
-        }
-      )
+        )
+      }
+
 
     }, 1000)
   }
 
   validarCorreoRepetido(correo: string = '') {
     if (this.debounceTimer) clearTimeout(this.debounceTimer);
-  
+
     this.debounceTimer = setTimeout(() => {
-      
-  
+
+      debugger
       if (this.correoValidoExp.test(correo)) {
-        if (correo !== this.objUsuario.correo) {
-          this.banderaCorreoValido = true;
-          this.toastr.success(
-            'El correo es válido para registrarse',
-            'Atención',
-            {
-              timeOut: 4000,
-              positionClass: 'toast-bottom-full-width'
+
+        /* Metodo para buscar el correo - hacer  */
+        this.serviceLogin.getConfirmarCorreoUsuario(correo).subscribe(
+          (data)=>{
+            debugger
+            if (data.length==0) {
+              this.banderaCorreoValido = true;
+              this.toastr.success(
+                'El correo es válido para registrarse',
+                'Atención',
+                {
+                  timeOut: 4000,
+                  positionClass: 'toast-bottom-full-width'
+                }
+              );
+            } else {
+              this.toastr.info(
+                'Este correo ya se encuentra registrado, intente utilizar otro correo',
+                'Atención',
+                {
+                  timeOut: 5000,
+                  positionClass: 'toast-bottom-center'
+                }
+              );
             }
-          );
-        } else {
-          this.toastr.info(
-            'Este correo ya se encuentra registrado, intente utilizar otro correo',
-            'Atención',
-            {
-              timeOut: 5000,
-              positionClass: 'toast-bottom-center'
-            }
-          );
-        }
+          },
+          (err)=>{
+            this.toastr.warning(
+              'no hay conexión con la Base de Datos.',
+              'Atención',
+              {
+                timeOut: 5000,
+                positionClass: 'toast-bottom-center'
+              }
+            );
+            console.log(err)
+          }
+        )
+
+       
       } else {
         this.toastr.warning(
           'Por favor, ingrese un correo válido (ejemplo: usuario@gmail.com)',
@@ -361,6 +380,6 @@ export class LoginComponent implements OnInit {
       }
     }, 1000);
   }
-  
+
 
 }
