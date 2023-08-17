@@ -16,6 +16,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
+  private debounceTimer?: NodeJS.Timeout;
+
+
   /* ---- Loguear usuario */
   userLogCtrl = new FormControl('', [Validators.required, Validators.minLength(4)]);
   pasworLogCtrl = new FormControl('', [Validators.required, Validators.minLength(4)]);
@@ -31,7 +34,7 @@ export class LoginComponent implements OnInit {
   usuarioCtrl = new FormControl('', [Validators.required]);
 
 
-  constructor(private serviceLogin: LoginApiService, private serviceRegistro: RegistroApiService, private router: Router, private toastr:ToastrService) {
+  constructor(private serviceLogin: LoginApiService, private serviceRegistro: RegistroApiService, private router: Router, private toastr: ToastrService) {
     this.fechadehoy();
   }
 
@@ -39,6 +42,10 @@ export class LoginComponent implements OnInit {
   banderaContrasenia: boolean = false; /* bandera para habilitar el boton de registrarme */
   banderaAlerta: boolean = false;
   banderaAlertaRegistro: boolean = false; /* Avisa que el usuario a sigo registrado con exito */
+  banderaUsuarioValido: boolean = false
+  banderaCorreoValido: boolean = false;
+
+  correoValidoExp = /^[a-zA-Z0-9._-]+@(gmail\.com|hotmail\.com|otrodominio\.com)$/;
 
   listUsuariodata: any;
 
@@ -57,6 +64,15 @@ export class LoginComponent implements OnInit {
     ID_Usuario: 0,
   }
 
+  objUsuario = {
+    idusuario: 0,
+    nick: '',
+    correo: ''
+  }
+
+
+
+
   ngOnInit(): void { }
 
   /* ----- Login ----- */
@@ -70,25 +86,25 @@ export class LoginComponent implements OnInit {
     this.serviceLogin.getValidacionUsuario(usuarioLogeado.email, usuarioLogeado.password).subscribe(
       (data) => {
 
-        if(data.length==0){
+        if (data.length == 0) {
           this.toastr.warning(
             'El correo/contraseña no coinciden, intentelo de nuevo.',
             'Atención',
             {
               timeOut: 5000,
-              positionClass:'toast-bottom-center'
+              positionClass: 'toast-bottom-center'
             }
           );
-        }else{
+        } else {
           console.log('el usuario se logueo con exito')
-        console.log(data)
+          console.log(data)
 
-        this.listUsuariodata = data;
-        console.log('Informacion usuario: ', this.listUsuariodata[0].idUser); /* obtengo el id del usuario y lo envio para postearlo */
-        this.postInicioSesionUsuario(this.listUsuariodata[0].idUser);
+          this.listUsuariodata = data;
+          console.log('Informacion usuario: ', this.listUsuariodata[0].idUser); /* obtengo el id del usuario y lo envio para postearlo */
+          this.postInicioSesionUsuario(this.listUsuariodata[0].idUser);
         }
         debugger
-        
+
 
 
       },
@@ -98,10 +114,10 @@ export class LoginComponent implements OnInit {
           'Atención',
           {
             timeOut: 5000,
-            positionClass:'toast-bottom-center'
+            positionClass: 'toast-bottom-center'
           }
         );
-       
+
         console.log(error)
 
       }
@@ -130,16 +146,16 @@ export class LoginComponent implements OnInit {
           /* 'principal',
         ]); */ /* this.router.navigate(['main-nav', data[0].idUser]); */
           debugger
-          this.router.navigate(['menu', this.listUsuariodata[0].idUser,'dashboard']); /* this.router.navigate(['main-nav', data[0].idUser]); */
+          this.router.navigate(['menu', this.listUsuariodata[0].idUser, 'dashboard']); /* this.router.navigate(['main-nav', data[0].idUser]); */
         },
         (err) => {
-          
+
         }
       );
   }
 
   fechadehoy() {
-    
+
 
     this.fechaLogin = formatDate(new Date(), 'yyyy-MM-dd', 'en-US')
     this.hora = String(this.date.getHours() + ':' + this.date.getMinutes());
@@ -158,7 +174,7 @@ export class LoginComponent implements OnInit {
         'Atención',
         {
           timeOut: 1000,
-          positionClass:'toast-bottom-center'
+          positionClass: 'toast-bottom-center'
         }
       );
 
@@ -169,7 +185,7 @@ export class LoginComponent implements OnInit {
         'Atención',
         {
           timeOut: 1000,
-          positionClass:'toast-bottom-center'
+          positionClass: 'toast-bottom-center'
         }
       );
     }
@@ -178,14 +194,14 @@ export class LoginComponent implements OnInit {
   /* ----- Modal Registrar usuario --- */
   registrarUsuario() {
     debugger
-    if (this.nombreCtrl.invalid || this.apellidoCtrl.invalid || this.telefonoCtrl.invalid || this.dniCtrl.invalid || this.usuarioCtrl.invalid || this.correoCtrl.invalid || this.contraseniaCtrl.invalid || this.confirmacionCtrl.invalid || this.banderaContrasenia == false) {
-      
+    if (this.nombreCtrl.invalid || this.apellidoCtrl.invalid || this.telefonoCtrl.invalid || this.dniCtrl.invalid || this.usuarioCtrl.invalid || this.correoCtrl.invalid || this.contraseniaCtrl.invalid || this.confirmacionCtrl.invalid || this.banderaContrasenia == false || this.banderaUsuarioValido == false || this.banderaCorreoValido == false) {
+
       this.toastr.warning(
         'Complete el formulario para registrarse',
         'Atención',
         {
           timeOut: 5000,
-          positionClass:'toast-bottom-center'
+          positionClass: 'toast-bottom-center'
         }
       );
     } else {
@@ -204,28 +220,29 @@ export class LoginComponent implements OnInit {
       this.vaciarFormulario();
 
 
+
       this.serviceRegistro.postRegistrarUsuario(usuario).subscribe(
         (data) => {
-          
+
           this.toastr.success(
-            usuario.Nick+' inicia sesion para comenzar a usar la app',
+            usuario.Nick + ' inicia sesion para comenzar a usar la app',
             'Atención',
             {
               timeOut: 4000,
-              positionClass:'toast-bottom-full-width'
+              positionClass: 'toast-bottom-full-width'
             }
           );
-          this.banderaAlertaRegistro
-          
+          this.banderaAlertaRegistro == false;
+
         },
         (error) => {
-          alert('ocurrio un error al registarr el usuario: ' + error)
+
           this.toastr.info(
             'Ocurrío un problema, usuario no registrado',
             'Atención',
             {
               timeOut: 5000,
-              positionClass:'toast-bottom-center'
+              positionClass: 'toast-bottom-center'
             }
           );
         }
@@ -245,5 +262,105 @@ export class LoginComponent implements OnInit {
     this.confirmacionCtrl.reset();
   }
 
+  /* --------- Validar Usuario Repetido --------- */
+  validarUsuarioRepetido(nick: string = '') {
+
+    if (this.debounceTimer) clearTimeout(this.debounceTimer);
+
+    this.debounceTimer = setTimeout(() => {
+
+      this.serviceLogin.getConfirmarNickUsuario(nick).subscribe(
+        (data) => {
+
+          debugger
+
+          /* Luego se utiliza para verificar el correo en la proxima funcion */
+          this.objUsuario = {
+            idusuario: data[0].idUsuario,
+            nick: data[0].nick,
+            correo: data[0].correo
+          }
+
+
+
+          if (data.length == 0) {
+            debugger
+            this.banderaUsuarioValido = true;
+            this.toastr.success(
+              'El nombre de usuario es valido para registrarse',
+              'Atención',
+              {
+                timeOut: 4000,
+                positionClass: 'toast-bottom-full-width'
+              }
+            );
+          } else {
+            debugger
+            this.toastr.info(
+              'Ya hay un usuario con el mismo nombre, intente utilizar otro nombre',
+              'Atención',
+              {
+                timeOut: 5000,
+                positionClass: 'toast-bottom-center'
+              }
+            );
+          }
+        },
+        (error) => {
+          debugger
+          this.toastr.info(
+            'Ocurrío un problema ',
+            'Atención',
+            {
+              timeOut: 5000,
+              positionClass: 'toast-bottom-center'
+            }
+          );
+        }
+      )
+
+    }, 1000)
+  }
+
+  validarCorreoRepetido(correo: string = '') {
+    if (this.debounceTimer) clearTimeout(this.debounceTimer);
+  
+    this.debounceTimer = setTimeout(() => {
+      
+  
+      if (this.correoValidoExp.test(correo)) {
+        if (correo !== this.objUsuario.correo) {
+          this.banderaCorreoValido = true;
+          this.toastr.success(
+            'El correo es válido para registrarse',
+            'Atención',
+            {
+              timeOut: 4000,
+              positionClass: 'toast-bottom-full-width'
+            }
+          );
+        } else {
+          this.toastr.info(
+            'Este correo ya se encuentra registrado, intente utilizar otro correo',
+            'Atención',
+            {
+              timeOut: 5000,
+              positionClass: 'toast-bottom-center'
+            }
+          );
+        }
+      } else {
+        this.toastr.warning(
+          'Por favor, ingrese un correo válido (ejemplo: usuario@gmail.com)',
+          'Atención',
+          {
+            timeOut: 5000,
+            positionClass: 'toast-bottom-center'
+          }
+        );
+      }
+    }, 1000);
+  }
+  
 
 }
