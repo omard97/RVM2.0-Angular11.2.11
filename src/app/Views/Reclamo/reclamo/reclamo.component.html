@@ -17,19 +17,20 @@
                         <thead>
                             <tr class="table100-head">
                                 <!-- <th class="column1">Altura</th> -->
-                                <th class="column1">Descripción</th>  <!-- ngIf="item.dominio !== '-' && item.nombreMarca !== ' ' && item.nombreModelo !== ' '" -->
+                                <th class="column1">Descripción</th>
+                                <!-- ngIf="item.dominio !== '-' && item.nombreMarca !== ' ' && item.nombreModelo !== ' '" -->
                                 <th class="column2">Dirección</th>
-                                <th class="column3" *ngIf="item.dominio !== '-' " >Dominio</th>
+                                <th class="column3" *ngIf="item.dominio !== '-' ">Dominio</th>
                                 <th class="column4">Fecha</th>
                                 <th class="column5">Foto</th>
                                 <th class="column6">Hora</th>
-                                
+
                                 <th class="column7">Motivo</th>
-                               <!--  <th class="column9">Marca</th>
+                                <!--  <th class="column9">Marca</th>
                                 <th class="column10" >Modelo</th> -->
                                 <th class="column8">Tipo Reclamo </th>
                                 <th class="column9">Estado </th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
@@ -42,13 +43,13 @@
                                 <td class="column5"><img class="rounded-3" src="{{item.foto}}" alt="Foto"
                                         style="width: 150px; height: 100px;"></td>
                                 <td class="column6">{{item.hora}}</td>
-                               
+
                                 <td class="column7">{{item.nombreRecAmbiental}}</td>
                                 <!-- <td class="column9" >{{item.nombreMarca}}</td>
                                 <td class="column10">{{item.nombreModelo}}</td> -->
                                 <td class="column8">{{item.nombreTRec}}</td>
                                 <td class="column9">{{item.estadoR}}</td>
-                                
+
                             </tr>
 
                         </tbody>
@@ -68,19 +69,7 @@
                         <div class="col-md-5">
 
                             <!-- Tipo Reclamo -->
-                            <!--  <div class="form-group">
-                                <span class=" titulos col-md-1 col-md-offset-2 text-center"> <i
-                                        class="fas fa-tasks" style="font-size: 25px;"></i> Tipo Reclamo</span>
-                                <div class="col-md-12 text-center ">
-                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                        [formControl]="tipoReclamoCtrl" (change)="dataChangedTipoReclamo($event)">
-                                        <option value="{{item.idTipoReclamo}}" style="color: black;"
-                                            *ngFor="let item of Tiporecla">
-                                            {{item.nombre}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> -->
+
                             <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Tipo De Reclamo">
 
@@ -103,22 +92,7 @@
 
 
                             <!-- Reclamo Ambiental -->
-                            <!--  <div class="form-group" id="ReclamoAmbiental" *ngIf="selectIdTipoReclamo==1">
-                                <span class="titulos col-md-1 col-md-offset-2 text-center"><i
-                                        class="fas fa-exclamation-triangle" style="font-size: 25px;">
-                                    </i> Reclamo Ambiental</span>
 
-                                <div class="col-md-12 text-center">
-                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                        [formControl]="reclamoAmbientalCtrl" (change)="obtenerID($event)">
-                                        <option id="dato" value="{{item.idReclamoAmbiental}}" style="color: black;"
-                                            *ngFor="let item of ReclamoAmbie">{{item.nombreRecAmbiental}}
-
-                                        </option>
-                                    </select>
-
-                                </div>
-                            </div>  -->
 
                             <div class="input-group flex-nowrap input_reclamo" id="ReclamoAmbiental"
                                 *ngIf="selectIdTipoReclamo==1" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -139,19 +113,7 @@
                             </div>
 
                             <!-- Marca Auto -->
-                            <!-- <div class="form-group" id="ReclamoVial" *ngIf="selectIdTipoReclamo==2">
-                                <span class="titulos col-md-1 col-md-offset-2 text-center"><i class="fas fa-car-side"
-                                        style="font-size: 25px;">
-                                    </i> Marca de auto</span>
-                                <div class="col-md-12 text-center">
-                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                        [formControl]="marcaAutoCtrl" (change)="dataChangedIdMarcaVehiculo($event)">
-                                        <option value="{{item.idMarca}}" style="color: black;" *ngFor="let item of Mar">
-                                            {{item.marcaVehiculo}}
-                                        </option>
-                                    </select>                  
-                                </div>
-                            </div> -->
+
                             <div class="input-group flex-nowrap input_reclamo" id="ReclamoVial"
                                 *ngIf="selectIdTipoReclamo==2" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="Marca de Auto">
@@ -168,19 +130,7 @@
                             </div>
 
                             <!-- Modelo auto -->
-                            <!--    <div class="form-group" id="ReclamoVial" *ngIf="selectIdTipoReclamo==2">
-                                <span class="titulos col-md-1 col-md-offset-2 text-center"><i class="fas fa-list-ol"
-                                        style="font-size: 25px;"></i> Modelo de auto</span>
-                                <div class="col-md-12 text-center">
-                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                        [formControl]="modeloAutoCtrl" (change)="obtenerIDModeloVehiculo($event)">
-                                        <option value="{{item.idModelo}}" style="color: black;"
-                                            *ngFor="let item of Mod ">
-                                            {{item.modeloVehiculo}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> -->
+
 
                             <div class="input-group flex-nowrap input_reclamo" id="ReclamoVial"
                                 *ngIf="selectIdTipoReclamo==2" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -199,14 +149,7 @@
 
 
                             <!-- Dominio Auto -->
-                            <!-- <div class="form-group" id="ReclamoVial" *ngIf="selectIdTipoReclamo==2">
-                                <span class="titulos col-md-1 col-md-offset-2 text-center"><i class="fas fa-car"
-                                        style="font-size: 25px;"></i> Dominio del Vehículo</span>
-                                <div class="col-md-12 text-center">
-                                    <input id="dominio" name="" type="text" placeholder="Dominio"
-                                        class="form-control inputs" [formControl]="dominioCtrl">
-                                </div>
-                            </div> -->
+
 
                             <div class="input-group flex-nowrap input_reclamo" id="ReclamoVial"
                                 *ngIf="selectIdTipoReclamo==2" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -231,15 +174,7 @@
                             </div>
 
                             <!-- Fecha -->
-                            <!--   <div class="form-group">
-                                <span class="titulos col-md-1 col-md-offset-2 text-center"><i
-                                    class="fa fa-calendar bigicon" style="color: black; font-size: 25px;"></i>
-                                    Fecha</span> 
-                                <div class="col-md-12 text-center">
-                                    <input id="Fecha" name="name" type="date" placeholder="Fecha"
-                                        class="form-control inputs" [formControl]="fechaCtrl">
-                                </div>
-                            </div> -->
+
                             <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Fecha">
                                 <span class="input-group-text" id="addon-wrapping"><i
@@ -249,16 +184,7 @@
                             </div>
 
                             <!-- Hora -->
-                            <!-- <div class="form-group">
-                                <span class="titulos col-md-1 col-md-offset-2 text-center"><i
-                                        class="fa fa-clock-o bigicon" style="color: black; font-size: 25px;"></i>
-                                    Hora</span>
-                                <div class="col-md-12 text-center">
-                                    <input id="Hora" name="tiempo" type="time" placeholder={{time}}
-                                        class="form-control inputs" [formControl]="horaCtrl"
-                                        (click)='obtenerHoraActual()'>
-                                </div>
-                            </div> -->
+
                             <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Hora">
 
@@ -271,15 +197,7 @@
 
 
                             <!-- Ubicacion - Calee -->
-                            <!-- <div class="form-group">
-                                <span class="titulos col-md-1 col-md-offset-2 text-center"><i
-                                        class="fa fa-map-marker bigicon" style="color: black; font-size: 25px;"></i>
-                                    Dirección</span>
-                                <div class="col-md-12 text-center">
-                                    <input id="Ubicacion" name="phone" type="text" placeholder="No ingresó su ubicación"
-                                        class="form-control inputs" [formControl]="ubicacionCtrl">
-                                </div>
-                            </div> -->
+
                             <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Calle">
 
@@ -292,18 +210,9 @@
                             </div>
 
                             <!-- <Altura direccion reclamo> -->
-                            <!-- <div class="form-group">
-                                <span class="titulos col-md-1 col-md-offset-2 text-center"><i
-                                        class="fa fa-sort-numeric-up-alt bigicon"
-                                        style="color: black; font-size: 25px;"></i> Altura</span>
-                                <div class="col-md-12 text-center">
-                                    <input id="Altura" name="phone" type="number"
-                                        placeholder="No ingresó su altura de calle" class="form-control inputs"
-                                        [formControl]="alturaCtrl">
-                                </div>
-                            </div> -->
 
-                            <!--   <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
+
+                            <!-- <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Tipo De Reclamo">
                                 <span class="input-group-text" id="addon-wrapping"><i
                                         class="bi bi-sort-numeric-up-alt icono__input"></i></span>
@@ -322,9 +231,8 @@
                             <div class="col-md-12">
 
                                 <div class=" input_reclamo">
-                                
-                              <!--       <textarea class="form-control " id="UrlFoto" name="urlFoto" placeholder="URL Foto"
-                                        rows="1" [formControl]="urlFotoCtrl"></textarea> -->
+
+
 
                                     <div class="form-group input_reclamo">
 
@@ -337,29 +245,33 @@
 
                                 </div>
 
-                                <div class="input_reclamo" >
+                                <div class="input_reclamo">
                                     <div class="row">
                                         <!-- subir archivos -->
                                         <div class="co-12 col-sm-12 ">
                                             <div class="input-group">
-                                                <input type="file" class="form-control" id="inputGroupFile02" (change)="onFileSelected($event)" accept="image/*" [formControl]="FotoCtrl" >
+                                                <input type="file" class="form-control" id="inputGroupFile02"
+                                                    (change)="onFileSelected($event)" accept="image/*"
+                                                    [formControl]="FotoCtrl">
                                                 <!--  -->
                                                 <label class="input-group-text" for="inputGroupFile02"><i
                                                         class="bi bi-image"></i></label>
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
 
-                                
+
 
                                 <!-- Estados Reclamos -->
-                                <div class="form-group" *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
+                                <div class="form-group"
+                                    *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
                                     <h5 class="text-center">Estados del reclamo</h5>
                                     <div class="form-check form-check-inline" *ngFor="let item of Tiporecla">
                                         <input class="form-check-input" (change)="dataChangedEstadoReclamo($event)"
-                                            type="radio" name="EstadosRec" id="inlineRadio1" value="{{item.idTipoReclamo}}">
+                                            type="radio" name="EstadosRec" [id]="item.idTipoReclamo"
+                                            [value]="item.idTipoReclamo" [disabled]="this.arregloDetalleReclamo[0]?.nombreTRec != item.nombre">
                                         <label class="form-check-label" for="inlineRadio1">{{item.nombre}}</label>
                                     </div>
 

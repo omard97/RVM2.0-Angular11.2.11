@@ -259,7 +259,8 @@ export class HistorialComponent implements OnInit {
               this.banderaIconoCarga =false; /* No se visualiza */
               this.banderaAlerta=false;/* No se visualiza */
               this.Dreclamos = res;
-             
+              console.log(this.Dreclamos);
+             debugger
               if (res.length == 0) {
                 this.banderaAlerta=true;/*se visualiza */
                 this.mensajeRespuestaErrordeBusqueda();
