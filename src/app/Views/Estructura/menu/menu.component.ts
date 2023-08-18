@@ -79,7 +79,7 @@ export class MenuComponent implements OnInit {
             this.usuario.idRol = data[0].idRol,
             this.usuario.rol = data[0].rol,
             this.usuario.foto = data[0].foto
-            debugger
+            
         },
         (error) => {
           console.error(error);
