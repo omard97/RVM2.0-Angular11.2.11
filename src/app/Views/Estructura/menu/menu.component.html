@@ -165,36 +165,36 @@
                         </div>
                         <div *ngFor="let item of datosPerfil " class=" col-9 text-center ">
                             <div class="row ">
-                                <div class="col-12 col-sm-6 "> <!-- shadow rounded border border-1 -->
-                                    <h5>Nombre</h5>
-                                    <label for="">{{item.nombrePersona}}</label>
+                                <div class="col-12 col-sm-6"> <!-- shadow rounded border border-1 -->
+                                    <h5 class="titulo__perfil">Nombre</h5>
+                                    <label for="" class="info__perfil">{{item.nombrePersona}}</label>
 
                                 </div>
                                 <div class="col-12 col-sm-6 ">
-                                    <h5>Apellido</h5>
-                                    <label for="">{{item.apellidoPersona}}</label>
+                                    <h5 class="titulo__perfil">Apellido</h5>
+                                    <label class="info__perfil" for="">{{item.apellidoPersona}}</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 col-sm-6 ">
-                                    <h5>Celular</h5>
-                                    <label for="">{{item.telefonoUsuario}}</label>
+                                    <h5 class="titulo__perfil">Celular</h5>
+                                    <label class="info__perfil" for="">{{item.telefonoUsuario}}</label>
 
                                 </div>
                                 <div class="col-12 col-sm-6 ">
-                                    <h5>DNI</h5>
-                                    <label for="">{{item.dniUsuario}}</label>
+                                    <h5 class="titulo__perfil">DNI</h5>
+                                    <label class="info__perfil" for="">{{item.dniUsuario}}</label>
                                 </div>
                             </div>
                             <div class="row ">
                                 <div class="col-12 col-sm-6  ">
-                                    <h5>Correo</h5>
-                                    <label for="">{{item.correoUsuario}}</label>
+                                    <h5 class="titulo__perfil">Correo</h5>
+                                    <label class="info__perfil" for="">{{item.correoUsuario}}</label>
 
                                 </div>
                                 <div class="col-12 col-sm-6 ">
-                                    <h5>Usuario</h5>
-                                    <label for="">{{item.nombreUsuario}}</label>
+                                    <h5 class="titulo__perfil">Usuario</h5>
+                                    <label class="info__perfil" for="">{{item.nombreUsuario}}</label>
                                 </div>
                             </div>
 
@@ -213,7 +213,9 @@
                 </div>
                 <div *ngIf="this.banderaActualizarPerfil==true;
                 " class="container-fluid contenedor__inputPerfil animate__animated animate__fadeIn">
-
+                <small class="text-center" style="color: rgb(131, 131, 131);">
+                    <p class="m-0">* Rellene los campos que desea modificar *</p>
+                </small>
                     <form *ngFor="let item of datosPerfil">
                         <div class="row">
                             <div class="col-12 col-sm-6">
@@ -334,9 +336,7 @@
 
                             </div>
                         </div>
-                        <small class="text-center" style="color: rgb(131, 131, 131);">
-                            <p>* Rellene los campos que desea modificar *</p>
-                        </small>
+                        
 
                     </form>
 
