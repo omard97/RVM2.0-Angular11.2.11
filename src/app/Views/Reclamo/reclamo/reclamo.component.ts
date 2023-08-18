@@ -468,7 +468,7 @@ ambiental */
           if (info[0].idTipoRec == 1) {
             this.arregloDetalleReclamo = info;
             console.log(this.arregloDetalleReclamo);
-            debugger
+           
             
             /* al obtener los datos muestro el mapa con la ubicacion del reclamo */
             this.verMapaReclamo(this.arregloDetalleReclamo[0].longitud,this.arregloDetalleReclamo[0].latitud)
