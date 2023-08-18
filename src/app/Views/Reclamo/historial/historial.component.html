@@ -155,7 +155,7 @@
                     <!-- col-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 -->
                     <!-- 1 admin 2 empleado 3 usuario -->
                     <button type="button" class="btn btn-outline-primary " data-bs-toggle="tooltip"
-                      data-bs-placement="top" title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"><i
+                      data-bs-placement="top" title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)" [disabled]="this.Dreclamos[0].nombre !== 'Pendiente' && this.usuario.idRol==3"><i
                         class="bi bi-pencil-square"></i>
                       <!-- item.nombre,item.idTipoRec,item.idRecAmb,item.nombreRecAmbiental,item.nombreTRec,item.descripcion,item.fecha,item.hora,item.direccion,item.altura -->
                     </button> <!-- routerLink="/main-nav/historial/reclamos" -->
@@ -163,7 +163,7 @@
 
                   <div class="col col-sm-1 col-md-1 boton__tabla "> <!-- col-3 col-md-3 col-lg-3 col-xl-6 col-xxl-3 -->
                     <button type="button" class="btn btn-outline-danger d-inline-block " data-bs-toggle="tooltip"
-                      data-bs-placement="top" title="Cancelar Reclamo"><i class="bi bi-trash3-fill"></i>
+                      data-bs-placement="top" title="Cancelar Reclamo" ><i class="bi bi-trash3-fill"></i>
                     </button>
                   </div>
 
@@ -221,21 +221,22 @@
                 <button *ngIf="item.longitud || item.latitud" type="button" class="btn btn-primary"
                   (click)="verMapa(item.longitud, item.latitud, item.direccion)"
                   data-bs-toggle="modal" data-bs-target="#mapaModal">
-                  <i class="bi bi-geo-fill"></i>
+                  <i class="bi bi-geo-alt-fill"></i>
                 </button>
               </div>
           
               <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)"
                 class="col-12 col-sm-3 col-md-3">
                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top"
-                  title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)">
+                  title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)" [disabled]="this.Dreclamos[0].nombre !== 'Pendiente' && this.usuario.idRol==3 "
+                  > <!-- [disabled]="this.Dreclamos[0].nombre !== 'Pendiente'" -->
                   <i class="bi bi-pencil-square"></i>
                 </button>
               </div>
           
               <div class="col-12 col-sm-3 col-md-3">
                 <button type="button" class="btn btn-outline-danger d-inline-block" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="Cancelar Reclamo">
+                  data-bs-placement="top" title="Cancelar Reclamo"  [disabled]="this.Dreclamos[0].nombre !== 'Pendiente' && this.usuario.idRol==3">
                   <i class="bi bi-trash3-fill"></i>
                 </button>
               </div>
