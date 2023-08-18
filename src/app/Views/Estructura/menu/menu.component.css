@@ -11,6 +11,10 @@ a:hover{
     transition: all 0.2s ease;
 } */
 
+:host{
+    --colorTexto: #535353;
+}
+
 /* -------- Menu Angular Material ------ */
 .mat-sidenav-contenedor{
     background-color: #ffffff;
@@ -186,13 +190,21 @@ a:hover{
 .imagen--perfil {
     border-radius: 1rem;
 }
-
+.titulo__perfil{
+    font-size: 18px;
+    margin: 0;
+}
+.info__perfil{
+    color: var(--colorTexto);
+    font-size: 14px;
+    padding-bottom: 10px;
+}
 .inputModal {
     margin: 0rem 0 0.5rem 0;
 }
 
 .contenedor__inputPerfil{
-    padding: 1rem 0rem 0rem 0rem;
+    padding: 0rem 0rem 0rem 0rem;
 }
 
 /* .inputModal:last-of-type {
