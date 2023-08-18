@@ -7,6 +7,7 @@
         </div>
     </div>
 
+    <!-- Tabla para reclamos ambientales -->
     <div class="  animate__animated animate__fadeIn" *ngFor="let item of arregloDetalleReclamo">
 
         <div class="container-table100">
@@ -16,32 +17,38 @@
                         <thead>
                             <tr class="table100-head">
                                 <!-- <th class="column1">Altura</th> -->
-                                <th class="column2">Descripción</th>
-                                <th class="column3">Dirección</th>
-                                <th class="column4">Dominio</th>
-                                <th class="column5">Fecha</th>
-                                <th class="column6">Foto</th>
-                                <th class="column7">Hora</th>
-                                <th class="column8">Motivo</th>
-                                <th class="column9">Marca</th>
-                                <th class="column10">Modelo</th>
-                                <th class="column11">Tipo Reclamo </th>
+                                <th class="column1">Descripción</th>  <!-- ngIf="item.dominio !== '-' && item.nombreMarca !== ' ' && item.nombreModelo !== ' '" -->
+                                <th class="column2">Dirección</th>
+                                <th class="column3" *ngIf="item.dominio !== '-' " >Dominio</th>
+                                <th class="column4">Fecha</th>
+                                <th class="column5">Foto</th>
+                                <th class="column6">Hora</th>
+                                
+                                <th class="column7">Motivo</th>
+                               <!--  <th class="column9">Marca</th>
+                                <th class="column10" >Modelo</th> -->
+                                <th class="column8">Tipo Reclamo </th>
+                                <th class="column9">Estado </th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <!-- <td class="column1">{{item.altura}} </td> -->
-                                <td class="column2">{{item.descripcion}}</td>
-                                <td class="column3">{{item.direccion}}</td>
-                                <td class="column4">{{item.dominio}}</td>
-                                <td class="column5">{{item.fecha}} </td>
-                                <td class="column6"><img class="rounded-3" src="{{item.foto}}" alt="Foto"
+                                <td class="column1">{{item.descripcion}}</td>
+                                <td class="column2">{{item.direccion}}</td>
+                                <td class="column3" *ngIf="item.dominio !== '-' ">{{item.dominio}}</td>
+                                <td class="column4">{{item.fecha}} </td>
+                                <td class="column5"><img class="rounded-3" src="{{item.foto}}" alt="Foto"
                                         style="width: 150px; height: 100px;"></td>
-                                <td class="column7">{{item.hora}}</td>
-                                <td class="column8">{{item.nombreRecAmbiental}}</td>
-                                <td class="column9">{{item.nombreMarca}}</td>
-                                <td class="column10">{{item.nombreModelo}}</td>
-                                <td class="column11">{{item.nombreTRec}}</td>
+                                <td class="column6">{{item.hora}}</td>
+                               
+                                <td class="column7">{{item.nombreRecAmbiental}}</td>
+                                <!-- <td class="column9" >{{item.nombreMarca}}</td>
+                                <td class="column10">{{item.nombreModelo}}</td> -->
+                                <td class="column8">{{item.nombreTRec}}</td>
+                                <td class="column9">{{item.estadoR}}</td>
+                                
                             </tr>
 
                         </tbody>
@@ -49,9 +56,6 @@
                 </div>
             </div>
         </div><!--.container-table100 -->
-
-
-
     </div>
 
 
@@ -333,13 +337,11 @@
 
                                 </div>
 
-                                <div class="input_reclamo">
+                                <div class="input_reclamo" >
                                     <div class="row">
-                                       
-
                                         <!-- subir archivos -->
                                         <div class="co-12 col-sm-12 ">
-                                            <div class="input-group mb-3 mt-1 ">
+                                            <div class="input-group">
                                                 <input type="file" class="form-control" id="inputGroupFile02" (change)="onFileSelected($event)" accept="image/*" [formControl]="FotoCtrl" >
                                                 <!--  -->
                                                 <label class="input-group-text" for="inputGroupFile02"><i
@@ -347,42 +349,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Camara -->
-                                   <!--  <div class="camera-container">
-                                        <div class="row">
-                                    
-                                            <div class="col-12 col-sm-6">
-                                                <button class="btn_ancho btn btn-primary" (click)="startCamera()"><i class="bi bi-camera"></i> Iniciar
-                                                </button>
-                                            </div>
-                                    
-                                            <div class="col-12 col-sm-6">
-                                                <button *ngIf="isCameraStarted" class=" btn_ancho btn btn-primary" (click)="capturePhoto()" [disabled]="!isCameraStarted">Capturar</button>
-                                            </div>
-                                    
-                                    
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <video #videoPlayer [hidden]="!isCameraStarted"></video>
-                                                    <canvas #canvas style="display: none;"></canvas>
-                                                </div>
-                                                <div class="col-6">
-                                                    <img [src]="capturedPhoto" *ngIf="capturedPhoto" class="captured-photo">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                                   
                                 </div>
 
                                 
 
                                 <!-- Estados Reclamos -->
-                                <div class="form-group"
-                                    *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
-                                    <h5>Estados del reclamo</h5>
+                                <div class="form-group" *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
+                                    <h5 class="text-center">Estados del reclamo</h5>
                                     <div class="form-check form-check-inline" *ngFor="let item of Tiporecla">
                                         <input class="form-check-input" (change)="dataChangedEstadoReclamo($event)"
-                                            type="radio" name="r" id="inlineRadio1" value="{{item.idTipoReclamo}}">
+                                            type="radio" name="EstadosRec" id="inlineRadio1" value="{{item.idTipoReclamo}}">
                                         <label class="form-check-label" for="inlineRadio1">{{item.nombre}}</label>
                                     </div>
 
