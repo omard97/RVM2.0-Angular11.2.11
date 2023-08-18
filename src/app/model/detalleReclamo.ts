@@ -27,7 +27,7 @@ export interface DetalleReclamoActualizar {
   fecha: string;
   hora: string;
   idSesion: number;
-  nombre: string;
+  estadoR: string; //nombre
   idEstado: number;
   nombreTRec: string;
   idTipoRec: number;
