@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { RecuentoRecAmbiental } from 'src/app/model/Dashboard/V_CantidadRecAmbientalUsuario';
 import { CantReclamoMesyAnio } from 'src/app/model/Dashboard/V_CantidadRecPorMesyAnio';
@@ -8,7 +9,6 @@ import { RecuentoTarjetas } from 'src/app/model/Dashboard/V_RecuentoReclamos';
 import { RecuentoTotal } from 'src/app/model/Dashboard/V_RecuentoTotal';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -45,8 +45,9 @@ export class DashboardComponent implements OnInit {
     idRol: 0,
     rol: ''
   }
-  constructor(private serviceUsuario: MenuApiService, private Estadistica: BackenApiService, private toastr: ToastrService) {
+  constructor(private serviceUsuario: MenuApiService, private Estadistica: BackenApiService, private toastr: ToastrService, private titulo:Title) {
      /* Object.assign(this, { multi }); */
+     titulo.setTitle('Dashboard')
      this.ruta = window.location.pathname.split('/');
      this.usuario.idUsuario = this.ruta[2];
      console.clear();

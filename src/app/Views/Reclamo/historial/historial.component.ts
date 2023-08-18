@@ -10,9 +10,11 @@ import { TipoReclamo } from 'src/app/model/tipoReclamo';
 import { LoginApiService } from 'src/app/service/Login/login-api.service';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
-import { Popup, Map, Marker } from 'mapbox-gl';
-import { MapReclamoService } from '../reclamo/maps-reclamo/services';
 import { MenuComponent } from '../../Estructura/menu/menu.component';
+import { Title } from '@angular/platform-browser';
+/* import { Popup, Map, Marker } from 'mapbox-gl';
+import { MapReclamoService } from '../reclamo/maps-reclamo/services'; */
+
 
 
 
@@ -76,9 +78,10 @@ export class HistorialComponent implements OnInit {
 
 
 
-  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private menuComponent: MenuComponent) 
+  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private menuComponent: MenuComponent, private titulo:Title) 
   {
 
+    titulo.setTitle('Historial')
     this.rutaURL = window.location.pathname.split('/');
     this.usuario.idUsuario = this.rutaURL[2];
     

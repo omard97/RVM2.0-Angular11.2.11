@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { MapReclamoService, PlacesReclamoService } from './maps-reclamo/services';
 import { Popup, Map, Marker } from 'mapbox-gl';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -139,8 +140,8 @@ export class ReclamoComponent implements OnInit {
   public imagenBase64: string = "";
 
   constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService,
-    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService) { 
-
+    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title) { 
+      titulo.setTitle('Reclamo')
     this.rutaURL = window.location.pathname.split('/');
     console.log(this.rutaURL)
     this.usuario.idUsuario = this.rutaURL[2];
@@ -455,7 +456,7 @@ ambiental */
   }
 
   metodo_VisualEditarReclamo(idDetalleReclamo:number) {
-    
+    this.titulo.setTitle('Actualizar Reclamo')
     /* Este metodo se utiliza para controlar lo que se quiere ver cuando se desea editar un reclamo */
     if (this.rutaURL[3] == 'historial' && idDetalleReclamo != undefined) {
       this.banderaEdicionReclamo = true;

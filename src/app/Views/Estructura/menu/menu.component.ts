@@ -92,7 +92,7 @@ export class MenuComponent implements OnInit {
   /*  ------- Botones Menu ------ */
 
   getDatosPerfil() {
-    debugger
+    
     this.servicePerfil.getdatosPerfil(Number(this.idUsuario)).subscribe(
       (data) => {
         console.log('datos del perfil logueado: ', data)

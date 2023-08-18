@@ -6,6 +6,7 @@ import { inicioSesion } from 'src/app/model/InicioSesion';
 import { LoginApiService } from 'src/app/service/Login/login-api.service';
 import { RegistroApiService } from 'src/app/service/Registro/registro-api.service';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -34,7 +35,8 @@ export class LoginComponent implements OnInit {
   usuarioCtrl = new FormControl('', [Validators.required]);
 
 
-  constructor(private serviceLogin: LoginApiService, private serviceRegistro: RegistroApiService, private router: Router, private toastr: ToastrService) {
+  constructor(private serviceLogin: LoginApiService, private serviceRegistro: RegistroApiService, private router: Router, private toastr: ToastrService, private titulo:Title) {
+    titulo.setTitle('Login')
     this.fechadehoy();
   }
 
