@@ -3,32 +3,20 @@
   font-family: OpenSans-Regular;
   src: url(../../../../assets/fonts/OpenSans-Regular.ttf)
 }
-/* .contenedorMiReclamo {
-  margin: 1rem 0 1rem 0;
-    padding: 10px;
-    border-radius: 1rem;
-    background: #f5f5f5;
-    box-shadow: 10px 9px 17px -7px rgba(189, 97, 5, 0.985);
-  -webkit-box-shadow: 10px 9px 17px -7px rgba(189, 97, 5, 0.985);
-  -moz-box-shadow: 10px 9px 17px -7px rgba(189, 97, 5, 0.985);
-} */
 
-/*  table {
-    border-radius: 10px;
-    border-color: black 1px solid;
-    font-family: 'Open Sans', sans-serif;
-  } */
+:host {
+  --colorPrincipal: #e6621f;
+}
+
+
+
+
 
 .DescripcionReclamo {
   height: 4rem;
 }
 
-/* .fa-chevron-left {
-      font-size: 24px;
-      width: 50px;
-    
-      text-align: left;
-    } */
+
 
 .contenedorPrincipal {
   margin-top: 10px;
@@ -46,11 +34,6 @@
   border-bottom: 2px solid rgba(35, 35, 35, 0.311);
   margin-bottom: 10px;
 }
-
-
-/* .mapa {
-  margin-top: 20px;
-} */
 
 
 .header {
@@ -76,11 +59,8 @@
 #tituloComponente {
   font-size: 30px;
   text-align: center;
-
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: -1rem 0px 0px 0px;
-
-
+  color: var(--colorPrincipal);
 }
 
 .input_reclamo {
@@ -91,9 +71,7 @@
   font-size: 16px;
 }
 
-/* .inputs {
-    border-color: brown;
-  } */
+
 
 #Alerta {
   margin-top: 20px;
@@ -106,11 +84,7 @@
   margin-bottom: 10px;
 }
 
-/* .btn {
-  width: 50%;
-   height: 50%; 
 
-} */
 
 .fa-sync-alt {
   margin-right: 20px;
@@ -134,9 +108,7 @@
 
 }
 
-/* .titulo--dispositivo {
-    font-size: 1.75rem;
-  } */
+
 
 .dispositivos {
   color: #495057;
@@ -224,7 +196,7 @@ table tbody tr:last-child {
 
 table td,
 table th {
-  text-align: left
+  text-align: center;
 }
 
 table td.l,
@@ -247,7 +219,8 @@ table th.r {
   font-size: 16px;
   color: #fff;
   line-height: 1.2;
-  font-weight: unset
+  font-weight: unset;
+  text-align: center;
 }
 
 tbody tr:nth-child(even) {
@@ -268,19 +241,16 @@ tbody tr:hover {
   cursor: pointer
 }
 
-.column1 {
-  width: 260px;
+/* .column1 {
+  width: 20rem;
   padding-left: 40px
 }
-
 .column2 {
   width: 10rem;
 }
-
 .column3 {
   width: 140px
 }
-
 .column4 {
   width: 100px;
   text-align: right
@@ -292,37 +262,36 @@ tbody tr:hover {
 }
 
 .column6 {
-  /* width: 222px; */
+  
   width: 100px;
   text-align: right;
-  /*  padding-right: 62px */
+  
 }
 .column8 {
   width: 160px; 
    
-  /*  padding-right: 62px */
+ 
 }
-
 
 .column11{
   width: 100px;
-}
+} */
 
-@media screen and (min-width: 1200px) {
+/* @media screen and (min-width: 1200px) {
   .column2 {
     width: 15rem; 
   }
   .column11{
     width: 9rem;
   }
-}
+} */
 
 
 
-
+/* entre 0px y 992 px de pantalla */
 @media screen and (max-width: 992px) {
   table {
-    display: block
+    display: block;
   }
 
   table>*,
@@ -332,6 +301,11 @@ tbody tr:hover {
     display: block;
   }
 
+  table td,
+  table th {
+    text-align: left;
+  }
+
   table thead {
     display: none;
   }
@@ -339,20 +313,18 @@ tbody tr:hover {
   table tbody tr {
     height: auto;
     padding: 10px 0;
-    
+
   }
 
   table tbody tr td {
     padding-left: 40% !important;
     margin-bottom: 10px;
     padding: 0px 0px 10px 0px;
-    
+
   }
 
   table tbody tr td:last-of-type {
     border-bottom: none;
-    
-  
     padding: 0px 0px 10px 0px;
   }
 
@@ -411,23 +383,17 @@ tbody tr:hover {
   table tbody tr td:nth-child(10):before {
     content: "Tipo Reclamo";
   }
-  
 
-  .column4,
-  .column5,
-  .column6 {
-    text-align: left;
-  }
-
+  /* este ancho se tiene en cuenta cuando la pantalla a 993px */
+  .column1,
+  .column2,
+  .column3,
   .column4,
   .column5,
   .column6,
-  .column1,
-  .column2,
   .column7,
   .column8,
-  .column9,
-  .column3 {
+  .column9 {
     width: 100%;
   }
 
