@@ -8,6 +8,10 @@
   --colorPrincipal: #e6621f;
 }
 
+*{
+  transition-duration: 0.5s;
+}
+
 
 
 
