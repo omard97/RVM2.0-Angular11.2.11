@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+
+import { Observable, of } from 'rxjs';
 import { idInicioSesionUsuario } from 'src/app/model/InicioSesion';
 import { sesionUsuario } from 'src/app/model/sesion';
 import { nickUsuario } from 'src/app/model/usuario';
@@ -9,6 +10,8 @@ import { nickUsuario } from 'src/app/model/usuario';
   providedIn: 'root'
 })
 export class LoginApiService {
+
+  private isLoggedIn = false;
 
   //cabeceras http
   httpOptions = {
@@ -20,17 +23,38 @@ export class LoginApiService {
 
   /* Pantalla sesion - validar usuario y luego loguearse */
   getValidacionUsuario(email: any, pass: any): Observable<any> {
-
-    return this.http.get<sesionUsuario[]>('https://localhost:44363/sesion?' + "email=" + email + "&" + "password=" + pass); /* email=example@hotmail.com&password=123'); */
+    debugger
+    if (email == '' || pass == '') {
+      this.isLoggedIn = false; // no esta logueado
+      return of(0);
+    } else {
+      this.isLoggedIn = true;
+      return this.http.get<sesionUsuario[]>('https://localhost:44363/sesion?' + "email=" + email + "&" + "password=" + pass); /* email=example@hotmail.com&password=123'); */
+    }
   }
 
-  getConfirmarNickUsuario(nick:string){
+  // Método para cerrar sesión
+  logout() {
+    // Lógica para cerrar sesión (invalidar token, eliminar datos de usuario, etc.)
+    this.isLoggedIn = false;
+  }
+  // Método para verificar si el usuario está autenticado
+  estaLogeado() {
+    return this.isLoggedIn;
+  }
+   /* Post inicio sesion - se registra el logueo del usuario */
+   postInicioSesionUsuario(usuarioLogueado: any): Observable<any> {
+    return this.http.post('https://localhost:44363/sesion', usuarioLogueado, this.httpOptions);
+  }
+
+
+  getConfirmarNickUsuario(nick: string) {
     return this.http.get<nickUsuario[]>('https://localhost:44363/V_listaUsuariosNick/' + nick);
   }
 
-  getConfirmarCorreoUsuario(correo:string){
-    return this.http.get<nickUsuario[]>('https://localhost:44363/V_listaUsuariosNick?'+"correo="+correo);
-    
+  getConfirmarCorreoUsuario(correo: string) {
+    return this.http.get<nickUsuario[]>('https://localhost:44363/V_listaUsuariosNick?' + "correo=" + correo);
+
   }
 
 
@@ -40,8 +64,6 @@ export class LoginApiService {
     return this.http.get<idInicioSesionUsuario[]>('https://localhost:44363/V_ultimaSesionDelUsuario/' + idUsuario);
   }
 
-  /* Post inicio sesion - se registra el logueo del usuario */
-  postInicioSesionUsuario(usuarioLogueado: any): Observable<any> {
-    return this.http.post('https://localhost:44363/sesion', usuarioLogueado, this.httpOptions);
-  }
+ 
+  
 }
