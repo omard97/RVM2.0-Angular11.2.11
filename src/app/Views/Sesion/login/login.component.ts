@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   usuarioCtrl = new FormControl('', [Validators.required]);
 
 
-  constructor(private serviceLogin: LoginApiService, private serviceRegistro: RegistroApiService, private router: Router, private toastr: ToastrService, private titulo:Title) {
+  constructor(private serviceLogin: LoginApiService, private serviceRegistro: RegistroApiService, private router: Router, private toastr: ToastrService, private titulo: Title,) {
     titulo.setTitle('Login')
     this.fechadehoy();
   }
@@ -76,45 +76,51 @@ export class LoginComponent implements OnInit {
       password: this.pasworLogCtrl.value,
     };
 
-    this.serviceLogin.getValidacionUsuario(usuarioLogeado.email, usuarioLogeado.password).subscribe(
-      (data) => {
+    if (usuarioLogeado.email == '' || usuarioLogeado.password == '') {
+      this.toastr.warning(
+        'El correo/contraseña no coinciden, intentelo de nuevo.',
+        'Atención',
+        {
+          timeOut: 5000,
+          positionClass: 'toast-bottom-center'
+        }
+      );
+    } else {
+      this.serviceLogin.getValidacionUsuario(usuarioLogeado.email, usuarioLogeado.password).subscribe(
+        (data) => {
+          debugger
+          if (data == 0) {
+            this.toastr.warning(
+              'El correo/contraseña no coinciden, intentelo de nuevo.',
+              'Atención',
+              {
+                timeOut: 5000,
+                positionClass: 'toast-bottom-center'
+              }
+            );
+          } else {
 
-        if (data.length == 0) {
+            this.listUsuariodata = data;
+            /* obtengo el id del usuario y lo envio para postearlo */
+            this.postInicioSesionUsuario(this.listUsuariodata[0].idUser);
+          }
+          debugger
+        },
+        (error) => {
           this.toastr.warning(
-            'El correo/contraseña no coinciden, intentelo de nuevo.',
+            'no hay conexión con la Base de Datos.',
             'Atención',
             {
               timeOut: 5000,
               positionClass: 'toast-bottom-center'
             }
           );
-        } else {
-          console.log('el usuario se logueo con exito')
-          console.log(data)
 
-          this.listUsuariodata = data;
-          console.log('Informacion usuario: ', this.listUsuariodata[0].idUser); /* obtengo el id del usuario y lo envio para postearlo */
-          this.postInicioSesionUsuario(this.listUsuariodata[0].idUser);
+          console.log(error)
+
         }
-        debugger
-
-
-
-      },
-      (error) => {
-        this.toastr.warning(
-          'no hay conexión con la Base de Datos.',
-          'Atención',
-          {
-            timeOut: 5000,
-            positionClass: 'toast-bottom-center'
-          }
-        );
-
-        console.log(error)
-
-      }
-    )
+      )
+    }
 
   }
 
@@ -130,14 +136,8 @@ export class LoginComponent implements OnInit {
       this.serviceLogin.postInicioSesionUsuario(this.ReginicioSesion).subscribe(
         (data) => {
           /* desde aca ya se para al menu principal, despues de registrar la sesion */
-          this.ReginicioSesion.idInicioSesion = data.idSesion;
-          /* this.router.navigate([ */
-          /* 'main-nav', */
-          /* this.IDusuario, */ /* lo saco directamente del menu */
-          /* this.IDRol, */ /* lo obtengo mediante un metodo get del menu */
-          /* this.IDsesion, */
-          /* 'principal',
-        ]); */ /* this.router.navigate(['main-nav', data[0].idUser]); */
+          /* this.ReginicioSesion.idInicioSesion = data.idSesion; */
+
           debugger
           this.router.navigate(['menu', this.listUsuariodata[0].idUser, 'dashboard']); /* this.router.navigate(['main-nav', data[0].idUser]); */
         },
@@ -262,7 +262,7 @@ export class LoginComponent implements OnInit {
     this.correoCtrl.reset();
     this.contraseniaCtrl.reset();
     this.confirmacionCtrl.reset();
-    this.banderaContrasenia = false; 
+    this.banderaContrasenia = false;
     this.banderaUsuarioValido = false;
     this.banderaCorreoValido = false;
   }
@@ -333,9 +333,9 @@ export class LoginComponent implements OnInit {
 
         /* Metodo para buscar el correo - hacer  */
         this.serviceLogin.getConfirmarCorreoUsuario(correo).subscribe(
-          (data)=>{
+          (data) => {
             debugger
-            if (data.length==0) {
+            if (data.length == 0) {
               this.banderaCorreoValido = true;
               this.toastr.success(
                 'El correo es válido para registrarse',
@@ -356,7 +356,7 @@ export class LoginComponent implements OnInit {
               );
             }
           },
-          (err)=>{
+          (err) => {
             this.toastr.warning(
               'no hay conexión con la Base de Datos.',
               'Atención',
@@ -369,7 +369,7 @@ export class LoginComponent implements OnInit {
           }
         )
 
-       
+
       } else {
         this.toastr.warning(
           'Por favor, ingrese un correo válido (ejemplo: usuario@gmail.com)',
