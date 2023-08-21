@@ -11,6 +11,7 @@ import { PerfilApiService } from 'src/app/service/Perfil/perfil-api.service';
 import { UsuarioApiService } from 'src/app/service/Usuario/usuario-api.service';
 import { MapReclamoService } from '../../Reclamo/reclamo/maps-reclamo/services';
 import { Marker, Popup, Map } from 'mapbox-gl';
+import { LoginApiService } from 'src/app/service/Login/login-api.service';
 
 @Component({
   selector: 'app-menu',
@@ -59,7 +60,7 @@ export class MenuComponent implements OnInit {
 
 
 
-  constructor(private breakpointObserver: BreakpointObserver, private serviceM: MenuApiService, private _route: ActivatedRoute, private servicePerfil: PerfilApiService, private serviceUsuario: UsuarioApiService, private _router: Router, private mapaReclamoService:MapReclamoService) {
+  constructor(private breakpointObserver: BreakpointObserver, private serviceM: MenuApiService, private _route: ActivatedRoute, private servicePerfil: PerfilApiService, private serviceUsuario: UsuarioApiService, private _router: Router, private mapaReclamoService:MapReclamoService,private serviceLogin: LoginApiService) {
 
     this.idUsuario = this._route.snapshot.paramMap.get('id');
 
@@ -275,6 +276,13 @@ export class MenuComponent implements OnInit {
     reader.readAsDataURL(file);
   }
   /* ---------------------- Fin Input file ----------------------*/
+
+  /* ---------------------- Cerrar Sesion ----------------------*/
+  cerrarSesion(){
+    this.serviceLogin.logout()
+    this._router.navigate(['login'])
+  }
+
 
 
 }
