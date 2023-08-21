@@ -11,6 +11,8 @@ import { HistorialComponent } from './Views/Reclamo/historial/historial.componen
 import { ConfiguracionComponent } from './Views/Configuracion/configuracion/configuracion.component';
 import { MapasComponent } from './Views/Mapas/mapas/mapas.component';
 import { NosotrosComponent } from './Views/nosotros/nosotros.component';
+import { AuthGuard } from './guards/auth.guard';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -19,7 +21,7 @@ const routes: Routes = [
 
   /*estando en el meu luego de iniciar sesion  */
   {
-    path: 'menu/:id', component: MenuComponent,
+    path: 'menu/:id',  component: MenuComponent, canActivate: [AuthGuard],
     children: [
       { path: 'perfil', component: PerfilComponent },
       { path: 'dashboard', component: DashboardComponent },
@@ -30,7 +32,7 @@ const routes: Routes = [
     ]
   },
 
-  {path: 'menu/:id/historial', component: MenuComponent,
+  {path: 'menu/:id/historial', component: MenuComponent,canActivate: [AuthGuard],
     children: [
       { path: 'reclamo/:id', component: ReclamoComponent }]
   },
