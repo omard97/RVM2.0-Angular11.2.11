@@ -12,29 +12,35 @@ import { ConfiguracionComponent } from './Views/Configuracion/configuracion/conf
 import { MapasComponent } from './Views/Mapas/mapas/mapas.component';
 import { NosotrosComponent } from './Views/nosotros/nosotros.component';
 import { AuthGuard } from './guards/auth.guard';
+import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.component';
 
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  {path: 'nosotros', component: NosotrosComponent },
+  { path: 'nosotros', component: NosotrosComponent },
+  { path: '**', component: PageNotFoundComponent },
+
 
   /*estando en el meu luego de iniciar sesion  */
   {
-    path: 'menu/:id',  component: MenuComponent, canActivate: [AuthGuard],
+    path: 'menu/:id', component: MenuComponent, canActivate: [AuthGuard],
     children: [
       { path: 'perfil', component: PerfilComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'reclamo', component: ReclamoComponent },
       { path: 'historial', component: HistorialComponent },
       { path: 'mapa', component: MapasComponent },
-      {path: 'configuracion', component:ConfiguracionComponent}
+      { path: 'configuracion', component: ConfiguracionComponent },
+      { path: '**', component: PageNotFoundComponent },
     ]
   },
 
-  {path: 'menu/:id/historial', component: MenuComponent,canActivate: [AuthGuard],
+  {
+    path: 'menu/:id/historial', component: MenuComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'reclamo/:id', component: ReclamoComponent }]
+      { path: 'reclamo/:id', component: ReclamoComponent },
+      { path: '**', component: PageNotFoundComponent },]
   },
 
 ];
