@@ -34,6 +34,7 @@ import { CamaraComponent } from './Views/Component/camara/camara.component';
 import { FooterComponent } from './Views/Component/footer/footer.component';
 
 import { NosotrosComponent } from './Views/nosotros/nosotros.component';
+import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.component';
 
 
 
@@ -54,7 +55,8 @@ import { NosotrosComponent } from './Views/nosotros/nosotros.component';
     ConfiguracionComponent,
     CamaraComponent,
     FooterComponent,
-    NosotrosComponent
+    NosotrosComponent,
+    PageNotFoundComponent
     
     
   ],
