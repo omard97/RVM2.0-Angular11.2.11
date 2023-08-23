@@ -1,0 +1,78 @@
+:host{
+    --colorFondo: #e4e4e4;
+    --colorTitulo: #e6621f;
+}
+body{
+    background-color: var(--colorFondo);
+}
+* {
+    transition-duration: 0.5s;
+}
+
+/* ---------------------- NavBar ------------------- */
+.contenedor__imagenlogin {
+    width: 10rem;
+}
+
+.imagen__login {
+    height: 20px;
+    width: 100px;
+    padding-left: 1rem;
+}
+
+/* fondo del navbar */
+.navbar {
+    background-color: #303030 !important;
+
+    box-shadow: 0px 16px 84px -9px rgba(0, 0, 0, 0.91);
+    -webkit-box-shadow: 0px 16px 84px -9px rgba(0, 0, 0, 0.91);
+    -moz-box-shadow: 0px 16px 84px -9px rgba(0, 0, 0, 0.91);
+
+}
+/* .container-fluid {
+    padding: 0;
+  } */
+
+
+/* ---------------------- Fin NavBar ------------------- */
+
+
+/* ---------------------- Main ------------------- */
+
+.container {
+    margin-top: 10rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+.contenedor__error{
+    padding: 50px;
+}
+
+img {
+    height: 300px; 
+    width:auto;
+}
+
+.container h1,
+.container p {
+    text-align: center;
+    /* Centrar el texto */
+}
+
+.retorno{
+    text-decoration: none;
+    font-size: 18px;
+    color: #303030;
+}
+.retorno:hover{
+    cursor: pointer;  
+    transition-duration: 0.5;
+    font-size: 16px;
+}
+i{
+    font-size: 24px;
+    padding-left: 10px;
+}
+/* ---------------------- Main ------------------- */
