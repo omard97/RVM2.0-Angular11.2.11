@@ -38,7 +38,9 @@ body{
 
 
 /* ---------------------- Main ------------------- */
-
+h1{
+    color: var(--colorTitulo);
+}
 .container {
     margin-top: 10rem;
     display: flex;
@@ -65,14 +67,37 @@ img {
     text-decoration: none;
     font-size: 18px;
     color: #303030;
+    margin: 0px 30px 0px 10px;
+    padding: 15px 10px 10px 10px;
+    border-radius: 5px;
+   
 }
 .retorno:hover{
     cursor: pointer;  
-    transition-duration: 0.5;
+    transition-duration: 0.7s;
     font-size: 16px;
+    background-color:#a5a4a447;
+    border-radius: 10px;
+   /*  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
+   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
 i{
     font-size: 24px;
     padding-left: 10px;
 }
 /* ---------------------- Main ------------------- */
+
+
+/* ---------------------- Nav menu ------------------- */
+
+.ul__list{
+    
+    display: flex;
+    
+    justify-content: space-evenly; 
+    align-items: center; 
+   
+    flex-direction: row; 
+    
+}
+
