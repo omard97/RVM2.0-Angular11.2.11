@@ -15,14 +15,12 @@ import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.component';
 
 
+
 const routes: Routes = [
   {path: 'home', component:HomeComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'nosotros', component: NosotrosComponent },
-  { path: '**', component: PageNotFoundComponent },
-
-
   /*estando en el meu luego de iniciar sesion  */
   {
     path: 'menu/:id', component: MenuComponent, canActivate: [AuthGuard],
@@ -33,7 +31,6 @@ const routes: Routes = [
       { path: 'historial', component: HistorialComponent },
       { path: 'mapa', component: MapasComponent },
       { path: 'configuracion', component: ConfiguracionComponent },
-      { path: '**', component: PageNotFoundComponent },
     ]
   },
 
@@ -41,8 +38,10 @@ const routes: Routes = [
     path: 'menu/:id/historial', component: MenuComponent, canActivate: [AuthGuard],
     children: [
       { path: 'reclamo/:id', component: ReclamoComponent },
-      { path: '**', component: PageNotFoundComponent },]
+      /* { path: '**', component: PageNotFoundComponent }, */
+    ]
   },
+  { path: '**', component: PageNotFoundComponent },
 
 ];
 
