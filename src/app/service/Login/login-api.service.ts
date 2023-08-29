@@ -18,18 +18,30 @@ export class LoginApiService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+
+    debugger
+    this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+  }
 
 
   /* Pantalla sesion - validar usuario y luego loguearse */
   getValidacionUsuario(email: any, pass: any): Observable<any> {
     debugger
     if (email == '' || pass == '') {
+
       this.isLoggedIn = false; // no esta logueado
+      localStorage.removeItem('isLoggedIn');
       return of(0);
+
     } else {
+
+      debugger
       this.isLoggedIn = true;
+      localStorage.setItem('isLoggedIn', 'true');
       return this.http.get<sesionUsuario[]>('https://localhost:44363/sesion?' + "email=" + email + "&" + "password=" + pass); /* email=example@hotmail.com&password=123'); */
+
     }
   }
 
@@ -37,17 +49,20 @@ export class LoginApiService {
   logout() {
     // Lógica para cerrar sesión (invalidar token, eliminar datos de usuario, etc.)
     this.isLoggedIn = false;
+    localStorage.removeItem('isLoggedIn');
   }
   // Método para verificar si el usuario está autenticado
   estaLogeado() {
+    debugger
     return this.isLoggedIn;
   }
+
+
+
    /* Post inicio sesion - se registra el logueo del usuario */
    postInicioSesionUsuario(usuarioLogueado: any): Observable<any> {
     return this.http.post('https://localhost:44363/sesion', usuarioLogueado, this.httpOptions);
   }
-
-
   getConfirmarNickUsuario(nick: string) {
     return this.http.get<nickUsuario[]>('https://localhost:44363/V_listaUsuariosNick/' + nick);
   }
