@@ -30,8 +30,7 @@ Para obtener más ayuda sobre Angular CLI, use `ng help` o consulte la página [
 
 0.1.1
 
-## Autores ✒️
+## Autor ✒️
 
-* **Cervera Emilio Nicolás** - *Programador principal (Backend - Frontend)* - [NicolasCervera](https://github.com/NicolasCervera)
 * **D'andrea Omar** - *Programador principal (Backend - Frontend)* - [omard97](https://github.com/omard97)
-* **Ferri Javier** - *Programador principal (Backend - Frontend)* - [JaviFerri7](https://github.com/JaviFerri7)
+
