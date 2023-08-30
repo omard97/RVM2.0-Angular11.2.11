@@ -8,7 +8,7 @@
                     <div
                         class=" d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                         <!-- d-flex -->
-                        <a routerLink="menu"
+                        <a
                             class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                             <span class="fs-5 d-none d-sm-inline">Menú</span>
                         </a>
@@ -57,10 +57,10 @@
                             <div class="dropdown pb-4 boton_user ">
                                 <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle boton_user--informacion p-2"
                                     id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img *ngIf="usuario.foto!=null" src={{usuario.foto}} alt="hugenerd" width="40"
-                                        height="40" class="rounded-circle">
-                                        <img *ngIf="usuario.foto==null"  src='../../../../assets/img/img_usuario.png' alt="hugenerd" width="40"
-                                        height="40" class="rounded-circle">
+                                    <img *ngIf="usuario.foto!=null" src={{usuario.foto}} alt="hugenerd" 
+                                         class="menu__perfil">
+                                        <img *ngIf="usuario.foto==null"  src='../../../../assets/img/img_usuario.png' alt="hugenerd" 
+                                         class="menu__perfil">
                                     <span class="d-none d-sm-inline mx-3">{{usuario.nick}}</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow menu__usuario animate__animated animate__fadeIn"
