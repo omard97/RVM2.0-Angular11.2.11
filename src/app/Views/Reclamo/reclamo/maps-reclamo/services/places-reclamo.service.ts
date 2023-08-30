@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Feature, PlacesResponse } from '../interfaces/places';
 import { PlacesReclamoApiClient } from '../api/placesReclamoApiClient';
 import { MapReclamoService } from './map-reclamo.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class PlacesReclamoService {
   }
   constructor(private http: HttpClient,
     private placesReclamoApiClient: PlacesReclamoApiClient,
-    private mapReclamoService: MapReclamoService) {
+    private mapReclamoService: MapReclamoService, private toastr:ToastrService) {
     this.getUserLocation();
   }
 
@@ -34,7 +35,14 @@ export class PlacesReclamoService {
           resolve(this.userLocation);
         },
         (err) => {
-          alert('No se pudo obtener la geolocalización');
+          this.toastr.warning(
+            'No se pudo obtener la geolocalización',
+            'Atención',
+            {
+              timeOut: 5000,
+              
+            }
+          );
           console.log(err);
           reject();
         }
