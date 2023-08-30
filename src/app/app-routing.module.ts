@@ -13,6 +13,8 @@ import { MapasComponent } from './Views/Mapas/mapas/mapas.component';
 import { NosotrosComponent } from './Views/nosotros/nosotros.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.component';
+import { ExitGuard } from './guards/exit.guard';
+
 
 
 
@@ -27,7 +29,7 @@ const routes: Routes = [
     children: [
       { path: 'perfil', component: PerfilComponent },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'reclamo', component: ReclamoComponent },
+      { path: 'reclamo', canDeactivate:[ExitGuard], component: ReclamoComponent },
       { path: 'historial', component: HistorialComponent },
       { path: 'mapa', component: MapasComponent },
       { path: 'configuracion', component: ConfiguracionComponent },
