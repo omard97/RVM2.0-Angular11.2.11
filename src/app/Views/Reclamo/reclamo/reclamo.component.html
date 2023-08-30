@@ -1,6 +1,6 @@
 <div class="container-fluid shadow-lg p-3 mb-5 rounded border border-2 contenedorPrincipal">
 
-    <div class="row borde  animate__animated animate__fadeInDown">
+    <div class="row borde  animate__animated animate__fadeIn">
         <div class="col-12">
             <h2 id="tituloComponente" *ngIf="banderaEdicionReclamo==false">Nuevo Reclamo</h2>
             <h2 id="tituloComponente" *ngIf="banderaEdicionReclamo==true"> Actualizar Reclamo</h2>
@@ -63,10 +63,10 @@
 
     <div class="row ">
         <div class="well well-sm">
-            <form class="form-horizontal" method="post">
+            <form  class="form-horizontal" method="post">
                 <fieldset>
-                    <div class="row animate__animated animate__fadeIn" style="margin: 0 auto">
-                        <div class="col-md-5">
+                    <div class="row" style="margin: 0 auto">
+                        <div class="col-md-5 animate__animated animate__fadeIn">
 
                             <!-- Tipo Reclamo -->
 
@@ -225,7 +225,7 @@
 
 
                         <!-- columna que divide en 2 partes -->
-                        <div class="col-md-7">
+                        <div class="col-md-7 animate__animated animate__fadeIn">
 
                             <!-- Foto -->
                             <div class="col-md-12">
@@ -291,7 +291,7 @@
                         </div> <!-- .descripcion -->
 
                         <!-- Mapa -->
-                        <div class="form-group input_reclamo shadow-lg p-3 rounded border border-2  ">
+                        <div class="form-group input_reclamo shadow-lg p-3 rounded border border-2 animate__animated animate__fadeIn ">
                             <div *ngIf="banderaVerMapa!='editar'" class="col-12  ">
                                 <app-map-screen-reclamo></app-map-screen-reclamo>
                             </div>
@@ -311,7 +311,7 @@
 
 
 
-                        <div class=" col-12 col-sm-4 animate__animated  animate__fadeInUp"
+                        <div class=" col-12 col-sm-4 animate__animated  animate__fadeIn"
                             *ngIf="banderaEdicionReclamo==false">
                             <!--text-center d-inline-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 botones -->
 
@@ -325,7 +325,7 @@
                         </div>
 
 
-                        <div class="col-12 col-sm-4 animate__animated animate__fadeInUp"
+                        <div class="col-12 col-sm-4 animate__animated animate__fadeIn"
                             *ngIf="banderaEdicionReclamo==true"><!-- true -->
 
                             <button type="button" class="btn btn-outline-success botones" data-bs-toggle="tooltip"
@@ -335,7 +335,7 @@
                         </div>
 
 
-                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInUp">
+                        <div class=" col-12 col-sm-4 animate__animated animate__fadeIn">
                             <button type="button" class="btn btn-outline-danger botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Cancelar Reclamo" (click)="limpiarPantalla()"><i
                                     class="fas fa-times fa-lg"></i>
@@ -343,7 +343,7 @@
                         </div>
 
 
-                        <div class=" col-12 col-sm-4 animate__animated animate__fadeInUp">
+                        <div class=" col-12 col-sm-4 animate__animated animate__fadeIn">
                             <button type="button" class="btn btn-outline-primary botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Regresar al Historial" (click)='regresarHistorial()'><i
                                     class="fas fa-undo"></i> Mi
