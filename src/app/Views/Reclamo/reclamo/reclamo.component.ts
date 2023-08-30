@@ -17,7 +17,7 @@ import { MapReclamoService, PlacesReclamoService } from './maps-reclamo/services
 import { Popup, Map, Marker } from 'mapbox-gl';
 import { Title } from '@angular/platform-browser';
 
-
+import { OnExit } from 'src/app/guards/exit.guard';
 
 
 
@@ -27,7 +27,7 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './reclamo.component.html',
   styleUrls: ['./reclamo.component.css']
 })
-export class ReclamoComponent implements OnInit {
+export class ReclamoComponent implements OnInit, OnExit {
 
   private debounceTimer?: NodeJS.Timeout;
 
@@ -48,8 +48,7 @@ export class ReclamoComponent implements OnInit {
   imageReclamoDataUrl:string | undefined;
   /* ------------ Input File ------------  */
 
-  
-
+  formReclamo = new FormControl('');
   tipoReclamoCtrl = new FormControl('', [Validators.required]);
   reclamoAmbientalCtrl = new FormControl('', [Validators.required]);
   marcaAutoCtrl = new FormControl('', [Validators.required]);
@@ -911,7 +910,19 @@ ambiental */
     reader.readAsDataURL(file);
   }
 
-  
+  onExit() {
+   
+    if ( this.formReclamo.dirty || this.tipoReclamoCtrl.dirty || this.reclamoAmbientalCtrl.dirty || this.marcaAutoCtrl.dirty || this.modeloAutoCtrl.dirty || this.colorAutoCtrl.dirty || this.fechaCtrl.dirty || this.horaCtrl.dirty || this.ubicacionCtrl.dirty || this.descripcionCtrl.dirty || this.FotoCtrl.dirty || this.alturaCtrl.dirty || this.dominioCtrl.dirty) 
+    {
+      const respuesta = confirm('¿Estás seguro de salir del reclamo?')
+      return respuesta;
+
+    } 
+      return true;
+
+    
+
+  }
 
   
 
