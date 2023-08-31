@@ -173,10 +173,18 @@ img {
 .tarjeta--informacion p {
   margin: .3rem 0 .3rem 0;
 }
-
-
+.container__imgReclamo{
+  height: 150px;
+  width: 100%;
+}
+.img__reclamo{
+  height: 150px;
+  width: 100%;
+  
+}
 
 .card__reclamo {
+  height: auto;
   padding: 5px 5px 10px 5px;
 }
 

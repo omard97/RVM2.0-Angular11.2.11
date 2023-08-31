@@ -113,6 +113,7 @@
   <small class="justify-content-center textoIcono">{{mensajeCarga}}</small>
 </div>
 
+<!-- Tabla Historial resumida -->
 <div *ngIf="banderaVistaHistorial==true" class="container-table100 ">
   <div class="wrap-table100">
     <div class="table100">
@@ -134,7 +135,7 @@
 
             <td class="column1">{{item.iD_Reclamo}}</td>
             <td class="column2">{{item.nombre}}</td>
-            <td class="column3">{{item.fecha}}</td>
+            <td class="column3">{{item.fecha | date:'dd-MM-yyyy'}}</td>
             <td class="column4">{{item.nombreRecAmbiental}}</td>
             <td class="column5">{{item.nombreTRec}}</td>
             <td class="column6">
@@ -147,18 +148,15 @@
                       <i class="bi bi-geo-alt-fill"></i>
                     </button>
                   
-                    <!-- col-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 -->
                     <!-- 1 admin 2 empleado 3 usuario -->
                     <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button" class="btn btn-outline-primary btn__opciones " data-bs-toggle="tooltip"
-                      data-bs-placement="top" title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)" [disabled]="(this.Dreclamos[0].nombre == 'Pendiente' || this.Dreclamos[0].nombre == 'Solucionado' ) "><i
-                        class="bi bi-pencil-square"></i> <!-- && this.usuario.idRol==3 -->
-                      <!-- item.nombre,item.idTipoRec,item.idRecAmb,item.nombreRecAmbiental,item.nombreTRec,item.descripcion,item.fecha,item.hora,item.direccion,item.altura -->
-                    </button> <!-- routerLink="/main-nav/historial/reclamos" -->
+                      data-bs-placement="top" title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)" [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision'|| this.selectIDEstadoReclamo ==14  ) "><i
+                        class="bi bi-pencil-square"></i> 
+                      
+                    </button> 
                   
-
-                 
                     <button type="button" class="btn btn-outline-danger d-inline-block btn__opciones " data-bs-toggle="tooltip"
-                      data-bs-placement="top" title="Cancelar Reclamo" ><i class="bi bi-trash3-fill"></i>
+                      data-bs-placement="top" title="Cancelar Reclamo" [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision' || this.selectIDEstadoReclamo ==14 )"   ><i class="bi bi-trash3-fill"></i>
                     </button>
                   
 
@@ -180,8 +178,8 @@
 </div><!--.container-table100 -->
 
 
+<!-- Tarjeta Historial -->
 <form class="" action="" [formControl]="formTarjetas" name="formularioTarjetas">
-
 
   <div class="container-fluid ">
 
@@ -192,7 +190,10 @@
           <!-- card -->
 
           <!-- shadow-lg p-3 mb-5 rounded border border-3 -->
-          <img loading="lazy" class="card-img-top rounded " alt="Foto" width="100" height="100" [src]="item.foto">
+          <div class="container__imgReclamo">
+            <img loading="lazy" class="card-img-top rounded img__reclamo " alt="Foto"  [src]="item.foto">
+          </div>
+         
           <div class="card-body tarjeta--informacion">
 
             <p><i class="far fa-user"></i><span class="span-text"> Usuario: </span>{{item.nick}}</p>
@@ -202,12 +203,12 @@
             <p><i class="far fa-bookmark"></i><span class="span-text"> Tipo:</span> {{item.nombreTRec}}</p>
             <p><i class="far fa-comment-dots"></i><span class="span-text"> Descripción: </span>{{item.descripcion}}
             </p>
-            <p><i class="far fa-calendar-alt"></i><span class="span-text"> Fecha: </span>{{item.fecha}}</p>
+            <p><i class="far fa-calendar-alt"></i><span class="span-text"> Fecha: </span>{{item.fecha | date:'dd-MM-yyyy'}}</p>
             <p><i class="far fa-clock"></i><span class="span-text"> Hora: </span>{{item.hora}}</p>
             <p *ngIf="(item.dominio!='-' )" class="card-text"><i class="fas fa-car"></i> <span class="span-text">
                 Dominio:</span>{{item.dominio}}</p>
             <p><i class="fas fa-map-signs"></i><span class="span-text"> Dirección: </span>{{item.direccion}} </p>
-            <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p>
+            <!-- <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p> -->
 
 
             <div class="container btn__tarjeta">
@@ -223,7 +224,7 @@
           
               <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)"
                type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)" [disabled]="this.Dreclamos[0].nombre !== 'Pendiente' && this.usuario.idRol==3 "
+                title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)" [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision' ||  this.selectIDEstadoReclamo ==14) "
                 > <!-- [disabled]="this.Dreclamos[0].nombre !== 'Pendiente'" -->
                 <i class="bi bi-pencil-square"></i>
               </button>
@@ -231,7 +232,7 @@
         
            
               <button type="button" class="btn btn-outline-danger d-inline-block" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Cancelar Reclamo"  [disabled]="this.Dreclamos[0].nombre !== 'Pendiente' && this.usuario.idRol==3">
+                data-bs-placement="top" title="Cancelar Reclamo"  [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision' || this.selectIDEstadoReclamo ==14 )">
                 <i class="bi bi-trash3-fill"></i>
               </button>
             
