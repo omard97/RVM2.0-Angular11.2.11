@@ -263,7 +263,7 @@ export class HistorialComponent implements OnInit {
               this.banderaAlerta=false;/* No se visualiza */
               this.Dreclamos = res;
               console.log(this.Dreclamos);
-             debugger
+            
               if (res.length == 0) {
                 this.banderaAlerta=true;/*se visualiza */
                 this.mensajeRespuestaErrordeBusqueda();
@@ -503,7 +503,7 @@ export class HistorialComponent implements OnInit {
 
   verMapa(longitud:any, latitud:any, direccion:any){
     /* apreto el boton y automaticamente envio las coordenadas a la funcion verMapadesdeHistorial del menuComponent */
-    debugger
+   
     if(longitud == null || latitud == null){
       this.toastr.info(
         'El reclamo seleccionado no posee una geolocalización,',
