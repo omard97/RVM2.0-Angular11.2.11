@@ -20,7 +20,7 @@ export class LoginApiService {
 
   constructor(private http: HttpClient) { 
 
-    debugger
+    
     this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
   }
@@ -28,7 +28,7 @@ export class LoginApiService {
 
   /* Pantalla sesion - validar usuario y luego loguearse */
   getValidacionUsuario(email: any, pass: any): Observable<any> {
-    debugger
+   
     if (email == '' || pass == '') {
 
       this.isLoggedIn = false; // no esta logueado
@@ -37,7 +37,7 @@ export class LoginApiService {
 
     } else {
 
-      debugger
+      
       this.isLoggedIn = true;
       localStorage.setItem('isLoggedIn', 'true');
       return this.http.get<sesionUsuario[]>('https://localhost:44363/sesion?' + "email=" + email + "&" + "password=" + pass); /* email=example@hotmail.com&password=123'); */
@@ -53,7 +53,7 @@ export class LoginApiService {
   }
   // Método para verificar si el usuario está autenticado
   estaLogeado() {
-    debugger
+    
     return this.isLoggedIn;
   }
 
