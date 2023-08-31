@@ -1,37 +1,50 @@
 /* body {
     background-color: rgb(255, 255, 255);
 } */
-*{
+* {
   transition-duration: 0.5s;
 }
+
 h5 {
-    font-size: 16px;
-    text-align: center;
-    margin: 5px 0px 3px 0px;
+  font-size: 16px;
+  text-align: center;
+  margin: 5px 0px 3px 0px;
 }
 
 img {
-    height: auto;
-    width: auto;
+  height: auto;
+  width: auto;
 
 }
 
-.btn__opciones{
+/* botones de la lista de tarjeta - historial detallado */
+.btn__tarjeta {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* flex-flow: row; */
+  flex-direction: row;
+  margin: 20px 0px 0px 0px;
+  padding: 0px 20px 0px 0px;
+}
+
+/* botones de la tabla resumida */
+.btn__opciones {
   margin: 0px 10px 0px 10px;
   transition-duration: 0.5s;
 }
 
 /*************  ID *************/
 #tituloHistorial {
-    text-align: center;
+  text-align: center;
 
 }
 
 .container-filtros {
-    /* padding: 15px;
+  /* padding: 15px;
     border: rgb(49, 49, 49) 1px solid; */
-    margin-top: 15px;
-    background-image: linear-gradient(0deg, #FAFBFBff, #E8E8E9ff);
+  margin-top: 15px;
+  background-image: linear-gradient(0deg, #FAFBFBff, #E8E8E9ff);
 
 }
 
@@ -55,118 +68,116 @@ img {
 } */
 
 .IcoCarga {
-    margin-top: 5%;
+  margin-top: 5%;
 }
 
 .textoIcono {
-    padding: 5px;
-    font-size: 18px;
-    transition: all 0.5s ease;
+  padding: 5px;
+  font-size: 18px;
+  transition: all 0.5s ease;
 }
+
 @media (max-width: 378px) {
-    
-   .textoIcono, .icoMensaje{
-    font-size: 14px!important;
+
+  .textoIcono,
+  .icoMensaje {
+    font-size: 14px !important;
     transition: all 0.5s ease;
-   }
+  }
 }
 
 .icoMensaje {
-    margin-top: 5%;
-    transition: all 0.5s ease;
+  margin-top: 5%;
+  transition: all 0.5s ease;
 }
 
 
 /************* Inputs *************/
 /* las clases de tipo de reclamo y estado */
 .form-select {
-    width: 100%;
-    cursor: pointer;
+  width: 100%;
+  cursor: pointer;
 }
 
 .calendario {
-    text-align: center;
-    width: 100%;
-    font-size: 14px;
-    cursor: pointer;
+  text-align: center;
+  width: 100%;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 #nombreUsuario {
-    width: 100%;
+  width: 100%;
 }
-.seleccionFiltros{
-    font-size: 14px;
+
+.seleccionFiltros {
+  font-size: 14px;
 }
 
 /************* Clases ************ */
 
 
 .busquedaFiltros {
-    text-align: center;
-    /* border: rgb(182, 180, 180) 1px solid; */
-    border-radius: 50px;
-    padding: 5px 10px 10px 10px;
+  text-align: center;
+  /* border: rgb(182, 180, 180) 1px solid; */
+  border-radius: 50px;
+  padding: 5px 10px 10px 10px;
 }
 
 
 .card {
-    background-color: rgba(246, 245, 245, 0.776);
-    /* Color del fondo de la tarjeta */
-    color: rgba(21, 21, 21, 0.8);
-    margin-bottom: 2rem;
+  background-color: rgba(246, 245, 245, 0.776);
+  /* Color del fondo de la tarjeta */
+  color: rgba(21, 21, 21, 0.8);
+  margin-bottom: 2rem;
 }
 
 /* div del boton bsca */
 .contenedor_buscar {
-    margin-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 /* Boton buscar */
 .btnBuscar {
-    width: 100%!important;
-    font-size: 16px;
-    border-radius: 5px;
+  width: 100% !important;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
 /*icono de lupa del boton */
 .bi-search {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .btnActualizar {
-    /*  background-color: #f5f5f5; */
-    height: 3rem;
-    width: 3rem;
+  /*  background-color: #f5f5f5; */
+  height: 3rem;
+  width: 3rem;
 }
 
 .btnEliminar {
-    height: 3rem;
-    width: 3rem;
+  height: 3rem;
+  width: 3rem;
 }
 
 .span-text {
-    font-weight: 700;
-    
+  font-weight: 700;
+
 }
 
 .tarjeta--informacion {
-    padding: 0px 0px 0px 1rem;
-    font-size: 14px;
+  padding: 0px 0px 0px 1rem;
+  font-size: 14px;
 }
 
 .tarjeta--informacion p {
-    margin: .3rem 0 .3rem 0;
+  margin: .3rem 0 .3rem 0;
 }
 
-.botones--informacion {
-    
-    margin-bottom: 1rem;
-    /* display: flex;
-    justify-content: center; */
-}
 
-.card__reclamo{
-    height: 37rem;
+
+.card__reclamo {
+  padding: 5px 5px 10px 5px;
 }
 
 /* -------------------- Tabla -------------------- */
@@ -185,7 +196,7 @@ img {
 }
 
 .wrap-table100 {
-    /* ancho de la tabla */
+  /* ancho de la tabla */
   width: 100%;
 }
 
@@ -258,18 +269,20 @@ table th.r {
   background-color: #ffffff;
   transition-duration: 0.4s;
 }
-.white-row:hover{
-  background-color: #ebebeb ;
+
+.white-row:hover {
+  background-color: #ebebeb;
 }
 
 .grey-row {
   background-color: #dddddd;
   transition-duration: 0.4s;
-  
+
 }
-.grey-row:hover{
-  background-color: #cecdcd ;
-  
+
+.grey-row:hover {
+  background-color: #cecdcd;
+
 }
 
 tbody tr {
@@ -281,7 +294,7 @@ tbody tr {
 }
 
 tbody tr:hover {
-  
+
   cursor: pointer
 }
 
@@ -323,9 +336,9 @@ tbody tr:hover {
   }
 
   table td,
-table th {
-  text-align: left;
-}
+  table th {
+    text-align: left;
+  }
 
   table>*,
   table tr,
@@ -341,14 +354,14 @@ table th {
   table tbody tr {
     height: auto;
     padding: 10px 0;
-    
+
   }
 
   table tbody tr td {
     padding-left: 40% !important;
     margin-bottom: 10px;
     padding: 0px 0px 10px 0px;
-    
+
   }
 
   table tbody tr td:last-of-type {
@@ -396,9 +409,9 @@ table th {
     content: " - ";
   }
 
-  
 
- 
+
+
 
   .column4,
   .column5,
@@ -422,9 +435,7 @@ table th {
 } */
 
 /*  -------------- Switch -------------- */
-.input__switch{
+.input__switch {
   margin-left: 14px;
   margin-bottom: 5px;
 }
-
-   

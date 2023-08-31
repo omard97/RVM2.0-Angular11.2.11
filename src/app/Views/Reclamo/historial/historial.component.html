@@ -192,7 +192,7 @@
           <!-- card -->
 
           <!-- shadow-lg p-3 mb-5 rounded border border-3 -->
-          <img loading="lazy" class="card-img-top " alt="Foto" [src]="item.foto">
+          <img loading="lazy" class="card-img-top rounded " alt="Foto" width="100" height="100" [src]="item.foto">
           <div class="card-body tarjeta--informacion">
 
             <p><i class="far fa-user"></i><span class="span-text"> Usuario: </span>{{item.nick}}</p>
@@ -208,35 +208,39 @@
                 Dominio:</span>{{item.dominio}}</p>
             <p><i class="fas fa-map-signs"></i><span class="span-text"> Dirección: </span>{{item.direccion}} </p>
             <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p>
+
+
+            <div class="container btn__tarjeta">
+            
+             
+              <button *ngIf="item.longitud || item.latitud" type="button" class="btn btn-outline-primary"
+                (click)="verMapa(item.longitud, item.latitud, item.direccion)"
+                data-bs-toggle="modal" data-bs-target="#mapaModal">
+                <i class="bi bi-geo-alt-fill"></i>
+              </button>
+          
+        
+          
+              <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)"
+               type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)" [disabled]="this.Dreclamos[0].nombre !== 'Pendiente' && this.usuario.idRol==3 "
+                > <!-- [disabled]="this.Dreclamos[0].nombre !== 'Pendiente'" -->
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            
+        
+           
+              <button type="button" class="btn btn-outline-danger d-inline-block" data-bs-toggle="tooltip"
+                data-bs-placement="top" title="Cancelar Reclamo"  [disabled]="this.Dreclamos[0].nombre !== 'Pendiente' && this.usuario.idRol==3">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            
+         
+        </div>
+
           </div> <!-- .tarjeta--informacion -->
 
-          <div class="container botones--informacion">
-            <div class="row justify-content-center align-items-center">
-              <div class="col-12 col-sm-3 col-md-3">
-                <button *ngIf="item.longitud || item.latitud" type="button" class="btn btn-outline-primary"
-                  (click)="verMapa(item.longitud, item.latitud, item.direccion)"
-                  data-bs-toggle="modal" data-bs-target="#mapaModal">
-                  <i class="bi bi-geo-alt-fill"></i>
-                </button>
-              </div>
-          
-              <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)"
-                class="col-12 col-sm-3 col-md-3">
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top"
-                  title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)" [disabled]="this.Dreclamos[0].nombre !== 'Pendiente' && this.usuario.idRol==3 "
-                  > <!-- [disabled]="this.Dreclamos[0].nombre !== 'Pendiente'" -->
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-              </div>
-          
-              <div class="col-12 col-sm-3 col-md-3">
-                <button type="button" class="btn btn-outline-danger d-inline-block" data-bs-toggle="tooltip"
-                  data-bs-placement="top" title="Cancelar Reclamo"  [disabled]="this.Dreclamos[0].nombre !== 'Pendiente' && this.usuario.idRol==3">
-                  <i class="bi bi-trash3-fill"></i>
-                </button>
-              </div>
-            </div>
-          </div>
+  
         </div> <!-- card -->
 
       </div><!-- columna -->
