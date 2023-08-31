@@ -271,7 +271,7 @@
                                     <div class="form-check form-check-inline" *ngFor="let item of Tiporecla">
                                         <input class="form-check-input" (change)="dataChangedEstadoReclamo($event)"
                                             type="radio" name="EstadosRec" [id]="item.idTipoReclamo"
-                                            [value]="item.idTipoReclamo" [disabled]="this.arregloDetalleReclamo[0]?.nombreTRec != item.nombre">
+                                            [value]="item.idTipoReclamo" > <!-- [disabled]="this.arregloDetalleReclamo[0]?.nombreTRec != item.nombre" -->
                                         <label class="form-check-label" for="inlineRadio1">{{item.nombre}}</label>
                                     </div>
 
