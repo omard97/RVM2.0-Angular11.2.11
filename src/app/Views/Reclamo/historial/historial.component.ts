@@ -44,7 +44,7 @@ export class HistorialComponent implements OnInit {
   /* tiene que ser el mismo nombre sino angular no encuentra el modelo */
 
   estadosReclamoFiltro: any;
-  fecha:any;
+  fechaHoy:any;
 
   public FER: EstadoReclamo[] = []; /* filtro estadoRecmo.ts */
 
@@ -85,7 +85,7 @@ export class HistorialComponent implements OnInit {
     this.rutaURL = window.location.pathname.split('/');
     this.usuario.idUsuario = this.rutaURL[2];
     
-    this.fecha = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); /* fecha del dia */
+    this.fechaHoy = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); /* fecha del dia */
 
     this.getRolUsuario();
     this.getTipoReclamo();
@@ -109,6 +109,7 @@ export class HistorialComponent implements OnInit {
             if(this.usuario.idRol==3){
               this.getIDSesionUsuarioLogueado(); /* de esos datos utilizo el idUsuario para obtener el id de sesion */
             }
+            debugger
             this.getDetalleReclamosHoy(); /* Traer los reclamos del dia de hoy */
            
         },
@@ -131,11 +132,11 @@ export class HistorialComponent implements OnInit {
 
   
   getDetalleReclamosHoy() {
-   
+   debugger
     console.log('rol usuario: '+this.usuario.idRol)
     if (this.usuario.idRol == 1 || this.usuario.idRol == 2) {
      
-      this.detalleReclamo.getHistorialHoy(this.fecha,this.usuario.idUsuario,1,5,this.usuario.idRol).subscribe(
+      this.detalleReclamo.getHistorialHoy(this.fechaHoy,this.usuario.idUsuario,1,5,this.usuario.idRol).subscribe(
         (info) => {
           console.log(info);
 
@@ -145,6 +146,7 @@ export class HistorialComponent implements OnInit {
             this.banderaIconoCarga=false;
             this.mensajeDelDia();
           }else{
+            debugger
             this.Dreclamos = info;
             
             this.banderaIconoCarga=false;
@@ -159,7 +161,7 @@ export class HistorialComponent implements OnInit {
       );
     } else {
      
-      this.detalleReclamo.getHistorialHoy(this.fecha,this.usuario.idUsuario,1,5,this.usuario.idRol).subscribe( /* getDetalleReclamoUsuario(this.IDUsuario, 1) */
+      this.detalleReclamo.getHistorialHoy(this.fechaHoy,this.usuario.idUsuario,1,5,this.usuario.idRol).subscribe( /* getDetalleReclamoUsuario(this.IDUsuario, 1) */
         (info) => {
           
           this.banderaIconoCarga=false;
