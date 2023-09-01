@@ -18,6 +18,8 @@ import { Popup, Map, Marker } from 'mapbox-gl';
 import { Title } from '@angular/platform-browser';
 
 import { OnExit } from 'src/app/guards/exit.guard';
+import { formatDate } from '@angular/common';
+
 
 
 
@@ -92,6 +94,7 @@ export class ReclamoComponent implements OnInit, OnExit {
 
 
   rutaURL:any;
+  fechaHoy: string ='';
   
 
   Tiporecla: TipoReclamo[] = new Array<TipoReclamo>();
@@ -140,15 +143,16 @@ export class ReclamoComponent implements OnInit, OnExit {
 
   constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService,
     private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title) { 
-      titulo.setTitle('Reclamo')
-    this.rutaURL = window.location.pathname.split('/');
-    console.log(this.rutaURL)
-    this.usuario.idUsuario = this.rutaURL[2];
-    
-    this.IDDetalleR = this.rutaURL[5]; /* en la posicion 5 esta el detalle del reclamo a actualizar */
-    this.getRolUsuario(); /*obtengo todos los datos */
-    
 
+    titulo.setTitle('Reclamo') // titulo de la pesaña del navegador
+      debugger
+    
+  
+    this.rutaURL = window.location.pathname.split('/');
+    this.usuario.idUsuario = this.rutaURL[2];
+    this.IDDetalleR = this.rutaURL[5]; /* en la posicion 5 esta el detalle del reclamo a actualizar */
+
+    this.getRolUsuario(); /*obtengo todos los datos */
     this.getListReclamoAmbiental();
     this.getListMarca();
     this.getListModelo();
@@ -162,6 +166,12 @@ export class ReclamoComponent implements OnInit, OnExit {
 
   ngOnInit(): void {
     this.getListTipoReclamos();
+  }
+  fechaDeHoy(){
+    this.fechaHoy = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+    /* this.fechaHoy = new Date().toLocaleDateString('es-es', { day:"numeric",month:"numeric",year:"numeric"}) */ //month:"short" - muestra el mes abreviado
+     console.log('fecha' + this.fechaHoy);
+
   }
   /* utilizado solamente para visualizar etiquetas que dependen del rol del usuario */
   getRolUsuario() {
@@ -244,9 +254,8 @@ export class ReclamoComponent implements OnInit, OnExit {
     
     /* Validacion en el caso que registre un input vacio o cambie de tipo de reclamo y tenga un input vacio */
     /* reclamo Ambiental */
-    if (Number(this.tipoReclamoCtrl.value) == 1 && (this.tipoReclamoCtrl.value == '' || this.reclamoAmbientalCtrl.value == '' ||
-      this.fechaCtrl.value == '' || this.horaCtrl.value == '' || this.ubicacionCtrl.value == '' ||
-      this.descripcionCtrl.value == ''  )) { /*  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == '' */
+    if (Number(this.tipoReclamoCtrl.value) == 1 && (this.tipoReclamoCtrl.value == '' || this.reclamoAmbientalCtrl.value == '' || this.horaCtrl.value == '' || this.ubicacionCtrl.value == '' ||
+      this.descripcionCtrl.value == ''  )) { /*  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == ''  ||   this.fechaCtrl.value == '' */ 
       this.toastr.warning(
         'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
         'Cuidado!',
@@ -270,8 +279,11 @@ export class ReclamoComponent implements OnInit, OnExit {
         }
       );
     } else {
+      debugger
+      this.fechaDeHoy();
+      
       var RegistroRecl: Reclamo = {
-        fecha: this.fechaCtrl.value + '',
+        fecha: this.fechaHoy + '',
         foto: this.imageReclamoDataUrl, /* cambiar por el input file */
         hora: this.horaCtrl.value + '',
         ID_Sesion: Number(this.usuario.IDsesion),
@@ -440,10 +452,10 @@ ambiental */
 
 
 
-    this.toastr.info('Será redirigido al menú principal', '', {
+    /* this.toastr.info('Será redirigido al menú principal', '', {
       timeOut: 5000,
 
-    });
+    }); */
     this.metodoRedireccion();
   }
   metodoRedireccion() {
@@ -523,7 +535,7 @@ ambiental */
 
   MetodoActualizarReclamo() {
     
-
+    debugger
     /* idEstadoReclamo */
     /* Roles 1=Administrador - 3=Usuario */
     if (this.estadoReclamoCtrl.value == '' && this.usuario.idRol == 1) {
@@ -564,12 +576,12 @@ ambiental */
       if (this.tipoReclamoCtrl.value != '') {
         putID_TipoReclamo = Number(this.selectIdTipoReclamo);
       }
-      if (this.fechaCtrl.value == '') {
+      /* if (this.fechaCtrl.value == '') {
         putfecha = this.arregloDetalleReclamo[0].fecha;
       }
       if (this.fechaCtrl.value != '') {
         putfecha = this.fechaCtrl.value + '';
-      }
+      } */
       if (this.horaCtrl.value == '') {
         puthora = this.arregloDetalleReclamo[0].hora;
       }
@@ -588,7 +600,7 @@ ambiental */
       debugger
       var reclamo: Reclamo = {
         IDReclamo: this.arregloDetalleReclamo[0].iD_Reclamo,
-        fecha: putfecha,
+        fecha: this.arregloDetalleReclamo[0].fecha,
         foto: putfoto,
         hora: puthora,
         ID_Sesion: this.arregloDetalleReclamo[0].idSesion,
@@ -756,6 +768,7 @@ ambiental */
     );
   }
 
+  /* boton historial en reclamo */
   regresarHistorial() {
     this.metodoRedireccion();
   }
