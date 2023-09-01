@@ -1,9 +1,9 @@
 <div class="container-fluid shadow-lg p-3 mb-5 rounded border border-2 contenedorPrincipal">
 
-    <div class="row borde  animate__animated animate__fadeIn">
+    <div class="row animate__animated animate__fadeIn">
         <div class="col-12">
-            <h2 id="tituloComponente" *ngIf="banderaEdicionReclamo==false">Nuevo Reclamo</h2>
-            <h2 id="tituloComponente" *ngIf="banderaEdicionReclamo==true"> Actualizar Reclamo</h2>
+            <h1  class="titulo__reclamo" *ngIf="banderaEdicionReclamo==false">Nuevo Reclamo</h1>
+            <h1  class="titulo__reclamo" *ngIf="banderaEdicionReclamo==true"> Actualizar Reclamo</h1>
         </div>
     </div>
 
@@ -39,7 +39,7 @@
                                 <td class="column1">{{item.descripcion}}</td>
                                 <td class="column2">{{item.direccion}}</td>
                                 <td class="column3" *ngIf="item.dominio !== '-' ">{{item.dominio}}</td>
-                                <td class="column4">{{item.fecha}} </td>
+                                <td class="column4">{{item.fecha | date:'dd-MM-yyyy'}} </td>
                                 <td class="column5"><img class="rounded-3" src="{{item.foto}}" alt="Foto"
                                         style="width: 150px; height: 100px;"></td>
                                 <td class="column6">{{item.hora}}</td>

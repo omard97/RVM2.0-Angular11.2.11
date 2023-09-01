@@ -590,6 +590,7 @@ ambiental */
         puthora = this.horaCtrl.value + '';
       }
       debugger
+      
       if (this.FotoCtrl.value =='') {
         putfoto = this.arregloDetalleReclamo[0].foto;
         

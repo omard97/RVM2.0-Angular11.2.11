@@ -1,10 +1,17 @@
 /* body {
     background-color: rgb(255, 255, 255);
 } */
+:host {
+  --colorPrincipal: #e6621f;
+}
 * {
   transition-duration: 0.5s;
 }
-
+h1{
+  color: var(--colorPrincipal);
+  letter-spacing: 0.25em;
+  word-spacing: 0.25em;
+}
 h5 {
   font-size: 16px;
   text-align: center;

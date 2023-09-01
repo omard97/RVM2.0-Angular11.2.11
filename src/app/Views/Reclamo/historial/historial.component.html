@@ -1,7 +1,7 @@
 <form class="container-fluid shadow-lg mb-2 rounded border border-2 container-filtros">
 
   <div class="row">
-    <div class="animate__animated animate__fadeInDown" id="tituloHistorial">
+    <div class="animate__animated animate__fadeIn" id="tituloHistorial">
       <h1> Historial </h1>
     </div>
 
@@ -205,7 +205,7 @@
             </p>
             <p><i class="far fa-calendar-alt"></i><span class="span-text"> Fecha: </span>{{item.fecha | date:'dd-MM-yyyy'}}</p>
             <p><i class="far fa-clock"></i><span class="span-text"> Hora: </span>{{item.hora}}</p>
-            <p *ngIf="(item.dominio!='-' )" class="card-text"><i class="fas fa-car"></i> <span class="span-text">
+            <p *ngIf="(item.dominio!='-' || item.dominio=='')" class="card-text"><i class="fas fa-car"></i> <span class="span-text">
                 Dominio:</span>{{item.dominio}}</p>
             <p><i class="fas fa-map-signs"></i><span class="span-text"> Dirección: </span>{{item.direccion}} </p>
             <!-- <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p> -->

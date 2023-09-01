@@ -142,18 +142,13 @@ export class HistorialComponent implements OnInit {
 
           if (info.length == 0) {
             this.banderaAlerta=true;
-           
             this.banderaIconoCarga=false;
             this.mensajeDelDia();
           }else{
             debugger
-            this.Dreclamos = info;
-            
-            this.banderaIconoCarga=false;
-            
-          }
-
-          
+            this.Dreclamos = info; 
+            this.banderaIconoCarga=false;           
+          } 
         },
         (error) => {
           console.log(error);
@@ -167,15 +162,13 @@ export class HistorialComponent implements OnInit {
           this.banderaIconoCarga=false;
           this.Dreclamos = info;
           if (info.length == 0) {
-            this.banderaAlerta=true;
-           
+            this.banderaAlerta=true;           
             this.banderaIconoCarga=false;
             this.mensajeDelDia();
           }else{
-            this.Dreclamos = info;
-            
-            this.banderaIconoCarga=false;
-           
+            debugger
+            this.Dreclamos = info;           
+            this.banderaIconoCarga=false;          
           }
         },
         (error) => {

@@ -60,11 +60,13 @@
   font-size: 18px;
 }
 
-#tituloComponente {
-  font-size: 30px;
+.titulo__reclamo{
+ font-size: 30px;
   text-align: center;
   margin: -1rem 0px 0px 0px;
   color: var(--colorPrincipal);
+  letter-spacing: 0.25em;
+  word-spacing: 0.25em;
 }
 
 .input_reclamo {
@@ -353,36 +355,40 @@ tbody tr:hover {
     content: "Dirección";
   }
 
-  table tbody tr td:nth-child(3):before {
+ /*  table tbody tr td:nth-child(3):before {
     content: "Dominio";
-  }
+  } */
 
-  table tbody tr td:nth-child(4):before {
+  table tbody tr td:nth-child(3):before {
     content: "Fecha";
   }
 
-  table tbody tr td:nth-child(5):before {
+  table tbody tr td:nth-child(4):before {
     content: "Foto";
   }
 
-  table tbody tr td:nth-child(6):before {
+  table tbody tr td:nth-child(5):before {
     content: "Hora";
   }
 
-  table tbody tr td:nth-child(7):before {
+  table tbody tr td:nth-child(6):before {
     content: "Motivo";
   }
 
-  table tbody tr td:nth-child(8):before {
+ /*  table tbody tr td:nth-child(8):before {
     content: "Marca";
   }
 
   table tbody tr td:nth-child(9):before {
     content: "Modelo";
+  } */
+
+  table tbody tr td:nth-child(7):before {
+    content: "Tipo Reclamo";
   }
 
-  table tbody tr td:nth-child(10):before {
-    content: "Tipo Reclamo";
+  table tbody tr td:nth-child(8):before {
+    content: "Estado";
   }
 
   /* este ancho se tiene en cuenta cuando la pantalla a 993px */
