@@ -6,6 +6,8 @@
             <h1  class="titulo__reclamo" *ngIf="banderaEdicionReclamo==true"> Actualizar Reclamo</h1>
         </div>
     </div>
+    
+    
 
     <!-- Tabla para reclamos ambientales -->
     <div class="  animate__animated animate__fadeIn" *ngFor="let item of arregloDetalleReclamo">
@@ -185,7 +187,7 @@
 
                             <!-- Hora -->
 
-                            <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
+                           <!--  <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Hora">
 
                                 <span class="input-group-text" id="addon-wrapping"><i
@@ -193,7 +195,7 @@
                                 <input id="Hora" name="tiempo" type="time" placeholder={{time}} class="form-control "
                                     [formControl]="horaCtrl" (click)='obtenerHoraActual()'>
 
-                            </div>
+                            </div> -->
 
 
                             <!-- Ubicacion - Calee -->
@@ -316,9 +318,9 @@
                             <!--text-center d-inline-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 botones -->
 
                             <button type="button" class="btn btn-success botones "
-                                [disabled]="( (tipoReclamoCtrl.invalid && (reclamoAmbientalCtrl.invalid && marcaAutoCtrl.invalid && dominioCtrl.invalid))  || horaCtrl.invalid || ubicacionCtrl.invalid ||  descripcionCtrl.invalid)"  
+                                [disabled]="( (tipoReclamoCtrl.invalid && (reclamoAmbientalCtrl.invalid && marcaAutoCtrl.invalid && dominioCtrl.invalid))   || ubicacionCtrl.invalid ||  descripcionCtrl.invalid)"  
                                 (click)="registrarReclamo()" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Enviar Reclamo"> <!--  || alturaCtrl.invalid -->
+                                title="Enviar Reclamo"> <!--  || alturaCtrl.invalid || horaCtrl.invalid-->
                                 <i class="far fa-check-circle fa-lg"></i>Enviar
 
                             </button> <!-- || fechaCtrl.invalid -->

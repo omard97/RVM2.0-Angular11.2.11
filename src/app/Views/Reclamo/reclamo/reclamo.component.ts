@@ -50,18 +50,18 @@ export class ReclamoComponent implements OnInit, OnExit {
   imageReclamoDataUrl:string | undefined;
   /* ------------ Input File ------------  */
 
-  formReclamo = new FormControl('');
+ 
   tipoReclamoCtrl = new FormControl('', [Validators.required]);
   reclamoAmbientalCtrl = new FormControl('', [Validators.required]);
   marcaAutoCtrl = new FormControl('', [Validators.required]);
   modeloAutoCtrl = new FormControl('', [Validators.required]);
   colorAutoCtrl = new FormControl('', [Validators.required]);
-  fechaCtrl = new FormControl('', [Validators.required]);
-  horaCtrl = new FormControl('', [Validators.required]);
+ /*  fechaCtrl = new FormControl('', [Validators.required]); */
+  /* horaCtrl = new FormControl('', [Validators.required]); */
   ubicacionCtrl = new FormControl('', [Validators.required]);
   descripcionCtrl = new FormControl('', [Validators.required]);
   FotoCtrl = new FormControl('', [Validators.required]);
-  alturaCtrl = new FormControl('', [Validators.required]);
+  /* alturaCtrl = new FormControl('', [Validators.required]); */
   dominioCtrl = new FormControl('', [Validators.required]);
   ID_Reclamo = new FormControl('', [Validators.required]);
   estadoReclamoCtrl = new FormControl('', [
@@ -95,6 +95,7 @@ export class ReclamoComponent implements OnInit, OnExit {
 
   rutaURL:any;
   fechaHoy: string ='';
+  horaActual: string = '';
   
 
   Tiporecla: TipoReclamo[] = new Array<TipoReclamo>();
@@ -166,6 +167,20 @@ export class ReclamoComponent implements OnInit, OnExit {
 
   ngOnInit(): void {
     this.getListTipoReclamos();
+  }
+
+  obtenerHora(){
+    /* Obtengo la hora actual */
+    const now = new Date();
+      this.horaActual = this.formatoHoraMinutos(now);
+       
+  }
+
+  formatoHoraMinutos(date: Date): string {
+    /* Formateo la hora a HH:mm */
+    const horas = date.getHours().toString().padStart(2, '0');
+    const minutos = date.getMinutes().toString().padStart(2, '0');
+    return `${horas}:${minutos}`;
   }
   fechaDeHoy(){
     this.fechaHoy = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
@@ -254,8 +269,8 @@ export class ReclamoComponent implements OnInit, OnExit {
     
     /* Validacion en el caso que registre un input vacio o cambie de tipo de reclamo y tenga un input vacio */
     /* reclamo Ambiental */
-    if (Number(this.tipoReclamoCtrl.value) == 1 && (this.tipoReclamoCtrl.value == '' || this.reclamoAmbientalCtrl.value == '' || this.horaCtrl.value == '' || this.ubicacionCtrl.value == '' ||
-      this.descripcionCtrl.value == ''  )) { /*  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == ''  ||   this.fechaCtrl.value == '' */ 
+    if (Number(this.tipoReclamoCtrl.value) == 1 && (this.tipoReclamoCtrl.value == '' || this.reclamoAmbientalCtrl.value == '' ||  this.ubicacionCtrl.value == '' ||
+      this.descripcionCtrl.value == ''  )) { /*  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == ''  ||   this.fechaCtrl.value == '' this.horaCtrl.value == '' ||*/ 
       this.toastr.warning(
         'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
         'Cuidado!',
@@ -267,9 +282,8 @@ export class ReclamoComponent implements OnInit, OnExit {
 
       /* reclamo vial */
     } else if (Number(this.tipoReclamoCtrl.value) == 2 && (((this.dominioCtrl.value == '' || this.marcaAutoCtrl.value == '') &&
-      this.tipoReclamoCtrl.value == '') || this.fechaCtrl.value == '' || this.horaCtrl.value == '' ||
-      this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == ''  ||
-      this.modeloAutoCtrl.value == '')) { /* || this.alturaCtrl.value == '' */
+      this.tipoReclamoCtrl.value == '')  ||  this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == ''  ||
+      this.modeloAutoCtrl.value == '')) { /* || this.alturaCtrl.value == '' || this.fechaCtrl.value == '' || this.horaCtrl.value == ''*/
       this.toastr.warning(
         'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
         'Cuidado!',
@@ -281,11 +295,11 @@ export class ReclamoComponent implements OnInit, OnExit {
     } else {
       debugger
       this.fechaDeHoy();
-      
+      this.obtenerHora();
       var RegistroRecl: Reclamo = {
         fecha: this.fechaHoy + '',
         foto: this.imageReclamoDataUrl, /* cambiar por el input file */
-        hora: this.horaCtrl.value + '',
+        hora: this.horaActual + '',
         ID_Sesion: Number(this.usuario.IDsesion),
         ID_TipoReclamo: Number(this.selectIdTipoReclamo),
         ID_Estado: 1 /* estado Activo */,
@@ -423,11 +437,11 @@ ambiental */
     this.selectIdinfoReclamo = ev.target.value;
   }
 
-  obtenerHoraActual() {
+  /* obtenerHoraActual() {
     var today = new Date();
 
     this.time = today.getHours() + ':' + today.getMinutes();
-  }
+  } */
 
   Notificacion() {
     this.toastr.success(
@@ -441,8 +455,8 @@ ambiental */
     this.reclamoAmbientalCtrl.reset();
     this.marcaAutoCtrl.reset();
     this.modeloAutoCtrl.reset();
-    this.fechaCtrl.reset();
-    this.horaCtrl.reset();
+   /*  this.fechaCtrl.reset();
+    this.horaCtrl.reset(); */
     this.ubicacionCtrl.reset();
     this.descripcionCtrl.reset();
     /* this.urlFotoCtrl.reset();
@@ -557,6 +571,7 @@ ambiental */
         }
       );
     } else {
+      debugger
       var putfecha: any;
       var putfoto: any;
       var puthora: any;
@@ -582,13 +597,14 @@ ambiental */
       if (this.fechaCtrl.value != '') {
         putfecha = this.fechaCtrl.value + '';
       } */
-      if (this.horaCtrl.value == '') {
+
+     /*   if (this.horaCtrl.value == '') {
         puthora = this.arregloDetalleReclamo[0].hora;
       }
 
       if (this.horaCtrl.value != '') {
         puthora = this.horaCtrl.value + '';
-      }
+      }  */
       debugger
       
       if (this.FotoCtrl.value =='') {
@@ -603,7 +619,7 @@ ambiental */
         IDReclamo: this.arregloDetalleReclamo[0].iD_Reclamo,
         fecha: this.arregloDetalleReclamo[0].fecha,
         foto: putfoto,
-        hora: puthora,
+        hora: this.arregloDetalleReclamo[0].hora,
         ID_Sesion: this.arregloDetalleReclamo[0].idSesion,
         ID_TipoReclamo: putID_TipoReclamo,
         ID_Estado: putID_Estado,
@@ -779,12 +795,12 @@ ambiental */
     this.reclamoAmbientalCtrl.reset();
     this.marcaAutoCtrl.reset();
     this.modeloAutoCtrl.reset();
-    this.fechaCtrl.reset();
-    this.horaCtrl.reset();
+   /*  this.fechaCtrl.reset();
+    this.horaCtrl.reset(); */
     this.ubicacionCtrl.reset();
     this.descripcionCtrl.reset();
     /* this.urlFotoCtrl.reset(); */
-    this.alturaCtrl.reset();
+    /* this.alturaCtrl.reset(); */
     this.dominioCtrl.reset();
     this.estadoReclamoCtrl.reset();
 
@@ -926,7 +942,7 @@ ambiental */
 
   onExit() {
    
-    if ( this.formReclamo.dirty || this.tipoReclamoCtrl.dirty || this.reclamoAmbientalCtrl.dirty || this.marcaAutoCtrl.dirty || this.modeloAutoCtrl.dirty || this.colorAutoCtrl.dirty || this.fechaCtrl.dirty || this.horaCtrl.dirty || this.ubicacionCtrl.dirty || this.descripcionCtrl.dirty || this.FotoCtrl.dirty || this.alturaCtrl.dirty || this.dominioCtrl.dirty) 
+    if ( this.tipoReclamoCtrl.dirty || this.reclamoAmbientalCtrl.dirty || this.marcaAutoCtrl.dirty || this.modeloAutoCtrl.dirty || this.colorAutoCtrl.dirty  || this.ubicacionCtrl.dirty || this.descripcionCtrl.dirty || this.FotoCtrl.dirty  || this.dominioCtrl.dirty)  /* || this.alturaCtrl.dirty  || this.fechaCtrl.dirty || this.horaCtrl.dirty */
     {
       const respuesta = confirm('¿Estás seguro de salir del reclamo?')
       return respuesta;
