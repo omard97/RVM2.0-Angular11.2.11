@@ -12,6 +12,7 @@ import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
 import { MenuComponent } from '../../Estructura/menu/menu.component';
 import { Title } from '@angular/platform-browser';
+
 /* import { Popup, Map, Marker } from 'mapbox-gl';
 import { MapReclamoService } from '../reclamo/maps-reclamo/services'; */
 
@@ -40,7 +41,7 @@ export class HistorialComponent implements OnInit {
   IDSesion: any;
 
   Dreclamos: any[] = [];
-  TR: TipoReclamo[] = []; /* le asigno el nombre del modelo a una variable */
+  tiposReclamos: TipoReclamo[] = []; /* le asigno el nombre del modelo a una variable */
   /* tiene que ser el mismo nombre sino angular no encuentra el modelo */
 
   estadosReclamoFiltro: any;
@@ -76,9 +77,12 @@ export class HistorialComponent implements OnInit {
   /* Switch */
   banderaVistaHistorial: boolean=true; /* True porque es para ver en lista detallada */
 
+  /* Cancelar Reclamo */
+  listTipoReclamo:any;
 
 
-  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private menuComponent: MenuComponent, private titulo:Title) 
+
+  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private menuComponent: MenuComponent, private titulo:Title, ) 
   {
 
     titulo.setTitle('Historial')
@@ -181,9 +185,9 @@ export class HistorialComponent implements OnInit {
   getTipoReclamo(): void {
     this.detalleReclamo.getTipoReclamo().subscribe(
       (res) => {
-        this.TR =
+        this.tiposReclamos =
           res; /* res es la respuesta del servidor con todos los objetos y sus datos */
-        console.log('Recla:', this.TR);
+        console.log('Recla:', this.tiposReclamos);
       },
       (err) => console.error(err)
     );
@@ -480,7 +484,7 @@ export class HistorialComponent implements OnInit {
       'Atención',
       {
         timeOut: 4000,
-        positionClass:'toast-bottom-right'
+        positionClass:'toast-top-right'
       }
     );
   }
@@ -491,7 +495,7 @@ export class HistorialComponent implements OnInit {
       'Atención',
       {
         timeOut: 5000,
-        progressBar: true,
+       
       }
     );
   }
@@ -528,6 +532,15 @@ export class HistorialComponent implements OnInit {
     }else{
 
       this.banderaVistaHistorial = true;
+    }
+  }
+
+  cancelarReclamo(id_reclamo:number, id_tiporeclamo:number){
+    debugger
+    if(this.selectIDTipReclamo == id_tiporeclamo){
+      alert('es ambiental')
+    }else{
+      alert('es vial')
     }
   }
 

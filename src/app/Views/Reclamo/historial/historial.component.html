@@ -19,7 +19,7 @@
             [formControl]="tipoReclamoCtrl">
             <!-- Default select example -->
             <option value="" disabled> --- Tipo de Reclamo no selecionado --- </option>
-            <option *ngFor="let item of TR" value="{{item.idTipoReclamo}}" selected>{{item.nombre}}</option>
+            <option *ngFor="let item of tiposReclamos" value="{{item.idTipoReclamo}}" selected>{{item.nombre}}</option>
 
           </select>
         </div>
@@ -156,7 +156,7 @@
                     </button> 
                   
                     <button type="button" class="btn btn-outline-danger d-inline-block btn__opciones " data-bs-toggle="tooltip"
-                      data-bs-placement="top" title="Cancelar Reclamo" [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision' || this.selectIDEstadoReclamo ==14 )"   ><i class="bi bi-trash3-fill"></i>
+                      data-bs-placement="top" title="Cancelar Reclamo" (click)="cancelarReclamo(item.iD_Reclamo, item.idTipoRec)" [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision' || this.selectIDEstadoReclamo ==14 )"   ><i class="bi bi-trash3-fill"></i>
                     </button>
                   
 
