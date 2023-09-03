@@ -333,7 +333,7 @@ export class DashboardComponent implements OnInit {
         
         this.Estadistica.getRecuentoReclamosDelAnio(this.usuario.idUsuario,this.txtAnio.value,this.usuario.idRol ).subscribe(
           (dato)=>{
-            alert('rol usuario en recuento de reclamos del anio '+ this.usuario.idRol)
+            
             this.arregloReclamosDeMesesyAnio=dato;
             
           },
