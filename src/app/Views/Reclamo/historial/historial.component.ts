@@ -12,6 +12,7 @@ import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
 import { MenuComponent } from '../../Estructura/menu/menu.component';
 import { Title } from '@angular/platform-browser';
+import { Reclamo } from 'src/app/model/reclamo';
 
 /* import { Popup, Map, Marker } from 'mapbox-gl';
 import { MapReclamoService } from '../reclamo/maps-reclamo/services'; */
@@ -171,7 +172,8 @@ export class HistorialComponent implements OnInit {
             this.mensajeDelDia();
           }else{
             debugger
-            this.Dreclamos = info;           
+            this.Dreclamos = info;
+            console.log(this.Dreclamos)           
             this.banderaIconoCarga=false;          
           }
         },
@@ -185,11 +187,12 @@ export class HistorialComponent implements OnInit {
   getTipoReclamo(): void {
     this.detalleReclamo.getTipoReclamo().subscribe(
       (res) => {
-        this.tiposReclamos =
-          res; /* res es la respuesta del servidor con todos los objetos y sus datos */
+        this.tiposReclamos = res; /* res es la respuesta del servidor con todos los objetos y sus datos */
         console.log('Recla:', this.tiposReclamos);
       },
-      (err) => console.error(err)
+      (err) =>{
+        console.error(err)
+      } 
     );
   }
 
@@ -535,11 +538,44 @@ export class HistorialComponent implements OnInit {
     }
   }
 
-  cancelarReclamo(id_reclamo:number, id_tiporeclamo:number){
+  cancelarReclamo(idReclamo:number, fecha:string, foto:any, hora:string,id_sesion:number, idTipoRec:number,idEstado:number){
     debugger
-    if(this.selectIDTipReclamo == id_tiporeclamo){
-      alert('es ambiental')
-    }else{
+   
+    debugger
+    if(this.selectIDTipReclamo == idTipoRec || idTipoRec ==1 ){
+      var reclamo: Reclamo = {
+        IDReclamo: idReclamo,
+        fecha: fecha,
+        foto: foto,
+        hora: hora,
+        ID_Sesion: id_sesion,
+        ID_TipoReclamo: idTipoRec,
+        ID_Estado: 4, /* 4 - descartado - ambiental */
+      };
+      
+      (window.confirm("¿Estás seguro de cancelar el reclamo?") ?
+        this.detalleReclamo.putActualizarReclamo(reclamo).subscribe(
+          (data) => {
+            this.Dreclamos = [];
+            this.getDetalleReclamosHoy();
+          },
+          (err) => {
+
+          }
+        ) : console.log("El usuario canceló la acción."))
+
+    }else if(this.selectIDTipReclamo == idTipoRec || idTipoRec ==2){
+      var reclamo: Reclamo = {
+        IDReclamo: idReclamo,
+        fecha: fecha,
+        foto: foto,
+        hora: hora,
+        ID_Sesion: id_sesion,
+        ID_TipoReclamo: idTipoRec,
+        ID_Estado: 8, /* 8 - descartado - Vial */
+      };
+
+
       alert('es vial')
     }
   }
