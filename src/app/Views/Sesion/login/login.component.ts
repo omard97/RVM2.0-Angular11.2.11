@@ -7,6 +7,7 @@ import { LoginApiService } from 'src/app/service/Login/login-api.service';
 import { RegistroApiService } from 'src/app/service/Registro/registro-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
   usuarioCtrl = new FormControl('', [Validators.required]);
 
 
-  constructor(private serviceLogin: LoginApiService, private serviceRegistro: RegistroApiService, private router: Router, private toastr: ToastrService, private titulo: Title,) {
+  constructor(private serviceLogin: LoginApiService, private serviceRegistro: RegistroApiService, private router: Router, private toastr: ToastrService, private titulo: Title) 
+  {
     titulo.setTitle('Login')
     this.fechadehoy();
   }
@@ -307,7 +309,7 @@ export class LoginComponent implements OnInit {
           (error) => {
             debugger
             this.toastr.info(
-              'Ocurrío un problema ',
+              'No hay conexión con el sistema, no se puede verificar el usuario ',
               'Atención',
               {
                 timeOut: 5000,

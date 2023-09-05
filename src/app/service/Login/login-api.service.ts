@@ -77,8 +77,8 @@ export class LoginApiService {
   /* traer el id de sesion y utilizarlo para crear el reclamo */
   getSesionUsuarioLogueado(idUsuario: number): Observable<idInicioSesionUsuario[]> {
     return this.http.get<idInicioSesionUsuario[]>('https://localhost:44363/V_ultimaSesionDelUsuario/' + idUsuario);
-  }
+  }  
 
- 
+
   
 }
