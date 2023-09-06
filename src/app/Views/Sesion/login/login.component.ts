@@ -172,14 +172,14 @@ export class LoginComponent implements OnInit {
     if ((contrasenia.length === confirmacion.length) && (contrasenia === confirmacion)) {
       debugger
       this.banderaContrasenia = true; /* si las contraseñas son iguales */
-      this.toastr.success(
+    /*   this.toastr.success(
         'Las contraseñas coinciden',
         'Atención',
         {
           timeOut: 1000,
           positionClass: 'toast-bottom-center'
         }
-      );
+      ); */
 
     }
   }
@@ -248,13 +248,15 @@ export class LoginComponent implements OnInit {
         ID_Perfil: 3, /* usuario */
         ID_Estado: 10,/* activo */
       }
-      this.vaciarFormulario();
+     
 
 
 
       this.serviceRegistro.postRegistrarUsuario(usuario).subscribe(
         (data) => {
-
+          debugger
+          this.eviarFormularioEmail()
+          this.vaciarFormulario();
           this.toastr.success(
             usuario.Nick + ' inicia sesion para comenzar a usar la app',
             'Atención',
@@ -313,14 +315,14 @@ export class LoginComponent implements OnInit {
             if (data.length == 0) {
               debugger
               this.banderaUsuarioValido = true;
-              this.toastr.success(
+             /*  this.toastr.success(
                 'El nombre de usuario es valido para registrarse',
                 'Atención',
                 {
                   timeOut: 4000,
                   positionClass: 'toast-bottom-full-width'
                 }
-              );
+              ); */
             } 
           },
           (error) => {
@@ -356,14 +358,14 @@ export class LoginComponent implements OnInit {
             debugger
             if (data.length == 0) {
               this.banderaCorreoValido = true;
-              this.toastr.success(
+             /*  this.toastr.success(
                 'El correo es válido para registrarse',
                 'Atención',
                 {
                   timeOut: 4000,
                   positionClass: 'toast-bottom-full-width'
                 }
-              );
+              ); */
             } 
           },
           (err) => {
@@ -403,11 +405,25 @@ export class LoginComponent implements OnInit {
         },
         (err) =>
         {
-
+          this.toastr.warning(
+            'Ocurrió un error al tratar de enviar el formulario.',
+            'Atención',
+            {
+              timeOut: 5000,
+              positionClass: 'toast-bottom-center'
+            }
+          );
         }
       )
-    }{
-      alert('error');
+    }else{
+      this.toastr.warning(
+        'Complete el formulario para registrarse.',
+        'Atención',
+        {
+          timeOut: 5000,
+          positionClass: 'toast-bottom-center'
+        }
+      );
     }
   }
 
