@@ -78,8 +78,9 @@ export class LoginApiService {
   }  
 
   getFormulario(correo:string, contrasenia:string, nombre:string, usuario:string){
+    debugger
     //https://localhost:44363/formulario?correo=omarf.dandrea@gmail.com&&contrasenia=omar123&&nombre=Omar&&usuario=omard97
-      return this.http.get<formulario[]>('https://localhost:44363/formulario?' + "correo=" + correo + '&contrasenia='+contrasenia + '&nombre='+nombre+'&usuario+'+usuario);
+      return this.http.get<formulario[]>('https://localhost:44363/formulario?' + "correo=" + correo + '&contrasenia='+contrasenia + '&nombre='+nombre+'&usuario=+'+usuario);
   }
 
   
