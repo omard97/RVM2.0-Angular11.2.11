@@ -11,3 +11,8 @@ export interface inicioSesion {
 export class idInicioSesionUsuario {
   idSesion: number = 0; 
 }
+
+export class formulario{
+  correo : string = '';
+  contrasenia : string = '';
+}
