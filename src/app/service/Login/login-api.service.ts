@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { idInicioSesionUsuario } from 'src/app/model/InicioSesion';
+import { formulario, idInicioSesionUsuario } from 'src/app/model/InicioSesion';
 import { sesionUsuario } from 'src/app/model/sesion';
 import { nickUsuario } from 'src/app/model/usuario';
 
@@ -72,13 +72,15 @@ export class LoginApiService {
 
   }
 
-
-
   /* traer el id de sesion y utilizarlo para crear el reclamo */
   getSesionUsuarioLogueado(idUsuario: number): Observable<idInicioSesionUsuario[]> {
     return this.http.get<idInicioSesionUsuario[]>('https://localhost:44363/V_ultimaSesionDelUsuario/' + idUsuario);
   }  
 
+  getFormulario(correo:string, contrasenia:string, nombre:string, usuario:string){
+    //https://localhost:44363/formulario?correo=omarf.dandrea@gmail.com&&contrasenia=omar123&&nombre=Omar&&usuario=omard97
+      return this.http.get<formulario[]>('https://localhost:44363/formulario?' + "correo=" + correo + '&contrasenia='+contrasenia + '&nombre='+nombre+'&usuario+'+usuario);
+  }
 
   
 }
