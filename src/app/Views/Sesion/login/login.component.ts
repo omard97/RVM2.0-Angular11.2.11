@@ -181,23 +181,13 @@ export class LoginComponent implements OnInit {
         }
       );
 
-    } else if ((contrasenia != confirmacion) && (contrasenia.length === confirmacion.length)) {
-      this.banderaContrasenia = false; /* si las contraseñas no son iguales */
-      this.toastr.warning(
-        'Las contraseñas NO coinciden',
-        'Atención',
-        {
-          timeOut: 1000,
-          positionClass: 'toast-bottom-center'
-        }
-      );
     }
   }
 
   /* ----- Modal Registrar usuario --- */
   registrarUsuario() {
     debugger
-    if (this.nombreCtrl.invalid || this.apellidoCtrl.invalid || this.telefonoCtrl.invalid || this.dniCtrl.invalid || this.usuarioCtrl.invalid || this.correoCtrl.invalid || this.contraseniaCtrl.invalid || this.confirmacionCtrl.invalid || this.banderaContrasenia == false || this.banderaUsuarioValido == false || this.banderaCorreoValido == false) {
+    if (this.nombreCtrl.invalid || this.apellidoCtrl.invalid || this.telefonoCtrl.invalid || this.dniCtrl.invalid || this.usuarioCtrl.invalid || this.correoCtrl.invalid || this.contraseniaCtrl.invalid || this.confirmacionCtrl.invalid ) {
 
       this.toastr.warning(
         'Complete el formulario para registrarse',
@@ -207,7 +197,45 @@ export class LoginComponent implements OnInit {
           positionClass: 'toast-bottom-center'
         }
       );
-    } else {
+    }else if(this.banderaUsuarioValido == false && this.banderaCorreoValido == false){
+      this.toastr.info(
+        'El usuario y correo ingresados ya se encuentran registrados a otro usuario.',
+        'Atención',
+        {
+          timeOut: 5000,
+          positionClass: 'toast-bottom-center'
+        }
+      );
+    }else if(this.banderaUsuarioValido == false){
+      this.toastr.info(
+        'El usuario ingresado ya se encuentra registrado.',
+        'Atención',
+        {
+          timeOut: 5000,
+          positionClass: 'toast-bottom-center'
+        }
+      );
+    } else if(this.banderaCorreoValido == false){
+      this.toastr.info(
+        'El correo ingresado ya se encuentra registrado',
+        'Atención',
+        {
+          timeOut: 5000,
+          positionClass: 'toast-bottom-center'
+        }
+      );
+    }else if(this.banderaContrasenia == false){
+        
+
+      this.toastr.warning(
+        'Las contraseñas NO coinciden',
+        'Atención',
+        {
+          timeOut: 1000,
+          positionClass: 'toast-bottom-center'
+        }
+      );
+    }else {
 
       var usuario = {
         Nombre: this.nombreCtrl.value + '',
@@ -293,18 +321,7 @@ export class LoginComponent implements OnInit {
                   positionClass: 'toast-bottom-full-width'
                 }
               );
-            } else {
-
-              debugger
-              this.toastr.info(
-                'Ya hay un usuario con el mismo nombre, intente utilizar otro nombre',
-                'Atención',
-                {
-                  timeOut: 5000,
-                  positionClass: 'toast-bottom-center'
-                }
-              );
-            }
+            } 
           },
           (error) => {
             debugger
@@ -347,16 +364,7 @@ export class LoginComponent implements OnInit {
                   positionClass: 'toast-bottom-full-width'
                 }
               );
-            } else {
-              this.toastr.info(
-                'Este correo ya se encuentra registrado, intente utilizar otro correo',
-                'Atención',
-                {
-                  timeOut: 5000,
-                  positionClass: 'toast-bottom-center'
-                }
-              );
-            }
+            } 
           },
           (err) => {
             this.toastr.warning(
@@ -385,5 +393,22 @@ export class LoginComponent implements OnInit {
     }, 1000);
   }
 
+  eviarFormularioEmail(){
+    debugger
+    if(this.correoCtrl.value!='' && this.confirmacionCtrl.value != '' && this.nombreCtrl.value != '' && this.usuarioCtrl.value != ''){
+      this.serviceLogin.getFormulario(this.correoCtrl.value,this.confirmacionCtrl.value,this.nombreCtrl.value,this.usuarioCtrl.value).subscribe(
+        (data) =>
+        {
+          alert('Formulario enviado');
+        },
+        (err) =>
+        {
+
+        }
+      )
+    }{
+      alert('error');
+    }
+  }
 
 }
