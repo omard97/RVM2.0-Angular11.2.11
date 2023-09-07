@@ -363,7 +363,7 @@ export class HistorialComponent implements OnInit {
 
         this.toastr.info(
           'No se puede realizar la acción deseada',
-          'Atención',
+'',
           {
             timeOut: 5000,
             
@@ -448,7 +448,7 @@ export class HistorialComponent implements OnInit {
 
         this.toastr.info(
           'No se puede realizar la acción deseasa',
-          'Atención',
+          '',
           {
             timeOut: 5000,
           
@@ -483,8 +483,7 @@ export class HistorialComponent implements OnInit {
 
   mensajeDelDia(){
     this.toastr.info(
-      'No se registraron reclamos en el día de hoy',
-      'Atención',
+      'No se registraron reclamos en el día de hoy','',
       {
         timeOut: 4000,
         positionClass:'toast-top-right'
@@ -495,7 +494,7 @@ export class HistorialComponent implements OnInit {
   mensajeRespuestaErrordeBusqueda(){
     this.toastr.info(
       'No se encuentran reclamos registrados para la busqueda seleccionada ',
-      'Atención',
+      '',
       {
         timeOut: 5000,
        
@@ -509,7 +508,7 @@ export class HistorialComponent implements OnInit {
     if(longitud == null || latitud == null){
       this.toastr.info(
         'El reclamo seleccionado no posee una geolocalización,',
-        'Atención',
+        '',
         {
           timeOut: 5000,
           positionClass: 'toast-bottom-full-width'
