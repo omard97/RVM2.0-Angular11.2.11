@@ -191,13 +191,15 @@ a:hover{
     color: #f1f1f1 !important;
 }
 .a_perfil,
-.a_configuracion{
+.a_configuracion,
+.a_cerrrarSesion{
     font-size: 14px;
+    cursor: pointer;
 }
 .a_cerrrarSesion{
     font-weight: 700;
     color:rgb(230, 8, 8);
-    font-size: 14px;
+    
 }
 /* ------ Modal Perfil ------ */
 
