@@ -190,12 +190,22 @@ a:hover{
 .boton__subMenu:hover {
     color: #f1f1f1 !important;
 }
-
+.a_perfil,
+.a_configuracion{
+    font-size: 14px;
+}
+.a_cerrrarSesion{
+    font-weight: 700;
+    color:rgb(230, 8, 8);
+    font-size: 14px;
+}
 /* ------ Modal Perfil ------ */
 
 .imagen--perfil {
     border-radius: 1rem;
 }
+
+
 .titulo__perfil{
     font-size: 18px;
     margin: 0;
