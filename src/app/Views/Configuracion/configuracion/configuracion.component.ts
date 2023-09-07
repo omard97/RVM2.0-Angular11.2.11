@@ -114,7 +114,7 @@ export class ConfiguracionComponent implements OnInit {
     config.backdrop = 'static';
     config.keyboard = false;
     config.centered = true;
-    debugger
+    
 
     //Obtengo la URL y la separo en base a los / en lo que al final obtengo un array
     this.ruta = window.location.pathname.split('/');
@@ -138,10 +138,10 @@ export class ConfiguracionComponent implements OnInit {
 
    /* utilizado solamente para visualizar etiquetas que dependen del rol del usuario */
    getRolUsuario() {
-    debugger
+    
     this.serviceUsuario.getRolUsuario(this.usuario.idUsuario).subscribe(
       (data) => {
-        debugger
+        
           this.usuario.idUsuario= data[0].idUsuario,
           this.usuario.nick= data[0].nick,
           this.usuario.idRol = data[0].idRol,
@@ -244,10 +244,10 @@ export class ConfiguracionComponent implements OnInit {
   /* Metodos Get */
 
   getTipoEstado(){
-    debugger
+    
     this.servicio.getTipoEstadoAdmin().subscribe(
       (res) => {
-        debugger
+        
         if(res.length!=0){
           this.objTipoEstado = res;
           this.objModalTipoEstado = res;
@@ -274,7 +274,7 @@ export class ConfiguracionComponent implements OnInit {
       this.servicio.getConfiguracionVehiculos(this.selectIDMarcaVehiculo,this.selectIDModeloVehiculo).subscribe(
         (res) => {
           if(res.length!=0){
-            debugger
+            
             this.objListaVehiculos= res;
           }else{
             this.notificacionDatosInexistentes(res);
@@ -448,14 +448,14 @@ export class ConfiguracionComponent implements OnInit {
 
   /* Modal Estado */
   botonCrearNuevoEstado() {
-    debugger;
+    ;
     /* Crear solo un tipo de estado */
     if(this.nombreEstadoCtrl.value!="" && this.selectIDTipEstadoModal == 0  && this.banderaSwitch==false){
 
       var TipEstado: TipoEstado={
         nombre: this.nombreEstadoCtrl.value,
       }
-      debugger
+      
       this.servicio.postTipoEstado(TipEstado).subscribe(
         (res) => {
         },
@@ -557,7 +557,7 @@ export class ConfiguracionComponent implements OnInit {
   /* ****************************** Modal Marca ****************************** */
 
   PostMarcaModal(){
-    debugger
+    
     if(this.nombreModalMarcaCrtl.value===null || this.nombreModalMarcaCrtl.value ===''){
       this.NotificacionRellenarCampos();
     }else{ 
@@ -586,7 +586,7 @@ export class ConfiguracionComponent implements OnInit {
   /* ****************************** Modal Modelos ****************************** */
 
   postModeloVehiculo(){
-    debugger
+    
     if(this.nombreModalModelo.value === ''){
 
       this.NotificacionRellenarCampos();
@@ -617,7 +617,7 @@ export class ConfiguracionComponent implements OnInit {
 
   /* ****************************** Modal Perfil ****************************** */
   botonCrearPerfilModal(){
-    debugger
+    
     if(this.nombreModalPerfil.value!=''){
 
       var objPerfil:PerfilAdmin={
@@ -640,7 +640,7 @@ export class ConfiguracionComponent implements OnInit {
 
   /* ****************************** Modal Tipo Reclamo ****************************** */
   botonCrearNuevoTipoReclamo() {
-    debugger
+    
     if (this.nombreTipoReclamoCtrl.value != '' && this.descripcionTipoReclamoCtrl.value!='') {
 
       var tipoRec: TipoReclamo ={
@@ -662,7 +662,7 @@ export class ConfiguracionComponent implements OnInit {
 
   /* ******************************  Modal Tipo Vehiculo ****************************** */
   botonCrearTipoVehiculoModal(){
-    debugger
+    
     if(this.nombreTipoVehiculoCtrlModal.value!='' && this.descripcionTipoVehiculoModal.value!=''){
 
       var objTipoVehiculo:TipoVehiculoModal ={

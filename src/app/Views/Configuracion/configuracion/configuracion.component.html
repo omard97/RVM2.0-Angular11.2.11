@@ -4,7 +4,7 @@
     </div>
 
     <!-- Estado -->
-    <div class="accordion margen rounded rounded-2 " >
+    <div class="accordion margen rounded rounded-2 ">
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
@@ -15,34 +15,29 @@
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-
+                    <div class="container-fluid Centrado">
+                        <h3>Estados</h3>
+                    </div>
+                    <div class="container-fluid Centrado mb-1">
+                        <small>Seleccione el Tipo de Estado para poder realizar las configuraciones
+                            necesarias</small>
+                    </div>
                     <div class="container">
                         <div class="row">
-                            <div class="col-12 margenTitulosModal">
-                                <div class="container-fluid Centrado">
-                                    <h3>Estados</h3>
-                                </div>
-                                <div class="row">
-                                    <div class="col-11">
-                                        <div class="container-fluid Centrado">
-                                            <small>Seleccione el Tipo de Estado para poder realizar las configuraciones
-                                                necesarias</small>
-                                        </div>
+                            <div class="col-12">
 
-                                        <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                <div class="row">
+                                    <div class="col-12 col-md-9">
+                                        <select class="form-select form-select-sm " aria-label=".form-select-sm example"
                                             (change)="obtenerIDTipoEstado($event)">
                                             <option value="" disabled selected> Selecione el Estado </option>
                                             <option value="{{item.idTipoEstado}}" *ngFor="let item of objTipoEstado">
                                                 {{item.nombre}}</option>
 
                                         </select>
-
-
-
-
                                     </div>
-                                    <div class="col-1">
-                                        <button type="button" class="btn btn-primary btn-sm botonTR"
+                                    <div class="col-12  col-md-3  Centrado btn__padding">
+                                        <button type="button" class="btn btn-primary btn-sm w-100   "
                                             data-bs-toggle="modal" data-bs-target="#modalEstados"
                                             (click)="visualizarModal(modalEstados)">
                                             Nuevo
@@ -54,6 +49,9 @@
 
                             </div>
 
+
+                        </div>
+                        <div class="row">
                             <div class="col-12 divTabla" *ngIf="selectIDTipEstado!=0">
                                 <table class="table table-hover table-bordered table-striped">
                                     <thead class="table-light">
@@ -76,11 +74,10 @@
                                                             <i class="fas fa-chevron-down"></i>
                                                         </button>
                                                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                            <li class="boton__tabla" ><a class="dropdown-item"><i
+                                                            <li class="boton__tabla"><a class="dropdown-item"><i
                                                                         class="bi bi-pencil-square">
                                                                         Editar</i></a></li>
-                                                            <li ><a class="dropdown-item"><i
-                                                                        class="bi bi-trash">
+                                                            <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                         Borrar</i></a></li>
 
                                                         </ul>
@@ -100,7 +97,7 @@
     </div>
 
     <!-- Vehiculo -->
-    <div class="accordion margen config__estilo" >
+    <div class="accordion margen config__estilo">
         <h2 class="accordion-header" id="headingVehiculos">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseVehiculos" aria-expanded="false" aria-controls="collapseVehiculos">
@@ -112,15 +109,16 @@
             <div class="accordion-body">
 
                 <div class="container">
+                    <div class="container-fluid Centrado">
+                        <h3>Vehiculos</h3>
+                    </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="container-fluid Centrado">
-                                <h3>Vehiculos</h3>
-                            </div>
+
 
                             <div class="row">
-                                <div class="col-5">
-                                    <div class="container-fluid Centrado">
+                                <div class="col-12  col-lg-5 padding_Vechiculos">
+                                    <div class="container-fluid Centrado mb-1">
                                         <small>Seleccione la Marca para realizar las configuraciones
                                             necesarias</small>
                                     </div>
@@ -133,10 +131,11 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="col-5">
-                                    <div class="container-fluid Centrado">
+                                <div class="col-12 col-lg-5 padding_Vechiculos">
+                                    <div class="container-fluid Centrado mb-1">
                                         <small>Seleccione el Modelo para realizar las configuraciones
-                                            necesarias</small>
+                                            necesarias
+                                        </small>
                                     </div>
 
                                     <select class="form-select form-select-sm " aria-label=".form-select-sm example"
@@ -148,14 +147,17 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="col-1">
-                                    <button type="button" class="btn btn-success btn-sm botonTR "
+                                <div class="col-12 col-md-12 col-lg-2 padding_Vechiculos flex__botones">
+                                    <button type="button" class="btn btn-success btn-sm  "
                                         (click)="GetBuscarVehiculos()">Buscar</button>
-                                </div>
-                                <div class="col-1">
+
+
                                     <button type="button" (click)="visualizarModalVehiculos(modalVehiculos)"
-                                        class="btn btn-primary btn-sm botonTR ">Nuevo</button>
+                                        class="btn btn-primary btn-sm  ">Nuevo</button>
                                 </div>
+
+
+
                             </div>
                         </div>
 
@@ -196,11 +198,10 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li ><a
-                                                                (click)="openPutModalVehiculo(modalPutVehiculo,item.idVehiculo)"
+                                                        <li><a (click)="openPutModalVehiculo(modalPutVehiculo,item.idVehiculo)"
                                                                 class="dropdown-item"><i
                                                                     class="bi bi-pencil-square">Editar</i></a></li>
-                                                        <li ><a class="dropdown-item">
+                                                        <li><a class="dropdown-item">
                                                                 <i class="bi bi-trash">Borrar</i></a></li>
 
                                                     </ul>
@@ -232,33 +233,38 @@
             <div class="accordion-body">
 
                 <div class="container">
+                    <div class="container-fluid Centrado">
+                        <h3>Marcas</h3>
+                    </div>
+                    <div class="container-fluid Centrado mb-1">
+                        <small>Seleccione la Marca para realizar las configuraciones
+                            necesarias</small>
+                    </div>
                     <div class="row">
-                        <div class="col-12">
-                            <div class="container-fluid Centrado">
-                                <h3>Marcas</h3>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-11">
-                                    <div class="container-fluid Centrado">
-                                        <small>Seleccione la Marca para realizar las configuraciones
-                                            necesarias</small>
-                                    </div>
-                                    <select class="form-select form-select-sm " aria-label=".form-select-sm example"
-                                        [formControl]="selectMarca" (change)="obtenerIDMarca($event)">
-                                        <option value="" disabled> Selecione la Marca </option>
-                                        <option value="{{item.idMarca}}" *ngFor="let item of objListaMarcaVehiculo"
-                                            selected>
-                                            {{item.marcaVehiculo}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-1">
-                                    <button type="button" (click)="visualizarModalMarca(modalMarca)"
-                                        class="btn btn-primary btn-sm botonTR ">Nuevo</button>
-                                </div>
-                            </div>
+                        <div class="col-12 col-md-9">
+
+                            <select class="form-select form-select-sm " aria-label=".form-select-sm example"
+                                [formControl]="selectMarca" (change)="obtenerIDMarca($event)">
+                                <option value="" disabled> Selecione la Marca </option>
+                                <option value="{{item.idMarca}}" *ngFor="let item of objListaMarcaVehiculo" selected>
+                                    {{item.marcaVehiculo}}
+                                </option>
+                            </select>
+
+
+
                         </div>
+                        <div class="col-12 col-md-3 btn__padding">
+
+                            <button type="button" (click)="visualizarModalMarca(modalMarca)"
+                                class="btn btn-primary btn-sm w-100 ">Nuevo</button>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+
 
                         <div class="col-12 divTabla" *ngIf="objListaIDMarca!=null">
                             <table class="table table-hover table-bordered table-striped">
@@ -281,11 +287,9 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li ><a class="dropdown-item"><i
-                                                                    class="bi bi-pencil-square">
+                                                        <li><a class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
-                                                        <li ><a class="dropdown-item"><i
-                                                                    class="bi bi-trash">
+                                                        <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i></a></li>
 
                                                     </ul>
@@ -317,33 +321,33 @@
             <div class="accordion-body">
 
                 <div class="container">
+                    <div class="container-fluid Centrado">
+                        <h3>Modelos</h3>
+                    </div>
+                    <div class="container-fluid Centrado mb-1">
+                        <small>Seleccione el Modelo para realizar las configuraciones
+                            necesarias</small>
+                    </div>
+                    
                     <div class="row">
-                        <div class="col-12">
-                            <div class="container-fluid Centrado">
-                                <h3>Modelos</h3>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-11">
-                                    <div class="container-fluid Centrado">
-                                        <small>Seleccione el Modelo para realizar las configuraciones
-                                            necesarias</small>
-                                    </div>
-                                    <select class="form-select form-select-sm " aria-label=".form-select-sm example"
-                                        [formControl]="selectModelo" (change)="obtenerIDModelo($event)">
-                                        <option value="" disabled> Selecione el Modelo </option>
-                                        <option value="{{item.idModelo}}" *ngFor="let item of objListaModeloVehiculo"
-                                            selected>
-                                            {{item.modeloVehiculo}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-1">
-                                    <button type="button" (click)="visualizarModalModelo(modalModelo)"
-                                        class="btn btn-primary btn-sm botonTR ">Nuevo</button>
-                                </div>
-                            </div>
+                        <div class="col-12 col-md-9">
+                            
+                            <select class="form-select form-select-sm " aria-label=".form-select-sm example"
+                                [formControl]="selectModelo" (change)="obtenerIDModelo($event)">
+                                <option value="" disabled> Selecione el Modelo </option>
+                                <option value="{{item.idModelo}}" *ngFor="let item of objListaModeloVehiculo"
+                                    selected>
+                                    {{item.modeloVehiculo}}
+                                </option>
+                            </select>
                         </div>
+                        <div class="col-12 col-md-3 btn__padding">
+                            <button type="button" (click)="visualizarModalModelo(modalModelo)"
+                                class="btn btn-primary btn-sm  w-100 ">Nuevo</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                    
 
                         <div class="col-12 divTabla" *ngIf="">
                             <table class="table table-hover table-bordered table-striped">
@@ -366,11 +370,9 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li ><a class="dropdown-item"><i
-                                                                    class="bi bi-pencil-square">
+                                                        <li><a class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
-                                                        <li ><a class="dropdown-item"><i
-                                                                    class="bi bi-trash">
+                                                        <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i></a></li>
 
                                                     </ul>
@@ -402,31 +404,30 @@
             <div class="accordion-body">
 
                 <div class="container">
+                    <div class="container-fluid Centrado">
+                        <h3>Perfiles</h3>
+                    </div>
+                    <div class="container-fluid Centrado mb-1">
+                        <small>Seleccione el Tipo de Perfil para poder realizar las configuraciones
+                            necesarias</small>
+                    </div>
                     <div class="row">
-                        <div class="col-12">
-                            <div class="container-fluid Centrado">
-                                <h3>Perfiles</h3>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-11">
-                                    <div class="container-fluid Centrado">
-                                        <small>Seleccione el Tipo de Perfil para poder realizar las configuraciones
-                                            necesarias</small>
-                                    </div>
-                                    <select class="form-select form-select-sm " disabled
-                                        aria-label=".form-select-sm example" (change)="obtenerIDTipoPerfil($event)">
-                                        <option value="" disabled selected> Selecione el Perfil </option>
-                                        <option *ngFor="let item of objTipoPerfil" value="{{item.idPerfil}}" selected>
-                                            {{item.nombre}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-1">
-                                    <button type="button" (click)="visualizarModalPerfil(modalPerfil)"
-                                        class="btn btn-primary btn-sm botonTR ">Nuevo</button>
-                                </div>
-                            </div>
+                        <div class="col-112 col-md-9">
+                            
+                            <select class="form-select form-select-sm " disabled
+                                aria-label=".form-select-sm example" (change)="obtenerIDTipoPerfil($event)">
+                                <option value="" disabled selected> Selecione el Perfil </option>
+                                <option *ngFor="let item of objTipoPerfil" value="{{item.idPerfil}}" selected>
+                                    {{item.nombre}}</option>
+                            </select>
                         </div>
+                        <div class="col-12 col-md-3 btn__padding">
+                            <button type="button" (click)="visualizarModalPerfil(modalPerfil)"
+                                class="btn btn-primary btn-sm w-100 ">Nuevo</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                       
 
                         <div class="col-12 divTabla">
                             <table class="table table-hover table-bordered table-striped">
@@ -449,11 +450,9 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li ><a class="dropdown-item"><i
-                                                                    class="bi bi-pencil-square">
+                                                        <li><a class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
-                                                        <li ><a class="dropdown-item"><i
-                                                                    class="bi bi-trash">
+                                                        <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i></a></li>
                                                     </ul>
                                                 </div>
@@ -485,32 +484,31 @@
             <div class="accordion-body">
 
                 <div class="container">
+                    <div class="container-fluid Centrado">
+                        <h3>Tipos de Reclamos</h3>
+                    </div>
+                    <div class="container-fluid Centrado mb-1">
+                        <small>Seleccione el Tipo de Reclamo para poder realizar las configuraciones
+                            necesarias</small>
+                    </div>
                     <div class="row">
-                        <div class="col-12">
-                            <div class="container-fluid Centrado">
-                                <h3>Tipos de Reclamos</h3>
-                            </div>
-                            <div class="row">
-                                <div class="col-11">
-                                    <div class="container-fluid Centrado">
-                                        <small>Seleccione el Tipo de Reclamo para poder realizar las configuraciones
-                                            necesarias</small>
-                                    </div>
-                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                        (change)="obtenerIDTipoReclamo($event)">
-                                        <option value="" disabled> Selecione el Tipo de Reclamo</option>
-                                        <option *ngFor="let item of objTipoDeReclamo" value="{{item.idTipoReclamo}}"
-                                            selected>
-                                            {{item.nombre}}</option>
+                        <div class="col-12 col-md-9">
+                           
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                (change)="obtenerIDTipoReclamo($event)">
+                                <option value="" disabled> Selecione el Tipo de Reclamo</option>
+                                <option *ngFor="let item of objTipoDeReclamo" value="{{item.idTipoReclamo}}"
+                                    selected>
+                                    {{item.nombre}}</option>
 
-                                    </select>
-                                </div>
-                                <div class="col-1">
-                                    <button type="button" class="btn btn-primary btn-sm botonTR "
-                                        (click)="visualizarModalTiposReclamos(modalTiposReclamos)">Nuevo</button>
-                                </div>
-                            </div>
+                            </select>
                         </div>
+                        <div class="col-12 col-md-3 btn__padding">
+                            <button type="button" class="btn btn-primary btn-sm w-100"
+                                (click)="visualizarModalTiposReclamos(modalTiposReclamos)">Nuevo</button>
+                        </div>
+                    </div>
+                    <div class="row">
 
                         <div class="col-12 divTabla" *ngIf="selectIDTipReclamo!=0">
                             <table class="table table-hover table-bordered table-striped">
@@ -534,11 +532,9 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li ><a class="dropdown-item"><i
-                                                                    class="bi bi-pencil-square">
+                                                        <li><a class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
-                                                        <li ><a class="dropdown-item"><i
-                                                                    class="bi bi-trash">
+                                                        <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i>
                                                             </a>
                                                         </li>
@@ -569,32 +565,31 @@
             data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <div class="container">
+                    <div class="container-fluid Centrado">
+                        <h3>Tipos de Vehiculo</h3>
+                    </div>
+                    <div class="container-fluid Centrado mb-1">
+                        <small>Seleccione el Tipo de Vehiculo para poder realizar las configuraciones
+                            necesarias</small>
+                    </div>
                     <div class="row">
-                        <div class="col-12">
-                            <div class="container-fluid Centrado">
-                                <h3>Tipos de Vehiculo</h3>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-11">
-                                    <div class="container-fluid Centrado">
-                                        <small>Seleccione el Tipo de Vehiculo para poder realizar las configuraciones
-                                            necesarias</small>
-                                    </div>
-                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                        (change)="obtenerIDTipoVehiculo($event)">
-                                        <option value="" disabled> Selecione el Tipo de Vehiculo </option>
-                                        <option *ngFor="let item of objTipVehiculo" value="{{item.idTipoVehiculo}}"
-                                            selected>
-                                            {{item.nombre}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-1">
-                                    <button type="button" class="btn btn-primary btn-sm botonTR "
-                                        (click)="visualizarModalTiposVehiculos(modalTiposVehiculos)">Nuevo</button>
-                                </div>
-                            </div>
+                        <div class="col-12 col-md-9">
+                            
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                (change)="obtenerIDTipoVehiculo($event)">
+                                <option value="" disabled> Selecione el Tipo de Vehiculo </option>
+                                <option *ngFor="let item of objTipVehiculo" value="{{item.idTipoVehiculo}}"
+                                    selected>
+                                    {{item.nombre}}</option>
+                            </select>
                         </div>
+                        <div class="col-12 col-md-3 btn__padding">
+                            <button type="button" class="btn btn-primary btn-sm w-100  "
+                                (click)="visualizarModalTiposVehiculos(modalTiposVehiculos)">Nuevo</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
 
                         <div class="col-12 divTabla" *ngIf="selectIDTipVehiculo!=0">
                             <table class="table table-hover table-bordered table-striped">
@@ -630,11 +625,9 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li ><a class="dropdown-item"><i
-                                                                    class="bi bi-pencil-square">
+                                                        <li><a class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
-                                                        <li ><a class="dropdown-item"><i
-                                                                    class="bi bi-trash">
+                                                        <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i></a></li>
 
                                                     </ul>
