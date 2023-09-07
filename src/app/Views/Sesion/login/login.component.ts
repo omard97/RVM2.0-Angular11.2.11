@@ -401,7 +401,7 @@ export class LoginComponent implements OnInit {
       this.serviceLogin.getFormulario(this.correoCtrl.value,this.confirmacionCtrl.value,this.nombreCtrl.value,this.usuarioCtrl.value).subscribe(
         (data) =>
         {
-          alert('Formulario enviado');
+          
         },
         (err) =>
         {
