@@ -137,6 +137,9 @@ export class ReclamoComponent implements OnInit, OnExit {
 
   public datosHistorial: Array<any> = [];
 
+  // Variable para rastrear si se han realizado cambios sin guardar
+  private cambiosSinGuardar = false;
+
   /* para la foto */
   public archivos: any = [];
   public previsualizacion: string = "";
@@ -151,8 +154,8 @@ export class ReclamoComponent implements OnInit, OnExit {
   
     this.rutaURL = window.location.pathname.split('/');
     this.usuario.idUsuario = this.rutaURL[2];
-    this.IDDetalleR = this.rutaURL[5]; /* en la posicion 5 esta el detalle del reclamo a actualizar */
-
+    this.IDDetalleR = this.rutaURL[4]; /* en la posicion 5 esta el detalle del reclamo a actualizar */
+    debugger
     this.getRolUsuario(); /*obtengo todos los datos */
     this.getListReclamoAmbiental();
     this.getListMarca();
@@ -940,11 +943,12 @@ ambiental */
     reader.readAsDataURL(file);
   }
 
-  onExit() {
-   
+  // Metodo para verificar su puede abandonar el formulario luego de interactuar con el mismo formulario
+  onExit():boolean {
+   debugger
     if ( this.tipoReclamoCtrl.dirty || this.reclamoAmbientalCtrl.dirty || this.marcaAutoCtrl.dirty || this.modeloAutoCtrl.dirty || this.colorAutoCtrl.dirty  || this.ubicacionCtrl.dirty || this.descripcionCtrl.dirty || this.FotoCtrl.dirty  || this.dominioCtrl.dirty)  /* || this.alturaCtrl.dirty  || this.fechaCtrl.dirty || this.horaCtrl.dirty */
     {
-      const respuesta = confirm('¿Estás seguro de salir del reclamo?')
+      const respuesta = confirm('¿Estás seguro de salir del formulario?')
       return respuesta;
 
     } 
@@ -953,6 +957,17 @@ ambiental */
     
 
   }
+
+  // Método para verificar si se pueden abandonar los cambios sin guardar
+  canDeactivate(): boolean {
+    debugger
+    if (this.cambiosSinGuardar== false) {
+      return window.confirm('¿Seguro que deseas abandonar el formulario sin guardar los cambios?');
+    }
+    return true;
+  }
+
+  
 
   
 
