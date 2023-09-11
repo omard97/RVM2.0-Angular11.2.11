@@ -7,10 +7,13 @@
 * {
   transition-duration: 0.5s;
 }
-h1{
+.titulo__historial{
   color: var(--colorPrincipal);
   letter-spacing: 0.25em;
   word-spacing: 0.25em;
+  font-size: 30px;
+  text-align: center;
+  margin: 20px 30px 10px 30px;
 }
 h5 {
   font-size: 16px;
@@ -41,11 +44,7 @@ img {
   transition-duration: 0.5s;
 }
 
-/*************  ID *************/
-#tituloHistorial {
-  text-align: center;
 
-}
 
 .container-filtros {
   /* padding: 15px;
