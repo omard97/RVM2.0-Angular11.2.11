@@ -14,33 +14,27 @@ import { NosotrosComponent } from './Views/nosotros/nosotros.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.component';
 import { ExitGuard } from './guards/exit.guard';
+import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 
 
 
-
+debugger
 const routes: Routes = [
-  {path: 'home', component:HomeComponent},
+
+  { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'nosotros', component: NosotrosComponent },
-  /*estando en el meu luego de iniciar sesion  */
   {
-    path: 'menu/:id', component: MenuComponent, canActivate: [AuthGuard],
+    path: 'menu/:id', component: MenuComponent, canActivate: [AuthGuard], /* guard para que no ingrese si no tiene permiso */
     children: [
       { path: 'perfil', component: PerfilComponent },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'reclamo', canDeactivate:[ExitGuard], component: ReclamoComponent },
+      { path: 'reclamo', canDeactivate: [ExitGuard], component: ReclamoComponent }, /* guard para evitar que salga del reclamo teniendo el formulario para editar */
       { path: 'historial', component: HistorialComponent },
+      { path: 'historial/:id', component: ReclamoComponent, canDeactivate: [CanDeactivateGuard] }, /* editar reclamo desde el comp. reclamo */
       { path: 'mapa', component: MapasComponent },
       { path: 'configuracion', component: ConfiguracionComponent },
-    ]
-  },
-
-  {
-    path: 'menu/:id/historial', component: MenuComponent, canActivate: [AuthGuard],
-    children: [
-      { path: 'reclamo/:id', component: ReclamoComponent },
-      /* { path: '**', component: PageNotFoundComponent }, */
     ]
   },
   { path: '**', component: PageNotFoundComponent },
