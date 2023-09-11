@@ -1,4 +1,4 @@
-<div class="container-fluid shadow-lg p-3 mb-5 rounded border border-2 contenedorPrincipal">
+<div class="container-fluid shadow-lg p-3 rounded border border-2 contenedorPrincipal">
 
     <div class="row animate__animated animate__fadeIn">
         <div class="col-12">
@@ -160,7 +160,7 @@
                                 <span class="input-group-text" id="addon-wrapping"><i
                                         class="bi bi-123 icono__input"></i></span>
 
-                                <input id="dominio" name="" type="text" placeholder="Dominio" class="form-control "
+                                <input id="dominio" name="" type="text" placeholder="Patente" class="form-control "
                                     [formControl]="dominioCtrl">
 
                             </div>
@@ -313,18 +313,17 @@
 
 
 
-                        <div class=" col-12 col-sm-4 animate__animated  animate__fadeIn"
-                            *ngIf="banderaEdicionReclamo==false">
+                        <div class=" col-12 col-sm-4 animate__animated  animate__fadeIn" *ngIf="banderaEdicionReclamo==false">
                             <!--text-center d-inline-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 botones -->
 
                             <button type="button" class="btn btn-success botones "
-                                [disabled]="( (tipoReclamoCtrl.invalid && (reclamoAmbientalCtrl.invalid && marcaAutoCtrl.invalid && dominioCtrl.invalid))   || ubicacionCtrl.invalid ||  descripcionCtrl.invalid)"  
+                                  
                                 (click)="registrarReclamo()" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="Enviar Reclamo"> <!--  || alturaCtrl.invalid || horaCtrl.invalid-->
                                 <i class="far fa-check-circle fa-lg"></i>Enviar
 
-                            </button> <!-- || fechaCtrl.invalid -->
-                        </div>
+                            </button> <!-- || fechaCtrl.invalid --> 
+                        </div> <!-- [disabled]="( (tipoReclamoCtrl.invalid && (reclamoAmbientalCtrl.invalid && marcaAutoCtrl.invalid && dominioCtrl.invalid))   || ubicacionCtrl.invalid ||  descripcionCtrl.invalid)" -->
 
 
                         <div class="col-12 col-sm-4 animate__animated animate__fadeIn"
