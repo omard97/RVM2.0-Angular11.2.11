@@ -275,24 +275,24 @@ export class ReclamoComponent implements OnInit, OnExit {
     if (Number(this.tipoReclamoCtrl.value) == 1 && (this.tipoReclamoCtrl.value == '' || this.reclamoAmbientalCtrl.value == '' ||  this.ubicacionCtrl.value == '' ||
       this.descripcionCtrl.value == ''  )) { /*  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == ''  ||   this.fechaCtrl.value == '' this.horaCtrl.value == '' ||*/ 
       this.toastr.warning(
-        'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
-        'Cuidado!',
+        'Quedan datos por rellenar en el formulario, verifique y podrá enviar su reclamo',
+        '',
         {
           timeOut: 5000,
-          progressBar: true,
+          
         }
       );
 
       /* reclamo vial */
-    } else if (Number(this.tipoReclamoCtrl.value) == 2 && (((this.dominioCtrl.value == '' || this.marcaAutoCtrl.value == '') &&
-      this.tipoReclamoCtrl.value == '')  ||  this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == ''  ||
+    } else if (Number(this.tipoReclamoCtrl.value) == 2 && (this.dominioCtrl.value == '' || this.marcaAutoCtrl.value == '' &&
+      this.tipoReclamoCtrl.value == ''  ||  this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == ''  ||
       this.modeloAutoCtrl.value == '')) { /* || this.alturaCtrl.value == '' || this.fechaCtrl.value == '' || this.horaCtrl.value == ''*/
       this.toastr.warning(
-        'Faltan datos por rellenar, verifique y podrá enviar su reclamo',
-        'Cuidado!',
+        'Quedan datos por rellenar, verifique y podrá enviar su reclamo',
+        '',
         {
           timeOut: 5000,
-          progressBar: true,
+          
         }
       );
     } else {
