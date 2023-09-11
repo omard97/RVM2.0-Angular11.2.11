@@ -50,7 +50,7 @@ export class ReclamoComponent implements OnInit, OnExit {
   imageReclamoDataUrl:string | undefined;
   /* ------------ Input File ------------  */
 
- 
+  
   tipoReclamoCtrl = new FormControl('', [Validators.required]);
   reclamoAmbientalCtrl = new FormControl('', [Validators.required]);
   marcaAutoCtrl = new FormControl('', [Validators.required]);
@@ -64,9 +64,7 @@ export class ReclamoComponent implements OnInit, OnExit {
   /* alturaCtrl = new FormControl('', [Validators.required]); */
   dominioCtrl = new FormControl('', [Validators.required]);
   ID_Reclamo = new FormControl('', [Validators.required]);
-  estadoReclamoCtrl = new FormControl('', [
-    Validators.required,
-  ]); /* Se utiliza al actualizar */
+  estadoReclamoCtrl = new FormControl('', [Validators.required,]); /* Se utiliza al actualizar */
 
   recla: Reclamo = {
     fecha: '',
@@ -147,6 +145,8 @@ export class ReclamoComponent implements OnInit, OnExit {
 
   constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService,
     private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title) { 
+
+      
 
     titulo.setTitle('Reclamo') // titulo de la pesaña del navegador
       debugger
@@ -269,30 +269,26 @@ export class ReclamoComponent implements OnInit, OnExit {
   }
 
   registrarReclamo() {
-    
+    debugger
     /* Validacion en el caso que registre un input vacio o cambie de tipo de reclamo y tenga un input vacio */
     /* reclamo Ambiental */
-    if (Number(this.tipoReclamoCtrl.value) == 1 && (this.tipoReclamoCtrl.value == '' || this.reclamoAmbientalCtrl.value == '' ||  this.ubicacionCtrl.value == '' ||
-      this.descripcionCtrl.value == ''  )) { /*  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == ''  ||   this.fechaCtrl.value == '' this.horaCtrl.value == '' ||*/ 
+   if ((this.tipoReclamoCtrl.value =='' || this.tipoReclamoCtrl.value == 1) && (this.tipoReclamoCtrl.invalid  || this.reclamoAmbientalCtrl.invalid  ||  this.ubicacionCtrl.value == '' ||
+      this.descripcionCtrl.value == '' || this.FotoCtrl.invalid )) { /*  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == ''  ||   this.fechaCtrl.value == '' this.horaCtrl.value == '' ||*/ 
       this.toastr.warning(
         'Quedan datos por rellenar en el formulario, verifique y podrá enviar su reclamo',
         '',
-        {
-          timeOut: 5000,
-          
-        }
-      );
+        {timeOut: 5000,}  
+        );
 
       /* reclamo vial */
-    } else if (Number(this.tipoReclamoCtrl.value) == 2 && (this.dominioCtrl.value == '' || this.marcaAutoCtrl.value == '' &&
+    } else if (this.tipoReclamoCtrl.value == 2 && (this.dominioCtrl.value == '' || this.marcaAutoCtrl.value == '' &&
       this.tipoReclamoCtrl.value == ''  ||  this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == ''  ||
-      this.modeloAutoCtrl.value == '')) { /* || this.alturaCtrl.value == '' || this.fechaCtrl.value == '' || this.horaCtrl.value == ''*/
+      this.modeloAutoCtrl.value == '' || this.colorAutoCtrl.value =='' || this.FotoCtrl.value == '')) { /* || this.alturaCtrl.value == '' || this.fechaCtrl.value == '' || this.horaCtrl.value == ''*/
       this.toastr.warning(
         'Quedan datos por rellenar, verifique y podrá enviar su reclamo',
         '',
         {
-          timeOut: 5000,
-          
+          timeOut: 5000,         
         }
       );
     } else {
