@@ -235,7 +235,7 @@ export class HistorialComponent implements OnInit {
       'reclamos',
       idDetalle,
     ]); */
-    this.router.navigate(['menu',this.usuario.idUsuario,'historial','reclamo',idDetalleReclamo]);
+    this.router.navigate(['menu',this.usuario.idUsuario,'historial',idDetalleReclamo]);
   }
 
   btnBuscarReclamosFiltrados() {
