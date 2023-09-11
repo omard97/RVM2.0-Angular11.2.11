@@ -141,26 +141,26 @@
             <td class="column6">
               <div class="container ">
 
-                    <button *ngIf="item.longitud || item.latitud"  type="button" class="btn btn-outline-primary btn__opciones "
-                      (click)="verMapa(item.longitud, item.latitud, item.direccion)"
-                      data-bs-toggle="modal"
-                      data-bs-target="#mapaModal">
-                      <i class="bi bi-geo-alt-fill"></i>
-                    </button>
-                  
-                    <!-- 1 admin 2 empleado 3 usuario -->
-                    <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button" class="btn btn-outline-primary btn__opciones " data-bs-toggle="tooltip"
-                      data-bs-placement="top" title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)" [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision'|| this.selectIDEstadoReclamo ==14  ) "><i
-                        class="bi bi-pencil-square"></i> 
-                      
-                    </button> 
-                  
-                    <button type="button" class="btn btn-outline-danger d-inline-block btn__opciones " data-bs-toggle="tooltip"
-                      data-bs-placement="top" title="Cancelar Reclamo" (click)="cancelarReclamo(item.idReclamo, item.fecha, item.foto, item.hora,item.id_sesion, item.idTipoRec,item.idEstado)" [disabled]="((item.idEstado == 4 || item.idEstado == 3) || (item.idEstado == 7 || item.idEstado == 8) )"   ><i class="bi bi-trash3-fill"></i>
-                    </button>
-                  
+                <button *ngIf="item.longitud || item.latitud" type="button"
+                  class="btn btn-outline-primary btn__opciones "
+                  (click)="verMapa(item.longitud, item.latitud, item.direccion)" data-bs-toggle="modal"
+                  data-bs-target="#mapaModal">
+                  <i class="bi bi-geo-alt-fill"></i>
+                </button>
 
-                
+                <!-- 1 admin 2 empleado 3 usuario -->
+                <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button"
+                  class="btn btn-outline-primary btn__opciones " data-bs-toggle="tooltip" data-bs-placement="top"
+                  title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"
+                  [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision'|| this.selectIDEstadoReclamo ==14  ) "><i
+                    class="bi bi-pencil-square"></i>
+                </button>
+                <button type="button" class="btn btn-outline-danger d-inline-block btn__opciones "
+                  data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Reclamo"
+                  (click)="cancelarReclamo(item.idReclamo, item.fecha, item.foto, item.hora,item.id_sesion, item.idTipoRec,item.idEstado)"
+                  [disabled]="((item.idEstado == 4 || item.idEstado == 3) || (item.idEstado == 7 || item.idEstado == 8) )"><i
+                    class="bi bi-trash3-fill"></i>
+                </button>
 
               </div> <!-- botones -->
             </td>
@@ -186,14 +186,15 @@
     <div class="row">
       <div *ngFor="let index of Dreclamos" class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 ">
 
-        <div *ngIf="banderaVistaHistorial==false" class="card shadow-lg rounded border border-3 card__reclamo animate__animated animate__fadeIn ">
+        <div *ngIf="banderaVistaHistorial==false"
+          class="card shadow-lg rounded border border-3 card__reclamo animate__animated animate__fadeIn ">
           <!-- card -->
 
           <!-- shadow-lg p-3 mb-5 rounded border border-3 -->
           <div class="container__imgReclamo">
-            <img loading="lazy" class="card-img-top rounded img__reclamo " alt="Foto"  [src]="index.foto">
+            <img loading="lazy" class="card-img-top rounded img__reclamo " alt="Foto" [src]="index.foto">
           </div>
-         
+
           <div class="card-body tarjeta--informacion">
 
             <p><i class="far fa-user"></i><span class="span-text"> Usuario: </span>{{index.nick}}</p>
@@ -203,45 +204,41 @@
             <p><i class="far fa-bookmark"></i><span class="span-text"> Tipo:</span> {{index.nombreTRec}}</p>
             <p><i class="far fa-comment-dots"></i><span class="span-text"> Descripción: </span>{{index.descripcion}}
             </p>
-            <p><i class="far fa-calendar-alt"></i><span class="span-text"> Fecha: </span>{{index.fecha | date:'dd-MM-yyyy'}}</p>
+            <p><i class="far fa-calendar-alt"></i><span class="span-text"> Fecha: </span>{{index.fecha |
+              date:'dd-MM-yyyy'}}</p>
             <p><i class="far fa-clock"></i><span class="span-text"> Hora: </span>{{index.hora}}</p>
-            <p *ngIf="(index.dominio!='-' || index.dominio=='')" class="card-text"><i class="fas fa-car"></i> <span class="span-text">
+            <p *ngIf="(index.dominio!='-' || index.dominio=='')" class="card-text"><i class="fas fa-car"></i> <span
+                class="span-text">
                 Dominio:</span>{{index.dominio}}</p>
             <p><i class="fas fa-map-signs"></i><span class="span-text"> Dirección: </span>{{index.direccion}} </p>
             <!-- <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p> -->
 
 
             <div class="container btn__tarjeta">
-            
-             
               <button *ngIf="index.longitud || index.latitud" type="button" class="btn btn-outline-primary"
-                (click)="verMapa(index.longitud, index.latitud, index.direccion)"
-                data-bs-toggle="modal" data-bs-target="#mapaModal">
+                (click)="verMapa(index.longitud, index.latitud, index.direccion)" data-bs-toggle="modal"
+                data-bs-target="#mapaModal">
                 <i class="bi bi-geo-alt-fill"></i>
               </button>
-          
-        
-          
-              <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)"
-               type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Editar Reclamo" (click)="editarReclamo(index.idDetalleReclamo)" [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision' ||  this.selectIDEstadoReclamo ==14) "
-                > <!-- [disabled]="this.Dreclamos[0].nombre !== 'Pendiente'" -->
+              <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button"
+                class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar Reclamo"
+                (click)="editarReclamo(index.idDetalleReclamo)"
+                [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision' ||  this.selectIDEstadoReclamo ==14) ">
+                <!-- [disabled]="this.Dreclamos[0].nombre !== 'Pendiente'" -->
                 <i class="bi bi-pencil-square"></i>
               </button>
-            
-        
-           
+
               <button type="button" class="btn btn-outline-danger d-inline-block" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Cancelar Reclamo" (click)="cancelarReclamo(index.idReclamo, index.fecha, index.foto, index.hora,index.id_sesion, index.idTipoRec,index.idEstado)" [disabled]="((index.idEstado == 4 || index.idEstado == 3) || (index.idEstado == 7 || index.idEstado == 8) )">
+                data-bs-placement="top" title="Cancelar Reclamo"
+                (click)="cancelarReclamo(index.idReclamo, index.fecha, index.foto, index.hora,index.id_sesion, index.idTipoRec,index.idEstado)"
+                [disabled]="((index.idEstado == 4 || index.idEstado == 3) || (index.idEstado == 7 || index.idEstado == 8) )">
                 <i class="bi bi-trash3-fill"></i>
               </button>
-            
-         
-        </div>
+            </div>
 
           </div> <!-- .tarjeta--informacion -->
 
-  
+
         </div> <!-- card -->
 
       </div><!-- columna -->
