@@ -11,12 +11,13 @@ export class PageNotFoundComponent implements OnInit {
 
   banderaRutas: string = '';
   rutaURL: any;
+  idUsuario :number =0;
   constructor( private loginService:LoginApiService,private router: Router) {
 
     debugger
 
     this.rutaURL = window.location.pathname.split('/');
-
+    this.idUsuario = this.rutaURL[2];
 
     if(this.loginService.estaLogeado() == true){
       //bandera utilizado para mostrar el menu de redireccion de la app
@@ -35,11 +36,11 @@ export class PageNotFoundComponent implements OnInit {
 
   navegacion(ubicacion:string){
     if(ubicacion=='dashboard'){
-      this.router.navigate(['menu',this.rutaURL[2],'dashboard']);
+      this.router.navigate(['menu',this.idUsuario,'dashboard']);
     }else if(ubicacion =='reclamo'){
-
+      this.router.navigate(['menu',this.idUsuario,'reclamo']);
     }else{
-      // historial
+      this.router.navigate(['menu',this.idUsuario,'historial']);
     }
   }
 
