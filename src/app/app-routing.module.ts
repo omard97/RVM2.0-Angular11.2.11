@@ -18,7 +18,7 @@ import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 
 
 
-debugger
+
 const routes: Routes = [
 
   { path: 'home', component: HomeComponent },

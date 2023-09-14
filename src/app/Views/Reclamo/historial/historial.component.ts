@@ -1,8 +1,8 @@
 import { formatDate } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal  } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 import { EstadoReclamo } from 'src/app/model/filtrosHistorial/estadoReclamo';
@@ -27,7 +27,8 @@ import { MapReclamoService } from '../reclamo/maps-reclamo/services'; */
 })
 export class HistorialComponent implements OnInit {
 
-  
+
+
   
   tipoReclamoCtrl = new FormControl('', [Validators.required]);
   estadoReclamoCtrl = new FormControl('', [Validators.required]);
@@ -42,6 +43,11 @@ export class HistorialComponent implements OnInit {
   IDSesion: any;
 
   Dreclamos: any[] = [];
+
+  estadosReclamo: number[] = [2,3,4,6,7,8]; //utilizado para desabilitar el boton de editar y descartar con los estados del reclamo
+  //2,3,4 - ambiental | 6,7,8 - vial
+
+
   tiposReclamos: TipoReclamo[] = []; /* le asigno el nombre del modelo a una variable */
   /* tiene que ser el mismo nombre sino angular no encuentra el modelo */
 
@@ -114,7 +120,7 @@ export class HistorialComponent implements OnInit {
             if(this.usuario.idRol==3){
               this.getIDSesionUsuarioLogueado(); /* de esos datos utilizo el idUsuario para obtener el id de sesion */
             }
-            debugger
+            
             this.getDetalleReclamosHoy(); /* Traer los reclamos del dia de hoy */
            
         },
@@ -137,7 +143,7 @@ export class HistorialComponent implements OnInit {
 
   
   getDetalleReclamosHoy() {
-   debugger
+   
     console.log('rol usuario: '+this.usuario.idRol)
     if (this.usuario.idRol == 1 || this.usuario.idRol == 2) {
      
@@ -150,7 +156,7 @@ export class HistorialComponent implements OnInit {
             this.banderaIconoCarga=false;
             this.mensajeDelDia();
           }else{
-            debugger
+           
             this.Dreclamos = info; 
             this.banderaIconoCarga=false;           
           } 
@@ -171,7 +177,7 @@ export class HistorialComponent implements OnInit {
             this.banderaIconoCarga=false;
             this.mensajeDelDia();
           }else{
-            debugger
+            
             this.Dreclamos = info;
             console.log(this.Dreclamos)           
             this.banderaIconoCarga=false;          
@@ -400,9 +406,7 @@ export class HistorialComponent implements OnInit {
   
       
         
-        this.detalleReclamo
-          .getDetalleReclamoFiltradoUsuario(filtroIDTReclamo,filtroIDEstadoReclamo,this.usuario.idRol,this.usuario.idUsuario)
-          .subscribe(
+        this.detalleReclamo.getDetalleReclamoFiltradoUsuario(filtroIDTReclamo,filtroIDEstadoReclamo,this.usuario.idRol,this.usuario.idUsuario).subscribe(
             (res) => {
               this.formTarjetas.reset();
               this.Dreclamos =[];

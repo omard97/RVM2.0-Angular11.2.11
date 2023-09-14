@@ -36,6 +36,8 @@ import { FooterComponent } from './Views/Component/footer/footer.component';
 import { NosotrosComponent } from './Views/nosotros/nosotros.component';
 import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -56,7 +58,7 @@ import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.com
     CamaraComponent,
     FooterComponent,
     NosotrosComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
     
     
   ],
@@ -77,7 +79,8 @@ import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.com
     }),
     NgxChartsModule,
     MapsModule,
-    MapsReclamoModule
+    MapsReclamoModule,
+    NgbModule
   ],
   providers: [CamaraService],
   bootstrap: [AppComponent]

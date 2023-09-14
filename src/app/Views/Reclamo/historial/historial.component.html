@@ -41,11 +41,12 @@
         </div>
 
       </div>
-
       <div class="col-12 col-sm-6 col-md-4 col-lg-2 animate__animated animate__fadeIn">
         <h5>Fecha Inicio</h5>
-        <input id="Fecha" class="calendario" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha Inicio"
-          name="name" type="date" placeholder="Fecha" [formControl]="fechaDesdeCtrl">
+        <input id="Fecha" class="form-control calendario" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha Inicio"
+          name="Fecha" type="date" placeholder="Fecha" [formControl]="fechaDesdeCtrl">
+
+          
         <!--   <div class="row">
             <div class="col">
               
@@ -152,13 +153,13 @@
                 <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button"
                   class="btn btn-outline-primary btn__opciones " data-bs-toggle="tooltip" data-bs-placement="top"
                   title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"
-                  [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision'|| this.selectIDEstadoReclamo ==14  ) "><i
+                  [disabled]="(estadosReclamo.includes(item.idEstado)) "><i
                     class="bi bi-pencil-square"></i>
                 </button>
                 <button type="button" class="btn btn-outline-danger d-inline-block btn__opciones "
                   data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Reclamo"
                   (click)="cancelarReclamo(item.idReclamo, item.fecha, item.foto, item.hora,item.id_sesion, item.idTipoRec,item.idEstado)"
-                  [disabled]="((item.idEstado == 4 || item.idEstado == 3) || (item.idEstado == 7 || item.idEstado == 8) )"><i
+                  [disabled]="(estadosReclamo.includes(item.idEstado))"><i
                     class="bi bi-trash3-fill"></i>
                 </button>
 
@@ -166,11 +167,6 @@
             </td>
 
           </tr>
-
-
-
-
-
         </tbody>
       </table>
     </div>
@@ -223,7 +219,7 @@
               <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button"
                 class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar Reclamo"
                 (click)="editarReclamo(index.idDetalleReclamo)"
-                [disabled]="(this.Dreclamos[0].nombre != 'Pendiente' || this.Dreclamos[0].nombre == 'En Revision' ||  this.selectIDEstadoReclamo ==14) ">
+                [disabled]="(estadosReclamo.includes(index.idEstado)) ">
                 <!-- [disabled]="this.Dreclamos[0].nombre !== 'Pendiente'" -->
                 <i class="bi bi-pencil-square"></i>
               </button>
@@ -231,7 +227,7 @@
               <button type="button" class="btn btn-outline-danger d-inline-block" data-bs-toggle="tooltip"
                 data-bs-placement="top" title="Cancelar Reclamo"
                 (click)="cancelarReclamo(index.idReclamo, index.fecha, index.foto, index.hora,index.id_sesion, index.idTipoRec,index.idEstado)"
-                [disabled]="((index.idEstado == 4 || index.idEstado == 3) || (index.idEstado == 7 || index.idEstado == 8) )">
+                [disabled]="(estadosReclamo.includes(index.idEstado) )">
                 <i class="bi bi-trash3-fill"></i>
               </button>
             </div>

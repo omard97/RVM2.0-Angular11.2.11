@@ -106,10 +106,12 @@ img {
 }
 
 .calendario {
-  text-align: center;
-  width: 100%;
-  font-size: 14px;
+
+  
+  height: 35px;
+  
   cursor: pointer;
+  
 }
 
 #nombreUsuario {
