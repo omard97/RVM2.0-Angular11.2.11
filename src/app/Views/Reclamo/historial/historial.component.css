@@ -3,17 +3,10 @@
 } */
 :host {
   --colorPrincipal: #e6621f;
-
-
-
-
-
 }
-
 * {
   transition-duration: 0.5s;
 }
-
 .titulo__historial {
   color: var(--colorPrincipal);
   letter-spacing: 0.25em;
@@ -21,8 +14,6 @@
   font-size: 30px;
   text-align: center;
   margin: 20px 30px 10px 30px;
-
-
 }
 
 h5 {
