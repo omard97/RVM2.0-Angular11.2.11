@@ -482,6 +482,7 @@ ambiental */
   metodo_VisualEditarReclamo(idDetalleReclamo:number) {
     this.titulo.setTitle('Actualizar Reclamo')
     /* Este metodo se utiliza para controlar lo que se quiere ver cuando se desea editar un reclamo */
+    debugger
     if (this.rutaURL[3] == 'historial' && idDetalleReclamo != undefined) {
       this.banderaEdicionReclamo = true;
 
@@ -499,9 +500,9 @@ ambiental */
             this.verMapaReclamo(this.arregloDetalleReclamo[0].longitud,this.arregloDetalleReclamo[0].latitud)
             
             
-            
+            debugger
           } else {
-
+            debugger
             delete this.arregloDetalleReclamo;
             this.getDetalleVehicularParaActualizar(info[0].idDetalleReclamo);
           }
@@ -519,8 +520,10 @@ ambiental */
     
     this.service.getDetalleReclamoVehicular(idDetalleReclamo).subscribe(
       (info) => {
-      
+      debugger
+        
         this.arregloDetalleReclamo = info;
+        this.verMapaReclamo(this.arregloDetalleReclamo[0].longitud,this.arregloDetalleReclamo[0].latitud)
       
       },
       (error) => {
@@ -839,7 +842,7 @@ ambiental */
   }
 
   verMapaReclamo(longitud:any, latitud:any){
-
+    debugger
     const map = new Map({
       container: this.mapDivElement.nativeElement, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
