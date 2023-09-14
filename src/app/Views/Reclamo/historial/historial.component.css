@@ -3,18 +3,28 @@
 } */
 :host {
   --colorPrincipal: #e6621f;
+
+
+
+
+
 }
+
 * {
   transition-duration: 0.5s;
 }
-.titulo__historial{
+
+.titulo__historial {
   color: var(--colorPrincipal);
   letter-spacing: 0.25em;
   word-spacing: 0.25em;
   font-size: 30px;
   text-align: center;
   margin: 20px 30px 10px 30px;
+
+
 }
+
 h5 {
   font-size: 16px;
   text-align: center;
@@ -42,6 +52,7 @@ img {
 .btn__opciones {
   margin: 0px 10px 0px 10px;
   transition-duration: 0.5s;
+  
 }
 
 
@@ -107,11 +118,11 @@ img {
 
 .calendario {
 
-  
+
   height: 35px;
-  
+
   cursor: pointer;
-  
+
 }
 
 #nombreUsuario {
@@ -181,14 +192,16 @@ img {
 .tarjeta--informacion p {
   margin: .3rem 0 .3rem 0;
 }
-.container__imgReclamo{
+
+.container__imgReclamo {
   height: 150px;
   width: 100%;
 }
-.img__reclamo{
+
+.img__reclamo {
   height: 150px;
   width: 100%;
-  
+
 }
 
 .card__reclamo {

@@ -143,7 +143,7 @@
               <div class="container ">
 
                 <button *ngIf="item.longitud || item.latitud" type="button"
-                  class="btn btn-outline-primary btn__opciones "
+                  class="btn btn-primary btn__opciones "
                   (click)="verMapa(item.longitud, item.latitud, item.direccion)" data-bs-toggle="modal"
                   data-bs-target="#mapaModal">
                   <i class="bi bi-geo-alt-fill"></i>
@@ -151,12 +151,12 @@
 
                 <!-- 1 admin 2 empleado 3 usuario -->
                 <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button"
-                  class="btn btn-outline-primary btn__opciones " data-bs-toggle="tooltip" data-bs-placement="top"
+                  class="btn btn-primary btn__opciones " data-bs-toggle="tooltip" data-bs-placement="top"
                   title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"
                   [disabled]="(estadosReclamo.includes(item.idEstado)) "><i
                     class="bi bi-pencil-square"></i>
                 </button>
-                <button type="button" class="btn btn-outline-danger d-inline-block btn__opciones "
+                <button type="button" class="btn btn-danger d-inline-block btn__opciones "
                   data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Reclamo"
                   (click)="cancelarReclamo(item.idReclamo, item.fecha, item.foto, item.hora,item.id_sesion, item.idTipoRec,item.idEstado)"
                   [disabled]="(estadosReclamo.includes(item.idEstado))"><i
@@ -183,7 +183,7 @@
       <div *ngFor="let index of Dreclamos" class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 ">
 
         <div *ngIf="banderaVistaHistorial==false"
-          class="card shadow-lg rounded border border-3 card__reclamo animate__animated animate__fadeIn ">
+          class="card shadow-lg rounded border border-3 card__reclamo animate__animated animate__fadeIn " >
           <!-- card -->
 
           <!-- shadow-lg p-3 mb-5 rounded border border-3 -->
@@ -211,20 +211,20 @@
 
 
             <div class="container btn__tarjeta">
-              <button *ngIf="index.longitud || index.latitud" type="button" class="btn btn-outline-primary"
+              <button *ngIf="index.longitud || index.latitud" type="button" class="btn btn-primary"
                 (click)="verMapa(index.longitud, index.latitud, index.direccion)" data-bs-toggle="modal"
                 data-bs-target="#mapaModal">
                 <i class="bi bi-geo-alt-fill"></i>
               </button>
               <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button"
-                class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar Reclamo"
+                class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar Reclamo"
                 (click)="editarReclamo(index.idDetalleReclamo)"
                 [disabled]="(estadosReclamo.includes(index.idEstado)) ">
                 <!-- [disabled]="this.Dreclamos[0].nombre !== 'Pendiente'" -->
                 <i class="bi bi-pencil-square"></i>
               </button>
 
-              <button type="button" class="btn btn-outline-danger d-inline-block" data-bs-toggle="tooltip"
+              <button type="button" class="btn btn-danger d-inline-block" data-bs-toggle="tooltip"
                 data-bs-placement="top" title="Cancelar Reclamo"
                 (click)="cancelarReclamo(index.idReclamo, index.fecha, index.foto, index.hora,index.id_sesion, index.idTipoRec,index.idEstado)"
                 [disabled]="(estadosReclamo.includes(index.idEstado) )">

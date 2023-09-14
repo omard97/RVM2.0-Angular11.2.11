@@ -451,7 +451,7 @@ export class HistorialComponent implements OnInit {
         this.banderaIconoCarga =false; 
 
         this.toastr.info(
-          'No se puede realizar la acción deseasa',
+          'No se puede realizar la acción deseada',
           '',
           {
             timeOut: 5000,
