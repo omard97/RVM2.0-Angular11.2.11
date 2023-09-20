@@ -1,0 +1,271 @@
+/* -------------------- Tabla  de reclamo --------------------------*/
+
+
+.container-table100 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .wrap-table100 {
+    width: 100%;
+  }
+  
+  table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative
+  }
+  
+  table * {
+    position: relative
+  }
+  
+  table td,
+  table th {
+    padding-left: 8px
+  }
+  
+  table thead tr {
+    height: 45px;
+    background: #1f1f1fd2;
+  }
+  
+  table tbody tr {
+    height: 50px
+  }
+  
+  table tbody tr:last-child {
+    border: 0
+  }
+  
+  table td,
+  table th {
+    text-align: center;
+  }
+  
+  table td.l,
+  table th.l {
+    text-align: right
+  }
+  
+  table td.c,
+  table th.c {
+    text-align: center
+  }
+  
+  table td.r,
+  table th.r {
+    text-align: center
+  }
+  
+  .table100-head th {
+    font-family: OpenSans-Regular;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+    font-weight: unset;
+    text-align: center;
+  }
+  
+  /* tbody tr:nth-child(even) {
+    background-color: #f5f5f5
+  } */
+  
+  tbody tr {
+    font-family: OpenSans-Regular;
+    font-size: 15px;
+    color: gray;
+    line-height: 1.2;
+    font-weight: unset
+  }
+  
+  tbody tr:hover {
+    color: #555;
+    background-color: #f5f5f5;
+    cursor: pointer
+  }
+  
+  /* .column1 {
+    width: 20rem;
+    padding-left: 40px
+  }
+  .column2 {
+    width: 10rem;
+  }
+  .column3 {
+    width: 140px
+  }
+  .column4 {
+    width: 100px;
+    text-align: right
+  }
+  
+  .column5 {
+    width: 90px;
+    text-align: right
+  }
+  
+  .column6 {
+    
+    width: 100px;
+    text-align: right;
+    
+  }
+  .column8 {
+    width: 160px; 
+     
+   
+  }
+  
+  .column11{
+    width: 100px;
+  } */
+  
+  /* @media screen and (min-width: 1200px) {
+    .column2 {
+      width: 15rem; 
+    }
+    .column11{
+      width: 9rem;
+    }
+  } */
+  
+  
+  
+  /* entre 0px y 992 px de pantalla */
+  @media screen and (max-width: 992px) {
+    table {
+      display: block;
+    }
+  
+    table>*,
+    table tr,
+    table td,
+    table th {
+      display: block;
+    }
+  
+    table td,
+    table th {
+      text-align: left;
+    }
+  
+    table thead {
+      display: none;
+    }
+  
+    table tbody tr {
+      height: auto;
+      padding: 10px 0;
+  
+    }
+  
+    table tbody tr td {
+      padding-left: 40% !important;
+      margin-bottom: 10px;
+      padding: 0px 0px 10px 0px;
+  
+    }
+  
+    table tbody tr td:last-of-type {
+      border-bottom: none;
+      padding: 0px 0px 10px 0px;
+    }
+  
+    table tbody tr td:last-child {
+      margin-bottom: 0;
+    }
+  
+    table tbody tr td:before {
+      font-family: OpenSans-Regular;
+      font-size: 14px;
+      color: #999;
+      line-height: 1.2;
+      font-weight: unset;
+      position: absolute;
+      width: 40%;
+      left: 30px;
+      top: 0;
+    }
+  
+    table tbody tr td:nth-child(1):before {
+      content: "Descripción";
+    }
+  
+    table tbody tr td:nth-child(2):before {
+      content: "Dirección";
+    }
+  
+   /*  table tbody tr td:nth-child(3):before {
+      content: "Dominio";
+    } */
+  
+    table tbody tr td:nth-child(3):before {
+      content: "Fecha";
+    }
+  
+    table tbody tr td:nth-child(4):before {
+      content: "Foto";
+    }
+  
+    table tbody tr td:nth-child(5):before {
+      content: "Hora";
+    }
+  
+    table tbody tr td:nth-child(6):before {
+      content: "Motivo";
+    }
+  
+   /*  table tbody tr td:nth-child(8):before {
+      content: "Marca";
+    }
+  
+    table tbody tr td:nth-child(9):before {
+      content: "Modelo";
+    } */
+  
+    table tbody tr td:nth-child(7):before {
+      content: "Tipo Reclamo";
+    }
+  
+    table tbody tr td:nth-child(8):before {
+      content: "Estado";
+    }
+  
+    
+    /* este ancho se tiene en cuenta cuando la pantalla a 993px */
+    .column1,
+    .column2,
+    .column3,
+    .column4,
+    .column5,
+    .column6,
+    .column7,
+    .column8,
+    .column9 {
+      width: 100%;
+    }
+  
+    tbody tr {
+      font-size: 14px;
+    }
+  }
+  
+  /* @media(max-width: 576px) {
+    .container-table100 {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  } */
+  
