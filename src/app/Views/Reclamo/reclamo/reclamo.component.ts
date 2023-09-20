@@ -19,6 +19,8 @@ import { Title } from '@angular/platform-browser';
 
 import { OnExit } from 'src/app/guards/exit.guard';
 import { formatDate } from '@angular/common';
+import { ReclamoApiService } from 'src/app/service/Reclamo/reclamo-api.service';
+
 
 
 
@@ -143,8 +145,11 @@ export class ReclamoComponent implements OnInit, OnExit {
   public previsualizacion: string = "";
   public imagenBase64: string = "";
 
+  //bandera para visualizar la tabla 
+   banderaTabla: number = 0;
+
   constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService,
-    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title) { 
+    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title, private serviceReclamoVehicular: ReclamoApiService) { 
 
       
 
@@ -481,6 +486,7 @@ ambiental */
 
   metodo_VisualEditarReclamo(idDetalleReclamo:number) {
     this.titulo.setTitle('Actualizar Reclamo')
+    
     /* Este metodo se utiliza para controlar lo que se quiere ver cuando se desea editar un reclamo */
     debugger
     if (this.rutaURL[3] == 'historial' && idDetalleReclamo != undefined) {
@@ -495,7 +501,7 @@ ambiental */
             this.arregloDetalleReclamo = info;
             console.log(this.arregloDetalleReclamo);
            
-            
+            this.banderaTabla = this.arregloDetalleReclamo[0].idTipoRec; // tambien puede ser directamente 1 - ambiental
             /* al obtener los datos muestro el mapa con la ubicacion del reclamo */
             this.verMapaReclamo(this.arregloDetalleReclamo[0].longitud,this.arregloDetalleReclamo[0].latitud)
             
@@ -520,9 +526,11 @@ ambiental */
     
     this.service.getDetalleReclamoVehicular(idDetalleReclamo).subscribe(
       (info) => {
-      debugger
-        
         this.arregloDetalleReclamo = info;
+        this.banderaTabla = this.arregloDetalleReclamo[0].idTipoRec;
+
+        debugger
+        
         this.verMapaReclamo(this.arregloDetalleReclamo[0].longitud,this.arregloDetalleReclamo[0].latitud)
       
       },

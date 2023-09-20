@@ -15,7 +15,7 @@
         <div class="container-table100">
             <div class="wrap-table100">
                 <div class="table100">
-                    <table>
+                    <table *ngIf="banderaTabla == 1">
                         <thead>
                             <tr class="table100-head">
                                 <!-- <th class="column1">Altura</th> -->
@@ -26,7 +26,6 @@
                                 <th class="column4">Fecha</th>
                                 <th class="column5">Foto</th>
                                 <th class="column6">Hora</th>
-
                                 <th class="column7">Motivo</th>
                                 <!--  <th class="column9">Marca</th>
                                 <th class="column10" >Modelo</th> -->
@@ -56,12 +55,16 @@
 
                         </tbody>
                     </table>
+
+                    <div *ngIf="banderaTabla == 2">
+                      
+                        <app-vehicle-table></app-vehicle-table>
+                    </div>
+                    
                 </div>
             </div>
         </div><!--.container-table100 -->
     </div>
-
-
 
     <div class="row ">
         <div class="well well-sm">

@@ -391,6 +391,7 @@ tbody tr:hover {
     content: "Estado";
   }
 
+  
   /* este ancho se tiene en cuenta cuando la pantalla a 993px */
   .column1,
   .column2,
