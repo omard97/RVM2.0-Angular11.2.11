@@ -153,13 +153,15 @@
                 <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button"
                   class="btn btn-primary btn__opciones " data-bs-toggle="tooltip" data-bs-placement="top"
                   title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"
-                  [disabled]="(estadosReclamo.includes(item.idEstado)) "><i
+                  [disabled]="(((item.idEstado ==2 ||item.idEstado ==3||item.idEstado ==4 ||item.idEstado ==6  ||item.idEstado ==7  ||item.idEstado ==8 ) && this.usuario.idRol==3) 
+                  || ( ( item.idEstado ==3 || item.idEstado ==4  ||item.idEstado ==7  ||item.idEstado ==8 )&& this.usuario.idRol==1) )"><i
                     class="bi bi-pencil-square"></i>
                 </button>
                 <button type="button" class="btn btn-danger d-inline-block btn__opciones "
                   data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Reclamo"
                   (click)="cancelarReclamo(item.idReclamo, item.fecha, item.foto, item.hora,item.id_sesion, item.idTipoRec,item.idEstado)"
-                  [disabled]="(estadosReclamo.includes(item.idEstado))"><i
+                  [disabled]="(((item.idEstado ==2 ||item.idEstado ==3||item.idEstado ==4 ||item.idEstado ==6  ||item.idEstado ==7  ||item.idEstado ==8 ) && this.usuario.idRol==3) 
+                  || ( ( item.idEstado ==3 || item.idEstado ==4  ||item.idEstado ==7  ||item.idEstado ==8 )&& this.usuario.idRol==1) )"><i
                     class="bi bi-trash3-fill"></i>
                 </button>
 
@@ -219,7 +221,8 @@
               <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button"
                 class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar Reclamo"
                 (click)="editarReclamo(index.idDetalleReclamo)"
-                [disabled]="(estadosReclamo.includes(index.idEstado)) ">
+                [disabled]="(((index.idEstado ==2 ||index.idEstado ==3||index.idEstado ==4 ||index.idEstado ==6  ||index.idEstado ==7  ||index.idEstado ==8 ) && this.usuario.idRol==3) 
+                  || ( ( index.idEstado ==3 || index.idEstado ==4  ||index.idEstado ==7  ||index.idEstado ==8 )&& this.usuario.idRol==1) ) ">
                 <!-- [disabled]="this.Dreclamos[0].nombre !== 'Pendiente'" -->
                 <i class="bi bi-pencil-square"></i>
               </button>
@@ -227,7 +230,8 @@
               <button type="button" class="btn btn-danger d-inline-block" data-bs-toggle="tooltip"
                 data-bs-placement="top" title="Cancelar Reclamo"
                 (click)="cancelarReclamo(index.idReclamo, index.fecha, index.foto, index.hora,index.id_sesion, index.idTipoRec,index.idEstado)"
-                [disabled]="(estadosReclamo.includes(index.idEstado) )">
+                [disabled]="(((index.idEstado ==2 ||index.idEstado ==3||index.idEstado ==4 ||index.idEstado ==6  ||index.idEstado ==7  ||index.idEstado ==8 ) && this.usuario.idRol==3) 
+                  || ( ( index.idEstado ==3 || index.idEstado ==4  ||index.idEstado ==7  ||index.idEstado ==8 )&& this.usuario.idRol==1) )">
                 <i class="bi bi-trash3-fill"></i>
               </button>
             </div>
