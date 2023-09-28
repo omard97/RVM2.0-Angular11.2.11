@@ -74,11 +74,11 @@ h2 {
 
 @media (max-width: 576px) {
   h1 {
-    font-size: 20px;
+    font-size: 25px;
   }
 
   h2 {
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .nosotros__informacion {
@@ -227,6 +227,20 @@ h2 {
   transition-duration: 0.4s;
 }
 
+@media screen and (max-width: 576px) {
+ .flex_derecha{
+  flex-direction: column; 
+ } 
+ .flex_izquierda{
+  flex-direction: column-reverse;  
+ }
+ .img__tecnologia {
+  
+  width: 30%;
+
+ }
+}
+
 .informacion__tecnologia {
   color: var(--colorTexto);
   text-align: justify;
@@ -235,8 +249,3 @@ h2 {
 }
 
 
-.img__tecnologia {
-  display: flex;
-  align-items: start;
-
-}
