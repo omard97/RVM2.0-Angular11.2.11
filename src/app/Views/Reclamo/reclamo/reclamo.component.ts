@@ -19,7 +19,7 @@ import { Title } from '@angular/platform-browser';
 
 import { OnExit } from 'src/app/guards/exit.guard';
 import { formatDate } from '@angular/common';
-import { ReclamoApiService } from 'src/app/service/Reclamo/reclamo-api.service';
+
 
 
 
@@ -149,7 +149,7 @@ export class ReclamoComponent implements OnInit, OnExit {
    banderaTabla: number = 0;
 
   constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService,
-    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title, private serviceReclamoVehicular: ReclamoApiService) { 
+    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title) { 
 
       
 
@@ -523,12 +523,15 @@ ambiental */
   }
   getDetalleVehicularParaActualizar(idDetalleReclamo: number) {
 
-    
+    /* solo se usa para mostrar el mapa */
+    /* al ser vehicular se muestra el componente vehicletablecomponent */
     this.service.getDetalleReclamoVehicular(idDetalleReclamo).subscribe(
       (info) => {
+        debugger
         this.arregloDetalleReclamo = info;
         this.banderaTabla = this.arregloDetalleReclamo[0].idTipoRec;
-
+        
+       
         debugger
         
         this.verMapaReclamo(this.arregloDetalleReclamo[0].longitud,this.arregloDetalleReclamo[0].latitud)
