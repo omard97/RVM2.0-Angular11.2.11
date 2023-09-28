@@ -190,7 +190,8 @@
 
           <!-- shadow-lg p-3 mb-5 rounded border border-3 -->
           <div class="container__imgReclamo">
-            <img loading="lazy" class="card-img-top rounded img__reclamo " alt="Foto" [src]="index.foto">
+            <img *ngIf="index.foto != ' - '" loading="lazy" class="card-img-top rounded img__reclamo " alt="Foto" [src]="index.foto">
+            <img *ngIf="index.foto == ' - '" loading="lazy" class="card-img-top rounded img__reclamo " alt="Foto" src='../../../../assets/img/img_no_disponible.png'>
           </div>
 
           <div class="card-body tarjeta--informacion">
