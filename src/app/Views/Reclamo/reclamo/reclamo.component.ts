@@ -277,8 +277,7 @@ export class ReclamoComponent implements OnInit, OnExit {
     debugger
     /* Validacion en el caso que registre un input vacio o cambie de tipo de reclamo y tenga un input vacio */
     /* reclamo Ambiental */
-   if ((this.tipoReclamoCtrl.value =='' || this.tipoReclamoCtrl.value == 1) && (this.tipoReclamoCtrl.invalid  || this.reclamoAmbientalCtrl.invalid  ||  this.ubicacionCtrl.value == '' ||
-      this.descripcionCtrl.value == '' || this.FotoCtrl.invalid )) { /*  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == ''  ||   this.fechaCtrl.value == '' this.horaCtrl.value == '' ||*/ 
+   if ((this.tipoReclamoCtrl.value =='' || this.tipoReclamoCtrl.value == 1) && (this.tipoReclamoCtrl.invalid  || this.reclamoAmbientalCtrl.invalid  ||  this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == '' )) { /*  || this.FotoCtrl.invalid  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == ''  ||   this.fechaCtrl.value == '' this.horaCtrl.value == '' ||*/ 
       this.toastr.warning(
         'Quedan datos por rellenar en el formulario, verifique y podrá enviar su reclamo',
         '',
@@ -287,8 +286,7 @@ export class ReclamoComponent implements OnInit, OnExit {
 
       /* reclamo vial */
     } else if (this.tipoReclamoCtrl.value == 2 && (this.dominioCtrl.value == '' || this.marcaAutoCtrl.value == '' &&
-      this.tipoReclamoCtrl.value == ''  ||  this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == ''  ||
-      this.modeloAutoCtrl.value == '' || this.colorAutoCtrl.value =='' || this.FotoCtrl.value == '')) { /* || this.alturaCtrl.value == '' || this.fechaCtrl.value == '' || this.horaCtrl.value == ''*/
+      this.tipoReclamoCtrl.value == ''  ||  this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == ''  || this.modeloAutoCtrl.value == '' || this.colorAutoCtrl.value =='' )) { /* || this.FotoCtrl.value == '' || this.alturaCtrl.value == '' || this.fechaCtrl.value == '' || this.horaCtrl.value == ''*/
       this.toastr.warning(
         'Quedan datos por rellenar, verifique y podrá enviar su reclamo',
         '',
@@ -302,13 +300,19 @@ export class ReclamoComponent implements OnInit, OnExit {
       this.obtenerHora();
       var RegistroRecl: Reclamo = {
         fecha: this.fechaHoy + '',
-        foto: this.imageReclamoDataUrl, /* cambiar por el input file */
+        
+        
         hora: this.horaActual + '',
         ID_Sesion: Number(this.usuario.IDsesion),
         ID_TipoReclamo: Number(this.selectIdTipoReclamo),
         ID_Estado: 1 /* estado Activo */,
       };
 
+      if(this.imageReclamoDataUrl == undefined ){
+        RegistroRecl.foto = ' - ';
+      }else{
+        RegistroRecl.foto= this.imageReclamoDataUrl; /* cambiar por el input file */
+      }
       debugger
       
       /* si es vial que se agrege el estado pendiente de vial sino queda en 1 para el ambiental */
