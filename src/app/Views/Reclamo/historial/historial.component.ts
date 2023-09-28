@@ -65,7 +65,7 @@ export class HistorialComponent implements OnInit {
 
    banderaIconoCarga:boolean =true;
    banderaAlerta:boolean=false;
-   mensajeCarga:string='No Hay Reclamos...';
+   mensajeCarga:string='No hay reclamos...';
 
    usuario = {
     idUsuario: 0,
@@ -577,6 +577,17 @@ export class HistorialComponent implements OnInit {
         ID_TipoReclamo: idTipoRec,
         ID_Estado: 8, /* 8 - descartado - Vial */
       };
+
+      (window.confirm("¿Estás seguro de cancelar el reclamo?") ?
+        this.detalleReclamo.putActualizarReclamo(reclamo).subscribe(
+          (data) => {
+            this.Dreclamos = [];
+            this.getDetalleReclamosHoy();
+          },
+          (err) => {
+
+          }
+        ) : console.log("El usuario canceló la acción."))
 
 
       alert('es vial')
