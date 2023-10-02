@@ -14,6 +14,8 @@ import { MenuComponent } from '../../Estructura/menu/menu.component';
 import { Title } from '@angular/platform-browser';
 import { Reclamo } from 'src/app/model/reclamo';
 
+import { PageEvent } from '@angular/material/paginator';
+
 /* import { Popup, Map, Marker } from 'mapbox-gl';
 import { MapReclamoService } from '../reclamo/maps-reclamo/services'; */
 
@@ -87,6 +89,10 @@ export class HistorialComponent implements OnInit {
   /* Cancelar Reclamo */
   listTipoReclamo:any;
 
+  /* paginacion para las listas */
+  pageSize = 5; // Tamaño de página predeterminado
+  paginaDesde: number=0;
+  paginaHasta: number =10;
 
 
   constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private menuComponent: MenuComponent, private titulo:Title, ) 
@@ -593,5 +599,19 @@ export class HistorialComponent implements OnInit {
       alert('es vial')
     }
   }
+
+  /* Paginacion en tablas */
+    
+    M_cambioPaginas(pagina:PageEvent){
+      this.paginaDesde = pagina.pageIndex * pagina.pageSize;
+      this.paginaHasta =  this.paginaDesde + pagina.pageSize;
+    }
+    cambiarPaginaLista(pagina: PageEvent){
+      this.M_cambioPaginas(pagina)
+    }
+    cambiarPaginaTarjetas(pagina: PageEvent){
+      this.M_cambioPaginas(pagina)
+    }
+    
 
 }
