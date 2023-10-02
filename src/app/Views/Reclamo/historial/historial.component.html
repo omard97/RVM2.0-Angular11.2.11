@@ -131,7 +131,7 @@
 
           </tr>
         </thead>
-        <tbody *ngFor="let item of Dreclamos; let i = index ">
+        <tbody class="animate__animated animate__fadeIn" *ngFor="let item of Dreclamos | slice:paginaDesde:paginaHasta; let i = index ">
           <tr [ngClass]="i % 2 === 0 ? 'white-row' : 'grey-row'">
 
             <td class="column1">{{item.iD_Reclamo}}</td>
@@ -150,7 +150,7 @@
                 </button>
 
                 <!-- 1 admin 2 empleado 3 usuario -->
-                <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button"
+                <button type="button"
                   class="btn btn-primary btn__opciones " data-bs-toggle="tooltip" data-bs-placement="top"
                   title="Editar Reclamo" (click)="editarReclamo(item.idDetalleReclamo)"
                   [disabled]="(((item.idEstado ==2 ||item.idEstado ==3||item.idEstado ==4 ||item.idEstado ==6  ||item.idEstado ==7  ||item.idEstado ==8 ) && this.usuario.idRol==3) 
@@ -182,7 +182,7 @@
   <div class="container-fluid ">
 
     <div class="row">
-      <div *ngFor="let index of Dreclamos" class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 ">
+      <div *ngFor="let index of Dreclamos | slice:paginaDesde:paginaHasta" class="col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 ">
 
         <div *ngIf="banderaVistaHistorial==false"
           class="card shadow-lg rounded border border-3 card__reclamo animate__animated animate__fadeIn " >
@@ -219,7 +219,7 @@
                 data-bs-target="#mapaModal">
                 <i class="bi bi-geo-alt-fill"></i>
               </button>
-              <button *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2 || this.usuario.idRol==3)" type="button"
+              <button  type="button"
                 class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar Reclamo"
                 (click)="editarReclamo(index.idDetalleReclamo)"
                 [disabled]="(((index.idEstado ==2 ||index.idEstado ==3||index.idEstado ==4 ||index.idEstado ==6  ||index.idEstado ==7  ||index.idEstado ==8 ) && this.usuario.idRol==3) 
@@ -251,3 +251,15 @@
 
 </form> <!-- formulario -->
 <!-- Button trigger modal -->
+
+
+<footer class="footer_paginacion">
+  <mat-paginator class="paginacion" [length]="Dreclamos.length"
+                          [pageSize]="pageSize"
+                          [pageSizeOptions]="[5, 10, 25, 100]"
+                          
+                          (page)="cambiarPaginaLista($event)"
+                          aria-label="Seleccionar página">
+</mat-paginator>
+</footer>
+
