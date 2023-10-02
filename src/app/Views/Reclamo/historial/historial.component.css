@@ -9,8 +9,8 @@
 }
 .titulo__historial {
   color: var(--colorPrincipal);
-  letter-spacing: 0.25em;
-  word-spacing: 0.25em;
+  letter-spacing: 0.25em;/* Espaciado */
+  word-spacing: 0.25em;/* Espaciado */
   font-size: 30px;
   text-align: center;
   margin: 20px 30px 10px 30px;
@@ -458,4 +458,16 @@ tbody tr:hover {
 .input__switch {
   margin-left: 14px;
   margin-bottom: 5px;
+}
+
+.footer_paginacion{
+  position:fixed;
+  left:0px;
+  bottom:23px;
+  height:30px;
+  width:99%;
+
+}
+.paginacion{
+  background-color: rgba(255, 255, 255, 0.778);
 }
