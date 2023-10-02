@@ -277,7 +277,7 @@ export class BackenApiService {
   }
 
 
-  /* ---------------------------- Configuracion ------------------------------------- */
+  /* ---------------------------- Configuración ------------------------------------- */
 
   getTipoEstadoAdmin(){
     
@@ -315,12 +315,20 @@ export class BackenApiService {
     return this.http.get<marca[]>('https://localhost:44363/MarcaAdmin/'+idMarca)
   }
 
+  getUsuarios(){
+    return this.http.get<any>('https://localhost:44363/UsuarioAdminConfiguration');
+  }
+
+  getUsuarioSelecionado(idUser:number){
+    return this.http.get<any>('https://localhost:44363/UsuarioAdminConfiguration/'+idUser);
+  }
+
   getidActivoVehiculo(){
     /* 4 devuelve estado activo e inactivo de vehiculo */
    return this.http.get<tipoEstadoVehiculo[]>('https://localhost:44363/TipoEstadoVehiculoadmin/4');
   }
 
-  /*------------------------ Configuracion Modal tipo estado y Estado ------------------------- */
+  /*------------------------ Configuración Modal tipo estado y Estado ------------------------- */
   postTipoEstado(tipoEstado: any ):Observable<any>{
     return this.http.post('https://localhost:44363/TipoEstado', tipoEstado, this.httpOptions);
   }
@@ -328,33 +336,33 @@ export class BackenApiService {
   postEstado(Estado:any):Observable<any>{
     return this.http.post('https://localhost:44363/EstadosAdmin', Estado, this.httpOptions);
   }
-  /*------------------------ Configuracion Modal Vehiculo ------------------------- */
+  /*------------------------ Configuración Modal Vehiculo ------------------------- */
 
   postVehiculoModal(vehiculo:any):Observable<any>{
     return this.http.post('https://localhost:44363/VehiculosAdmin', vehiculo, this.httpOptions);
   }
 
-  /*------------------------ Configuracion Modal Marcas ------------------------- */
+  /*------------------------ Configuración Modal Marcas ------------------------- */
   postMarcaModal(marca:any):Observable<any>{
     return this.http.post('https://localhost:44363/MarcaAdmin', marca, this.httpOptions);
 
   }
-  /*------------------------ Configuracion Modal Modelo ------------------------- */
+  /*------------------------ Configuración Modal Modelo ------------------------- */
   postModeloModal(modelo:any):Observable<any>{
     return this.http.post('https://localhost:44363/ModeloAdmin', modelo, this.httpOptions);
   }
 
   
-  /*------------------------ Configuracion Modal Perfil ------------------------- */
+  /*------------------------ Configuración Modal Perfil ------------------------- */
 
   postPerfilModal(perfil:any):Observable<any>{
     return this.http.post('https://localhost:44363/TipoPerfilAdmin', perfil, this.httpOptions);
   }
-  /*------------------------ Configuracion Modal Tipo Reclamo ------------------------- */
+  /*------------------------ Configuración Modal Tipo Reclamo ------------------------- */
   postTipoReclamoModal(tipoReclamo:any):Observable<any>{
     return this.http.post('https://localhost:44363/TipoReclamoAdmin', tipoReclamo, this.httpOptions);
   }
-  /*------------------------ Configuracion Modal Tipo Vehiculo ------------------------- */
+  /*------------------------ Configuración Modal Tipo Vehiculo ------------------------- */
   postTipoVehiculoModal(tipoVehiculo:any):Observable<any>{
     return this.http.post('https://localhost:44363/TipoVehiculoAdmin', tipoVehiculo, this.httpOptions);
   }
