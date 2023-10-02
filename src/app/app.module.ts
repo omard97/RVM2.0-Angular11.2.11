@@ -36,9 +36,7 @@ import { FooterComponent } from './Views/Component/footer/footer.component';
 import { NosotrosComponent } from './Views/nosotros/nosotros.component';
 import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.component';
 import { VehicleTableComponent } from './Views/Component/vehicle-table/vehicle-table.component';
-
-
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -58,7 +56,7 @@ import { VehicleTableComponent } from './Views/Component/vehicle-table/vehicle-t
     FooterComponent,
     NosotrosComponent,
     PageNotFoundComponent,
-    VehicleTableComponent,
+    VehicleTableComponent
     
     
   ],
@@ -79,7 +77,8 @@ import { VehicleTableComponent } from './Views/Component/vehicle-table/vehicle-t
     }),
     NgxChartsModule,
     MapsModule,
-    MapsReclamoModule
+    MapsReclamoModule,
+    MatPaginatorModule
   ],
   providers: [CamaraService],
   bootstrap: [AppComponent]
