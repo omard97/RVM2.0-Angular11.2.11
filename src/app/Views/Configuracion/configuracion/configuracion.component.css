@@ -1,9 +1,23 @@
+:host {
+  --colorPrincipal: #e6621f;
+}
+
 *{
   transition-duration: 0.5s;
 }
 
+.titulo_config{
+  color: var(--colorPrincipal);
+  letter-spacing: 0.25em;
+  word-spacing: 0.25em;
+  font-size: 30px;
+  
+  margin: 20px 30px 10px 30px;
+}
+
 .divPrimario {
   margin-top: 20px;
+  padding: 0px 1rem 1rem 1rem;
   background-color: rgb(228, 228, 228);
 }
 
@@ -88,3 +102,16 @@ input::-webkit-inner-spin-button {
   background-color: white;
   border-radius: 10px;
  }
+
+ /* Tabla usuarios */
+
+ 
+.img__usuario {
+  height: 50px;
+  width: 50px;
+
+}
+
+th{
+  width: 10%;
+}
