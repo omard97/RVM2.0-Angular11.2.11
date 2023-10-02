@@ -12,6 +12,8 @@ import { autoPost } from 'src/app/model/Configuracion/vehiculo';
 import { postMarca } from 'src/app/model/Configuracion/marcaVehiculo';
 import { postModeloVehiculo } from 'src/app/model/Configuracion/modeloVehiculo';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
+import { PageEvent } from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-configuracion',
@@ -55,7 +57,7 @@ export class ConfiguracionComponent implements OnInit {
     
   
     objTipoEstado: any; /* Select */
-    objEstadosDelTipo: any; /* Tabla */
+    objEstadosDelTipo: any [] = []; /* Tabla */
     selectIDTipEstado = 0; /* Variable para capturar el valor del tipo de estado */
   
     objModalTipoEstado: any;
@@ -63,13 +65,13 @@ export class ConfiguracionComponent implements OnInit {
   
     objTipVehiculo: any; /* Select */
     selectIDTipVehiculo = 0; /* Tabla */
-    objListaTipVehiculos: any;
+    objListaTipVehiculos: any [] = [];
   
     objTipoDeReclamo: any; /* Select */
     selectIDTipReclamo = 0; /* Variable para capturar el valor del tipo de reclamo */
     objListaTipoReclamo: any;
   
-    objTipoPerfil: any; /* Select */
+    objTipoPerfil: any [] = []; /* Select */
     selectIDTipPerfil = 0; /* Variable para capturar el valor del tipo de reclamo */
     objListaTipoPerfil: any;
   
@@ -84,6 +86,17 @@ export class ConfiguracionComponent implements OnInit {
     selecIDMarca=0;
     selecIDModelo=0;
     textoEstadoModal="Tipo de Estado";
+
+    /* lista usuarios */
+    objListaUsuarios:any [] = [];
+    idUsuario = 0;
+    objUsuarioSelect:any;
+
+    /* paginacion para las listas */
+    pageSize = 5; // Tamaño de página predeterminado
+
+    paginaDesde: number=0;
+    paginaHasta: number =5;
   
     /* banderaTextEstado: boolean = false; */
     banderaSelectEstado: boolean = false; //false
@@ -352,6 +365,20 @@ export class ConfiguracionComponent implements OnInit {
     );
   }
 
+  /* Este metodo se accionara en el momento en se abre la pestaña de USUARIOS ' para no sobrecargar de peticiones al abrir la pestaña de configuración */
+  getusuarios(){
+    debugger
+    this.servicio.getUsuarios().subscribe(
+      (data)=>{
+
+        this.objListaUsuarios = data;
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
+  }
+
   /* Metodos para obtener los valores de los selec */
   obtenerIDTipoEstado(ev: any) {
     this.selectIDTipEstado = 0;
@@ -433,7 +460,7 @@ export class ConfiguracionComponent implements OnInit {
             this.objListaTipVehiculos = res;
           }else{
             this.notificacionDatosInexistentes(res);
-            delete this.objListaTipVehiculos;
+             this.objListaTipVehiculos =[]; // se cambio de obj:any a obj:any [] = [] y se elimino el delete
             this.selectIDTipVehiculo=0;
           }
           
@@ -444,6 +471,21 @@ export class ConfiguracionComponent implements OnInit {
       this.NotificacionRellenarCampos();
     }
     
+  }
+  obtenerIdUsuario(id:any){
+    debugger
+    this.idUsuario = id.target.value;
+    /* crear metodo para traer los datos del usuario - podria usar los datos del usuario que esta en objListausuario */
+    this.servicio.getUsuarioSelecionado(this.idUsuario).subscribe(
+      (data)=>{
+        console.table(data[0])
+        this.objUsuarioSelect = data[0];
+        console.log(this.objUsuarioSelect)
+      },
+      (err) =>{
+        console.log(err)
+      }
+    )
   }
 
   /* Modal Estado */
@@ -598,7 +640,8 @@ export class ConfiguracionComponent implements OnInit {
 
       this.servicio.postModeloModal(modelo).subscribe(
         (res)=>{
-          res=res
+          delete this.objListaModeloVehiculo;
+          this.getModeloVehiculo();
           this.toastr.success(
             'Modelo Creado!','Atención',
             {
@@ -625,12 +668,13 @@ export class ConfiguracionComponent implements OnInit {
       }
       this.servicio.postPerfilModal(objPerfil).subscribe(
         (resp)=>{
+           this.objTipoPerfil = []; // se cambio el delete
+          this.getTipoPerfil();
         },
         (err) => console.error(err)
       )
+      debugger
       this.NotificacionPerfilCreado();
-      this.nombreModalPerfil.setValue('');
-
 
     }else{
       this.NotificacionRellenarCampos();
@@ -650,7 +694,8 @@ export class ConfiguracionComponent implements OnInit {
       
       this.servicio.postTipoReclamoModal(tipoRec).subscribe(
         (resp)=>{
-          
+          delete this.objTipoDeReclamo;
+          this.getTipoReclamo();    
         },
         (err) => console.error(err)
       ) 
@@ -669,11 +714,15 @@ export class ConfiguracionComponent implements OnInit {
         nombre: this.nombreTipoVehiculoCtrlModal.value,
         descripcion: this.descripcionTipoVehiculoModal.value,
       }
+      debugger
       this.servicio.postTipoVehiculoModal(objTipoVehiculo).subscribe(
-        (resp)=>{ 
+        (resp)=>{
+           delete this.objTipVehiculo;
+           this.getTipoVehiculo();
         },
         (err) => console.error(err)
       )
+      
       this.NotificacionTipoVehiculoCreado();
     }else{
       this.NotificacionRellenarCampos();
@@ -744,6 +793,8 @@ export class ConfiguracionComponent implements OnInit {
         positionClass: 'toast-bottom-center',
       }
     );
+
+    this.botonCerrarModalPerfil();
   }
   NotificacionTipoReclamoCreado(){
     this.toastr.success(
@@ -780,5 +831,25 @@ export class ConfiguracionComponent implements OnInit {
       );
     }
   }
+
+  /* Paginacion en tablas */
+    /* Usuario */
+    M_cambioPaginas(pagina:PageEvent){
+      this.paginaDesde = pagina.pageIndex * pagina.pageSize;
+      this.paginaHasta =  this.paginaDesde + pagina.pageSize;
+    }
+    
+    cambiarPaginaEstados(pagina: PageEvent){
+      this.M_cambioPaginas(pagina)
+    }
+    cambiarPaginaPerfiles(pagina: PageEvent){
+      this.M_cambioPaginas(pagina)
+    }
+    cambiarPaginaTiposVehiculos(pagina: PageEvent){
+      this.M_cambioPaginas(pagina)
+    }
+    cambiarPaginaUsario(pagina: PageEvent){
+      this.M_cambioPaginas(pagina)
+    }
 
 }
