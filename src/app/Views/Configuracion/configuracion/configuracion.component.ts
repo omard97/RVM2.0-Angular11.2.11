@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { BackenApiService } from 'src/app/service/backen-api.service';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, Validators } from '@angular/forms';
@@ -7,6 +7,7 @@ import { TipoEstado } from 'src/app/model/Configuracion/tipoEstadoAdmin';
 import { PostEstado } from 'src/app/model/Configuracion/estadosAdmin';
 import { PerfilAdmin } from 'src/app/model/Configuracion/tipoPerfil';
 import { TipoReclamo } from 'src/app/model/tipoReclamo';
+import { estadosUsuarios, usuarioConfig } from 'src/app/model/usuario';
 import { TipoVehiculoModal } from 'src/app/model/Configuracion/tipoVehiculo';
 import { autoPost } from 'src/app/model/Configuracion/vehiculo';
 import { postMarca } from 'src/app/model/Configuracion/marcaVehiculo';
@@ -31,7 +32,6 @@ export class ConfiguracionComponent implements OnInit {
   
     /* Modal Vehiculo */
     nombreTipoVehiculoCtrl = new FormControl('', [Validators.required]);
-   
     dominioCtrl = new FormControl('', [Validators.required]);
     marcaCtrl = new FormControl('', [Validators.required]);
     modeloCtrl = new FormControl('', [Validators.required]);
@@ -54,47 +54,57 @@ export class ConfiguracionComponent implements OnInit {
     /* Modal TipoVehiculo */
     descripcionTipoVehiculoModal = new FormControl('', [Validators.required]);
     nombreTipoVehiculoCtrlModal = new FormControl('', [Validators.required]);
-    
   
+    /* ---Configuración Tipo Estado ---  */
     objTipoEstado: any; /* Select */
     objEstadosDelTipo: any [] = []; /* Tabla */
     selectIDTipEstado = 0; /* Variable para capturar el valor del tipo de estado */
-  
+  /* ---Modal Tipo Estado ---  */
     objModalTipoEstado: any;
     selectIDTipEstadoModal = 0;
-  
+
+  /* ---Configuración Tipo Vehículo ---  */
     objTipVehiculo: any; /* Select */
     selectIDTipVehiculo = 0; /* Tabla */
     objListaTipVehiculos: any [] = [];
   
+    /* ---Configuración Tipo Reclamo ---  */
     objTipoDeReclamo: any; /* Select */
     selectIDTipReclamo = 0; /* Variable para capturar el valor del tipo de reclamo */
     objListaTipoReclamo: any;
   
+    /* ---Configuración Tipo Perfil ---  */
     objTipoPerfil: any [] = []; /* Select */
     selectIDTipPerfil = 0; /* Variable para capturar el valor del tipo de reclamo */
     objListaTipoPerfil: any;
   
+     /* ---Configuración Marcas ---  */
     selectIDMarcaVehiculo=0;
     objListaMarcaVehiculo:any;
   
+     /* ---Configuración Modelos---  */
     objListaModeloVehiculo:any;
     selectIDModeloVehiculo=0;
   
+     /* ---Configuración Vehiculos ---  */
     objListaVehiculos:any;
     objListaIDMarca:any;
     selecIDMarca=0;
     selecIDModelo=0;
     textoEstadoModal="Tipo de Estado";
 
-    /* lista usuarios */
-    objListaUsuarios:any [] = [];
+     /* ---Configuración Usuarios ---  */
+    objListaUsuarios:usuarioConfig [] = [];
+    objEstadosUsuarios: estadosUsuarios [] = []; // estados activo inactivo
     idUsuario = 0;
+    idEstadoUsuario = 0;
     objUsuarioSelect:any;
+    ctrlNombreUsuario=new FormControl('',[Validators.required])
+    ctrlNickUsuario=new FormControl('',[Validators.required])
+    ctrlEstadoUsuario=new FormControl('',[Validators.required]);
 
     /* paginacion para las listas */
     pageSize = 5; // Tamaño de página predeterminado
-
     paginaDesde: number=0;
     paginaHasta: number =5;
   
@@ -367,16 +377,47 @@ export class ConfiguracionComponent implements OnInit {
 
   /* Este metodo se accionara en el momento en se abre la pestaña de USUARIOS ' para no sobrecargar de peticiones al abrir la pestaña de configuración */
   getusuarios(){
-    debugger
+   
     this.servicio.getUsuarios().subscribe(
       (data)=>{
-
+        console.log(data[0])
         this.objListaUsuarios = data;
+        this.getEstadosUsuarios();
       },
       (err)=>{
         console.log(err)
       }
     )
+  }
+  // utilizado para rellenar el select en el cual se almacenan solo 2 estados activos e inactivos
+  getEstadosUsuarios(){
+    this.servicio.getEstadosFiltroUsuariosConfig('Usuario').subscribe(
+      (data)=>{
+        this.objEstadosUsuarios = data;
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
+  }
+
+  btn_buscarUsuario(){
+    debugger
+    if(this.ctrlNombreUsuario.value =='' || this.ctrlNickUsuario.value=='' || this.ctrlEstadoUsuario.value == ''){
+      this.toastr.info(
+        'No ingresó los datos necesarios para realizar la busqueda','',
+        {
+          timeOut: 5000,
+          positionClass: 'toast-top-right',
+        }
+      );
+    }else{
+
+      //hacer metodo para traer y mostrar el usuario
+
+
+
+    }
   }
 
   /* Metodos para obtener los valores de los selec */
@@ -472,8 +513,9 @@ export class ConfiguracionComponent implements OnInit {
     }
     
   }
+  //por ahora no se usa, es para obtener la informacion de usuario selecionado
   obtenerIdUsuario(id:any){
-    debugger
+  
     this.idUsuario = id.target.value;
     /* crear metodo para traer los datos del usuario - podria usar los datos del usuario que esta en objListausuario */
     this.servicio.getUsuarioSelecionado(this.idUsuario).subscribe(
@@ -487,6 +529,11 @@ export class ConfiguracionComponent implements OnInit {
       }
     )
   }
+
+  obtenerIdEstadoUsuario(idEstado:any){
+    this.idEstadoUsuario = idEstado.target.value;
+  }
+
 
   /* Modal Estado */
   botonCrearNuevoEstado() {
@@ -851,5 +898,16 @@ export class ConfiguracionComponent implements OnInit {
     cambiarPaginaUsario(pagina: PageEvent){
       this.M_cambioPaginas(pagina)
     }
+
+    /* Metodos para buscar usuarios */
+    /* m_buscarUsuario(nombre:any){
+      nombre = nombre.target.value;
+      if(nombre==''){
+
+      }else{
+        this.objListaUsuarios.find(nombre);
+      }
+
+    } */
 
 }
