@@ -87,12 +87,12 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <mat-paginator [length]="objEstadosDelTipo.length"
-                                [pageSize]="pageSize"
-                                [pageSizeOptions]="[5, 10, 25, 100]"
-                                (page)="cambiarPaginaEstados($event)"
-                                 aria-label="Seleccionar página">
-                 </mat-paginator>
+                                <mat-paginator [length]="objEstadosDelTipo.length" 
+                                    [pageSize]="pageSize"
+                                    [pageSizeOptions]="[5, 10, 25, 100]" 
+                                    (page)="cambiarPaginaEstados($event)"
+                                    aria-label="Seleccionar página">
+                                </mat-paginator>
                             </div>
                         </div>
                     </div>
@@ -467,11 +467,11 @@
 
                                 </tbody>
                             </table>
-                            <mat-paginator [length]="objTipoPerfil.length"
-                                            [pageSize]="pageSize"
-                                            [pageSizeOptions]="[5, 10, 25, 100]"
-                                            (page)="cambiarPaginaPerfiles($event)"
-                                            aria-label="Seleccionar página">
+                            <mat-paginator [length]="objTipoPerfil.length" 
+                            [pageSize]="pageSize"
+                                [pageSizeOptions]="[5, 10, 25, 100]" 
+                                (page)="cambiarPaginaPerfiles($event)"
+                                aria-label="Seleccionar página">
                             </mat-paginator>
 
                         </div>
@@ -647,11 +647,11 @@
 
                                 </tbody>
                             </table>
-                            <mat-paginator [length]="objListaTipVehiculos.length"
-                                            [pageSize]="pageSize"
-                                            [pageSizeOptions]="[5, 10, 25, 100]"
-                                            (page)="cambiarPaginaTiposVehiculos($event)"
-                                            aria-label="Seleccionar página">
+                            <mat-paginator [length]="objListaTipVehiculos.length" 
+                            [pageSize]="pageSize"
+                                [pageSizeOptions]="[5, 10, 25, 100]" 
+                                (page)="cambiarPaginaTiposVehiculos($event)"
+                                aria-label="Seleccionar página">
                             </mat-paginator>
 
                         </div>
@@ -680,22 +680,29 @@
                         <h3>Usuarios</h3>
                     </div>
                     <div class="container-fluid Centrado mb-1">
-                        <small>Seleccione el <b> usuario</b> para poder realizar las configuraciones
+                        <small>Busque al <b>usuario</b> que desea para realizar las configuraciones
                             necesarias</small>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-md-9">
-
-                            <input type="text" class="form-control" placeholder="Nombre Usuario">
-
-                            <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example" (change)="obtenerIdUsuario($event)">
-                                <option value="" disabled selected> Selecione un Usuario </option>
-                                <option *ngFor="let item of objListaUsuarios" value="{{item.idUsuario}}">{{item.nombreUsuario}}</option>
-                            </select> -->
+                        <div class="col-12 col-md-3 pb-2">
+                            <input type="text" class="form-control " [formControl]="ctrlNombreUsuario" placeholder="Buscar Usuario">                          
                         </div>
-                        <div class="col-12 col-md-3 btn__padding">
-                            <button type="button" class="btn btn-primary btn-sm w-100  "
-                                (click)="visualizarModalTiposVehiculos(modalTiposVehiculos)">Nuevo</button>
+                        <div class="col-12 col-md-3 pb-2">
+                            <input type="text" class="form-control" [formControl]="ctrlNickUsuario" placeholder="Buscar Nick">                          
+                        </div>
+
+                        <div class="col-12 col-md-3 pb-2">
+                            <select class="form-select " aria-label=".form-select-sm example" (change)="obtenerIdEstadoUsuario($event)" [formControl]="ctrlEstadoUsuario">
+                                <option value="" disabled selected> Selecione su Estado </option>
+                                <option *ngFor="let item of objEstadosUsuarios" value="{{item.idEstado}}">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-2 col-md-1 pb-2">
+                            <button type="button" class="btn btn-success" (click)="btn_buscarUsuario()"><i class="bi bi-search"></i></button>
+                        </div>
+                        <div class="col-6 col-md-1 ">
+                            <button type="button" class="btn btn-primary    "
+                                (click)="visualizarModalTiposVehiculos(modalTiposVehiculos)"><i class="bi bi-plus-square"></i></button>
                         </div>
                     </div>
                     <div class="row">
@@ -715,7 +722,7 @@
                                         <th> - - </th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-group-divide animate__animated animate__fadeIn" >
+                                <tbody class="table-group-divide animate__animated animate__fadeIn">
                                     <tr *ngFor="let item of objListaUsuarios | slice:paginaDesde:paginaHasta">
                                         <th>{{item.nombreUsuario}}</th>
                                         <td>{{item.apellido}}</td>
@@ -754,10 +761,10 @@
                                 </tbody>
                             </table>
                             <mat-paginator [length]="objListaUsuarios.length"
-                                           [pageSize]="pageSize"
-                                           [pageSizeOptions]="[5, 10, 25, 100]"
-                                           (page)="cambiarPaginaUsario($event)"
-                                            aria-label="Seleccionar página">
+                             [pageSize]="pageSize"
+                                [pageSizeOptions]="[5, 10, 25, 100]"
+                                 (page)="cambiarPaginaUsario($event)"
+                                aria-label="Seleccionar página">
                             </mat-paginator> <!--  -->
 
                         </div>
@@ -765,7 +772,16 @@
                 </div>
             </div>
         </div>
+
+
+
+    
+
+
+
     </div>
+
+
 
 </div>
 
