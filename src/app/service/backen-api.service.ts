@@ -22,6 +22,7 @@ import { ReclamoAmbiental } from '../model/reclamoAmbiental';
 import { sesionUsuario } from '../model/sesion';
 import { TipoReclamo } from '../model/tipoReclamo';
 import { Vehiculo } from '../model/vehiculo';
+import { estadosUsuarios } from '../model/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -326,6 +327,10 @@ export class BackenApiService {
   getidActivoVehiculo(){
     /* 4 devuelve estado activo e inactivo de vehiculo */
    return this.http.get<tipoEstadoVehiculo[]>('https://localhost:44363/TipoEstadoVehiculoadmin/4');
+  }
+
+  getEstadosFiltroUsuariosConfig(estado:string){
+    return this.http.get<estadosUsuarios[]>('https://localhost:44363/Usuariofiltroadmin?tipoEstado='+estado);
   }
 
   /*------------------------ Configuración Modal tipo estado y Estado ------------------------- */
