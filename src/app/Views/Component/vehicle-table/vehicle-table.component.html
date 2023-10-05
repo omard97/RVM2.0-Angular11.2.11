@@ -38,7 +38,12 @@
                         <td class="colVehicular7" >{{item.nombreMarca}}</td>
                         <td class="colVehicular8">{{item.nombreModelo}}</td>
                         <td class="colVehicular9">{{item.nombreTRec}}</td>
-                        <td class="colVehicular10">{{item.estadoR}}</td>
+                        <td class="colVehicular10"[ngClass]="{
+                            'text-Pendiente': item.estadoR === 'Pendiente',
+                            'text-EnRevision': item.estadoR ==='En Revisión',
+                            'text-Solucionado': item.estadoR === 'Solucionado',
+                            'text-Descartado': item.estadoR === 'Descartado'}"
+                            >{{item.estadoR}}</td>
                     </tr>
                 </tbody>
             </table>

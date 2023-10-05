@@ -1,5 +1,20 @@
 /* -------------------- Tabla  de reclamo --------------------------*/
 
+.text-Pendiente {
+  color: rgb(219, 106, 0);
+}
+.text-EnRevision {
+  color: #c68e0d;
+}
+
+
+.text-Solucionado {
+  color: #049b0c;
+}
+
+.text-Descartado {
+  color: red;
+}
 
 .container-table100 {
     display: -webkit-box;
