@@ -328,9 +328,14 @@ export class BackenApiService {
     /* 4 devuelve estado activo e inactivo de vehiculo */
    return this.http.get<tipoEstadoVehiculo[]>('https://localhost:44363/TipoEstadoVehiculoadmin/4');
   }
-
+  //utilizado para traer los estados activo e inactivo del usuario, solo para rellenar un select
   getEstadosFiltroUsuariosConfig(estado:string){
     return this.http.get<estadosUsuarios[]>('https://localhost:44363/Usuariofiltroadmin?tipoEstado='+estado);
+  }
+
+  //Metodo para filtrar la lista de usuarios de la pantalla de configuración
+  getFiltroUsuariosConfiguracion(nombreU:string, nickU:string,idEstado:number){
+
   }
 
   /*------------------------ Configuración Modal tipo estado y Estado ------------------------- */
