@@ -2,12 +2,12 @@
 
     <div class="row animate__animated animate__fadeIn">
         <div class="col-12">
-            <h1  class="titulo__reclamo" *ngIf="banderaEdicionReclamo==false">Nuevo Reclamo</h1>
-            <h1  class="titulo__reclamo" *ngIf="banderaEdicionReclamo==true"> Actualizar Reclamo</h1>
+            <h1 class="titulo__reclamo" *ngIf="banderaEdicionReclamo==false">Nuevo Reclamo</h1>
+            <h1 class="titulo__reclamo" *ngIf="banderaEdicionReclamo==true"> Actualizar Reclamo</h1>
         </div>
     </div>
-    
-    
+
+
 
     <!-- Tabla para reclamos ambientales -->
     <div class="  animate__animated animate__fadeIn" *ngFor="let item of arregloDetalleReclamo">
@@ -49,7 +49,11 @@
                                 <!-- <td class="column9" >{{item.nombreMarca}}</td>
                                 <td class="column10">{{item.nombreModelo}}</td> -->
                                 <td class="column8">{{item.nombreTRec}}</td>
-                                <td class="column9">{{item.estadoR}}</td>
+                                <td class="column9" [ngClass]="{
+                                    'text-Pendiente': item.estadoR === 'Pendiente',
+                                    'text-EnRevision': item.estadoR ==='En Revisión',
+                                    'text-Solucionado': item.estadoR === 'Solucionado',
+                                    'text-Descartado': item.estadoR === 'Descartado'}">{{item.estadoR}}</td>
 
                             </tr>
 
@@ -57,19 +61,51 @@
                     </table>
 
                     <div *ngIf="banderaTabla == 2">
-                        
+
                         <app-vehicle-table></app-vehicle-table>
                     </div>
-                    
+
                 </div>
             </div>
         </div><!--.container-table100 -->
     </div>
 
+
+
     <div class="row ">
         <div class="well well-sm">
-            <form  class="form-horizontal" method="post">
+            <form class="form-horizontal" method="post">
                 <fieldset>
+                    <div class="row" style="margin: 0 auto">
+                        <!-- Estados Reclamos -->
+                        <div class="col-12 pt-1 pb-1" *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
+                            <!-- <h5 class="text-center">Estados del reclamo</h5> -->
+                            <div class="form-check form-check-inline" *ngFor="let item of Tiporecla">
+                                <input class="form-check-input" (change)="dataChangedEstadoReclamo($event)" type="radio"
+                                    name="EstadosRec" [id]="item.idTipoReclamo" [value]="item.idTipoReclamo">
+                                <!-- [disabled]="this.arregloDetalleReclamo[0]?.nombreTRec != item.nombre" -->
+                                <label class="form-check-label" for="{{item.idTipoReclamo}}">{{item.nombre}}</label>
+                            </div>
+
+                            <div class="input-group flex-nowrap" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Estado Reclamo">
+
+                                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-repeat"></i></span>
+
+                                <select class="form-select form-select-sm" name="example" [formControl]="estadoReclamoCtrl"
+                                    aria-label=".form-select-sm example" >
+                                    <option value="" disabled> --- Tipo de Estado no selecionado ---</option>
+                                    <option value="{{item.idEstado}}" name="Esta"
+                                        *ngFor="let item of objetEstadoReclamo">
+                                        {{item.estadoNombre}}
+                                    </option>
+                                </select>
+
+                            </div>
+
+                        
+                        </div>
+                    </div>
                     <div class="row" style="margin: 0 auto">
                         <div class="col-12 col-md-12 col-lg-5 animate__animated animate__fadeIn">
 
@@ -163,8 +199,8 @@
                                 <span class="input-group-text" id="addon-wrapping"><i
                                         class="bi bi-123 icono__input"></i></span>
 
-                                <input id="dominio" name="" type="text" placeholder="Patente" class="form-control "
-                                    [formControl]="dominioCtrl">
+                                <input id="dominio" name="text" type="text" placeholder="Patente" class="form-control "
+                                    [formControl]="dominioCtrl" >
 
                             </div>
 
@@ -173,14 +209,14 @@
 
                                 <span class="input-group-text" id="addon-wrapping"><i
                                         class="bi bi-palette icono__input"></i></span>
-                                <input name="text" type="text" placeholder="Color" class="form-control "
+                                <input id="color" name="text" type="text" placeholder="Color" class="form-control "
                                     [formControl]="colorAutoCtrl">
 
                             </div>
 
                             <!-- Fecha -->
 
-                           <!--  <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
+                            <!--  <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Fecha">
                                 <span class="input-group-text" id="addon-wrapping"><i
                                         class="bi bi-calendar3 icono__input"></i></span>
@@ -190,7 +226,7 @@
 
                             <!-- Hora -->
 
-                           <!--  <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
+                            <!--  <div class="input-group flex-nowrap input_reclamo" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Hora">
 
                                 <span class="input-group-text" id="addon-wrapping"><i
@@ -269,34 +305,14 @@
 
 
 
-                                <!-- Estados Reclamos -->
-                                <div class="form-group"
-                                    *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
-                                    <h5 class="text-center">Estados del reclamo</h5>
-                                    <div class="form-check form-check-inline" *ngFor="let item of Tiporecla">
-                                        <input class="form-check-input" (change)="dataChangedEstadoReclamo($event)"
-                                            type="radio" name="EstadosRec" [id]="item.idTipoReclamo"
-                                            [value]="item.idTipoReclamo" > <!-- [disabled]="this.arregloDetalleReclamo[0]?.nombreTRec != item.nombre" -->
-                                        <label class="form-check-label" for="inlineRadio1">{{item.nombre}}</label>
-                                    </div>
 
-                                    <div class=" text-center ">
-                                        <select class="" name="example" [formControl]="estadoReclamoCtrl"
-                                            style="width: 100%;">
-                                            <option value="" disabled> --- Tipo de Estado no selecionado ---</option>
-                                            <option value="{{item.idEstado}}" name="Esta"
-                                                *ngFor="let item of objetEstadoReclamo">
-                                                {{item.nombre}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
 
                         </div> <!-- .descripcion -->
 
                         <!-- Mapa -->
-                        <div class="form-group input_reclamo shadow-lg p-3 rounded border border-2 animate__animated animate__fadeIn ">
+                        <div
+                            class="form-group input_reclamo shadow-lg p-3 rounded border border-2 animate__animated animate__fadeIn ">
                             <div *ngIf="banderaVerMapa!='editar'" class="col-12  ">
                                 <app-map-screen-reclamo></app-map-screen-reclamo>
                             </div>
@@ -316,17 +332,18 @@
 
 
 
-                        <div class=" col-12 col-sm-4 animate__animated  animate__fadeIn" *ngIf="banderaEdicionReclamo==false">
+                        <div class=" col-12 col-sm-4 animate__animated  animate__fadeIn"
+                            *ngIf="banderaEdicionReclamo==false">
                             <!--text-center d-inline-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 botones -->
 
-                            <button type="button" class="btn btn-success botones "
-                                  
-                                (click)="registrarReclamo()" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Enviar Reclamo"> <!--  || alturaCtrl.invalid || horaCtrl.invalid-->
+                            <button type="button" class="btn btn-success botones " (click)="registrarReclamo()"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Enviar Reclamo">
+                                <!--  || alturaCtrl.invalid || horaCtrl.invalid-->
                                 <i class="far fa-check-circle fa-lg"></i>Enviar
 
-                            </button> <!-- || fechaCtrl.invalid --> 
-                        </div> <!-- [disabled]="( (tipoReclamoCtrl.invalid && (reclamoAmbientalCtrl.invalid && marcaAutoCtrl.invalid && dominioCtrl.invalid))   || ubicacionCtrl.invalid ||  descripcionCtrl.invalid)" -->
+                            </button> <!-- || fechaCtrl.invalid -->
+                        </div>
+                        <!-- [disabled]="( (tipoReclamoCtrl.invalid && (reclamoAmbientalCtrl.invalid && marcaAutoCtrl.invalid && dominioCtrl.invalid))   || ubicacionCtrl.invalid ||  descripcionCtrl.invalid)" -->
 
 
                         <div class="col-12 col-sm-4 animate__animated animate__fadeIn"
@@ -334,7 +351,8 @@
 
                             <button type="button" class="btn btn-outline-success botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Actualizar Reclamo"
-                                (click)="MetodoActualizarReclamo()"><i class="fas fa-sync-alt fa-lg"></i>Actualizar</button>
+                                (click)="MetodoActualizarReclamo()"><i
+                                    class="fas fa-sync-alt fa-lg"></i>Actualizar</button>
                         </div>
 
                         <div class=" col-12 col-sm-4">
