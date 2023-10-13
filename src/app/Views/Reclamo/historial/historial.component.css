@@ -201,6 +201,26 @@ img {
 }
 
 /* -------------------- Tabla -------------------- */
+.select_listaReclamo{
+  text-align: center;
+  background-color: transparent;
+  border:none
+}
+.text-Pendiente {
+  color: rgb(219, 106, 0);
+}
+.text-EnRevision {
+  color: #a4c60d;
+}
+
+
+.text-Solucionado {
+  color: #049b0c;
+}
+
+.text-Descartado {
+  color: red;
+}
 
 .container-table100 {
   display: -webkit-box;
