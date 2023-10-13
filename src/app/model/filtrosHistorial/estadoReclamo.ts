@@ -5,5 +5,11 @@ export interface EstadoReclamo {
 }
 
 
+export class estadoReclamoAdmin{
 
+  idEstado: number =0;
+  estadoNombre : string ='';
+  idTipoEstado: number =0;
+  tipoEstadoNombre : string ='';
+}
 
