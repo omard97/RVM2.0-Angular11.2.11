@@ -19,11 +19,7 @@ import { Title } from '@angular/platform-browser';
 
 import { OnExit } from 'src/app/guards/exit.guard';
 import { formatDate } from '@angular/common';
-
-
-
-
-
+import { EstadosService } from 'src/app/service/Estados/estados.service';
 
 
 @Component({
@@ -149,7 +145,7 @@ export class ReclamoComponent implements OnInit, OnExit {
    banderaTabla: number = 0;
 
   constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService,
-    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title) { 
+    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title, private serviceEstado: EstadosService) { 
 
       
 
@@ -550,7 +546,24 @@ ambiental */
   dataChangedEstadoReclamo(ev: any) {
     /* Capturo el id del tipo de reclamo y luego lo uso para traer sus estados */
     this.idEstadoReclamo = ev.target.value;
-    this.service.getFiltroEstadoHistorial(this.idEstadoReclamo).subscribe(
+
+    this.serviceEstado.getEstados(this.idEstadoReclamo).subscribe(
+      (data) => {
+        console.log("Estados de los tipos de reclamos seleccionados")
+        console.log(data)
+        this.objetEstadoReclamo = data;
+        
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+
+
+
+
+
+   /*  this.service.getFiltroEstadoHistorial(this.idEstadoReclamo).subscribe(
       (data) => {
         this.objetEstadoReclamo = data;
         
@@ -558,7 +571,7 @@ ambiental */
       (error) => {
         console.log(error);
       }
-    );
+    ); */
   }
   /* MetodoEstadoReclamo(id:any){
     console.log("EstadoReclamo: ",id)
