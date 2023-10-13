@@ -95,7 +95,7 @@ export class HistorialComponent implements OnInit {
   paginaHasta: number =10;
 
 
-  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private menuComponent: MenuComponent, private titulo:Title, ) 
+  constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private menuComponent: MenuComponent, private titulo:Title) 
   {
 
     titulo.setTitle('Historial')
@@ -200,7 +200,7 @@ export class HistorialComponent implements OnInit {
     this.detalleReclamo.getTipoReclamo().subscribe(
       (res) => {
         this.tiposReclamos = res; /* res es la respuesta del servidor con todos los objetos y sus datos */
-        console.log('Recla:', this.tiposReclamos);
+        console.log('Tipos Reclamos:', this.tiposReclamos);
       },
       (err) =>{
         console.error(err)
