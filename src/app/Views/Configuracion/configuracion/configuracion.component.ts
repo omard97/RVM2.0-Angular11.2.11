@@ -59,6 +59,7 @@ export class ConfiguracionComponent implements OnInit {
     objTipoEstado: any; /* Select */
     objEstadosDelTipo: any [] = []; /* Tabla */
     selectIDTipEstado = 0; /* Variable para capturar el valor del tipo de estado */
+
   /* ---Modal Tipo Estado ---  */
     objModalTipoEstado: any;
     selectIDTipEstadoModal = 0;
@@ -537,25 +538,29 @@ export class ConfiguracionComponent implements OnInit {
 
   /* Modal Estado */
   botonCrearNuevoEstado() {
-    ;
+    
     /* Crear solo un tipo de estado */
     if(this.nombreEstadoCtrl.value!="" && this.selectIDTipEstadoModal == 0  && this.banderaSwitch==false){
+
+      var nombreEstado ='';
 
       var TipEstado: TipoEstado={
         nombre: this.nombreEstadoCtrl.value,
       }
-      
+      debugger
       this.servicio.postTipoEstado(TipEstado).subscribe(
         (res) => {
+
+
+          this.postEstado(res,'pendiente') // utilizado para crear un tipo de estaod con 4 estados por defecto
         },
         (err) => console.error(err)
       );
-      this.NotificacionTipoEstadoCreado();
-      this.limpiarModalEstado();
+
 
       /* Creo un estado con tipo de estado */
     }else if (this.nombreEstadoCtrl.value != '' && this.selectIDTipEstadoModal != 0 && this.banderaSwitch==true) {
-      
+      //En lugar de crear 4 estados por defecto acá creo uno personalizado para el tipo de estado seleccionado
       var Estado: PostEstado={
         nombre: this.nombreEstadoCtrl.value,
         id_TipoEstado: Number(this.selectIDTipEstadoModal)
@@ -573,6 +578,23 @@ export class ConfiguracionComponent implements OnInit {
     } else {
       this.NotificacionRellenarCampos();
     }
+  }
+  //creo un tipo de estado con los 4 estados por defecto - pendiente, en revision, solucionado, descartado
+  postEstado(dataTipoEstado:any,nombreEstado:string){
+    debugger
+      var Estado: PostEstado={
+        nombre: nombreEstado,
+        id_TipoEstado: dataTipoEstado.idTipoEstado
+      }
+      
+      this.servicio.postEstado(Estado).subscribe(
+        (res) => {
+          
+        },
+        (err) => console.error(err)
+      )
+      this.NotificacionEstadoCreado();
+      this.limpiarModalEstado();
   }
   obtenerIDTipoEstadoModal(ev: any) {
     this.selectIDTipEstadoModal = 0;
