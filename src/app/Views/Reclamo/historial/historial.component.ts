@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NgbModal  } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
-import { EstadoReclamo } from 'src/app/model/filtrosHistorial/estadoReclamo';
+import { EstadoReclamo, tipoEstadoHistorial } from 'src/app/model/filtrosHistorial/estadoReclamo';
 import { TipoReclamo } from 'src/app/model/tipoReclamo';
 import { LoginApiService } from 'src/app/service/Login/login-api.service';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
@@ -94,7 +94,7 @@ export class HistorialComponent implements OnInit {
   paginaDesde: number=0;
   paginaHasta: number =10;
 
-
+  listaEstados: tipoEstadoHistorial[] = [];
   constructor( public serviceUsuario: MenuApiService, public serviceLogin: LoginApiService,  public detalleReclamo:BackenApiService, private router:Router, private toastr:ToastrService,  private modal: NgbModal, private menuComponent: MenuComponent, private titulo:Title) 
   {
 
@@ -105,12 +105,26 @@ export class HistorialComponent implements OnInit {
     this.fechaHoy = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); /* fecha del dia */
 
     this.getRolUsuario();
-    this.getTipoReclamo();
+   /*  this.getTipoReclamo(); */ // esto tenia antes
+    this.getEstados()
    }
 
   ngOnInit(): void {
    
     
+    
+  }
+
+  getEstados(){
+    //lista de estados utilizados en el primer select, anteriormente era tipos de reclamos pero para que tenga relacion segun los estados es mejor
+    //usar la lista de estados - ambienta y vial -
+    this.detalleReclamo.getEstadosHistorial().subscribe(
+      (data) => {
+        this.listaEstados = data;
+        console.log(this.listaEstados)
+      }
+    )
+
     
   }
 
@@ -149,7 +163,7 @@ export class HistorialComponent implements OnInit {
 
   
   getDetalleReclamosHoy() {
-   
+   debugger
     console.log('rol usuario: '+this.usuario.idRol)
     if (this.usuario.idRol == 1 || this.usuario.idRol == 2) {
      
@@ -196,17 +210,17 @@ export class HistorialComponent implements OnInit {
     }
   }
 
-  getTipoReclamo(): void {
+/*   getTipoReclamo(): void {
     this.detalleReclamo.getTipoReclamo().subscribe(
       (res) => {
-        this.tiposReclamos = res; /* res es la respuesta del servidor con todos los objetos y sus datos */
+        this.tiposReclamos = res;
         console.log('Tipos Reclamos:', this.tiposReclamos);
       },
       (err) =>{
         console.error(err)
       } 
     );
-  }
+  } */
 
   obtenerIDTipoReclamo(ev: any) {
     

@@ -12,14 +12,14 @@
 
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 animate__animated animate__fadeIn">
 
-        <h5>Tipo de Reclamo</h5>
+        <h5>Tipo de Reclamo/Estado</h5>
         <div>
           <select class="form-select d-inline-block seleccionFiltros  " data-bs-toggle="tooltip" data-bs-placement="top"
             title="Tipo de Reclamo" placeholder="Clic para abrir" (change)="obtenerIDTipoReclamo($event)" aria-label=""
             [formControl]="tipoReclamoCtrl">
             <!-- Default select example -->
             <option value="" disabled> --- Tipo de Reclamo no selecionado --- </option>
-            <option *ngFor="let item of tiposReclamos" value="{{item.idTipoReclamo}}" selected>{{item.nombre}}</option>
+            <option *ngFor="let item of listaEstados" value="{{item.idTipoEstado}}" selected>{{item.nombreTipoEstado}}</option>
 
           </select>
         </div>
