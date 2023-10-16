@@ -170,7 +170,8 @@ export class ReclamoComponent implements OnInit, OnExit {
   }
 
   ngOnInit(): void {
-    this.getListTipoReclamos();
+      //trae los tipos de reclamos para el select y visualizar los radio buttons a la hora de actualizar el reclamo
+      this.getListTipoReclamos();
   }
 
   obtenerHora(){
@@ -558,11 +559,6 @@ ambiental */
         console.log(error);
       }
     )
-
-
-
-
-
    /*  this.service.getFiltroEstadoHistorial(this.idEstadoReclamo).subscribe(
       (data) => {
         this.objetEstadoReclamo = data;
