@@ -13,3 +13,9 @@ export class estadoReclamoAdmin{
   tipoEstadoNombre : string ='';
 }
 
+
+export class tipoEstadoHistorial{
+  idTipoEstado: number = 0;
+  nombreTipoEstado: string='';
+  
+}
