@@ -30,12 +30,14 @@
               <img class="img__login" id="" src="../../../../assets/img/RVM-nuevo.png"  alt="logo">
             </div>
           </div>
-          <input class="input__login" type="email" [formControl]="userLogCtrl" placeholder="Correo" />
+          <input name="email" id="email" class="input__login" type="email" [formControl]="userLogCtrl" placeholder="Correo"  autocomplete="on" />
+         
           <input class="input__login" type="password" [formControl]="pasworLogCtrl" placeholder="Contraseña" />
           <div class="text-center pt-2 pb-2 text-muted contenedor__registro">¿No tenés una cuenta? <a class="registro__enlace" data-bs-toggle="modal"
               data-bs-target="#registroModal">Registrate Ahora!</a> </div>
           <div class="text-center mt-4">
             <button class="btn__login" (click)="validarUsuario()">Iniciar Sesión</button>
+            
           </div>
         </form>
       </div>
