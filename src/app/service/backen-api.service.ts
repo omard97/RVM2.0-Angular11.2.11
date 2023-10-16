@@ -13,7 +13,7 @@ import { RecuentoTipReclamos } from '../model/Dashboard/V_CantidadTipReclamoUsua
 import { RecuentoTarjetas } from '../model/Dashboard/V_RecuentoReclamos';
 import { RecuentoTotal } from '../model/Dashboard/V_RecuentoTotal';
 import { DetalleReclamo, DetalleReclamoActualizar, DetalleReclamoVehicularActualizar } from '../model/detalleReclamo';
-import { EstadoReclamo } from '../model/filtrosHistorial/estadoReclamo';
+import { EstadoReclamo, tipoEstadoHistorial } from '../model/filtrosHistorial/estadoReclamo';
 import { marca } from '../model/marca';
 import { modelo } from '../model/modelo';
 import { datosperfil } from '../model/perfil';
@@ -128,6 +128,13 @@ export class BackenApiService {
   // ---------------------------------- Metodos HISTORIAL---------------------------------- 
 
   // GET
+
+  getEstadosHistorial(){
+    //utilizado para traer los tipos de estados que se van a visualizar en el primer select de los filtros del historial
+    // antes se filtraba por tipos de reclamos 
+    return this.http.get<tipoEstadoHistorial[]>('https://localhost:44363/TipoEstado');
+  }
+
   getTipoReclamo(): Observable<TipoReclamo[]> {
     return this.http.get<TipoReclamo[]>('https://localhost:44363/tiporeclamo');
   }
@@ -340,6 +347,7 @@ export class BackenApiService {
 
   /*------------------------ Configuración Modal tipo estado y Estado ------------------------- */
   postTipoEstado(tipoEstado: any ):Observable<any>{
+    debugger
     return this.http.post('https://localhost:44363/TipoEstado', tipoEstado, this.httpOptions);
   }
 
