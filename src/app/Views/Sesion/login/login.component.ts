@@ -246,7 +246,7 @@ export class LoginComponent implements OnInit {
         Correo: this.correoCtrl.value + '',
         Contrasenia: this.contraseniaCtrl.value + '',
         ID_Perfil: 3, /* usuario */
-        ID_Estado: 10,/* activo */
+        ID_Estado: 9,/* activo */
       }
      
 
