@@ -14,6 +14,7 @@ export class EstadosService {
   constructor(private http: HttpClient) { }
 
   //trae todos los estados una unica vez
+  //utilizado en FiltrosHistorialController - EstadoReclamoController
   getEstados(id:number){
     return this.http.get<estadoReclamoAdmin[]>('https://localhost:44363/estadoreclamo?id='+id);
   }
