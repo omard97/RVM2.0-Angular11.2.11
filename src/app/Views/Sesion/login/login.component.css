@@ -47,6 +47,18 @@ body {
   cursor: pointer;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+/* input[type=number] {
+  -moz-appearance: textfield;
+} */
+
 /* ---------- login ------- */
 
 .contenedor {
@@ -81,7 +93,7 @@ a {
   text-decoration: none;
 }
 
-.img__login{
+.img__login {
   width: 190px;
 }
 
@@ -150,17 +162,20 @@ button:active {
   width: 400px;
   transition-duration: 0.5s;
 }
-@media (max-width: 500px ) {
-  .form-contenedor{
+
+@media (max-width: 500px) {
+  .form-contenedor {
     padding-top: 12rem;
   }
-  .img__login{
+
+  .img__login {
     width: 150px;
   }
+
   .contenedor__registro {
-    
+
     width: 150px;
-    
+
   }
 }
 
@@ -177,4 +192,39 @@ button:active {
   color: rgba(255, 98, 0, 0.794) !important;
   transition-duration: 0.5s;
 
+}
+
+/* Spinner */
+
+.loader {
+
+  width: 23px;
+  height: 23px;
+  border: 3px solid #FFF;
+  border-bottom-color: #FF3D00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite, fadeIn 0.5s ease-in-out;
+  margin-left: 10px;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
