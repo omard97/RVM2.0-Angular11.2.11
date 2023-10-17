@@ -68,61 +68,74 @@ export class LoginComponent implements OnInit {
     ID_Usuario: 0,
   }
 
+  banderaSpinner: boolean =false;
+
   ngOnInit(): void { }
 
   /* ----- Login ----- */
   validarUsuario() {
+    //muestro el spinner para realizar un efecto de carga de datos
+    this.banderaSpinner=true;
     debugger
     var usuarioLogeado = {
       email: this.userLogCtrl.value,
       password: this.pasworLogCtrl.value,
     };
 
-    if (usuarioLogeado.email == '' || usuarioLogeado.password == '') {
-      this.toastr.warning(
-        'El correo/contraseña no coinciden, intentelo de nuevo.',
-        'Atención',
-        {
-          timeOut: 5000,
-          positionClass: 'toast-bottom-center'
-        }
-      );
-    } else {
-      this.serviceLogin.getValidacionUsuario(usuarioLogeado.email, usuarioLogeado.password).subscribe(
-        (data) => {
-          debugger
-          if (data == 0) {
+    setTimeout(() => {
+      
+      if (usuarioLogeado.email == '' || usuarioLogeado.password == '') {
+        this.banderaSpinner=false;
+        this.toastr.warning(
+          'El correo/contraseña no coinciden, intentelo de nuevo.',
+          'Atención',
+          {
+            timeOut: 5000,
+            positionClass: 'toast-bottom-center'
+          }
+        );
+      } else {
+        this.serviceLogin.getValidacionUsuario(usuarioLogeado.email, usuarioLogeado.password).subscribe(
+          (data) => {
+            debugger
+            if (data == 0) {
+              this.banderaSpinner=false;
+              this.toastr.warning(
+                'El correo/contraseña no coinciden, intentelo de nuevo.',
+                'Atención',
+                {
+                  timeOut: 5000,
+                  positionClass: 'toast-bottom-center'
+                }
+              );
+            } else {
+              this.banderaSpinner=true;
+              this.listUsuariodata = data;
+              /* obtengo el id del usuario y lo envio para postearlo */
+              this.postInicioSesionUsuario(this.listUsuariodata[0].idUser);
+            }
+            debugger
+          },
+          (error) => {
+            this.banderaSpinner=false;
             this.toastr.warning(
-              'El correo/contraseña no coinciden, intentelo de nuevo.',
+              'no hay conexión con la Base de Datos.',
               'Atención',
               {
                 timeOut: 5000,
                 positionClass: 'toast-bottom-center'
               }
             );
-          } else {
-
-            this.listUsuariodata = data;
-            /* obtengo el id del usuario y lo envio para postearlo */
-            this.postInicioSesionUsuario(this.listUsuariodata[0].idUser);
+  
+            console.log(error)
+  
           }
-          debugger
-        },
-        (error) => {
-          this.toastr.warning(
-            'no hay conexión con la Base de Datos.',
-            'Atención',
-            {
-              timeOut: 5000,
-              positionClass: 'toast-bottom-center'
-            }
-          );
+        )
+      }
 
-          console.log(error)
+    }, 2000)
 
-        }
-      )
-    }
+    
 
   }
 
