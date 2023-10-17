@@ -4,22 +4,22 @@
       <div class="container-fluid">
         <a class="navbar-brand contenedor__imagenlogin" routerLink="/home"><img class="imagen__login"
             src="../../../../assets/img/RVM-nuevo.png " alt=""></a>
-        
+
         <div class="collapse navbar-collapse justify-content-end navbar__botones " id="navbarNav">
           <ul class="navbar-nav">
 
-         
+
 
           </ul>
         </div>
       </div>
     </nav>
-    
+
   </header> <!-- cabecera -->
 
   <main>
 
-  
+
 
     <div class=" contenedor animate__animated animate__fadeIn">
       <div class="form-contenedor sign-in-container">
@@ -27,17 +27,21 @@
           <!-- <h1>Login</h1> -->
           <div class="social-container">
             <div class=" text-center">
-              <img class="img__login" id="" src="../../../../assets/img/RVM-nuevo.png"  alt="logo">
+              <img class="img__login" id="" src="../../../../assets/img/RVM-nuevo.png" alt="logo">
             </div>
           </div>
-          <input name="email" id="email" class="input__login" type="email" [formControl]="userLogCtrl" placeholder="Correo"  autocomplete="on" />
-         
+          <input name="email" id="email" class="input__login" type="email" [formControl]="userLogCtrl"
+            placeholder="Correo" autocomplete="on" />
+
           <input class="input__login" type="password" [formControl]="pasworLogCtrl" placeholder="Contraseña" />
-          <div class="text-center pt-2 pb-2 text-muted contenedor__registro">¿No tenés una cuenta? <a class="registro__enlace" data-bs-toggle="modal"
-              data-bs-target="#registroModal">Registrate Ahora!</a> </div>
-          <div class="text-center mt-4">
-            <button class="btn__login" (click)="validarUsuario()">Iniciar Sesión</button>
-            
+          <div class="text-center pt-2 pb-2 text-muted contenedor__registro">¿No tenés una cuenta? <a
+              class="registro__enlace" data-bs-toggle="modal" data-bs-target="#registroModal">Registrate Ahora!</a>
+          </div>
+          <div class="text-center mt-4 ">
+            <button class="btn__login d-flex justify-content-between align-items-center"
+              (click)="validarUsuario()">Iniciar Sesión<span *ngIf="banderaSpinner == true"
+                class="loader animated"></span></button>
+
           </div>
         </form>
       </div>
@@ -45,7 +49,7 @@
 
   </main>
 
-  
+
   <!-- Modal registro usaurio -->
   <div class="modal fade" id="registroModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,7 +83,7 @@
                 <div class="input-group flex-nowrap inputModal">
 
                   <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-user"></i></span>
-                  <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                  <input name="name" type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
                     [formControl]="nombreCtrl">
 
 
@@ -89,7 +93,7 @@
                 <div class="input-group flex-nowrap inputModal">
 
                   <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-plus"></i></span>
-                  <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido"
+                  <input name="name" type="text" class="form-control" placeholder="Apellido" aria-label="Apellido"
                     [formControl]="apellidoCtrl">
 
                 </div>
@@ -98,30 +102,32 @@
 
                   <span class="input-group-text" id="addon-wrapping"><i
                       class="fa-solid fa-mobile-screen-button"></i></span>
-                  <input type="number" class="form-control" placeholder="Teléfono" aria-label="Celular"
-                    [formControl]="telefonoCtrl">
+                      <input name="telephone" type="tel" class="form-control" placeholder="Número de Teléfono" aria-label="Celular"
+                      [formControl]="telefonoCtrl" pattern="^[0-9]+$" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+                
 
                 </div>
                 <!-- DNI -->
                 <div class="input-group flex-nowrap inputModal">
 
                   <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-address-card"></i></span>
-                  <input type="number" class="form-control" placeholder="DNI" aria-label="Dni" [formControl]="dniCtrl">
+                  <input name="telephone" type="number" class="form-control" placeholder="DNI" aria-label="Dni" [formControl]="dniCtrl" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
                 </div>
                 <!-- Usuario -->
                 <div class="input-group flex-nowrap inputModal">
 
                   <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-circle-user"></i></span>
-                  <input type="text" class="form-control" placeholder="Usuario" aria-label="Usuario"
-                    [formControl]="usuarioCtrl"  #txtQuery (keyup)="validarUsuarioRepetido(txtQuery.value)">
+                  <input name="name" type="text" class="form-control" placeholder="Usuario" aria-label="Usuario"
+                    [formControl]="usuarioCtrl" #txtQuery (keyup)="validarUsuarioRepetido(txtQuery.value)">
 
                 </div>
                 <!-- Correo -->
                 <div class="input-group flex-nowrap inputModal">
 
                   <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-at"></i></span>
-                  <input type="email" class="form-control" name="email"  placeholder="Correo" aria-label="Correo"
+                  <input type="email" class="form-control" name="email" placeholder="Correo" aria-label="Correo"
                     [formControl]="correoCtrl" #txtCorreo (keyup)="validarCorreoRepetido(txtCorreo.value)">
 
                 </div>
@@ -155,7 +161,7 @@
           <button type="submit" class="btn btn-primary" (click)="registrarUsuario()">Registrarme</button>
 
         </div> <!-- modal footer -->
-       
+
       </div>
     </div>
 
