@@ -102,7 +102,10 @@ export class HistorialComponent implements OnInit {
     this.rutaURL = window.location.pathname.split('/');
     this.usuario.idUsuario = this.rutaURL[2];
     
-    this.fechaHoy = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); /* fecha del dia */
+    
+
+    
+   
 
     this.getRolUsuario();
    /*  this.getTipoReclamo(); */ // esto tenia antes
@@ -111,8 +114,8 @@ export class HistorialComponent implements OnInit {
 
   ngOnInit(): void {
    
-    
-    
+    this.fechaHoy = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); /* fecha del dia */
+    this.fechaDesdeCtrl = new FormControl(this.fechaHoy, [Validators.required]);
   }
 
   getEstados(){

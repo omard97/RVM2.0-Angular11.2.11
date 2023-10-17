@@ -42,11 +42,9 @@
 
       </div>
       <div class="col-12 col-sm-6 col-md-4 col-lg-2 animate__animated animate__fadeIn">
-        <h5>Fecha Inicio</h5>
-        <input id="Fecha" class="form-control calendario" data-bs-toggle="tooltip" data-bs-placement="top"
-          title="Fecha Inicio" name="Fecha" type="date" placeholder="Fecha" [formControl]="fechaDesdeCtrl">
-
-
+        <h5>Fecha</h5>
+        <input  class="form-control calendario" data-bs-toggle="tooltip" data-bs-placement="top"
+          title="Fecha Inicio" type="date" placeholder="Fecha" value="{{fechaHoy}}" max="{{fechaHoy}}" [formControl]="fechaDesdeCtrl" >
         <!--   <div class="row">
             <div class="col">
               
