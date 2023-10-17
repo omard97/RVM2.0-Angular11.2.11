@@ -102,7 +102,8 @@ export class HistorialComponent implements OnInit {
     this.rutaURL = window.location.pathname.split('/');
     this.usuario.idUsuario = this.rutaURL[2];
     
-    
+    this.fechaHoy = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); /* fecha del dia */
+    /* this.fechaDesdeCtrl = new FormControl(this.fechaHoy, [Validators.required]); */
 
     
    
@@ -114,8 +115,8 @@ export class HistorialComponent implements OnInit {
 
   ngOnInit(): void {
    
-    this.fechaHoy = formatDate(new Date(), 'yyyy-MM-dd', 'en-US'); /* fecha del dia */
-    this.fechaDesdeCtrl = new FormControl(this.fechaHoy, [Validators.required]);
+
+    
   }
 
   getEstados(){
@@ -352,7 +353,7 @@ export class HistorialComponent implements OnInit {
             this.banderaIconoCarga =false;
             this.banderaAlerta=false;
             this.Dreclamos = res;
-            
+            console.log(this.Dreclamos)
             if (res.length == 0) {
               this.banderaAlerta=true;
               this.banderaIconoCarga=false;
@@ -365,7 +366,7 @@ export class HistorialComponent implements OnInit {
         )
           /* Busqueda por tipo reclamo, estado reclamo, fecha y nombre de usuario */
       }else if((this.tipoReclamoCtrl.value!="" && this.estadoReclamoCtrl.value!="" )&& this.fechaDesdeCtrl.value!="" && this.nombreUsuarioCtrl.value!=""){
-        
+        debugger
         this.detalleReclamo.getDetalleReclamoPorfechayNombreUsuario(Number(this.tipoReclamoCtrl.value),Number(this.estadoReclamoCtrl.value),this.fechaDesdeCtrl.value+'',this.usuario.idRol,this.nombreUsuarioCtrl.value+'').subscribe(
           (res)=>{
             
@@ -374,7 +375,7 @@ export class HistorialComponent implements OnInit {
             this.banderaIconoCarga =false;
             this.banderaAlerta=false;
             this.Dreclamos = res;
-            
+            console.log(this.Dreclamos)
             if (res.length == 0) {
               this.banderaAlerta=true;
               this.banderaIconoCarga=false;
