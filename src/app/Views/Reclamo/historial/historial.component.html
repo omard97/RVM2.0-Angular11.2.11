@@ -141,9 +141,6 @@
               'text-Descartado': item.nombre === 'Descartado'
             }">{{item.nombre}}
             </td>
-
-           
-
             <td class="column3">{{item.fecha | date:'dd-MM-yyyy'}}</td>
             <td class="column4">{{item.nombreRecAmbiental}}</td>
             <td class="column5">{{item.nombreTRec}}</td>
@@ -222,8 +219,13 @@
               date:'dd-MM-yyyy'}}</p>
             <p><i class="far fa-clock"></i><span class="span-text"> Hora: </span>{{index.hora}}</p>
             <p *ngIf="(index.dominio!='-' || index.dominio=='')" class="card-text"><i class="fas fa-car"></i> <span
-                class="span-text">
-                Dominio: </span>{{index.dominio}}</p>
+                class="span-text"> Dominio: </span>{{index.dominio}}</p>
+            
+              <p *ngIf="(index.modelo!=''  )"><i class="bi bi-car-front-fill"></i><span class="span-text"> Modelo: </span> {{index.modelo}}</p>  
+              <p *ngIf="(index.marca!='')"><i class="bi bi-car-front-fill"></i><span class="span-text"> Marca: </span>{{index.marca}}</p>
+              <p *ngIf="(index.color!='')"><i class="bi bi-palette"></i><span class="span-text"> Color: </span>{{index.color}}</p>
+            
+            
             <p><i class="fas fa-map-signs"></i><span class="span-text"> Dirección: </span>{{index.direccion}} </p>
             <!-- <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p> -->
 
