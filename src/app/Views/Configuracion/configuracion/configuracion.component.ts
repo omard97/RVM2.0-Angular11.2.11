@@ -14,6 +14,7 @@ import { postMarca } from 'src/app/model/Configuracion/marcaVehiculo';
 import { postModeloVehiculo } from 'src/app/model/Configuracion/modeloVehiculo';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { PageEvent } from '@angular/material/paginator';
+import { PerfilApiService } from 'src/app/service/Perfil/perfil-api.service';
 
 
 @Component({
@@ -119,6 +120,22 @@ export class ConfiguracionComponent implements OnInit {
   
     /* modal put vehiculo - actualizar */
     objVehiculoModal:any;
+
+
+
+    /* Modal Usuario - Actualiar */
+    nombrePersonaCtrl = new FormControl('', [Validators.required]);
+    apellidoPersonaCtrl = new FormControl('', [Validators.required]);
+    celularCtrl = new FormControl('', [Validators.required]);
+    dniCtrl = new FormControl('', [Validators.required]);
+    correoCtrl = new FormControl('', [Validators.required]);
+    contraseniaCtrl = new FormControl('', [Validators.required]);
+    nombreUsuarioCtrl = new FormControl('', [Validators.required]);
+    fotoCtrl = new FormControl('', [Validators.required]);
+    datosUsuario:any [] =[]
+    banderaActualizarUsuario: boolean = false;
+    /* Guardar foto de perfil para actualizar */
+    imagePerfilDataUrl!:string;
   
     ruta: any;
     /* IDUsuario: any; */
@@ -133,7 +150,7 @@ export class ConfiguracionComponent implements OnInit {
       IDsesion:0,
     }
 
-  constructor(config: NgbModalConfig, private servicio: BackenApiService, private modal: NgbModal,private toastr: ToastrService, public serviceUsuario: MenuApiService) { 
+  constructor(config: NgbModalConfig, private servicio: BackenApiService, private modal: NgbModal,private toastr: ToastrService, public serviceUsuario: MenuApiService, private servicePerfil:PerfilApiService) { 
     /* Configuracion del Modal */
     config.backdrop = 'static';
     config.keyboard = false;
@@ -203,6 +220,11 @@ export class ConfiguracionComponent implements OnInit {
   visualizarModalPerfil(content: any) {
     this.modal.open(content);
   }
+  visualizarModalUsuario(content: any, idUsuario:number) {
+    debugger
+    this.modal.open(content);
+    this.getDatosUsuarioSeleccionado(idUsuario);
+  }
 
   /* Visualizar Modal para ACTUALIZAR */
   openPutModalVehiculo(putModalVehiculo:any,idvehiculo:number){
@@ -262,6 +284,9 @@ export class ConfiguracionComponent implements OnInit {
   botonCerrarModalPerfil(){
     this.modal.dismissAll();
     this.nombreModalPerfil.setValue('');
+  }
+  botonCerrarModalUsuario(){
+    this.modal.dismissAll();
   }
 
 
@@ -798,7 +823,42 @@ export class ConfiguracionComponent implements OnInit {
     }
   }
  
+   /* ******************************  Modal Usuario ****************************** */
 
+   getDatosUsuarioSeleccionado(idUsuario:number){
+    this.servicePerfil.getdatosPerfil(idUsuario).subscribe(
+      (data)=>{
+        this.datosUsuario=data;
+      }
+    )
+   }
+
+   formularioUsuario(){
+    this.banderaActualizarUsuario = true;
+
+   }
+
+   /* ---------------------- Input file ----------------------*/
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      this.uploadImage(file);
+    }
+  }
+/* leer el contenido del archivo seleccionado y convertirlo en un formato utilizable, como una URL de datos */
+  uploadImage(file: File) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePerfilDataUrl = reader.result as string;
+      
+      
+      // Aquí puedes realizar acciones adicionales con la imagen,
+      // como enviarla al servidor o mostrarla en la interfaz de usuario.
+    };
+    reader.readAsDataURL(file);
+  }
+  /* ---------------------- Fin Input file ----------------------*/
+  /* ******************************  FIN Modal Usuario ****************************** */
   limpiarModalEstado() {
     /* cuando se cierra el modal o se crea el estado o el tipo de estado */
     this.banderaSwitch = false;
