@@ -112,6 +112,59 @@ input::-webkit-inner-spin-button {
 
 }
 
-th{
+/* th{
   width: 10%;
+} */
+.contenedor_botonesOpciones{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.columna1,
+.columna2,
+.columna3,
+.columna4,
+.columna5{
+  width: 180px;
+}
+@media screen and (max-width: 942px) {
+ .btn__opciones{
+   
+   font-size: 10px;
+   transition-duration: 0.5s;
+ }
+
+}
+
+
+.btn__opciones {
+
+    margin: 0px 10px 0px 10px;
+   
+  
+  
+}
+
+/* ------ Modal Usuario ------ */
+
+.imagen--perfil {
+  border-radius: 1rem;
+}
+
+
+.titulo__perfil{
+  font-size: 18px;
+  margin: 0;
+}
+.info__perfil{
+  color: var(--colorTexto);
+  font-size: 14px;
+  padding-bottom: 10px;
+}
+.inputModal {
+  margin: 0rem 0 0.5rem 0;
+}
+
+.contenedor__inputPerfil{
+  padding: 0rem 0rem 0rem 0rem;
 }
