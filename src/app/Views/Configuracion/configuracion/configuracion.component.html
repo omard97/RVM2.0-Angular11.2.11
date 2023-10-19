@@ -52,7 +52,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-12 divTabla" *ngIf="selectIDTipEstado!=0">
+                            <div class="col-12 divTabla table-responsive-lg" *ngIf="selectIDTipEstado!=0">
                                 <table class="table table-hover">
                                     <thead class="table-light">
                                         <tr>
@@ -167,7 +167,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 divTabla" *ngIf="objListaVehiculos!=null">
+                        <div class="col-12 divTabla table-responsive-lg" *ngIf="objListaVehiculos!=null">
                             <table class="table table-hover table-bordered table-striped">
                                 <thead class="table-light">
                                     <tr>
@@ -272,7 +272,7 @@
                     <div class="row">
 
 
-                        <div class="col-12 divTabla" *ngIf="objListaIDMarca!=null">
+                        <div class="col-12 divTabla table-responsive-lg" *ngIf="objListaIDMarca!=null">
                             <table class="table table-hover table-bordered table-striped">
                                 <thead class="table-light">
                                     <tr>
@@ -354,7 +354,7 @@
                     <div class="row">
 
 
-                        <div class="col-12 divTabla" *ngIf="">
+                        <div class="col-12 divTabla table-responsive-lg" *ngIf="">
                             <table class="table table-hover table-bordered table-striped">
                                 <thead class="table-light">
                                     <tr>
@@ -434,7 +434,7 @@
                     <div class="row">
 
 
-                        <div class="col-12 divTabla">
+                        <div class="col-12 divTabla table-responsive-lg">
                             <table class="table table-hover table-bordered table-striped">
                                 <thead class="table-light">
                                     <tr>
@@ -520,7 +520,7 @@
                     </div>
                     <div class="row">
 
-                        <div class="col-12 divTabla" *ngIf="selectIDTipReclamo!=0">
+                        <div class="col-12 divTabla table-responsive-lg" *ngIf="selectIDTipReclamo!=0">
                             <table class="table table-hover table-bordered table-striped">
                                 <thead class="table-light">
                                     <tr>
@@ -600,7 +600,7 @@
                     <div class="row">
 
 
-                        <div class="col-12 divTabla" *ngIf="selectIDTipVehiculo!=0">
+                        <div class="col-12 divTabla  table-responsive-lg" *ngIf="selectIDTipVehiculo!=0">
                             <table class="table table-hover table-bordered table-striped">
                                 <thead class="table-light">
                                     <tr>
@@ -701,45 +701,45 @@
                             <button type="button" class="btn btn-success" (click)="btn_buscarUsuario()"><i class="bi bi-search"></i></button>
                         </div>
                         <div class="col-6 col-md-1 ">
-                            <button type="button" class="btn btn-primary    "
-                                (click)="visualizarModalTiposVehiculos(modalTiposVehiculos)"><i class="bi bi-plus-square"></i></button>
+                            <button type="button" class="btn btn-primary"
+                                ><i class="bi bi-plus-square"></i></button>
                         </div>
                     </div>
                     <div class="row">
 
-                        <div class="col-12 divTabla">
-                            <table class="table table-hover animate__animated animate__fadeIn ">
+                        <div class="col-12 divTabla table-responsive-lg">
+                            <table class="table  animate__animated animate__fadeIn ">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
+                                        <th class="columna1">Nombre</th>
+                                        <th class="columna2">Apellido</th>
                                         <!-- <th>Teléfono</th>
                                         <th>DNI</th>
                                         <th>Correo</th> -->
-                                        <th>Nick</th>
-                                        <th>Foto </th>
-                                        <th>Estado </th>
-                                        <th> - - </th>
+                                        <th class="columna3">Nick</th>
+                                        <th class="columna4">Foto </th>
+                                        <th class="columna5" >Estado </th>
+                                        <th class="columna6"> - - </th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divide animate__animated animate__fadeIn">
                                     <tr *ngFor="let item of objListaUsuarios | slice:paginaDesde:paginaHasta">
-                                        <th>{{item.nombreUsuario}}</th>
-                                        <td>{{item.apellido}}</td>
+                                        <th class="">{{item.nombreUsuario}}</th>
+                                        <td class="">{{item.apellido}}</td>
                                         <!-- <td>{{item.telefono}}</td>
                                         <td>{{item.dni }}</td>
                                         <td>{{item.email}}</td> -->
-                                        <td>{{item.nick}}</td>
-                                        <td>
+                                        <td class="">{{item.nick}}</td>
+                                        <td class="">
                                             <img *ngIf="item.foto != null" loading="lazy" class="rounded img__usuario "
                                                 alt="Foto" [src]="item.foto">
                                             <img *ngIf="item.foto == null" loading="lazy" class="rounded img__usuario "
                                                 alt="Foto" src='../../../../assets/img/img_no_disponible.png'>
 
                                         </td>
-                                        <td>{{item.nombreEstado}}</td>
-                                        <td>
-                                            <div class="btn-group" role="group">
+                                        <td class="">{{item.nombreEstado}}</td>
+                                        <td class="">
+                                           <!--  <div class="btn-group" role="group">
                                                 <div class="btn-group" role="group">
                                                     <button id="btnGroupDrop1" type="button"
                                                         class="btn btn-outline-primary btn-sm dropdown-toggle"
@@ -754,7 +754,17 @@
 
                                                     </ul>
                                                 </div>
-                                            </div>
+                                            </div> -->
+                                            <div class="container contenedor_botonesOpciones ">
+                                             <button type="button" class="btn btn-secondary btn__opciones " data-bs-toggle="tooltip"
+                                                  data-bs-placement="top" title="Editar" 
+                                                  (click)="visualizarModalUsuario(modalUsuario, item.idUsuario)"><i class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger d-inline-block btn__opciones " data-bs-toggle="tooltip"
+                                                  data-bs-placement="top" title="Dar de baja"><i class="bi bi-arrow-down"></i>
+                                                </button>
+                                
+                                              </div> <!-- botones -->
                                         </td>
                                     </tr>
 
@@ -1100,6 +1110,7 @@
 </ng-template>
 
 
+
 <!-- ************************* MODAL PARA ACTUALIZAR DATOS ************************* -->
 
 
@@ -1210,6 +1221,213 @@
 <!-- Put Modal Tipo Reclamo -->
 
 <!-- Put Modal Tipo Vehiculo -->
+
+<!-- Modal Usuario -->
+<ng-template #modalUsuario let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Datos Usuario</h5>
+            <button (click)="botonCerrarModalUsuario()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid  ">
+                <div class="row">
+
+                    <div *ngIf="datosUsuario[0].foto!=null"  class=" col-3 p-0 "> 
+                        <img *ngFor="let item of datosUsuario " class="imagen--perfil" height="150" width="120"
+                            src={{item.foto}} alt="">
+                            
+                    </div>
+                    <div *ngIf="datosUsuario[0].foto==null"  class=" col-3 p-0 "> 
+                        <img  class="imagen--perfil" height="150" width="120"
+                        src='../../../../assets/img/img_usuario.png' alt="">
+                            
+                    </div>
+                    <div *ngFor="let item of datosUsuario " class=" col-9 text-center ">
+                        <div class="row ">
+                            <div class="col-12 col-sm-6"> <!-- shadow rounded border border-1 -->
+                                <h5 class="titulo__perfil">Nombre</h5>
+                                <label for="" class="info__perfil">{{item.nombrePersona}}</label>
+
+                            </div>
+                            <div class="col-12 col-sm-6 ">
+                                <h5 class="titulo__perfil">Apellido</h5>
+                                <label class="info__perfil" for="">{{item.apellidoPersona}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 ">
+                                <h5 class="titulo__perfil">Celular</h5>
+                                <label class="info__perfil" for="">{{item.telefonoUsuario}}</label>
+
+                            </div>
+                            <div class="col-12 col-sm-6 ">
+                                <h5 class="titulo__perfil">DNI</h5>
+                                <label class="info__perfil" for="">{{item.dniUsuario}}</label>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-12 col-sm-6  ">
+                                <h5 class="titulo__perfil">Correo</h5>
+                                <label class="info__perfil" for="">{{item.correoUsuario}}</label>
+
+                            </div>
+                            <div class="col-12 col-sm-6 ">
+                                <h5 class="titulo__perfil">Usuario</h5>
+                                <label class="info__perfil" for="">{{item.nombreUsuario}}</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div>
+
+                </div>
+                <div style="margin-bottom: 5px;">
+                    <button type="button" class="btn btn-light" (click)="formularioUsuario()"><i class="bi bi-pen-fill"></i>  Editar</button>
+                </div>
+            </div> <!-- Informacion usuario -->
+            <div *ngIf="this.banderaActualizarUsuario==true;
+                " class="container-fluid contenedor__inputPerfil animate__animated animate__fadeIn">
+                <small class="text-center" style="color: rgb(131, 131, 131);">
+                    <p class="m-0">* Rellene los campos que desea modificar *</p>
+                </small>
+                    <form *ngFor="let item of datosUsuario">
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <!-- Nombre -->
+                                <div class="input-group flex-nowrap inputModal">
+
+                                    <span class="input-group-text" id="addon-wrapping"><i
+                                            class="bi bi-person"></i></span>
+                                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                                        value="" [formControl]="nombrePersonaCtrl">
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-12  col-sm-6 ">
+                                <!-- Apellido -->
+                                <div class="input-group flex-nowrap inputModal">
+
+
+                                    <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido"
+                                        value="{{item.apellidoPersona}}" [formControl]="apellidoPersonaCtrl">
+                                    <span class="input-group-text" id="addon-wrapping"><i
+                                            class="bi bi-people"></i></span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <!-- Celular -->
+                                <div class="input-group flex-nowrap inputModal">
+
+                                    <span class="input-group-text" id="addon-wrapping"><i
+                                            class="bi bi-phone"></i></span>
+                                    <input type="number" class="form-control" placeholder="Celular" aria-label="Celular"
+                                        value="{{item.telefonoUsuario}}" [formControl]="celularCtrl">
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-12  col-sm-6 ">
+                                <!-- Dni -->
+                                <div class="input-group flex-nowrap inputModal">
+
+
+                                    <input type="number" class="form-control" placeholder="DNI" aria-label="DNI"
+                                        value="{{item.dniUsuario}}" [formControl]="dniCtrl"><span
+                                        class="input-group-text" id="addon-wrapping"><i class="bi bi-123"></i> </span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <!-- Correo -->
+                                <div class="input-group flex-nowrap inputModal">
+
+                                    <span class="input-group-text" id="addon-wrapping"><i
+                                            class="bi bi-envelope-at"></i></span>
+                                    <input type="email" class="form-control" placeholder="Correo" aria-label="Correo"
+                                        value="{{item.correoUsuario}}" [formControl]="correoCtrl">
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-12  col-sm-6 ">
+                                <!-- Constraseña -->
+                                <div class="input-group flex-nowrap inputModal">
+
+
+                                    <input type="password" class="form-control" placeholder="Contraseña"
+                                        aria-label="Contraseña" value="{{item.contrasenia}}"
+                                        [formControl]="contraseniaCtrl"><span class="input-group-text"
+                                        id="addon-wrapping"><i class="bi bi-key"></i></span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Nick -->
+                                <div class="input-group flex-nowrap inputModal">
+
+                                    <span class="input-group-text" id="addon-wrapping"><i
+                                            class="bi bi-person-square"></i></span>
+                                    <input type="text" class="form-control" placeholder="Nick" aria-label="Nick"
+                                        value="{{item.nombreUsuario}}" [formControl]="nombreUsuarioCtrl">
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Foto Perfil -->
+                                <div class="input-group flex-nowrap inputModal">
+
+                                    <input type="file" class="form-control" placeholder="Foto Perfil"
+                                        (change)="onFileSelected($event)" accept="image/*"
+                                        aria-label="Foto Perfil"><span class="input-group-text" id="addon-wrapping"><i
+                                            class="bi bi-image"></i></span>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        
+
+                    </form>
+
+                </div>
+
+            
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarModalUsuario()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="botonCerrarModalUsuario()">Crear</button>
+        </div>
+    </form>
+</ng-template>
 
 
 <!-- Modal configuracion Estado -->
