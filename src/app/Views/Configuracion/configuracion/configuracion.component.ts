@@ -15,6 +15,7 @@ import { postModeloVehiculo } from 'src/app/model/Configuracion/modeloVehiculo';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { PageEvent } from '@angular/material/paginator';
 import { PerfilApiService } from 'src/app/service/Perfil/perfil-api.service';
+import { putUsuario } from 'src/app/model/perfil';
 
 
 @Component({
@@ -826,9 +827,11 @@ export class ConfiguracionComponent implements OnInit {
    /* ******************************  Modal Usuario ****************************** */
 
    getDatosUsuarioSeleccionado(idUsuario:number){
+    /* Datos del usuario seleccionado */
     this.servicePerfil.getdatosPerfil(idUsuario).subscribe(
       (data)=>{
-        this.datosUsuario=data;
+        this.datosUsuario=data;/* almacenado para utilizar en el metodo actualizarUsuario */
+        console.log(this.datosUsuario)
       }
     )
    }
@@ -854,7 +857,19 @@ export class ConfiguracionComponent implements OnInit {
     this.estadoUsuario = id.target.value;
   }
    actualizarUsuario(){
-
+    let putUser: putUsuario = {
+      IDUsuario: this.datosUsuario[0].idUsuario,
+      Nombre: '',
+      Apellido: '',
+      DNI: '',
+      Correo: '',
+      Nick: '',
+      Celular: '',
+      Contrasenia: '',
+      id_Perfil: this.datosUsuario[0].id_Perfil,
+      id_Estado: this.datosUsuario[0].id_Estado,
+      foto: '',
+    }
    }
 
    /* ---------------------- Input file ----------------------*/

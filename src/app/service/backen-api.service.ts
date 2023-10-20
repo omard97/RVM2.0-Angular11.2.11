@@ -16,7 +16,7 @@ import { DetalleReclamo, DetalleReclamoActualizar, DetalleReclamoVehicularActual
 import { EstadoReclamo, tipoEstadoHistorial } from '../model/filtrosHistorial/estadoReclamo';
 import { marca } from '../model/marca';
 import { modelo } from '../model/modelo';
-import { datosperfil } from '../model/perfil';
+import { datosperfil, putUsuario } from '../model/perfil';
 import { Reclamo } from '../model/reclamo';
 import { ReclamoAmbiental } from '../model/reclamoAmbiental';
 import { sesionUsuario } from '../model/sesion';
@@ -385,9 +385,28 @@ export class BackenApiService {
     return this.http.post('https://localhost:44363/TipoVehiculoAdmin', tipoVehiculo, this.httpOptions);
   }
 
+  /*------------------------ Configuración Modal Usuario ------------------------- */
+
+  putEstadoUsuario(usuario:putUsuario){
+    var objeto = JSON.stringify(usuario);
+    debugger
+    return this.http.put('https://localhost:44363/modalUsuario/'+usuario.IDUsuario,objeto,this.httpOptions)
+  }
+
+  
+ 
+
+
+
+
   /*------------------------ MODAL PARA ACTUALIZAR ------------------------- */
 
   getActualizarModalVehiculo(idVehiculo:number){
     return this.http.get<DatosVehiculo[]>('https://localhost:44363/ModalPutVehiculo/'+idVehiculo);
   }
+
+
+
+
+  
 }
