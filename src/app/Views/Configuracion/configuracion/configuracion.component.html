@@ -1231,62 +1231,93 @@
         </div>
         <div class="modal-body">
             <div class="container-fluid  ">
-                <div class="row">
+                <div class="row contenedor__infoUsuario ">
 
                     <div *ngIf="datosUsuario[0].foto!=null"  class=" col-3 p-0 "> 
-                        <img *ngFor="let item of datosUsuario " class="imagen--perfil" height="150" width="120"
+                        <img *ngFor="let item of datosUsuario " class="imagen--perfil" height="150" width="auto"
                             src={{item.foto}} alt="">
                             
                     </div>
-                    <div *ngIf="datosUsuario[0].foto==null"  class=" col-3 p-0 "> 
-                        <img  class="imagen--perfil" height="150" width="120"
+                    <div *ngIf="datosUsuario[0].foto==null"  class=" col-3 p-0"> 
+                        <img  class="imagen--perfil" height="150" width="auto"
                         src='../../../../assets/img/img_usuario.png' alt="">
                             
                     </div>
-                    <div *ngFor="let item of datosUsuario " class=" col-9 text-center ">
+                    <div *ngFor="let item of datosUsuario " class=" col-9 text-center datosUsuario  ">
                         <div class="row ">
-                            <div class="col-12 col-sm-6"> <!-- shadow rounded border border-1 -->
+                            <div class="col-12 col-sm-6 flex__informacion"> <!-- shadow rounded border border-1 -->
                                 <h5 class="titulo__perfil">Nombre</h5>
                                 <label for="" class="info__perfil">{{item.nombrePersona}}</label>
 
                             </div>
-                            <div class="col-12 col-sm-6 ">
+                            <div class="col-12 col-sm-6 flex__informacion">
                                 <h5 class="titulo__perfil">Apellido</h5>
                                 <label class="info__perfil" for="">{{item.apellidoPersona}}</label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-sm-6 ">
+                            <div class="col-12 col-sm-6 flex__informacion">
                                 <h5 class="titulo__perfil">Celular</h5>
                                 <label class="info__perfil" for="">{{item.telefonoUsuario}}</label>
 
                             </div>
-                            <div class="col-12 col-sm-6 ">
+                            <div class="col-12 col-sm-6 flex__informacion ">
                                 <h5 class="titulo__perfil">DNI</h5>
                                 <label class="info__perfil" for="">{{item.dniUsuario}}</label>
                             </div>
                         </div>
                         <div class="row ">
-                            <div class="col-12 col-sm-6  ">
+                            <div class="col-12 col-sm-6 flex__informacion ">
                                 <h5 class="titulo__perfil">Correo</h5>
                                 <label class="info__perfil" for="">{{item.correoUsuario}}</label>
 
                             </div>
-                            <div class="col-12 col-sm-6 ">
+                            <div class="col-12 col-sm-6 flex__informacion ">
                                 <h5 class="titulo__perfil">Usuario</h5>
                                 <label class="info__perfil" for="">{{item.nombreUsuario}}</label>
                             </div>
                         </div>
 
                     </div>
+                    
+
+                </div> <!-- row -->
+                
+                <div class="row fila__opcionesUsuario">
+                    <div class=" col-12 col-lg-3 p-0 ">
+                        <button type="button" class="btn btn-light w-100 " (click)="formularioUsuario()"><i class="bi bi-pen-fill"></i>  Editar</button>
+                    </div>                   
+                    <div class="col-12 col-lg-6 div__selectEstado">
+
+                        <div class="input-group flex-nowrap">
+
+                            <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
+                                  
+                                <select class="form-select " aria-label=".form-select-sm example" (change)="obtenerIDestadoModalUsuario($event)" [formControl]="ctrlEstadoUsuario">
+                                    <option value="" disabled selected> Selecione su Estado </option>
+                                    <option *ngFor="let item of objEstadosUsuarios" value="{{item.idEstado}}">{{item.nombre}}</option>
+                                </select>
+
+                        </div>                                               
+                    </div>
 
                 </div>
-                <div>
-
-                </div>
-                <div style="margin-bottom: 5px;">
+              <!--   <div class="row">
+                    <div class="col-12 col-sm-3 col-md-3 pb-2 contenedor_btnEditar ">
+                        <button type="button" class="btn btn-light w-50" (click)="formularioUsuario()"><i class="bi bi-pen-fill"></i>  Editar</button>
+                    </div>
+                    <div class="col-12 col-sm-3 col-md-3 pb-2 w-50">
+                        <select class="form-select" aria-label=".form-select-sm example" (change)="obtenerIdEstadoUsuario($event)" [formControl]="ctrlEstadoUsuario">
+                            <option value="" disabled selected> Selecione su Estado </option>
+                            <option *ngFor="let item of objEstadosUsuarios" value="{{item.idEstado}}">{{item.nombre}}</option>
+                        </select>
+                        <label for="Estado">Estado</label>
+                    </div>
+                </div> -->
+                
+               <!--  <div style="margin-bottom: 5px;">
                     <button type="button" class="btn btn-light" (click)="formularioUsuario()"><i class="bi bi-pen-fill"></i>  Editar</button>
-                </div>
+                </div> -->
             </div> <!-- Informacion usuario -->
             <div *ngIf="this.banderaActualizarUsuario==true;
                 " class="container-fluid contenedor__inputPerfil animate__animated animate__fadeIn">
@@ -1424,7 +1455,7 @@
         <div class="modal-footer">
             <button (click)="botonCerrarModalUsuario()" type="button" class="btn btn-secondary"
                 data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="botonCerrarModalUsuario()">Crear</button>
+            <button type="button" class="btn btn-primary" (click)="botonCerrarModalUsuario()">Actualizar</button>
         </div>
     </form>
 </ng-template>
