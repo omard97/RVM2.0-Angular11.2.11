@@ -204,9 +204,16 @@
                     <div>
 
                     </div>
-                    <div style="margin-bottom: 5px;">
+                    <div class=" mt-2 mb-2">
                         <button type="button" class="btn btn-light w-100" (click)="formularioPerfil()"><i class="bi bi-pen-fill"></i>  Editar</button>
                     </div>
+
+                    <div class=" mt-2 mb-2 ">
+                        <label for="" class="eliminar_Cuenta" data-bs-target="#modal2" data-bs-toggle="modal">Eliminar Cuenta</label>
+                      
+                    </div>
+
+                   
 
 
 
@@ -357,3 +364,19 @@
     </div>
 
 </div> <!-- modal -->
+<div class="modal fade" id="modal2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Eliminar Cuenta</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Está seguro que desea eliminar su cuenta de RVM?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-target="#registroModal" data-bs-toggle="modal">Cancelar</button>
+          <button class="btn btn-warning" data-bs-toggle="modal" (click)="eliminarCuenta()" >Eliminar</button> <!-- elimina el usuario y lo redirige a la pagina HOME -->
+        </div>     
+    </div>
+</div>
