@@ -225,16 +225,66 @@ a:hover{
     padding: 0rem 0rem 0rem 0rem;
 }
 
-/* .inputModal:last-of-type {
-    margin: 0rem 0 0.5rem 0;
-} */
+.flex__informacion{
+    display: flex;
+    
+    justify-content: flex-start; 
+    align-items: center; 
+    
+    flex-direction: row;  
+    margin-bottom: 10px;
+  }
+  .info__perfil{
+    padding: 0;
+    margin-left: 10px;
+  }
+  .contenedor__infoUsuario{
+    margin-top: 10px;
+    display: flex;
+      
+      justify-content: space-evenly; 
+      align-items: center; 
+     
+      flex-direction: row; 
+  }
+  .fila__opcionesUsuario{
+    padding: 10px 0px 0px 0px;
+  }
+  @media screen and (max-width: 992px) {
+  
+    .fila__opcionesUsuario{
+      padding: 0px;
+    }
+    .datosUsuario{
+      width: 100%;
+      margin-top: 20px;
+    }
+  
+    .contenedor__infoUsuario{
+      display: flex;
+      
+      justify-content: center; 
+      align-items: center; 
+     
+      flex-direction: column; 
+    }
+    .fila__opcionesUsuario{
+      
+      display: flex;
+      
+      justify-content: center;  
+      
+      /* flex-flow: column-reverse; */ 
+      flex-direction: column-reverse;  
+    }
+    .div__selectEstado{
+      padding: 10px 0px;
+    }
+    
+  
+  }
 
-/* 
-form{
-    visibility: hidden;
-} */
-
-
+/* ------------------------ Modal Perfil ------------------------ */
 
 
 

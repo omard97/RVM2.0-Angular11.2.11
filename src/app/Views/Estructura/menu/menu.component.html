@@ -140,7 +140,7 @@
 
 
 <!-- Modal registro usaurio -->
-<div class="modal fade" id="registroModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade modal-lg" id="registroModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered ">
         <div class="modal-content ">
@@ -151,48 +151,48 @@
             <div class="modal-body" style="padding-bottom: 0;">
 
                 <div class="container-fluid  ">
-                    <div class="row">
+                    <div class="row contenedor__infoUsuario">
 
                         <div *ngIf="usuario.foto!=null"  class=" col-3 p-0 "> 
-                            <img *ngFor="let item of datosPerfil " class="imagen--perfil" height="150" width="120"
+                            <img *ngFor="let item of datosPerfil " class="imagen--perfil" height="150" width="auto"
                                 src={{item.foto}} alt="">
                                 
                         </div>
                         <div *ngIf="usuario.foto==null"  class=" col-3 p-0 "> 
-                            <img  class="imagen--perfil" height="150" width="120"
+                            <img  class="imagen--perfil" height="150" width="auto"
                             src='../../../../assets/img/img_usuario.png' alt="">
                                 
                         </div>
-                        <div *ngFor="let item of datosPerfil " class=" col-9 text-center ">
+                        <div *ngFor="let item of datosPerfil " class=" col-9 text-center datosUsuario ">
                             <div class="row ">
-                                <div class="col-12 col-sm-6"> <!-- shadow rounded border border-1 -->
+                                <div class="col-12 col-sm-6 flex__informacion"> <!-- shadow rounded border border-1 -->
                                     <h5 class="titulo__perfil">Nombre</h5>
                                     <label for="" class="info__perfil">{{item.nombrePersona}}</label>
 
                                 </div>
-                                <div class="col-12 col-sm-6 ">
+                                <div class="col-12 col-sm-6 flex__informacion ">
                                     <h5 class="titulo__perfil">Apellido</h5>
                                     <label class="info__perfil" for="">{{item.apellidoPersona}}</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 col-sm-6 ">
+                                <div class="col-12 col-sm-6 flex__informacion">
                                     <h5 class="titulo__perfil">Celular</h5>
                                     <label class="info__perfil" for="">{{item.telefonoUsuario}}</label>
 
                                 </div>
-                                <div class="col-12 col-sm-6 ">
+                                <div class="col-12 col-sm-6 flex__informacion ">
                                     <h5 class="titulo__perfil">DNI</h5>
                                     <label class="info__perfil" for="">{{item.dniUsuario}}</label>
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-12 col-sm-6  ">
+                                <div class="col-12 col-sm-6 flex__informacion ">
                                     <h5 class="titulo__perfil">Correo</h5>
                                     <label class="info__perfil" for="">{{item.correoUsuario}}</label>
 
                                 </div>
-                                <div class="col-12 col-sm-6 ">
+                                <div class="col-12 col-sm-6 flex__informacion">
                                     <h5 class="titulo__perfil">Usuario</h5>
                                     <label class="info__perfil" for="">{{item.nombreUsuario}}</label>
                                 </div>
@@ -205,7 +205,7 @@
 
                     </div>
                     <div style="margin-bottom: 5px;">
-                        <button type="button" class="btn btn-light" (click)="formularioPerfil()"><i class="bi bi-pen-fill"></i>  Editar</button>
+                        <button type="button" class="btn btn-light w-100" (click)="formularioPerfil()"><i class="bi bi-pen-fill"></i>  Editar</button>
                     </div>
 
 
