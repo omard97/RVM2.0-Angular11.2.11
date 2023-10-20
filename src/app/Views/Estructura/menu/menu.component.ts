@@ -280,8 +280,41 @@ export class MenuComponent implements OnInit {
   /* ---------------------- Cerrar Sesion ----------------------*/
   cerrarSesion(){
     this.serviceLogin.logout()
-    this._router.navigate(['login'])
+    this._router.navigate(['home'])
   }
+
+    /* ---------------------- Eliminar Cuenta ----------------------*/
+
+    eliminarCuenta(){
+      debugger
+      console.log('eliminar cuenta');
+      console.log(this.datosPerfil)
+      let putUser: putUsuario = {
+        IDUsuario: this.datosPerfil[0].idUsuario,
+        Nombre: this.datosPerfil[0].nombrePersona,
+        Apellido: this.datosPerfil[0].apellidoPersona ,
+        DNI: this.datosPerfil[0].dniUsuario,
+        Correo: this.datosPerfil[0].correoUsuario,
+        Nick: this.datosPerfil[0].nombreUsuario,
+        Celular: this.datosPerfil[0].telefonoUsuario,
+        Contrasenia: this.datosPerfil[0].contrasenia,
+        id_Perfil: this.datosPerfil[0].id_Perfil,
+        id_Estado: 10, /* Usuario Inactivo - dado de baja */
+        foto: this.datosPerfil[0].foto,
+      }
+
+      this.serviceUsuario.putUsuario(putUser).subscribe(
+        (data) => {
+         
+          this.cerrarSesion();
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+
+
+    }
 
 
 

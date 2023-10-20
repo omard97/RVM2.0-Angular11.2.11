@@ -324,6 +324,15 @@ input[type=number]::-webkit-outer-spin-button {
     margin-right: 1rem;
 }
  
+/*  ----------------------- Eliminar Cuenta -----------------------  */
 
+.eliminar_Cuenta{
+ font-size: 14px;
+ color: #1e1e1e;
+ transition-duration: 0.5s;
+}
 
-
+.eliminar_Cuenta:hover{
+    cursor: pointer;
+    color: rgb(164, 0, 0);
+}
