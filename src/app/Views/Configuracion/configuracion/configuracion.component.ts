@@ -134,6 +134,7 @@ export class ConfiguracionComponent implements OnInit {
     fotoCtrl = new FormControl('', [Validators.required]);
     datosUsuario:any [] =[]
     banderaActualizarUsuario: boolean = false;
+    estadoUsuario: number=0;
     /* Guardar foto de perfil para actualizar */
     imagePerfilDataUrl!:string;
   
@@ -221,8 +222,7 @@ export class ConfiguracionComponent implements OnInit {
     this.modal.open(content);
   }
   visualizarModalUsuario(content: any, idUsuario:number) {
-    debugger
-    this.modal.open(content);
+    this.modal.open(content,{ size: 'lg' });
     this.getDatosUsuarioSeleccionado(idUsuario);
   }
 
@@ -834,7 +834,26 @@ export class ConfiguracionComponent implements OnInit {
    }
 
    formularioUsuario(){
-    this.banderaActualizarUsuario = true;
+    if(this.banderaActualizarUsuario == false){
+      this.banderaActualizarUsuario = true;
+    }else{
+      this.banderaActualizarUsuario = false;
+      this.limpiarFormulario();
+    }
+   }
+   limpiarFormulario() {
+    this.nombrePersonaCtrl.reset()
+    this.apellidoPersonaCtrl.reset()
+    this.celularCtrl.reset()
+    this.dniCtrl.reset()
+    this.correoCtrl.reset()
+    this.contraseniaCtrl.reset()
+    this.nombreUsuarioCtrl.reset()
+  }
+  obtenerIDestadoModalUsuario(id:any){
+    this.estadoUsuario = id.target.value;
+  }
+   actualizarUsuario(){
 
    }
 
