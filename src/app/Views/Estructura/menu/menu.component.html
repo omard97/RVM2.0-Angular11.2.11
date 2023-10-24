@@ -5,12 +5,10 @@
         <mat-nav-list class="menu__ancho"><!-- button-menu -->
             <div class="container">
                 <div class="row flex-nowrap nav__menu--color ">
-                    <div
-                        class=" d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <div class=" d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                         <!-- d-flex -->
-                        <a
-                            class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                            <span class="fs-5 d-none d-sm-inline">Menú</span>
+                        <a class=" d-flex justify-content-center align-items-center pb-3 w-100">
+                            <img src="../../../../assets/img/icono-rvm-32x32.png" alt="LogoRVM">
                         </a>
                         <ul class="nav nav-pills flex-column mb-sm-auto col-12 align-items-center align-items-sm-start"
                             id="menu">
@@ -46,22 +44,20 @@
                                 <a class="nav-link px-0 align-middle boton__nav--info">
                                     <i class="bi bi-geo-alt"></i> <span
                                         class="ms-1 d-none d-sm-inline boton__nav--span">Mapas</span></a>
-                            </li>
-
-
-                        </ul>
-
-
+                            </li>                            
+                        </ul>                      
                         <div class="contenedor__botonPerfil animate__animated animate__fadeInLeft">
 
-                            <div class="dropdown pb-4 boton_user ">
-                                <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle boton_user--informacion p-2"
+                            <hr />                          	                       
+                            <div class="dropdown pb-4 ">
+                                <a class="d-flex align-items-center text-white text-decoration-none boton_user--informacion  p-2"
                                     id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img *ngIf="usuario.foto!=null" src={{usuario.foto}} alt="hugenerd" 
                                          class="menu__perfil">
                                         <img *ngIf="usuario.foto==null"  src='../../../../assets/img/img_usuario.png' alt="hugenerd" 
                                          class="menu__perfil">
                                     <span class="d-none d-sm-inline mx-3">{{usuario.nick}}</span>
+                                    <i class="bi bi-list "></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow menu__usuario animate__animated animate__fadeIn"
                                     aria-labelledby="dropdownUser1">
@@ -153,48 +149,54 @@
                 <div class="container-fluid  ">
                     <div class="row contenedor__infoUsuario">
 
-                        <div *ngIf="usuario.foto!=null"  class=" col-3 p-0 "> 
+                        <div *ngIf="usuario.foto!=null"  class=" col-2 p-0 "> 
                             <img *ngFor="let item of datosPerfil " class="imagen--perfil" height="150" width="auto"
                                 src={{item.foto}} alt="">
                                 
                         </div>
-                        <div *ngIf="usuario.foto==null"  class=" col-3 p-0 "> 
+                        <div *ngIf="usuario.foto==null"  class=" col-2 p-0 "> 
                             <img  class="imagen--perfil" height="150" width="auto"
                             src='../../../../assets/img/img_usuario.png' alt="">
                                 
                         </div>
                         <div *ngFor="let item of datosPerfil " class=" col-9 text-center datosUsuario ">
                             <div class="row ">
-                                <div class="col-12 col-sm-6 flex__informacion"> <!-- shadow rounded border border-1 -->
-                                    <h5 class="titulo__perfil">Nombre</h5>
-                                    <label for="" class="info__perfil">{{item.nombrePersona}}</label>
+                                <div class="col-12 col-sm-7 flex__informacion"> <!-- shadow rounded border border-1 -->
+
+                                    <h5 class="titulo__perfil"><i class="bi bi-person"></i> Nombre</h5>
+                                    
+                                    <small for="" class="info__perfil">{{item.nombrePersona}}</small>
 
                                 </div>
-                                <div class="col-12 col-sm-6 flex__informacion ">
-                                    <h5 class="titulo__perfil">Apellido</h5>
-                                    <label class="info__perfil" for="">{{item.apellidoPersona}}</label>
+                                <div class="col-12 col-sm-5 flex__informacion ">
+                                    <h5 class="titulo__perfil"><i class="bi bi-person"></i> Apellido</h5>
+                                    <small class="info__perfil" for="">{{item.apellidoPersona}}</small>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 col-sm-6 flex__informacion">
-                                    <h5 class="titulo__perfil">Celular</h5>
-                                    <label class="info__perfil" for="">{{item.telefonoUsuario}}</label>
+                                <div class="col-12 col-sm-7 flex__informacion">
+                                    
+                                    <h5 class="titulo__perfil"><i class="bi bi-phone"></i> Celular</h5>
+                                    <small class="info__perfil" for="">{{item.telefonoUsuario}}</small>
 
                                 </div>
-                                <div class="col-12 col-sm-6 flex__informacion ">
-                                    <h5 class="titulo__perfil">DNI</h5>
-                                    <label class="info__perfil" for="">{{item.dniUsuario}}</label>
+                                <div class="col-12 col-sm-5 flex__informacion ">
+                                    
+                                    <h5 class="titulo__perfil"><i class="bi bi-123"></i> DNI</h5>
+                                    <small class="info__perfil" for="">{{item.dniUsuario}}</small>
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-12 col-sm-6 flex__informacion ">
-                                    <h5 class="titulo__perfil">Correo</h5>
-                                    <label class="info__perfil" for="">{{item.correoUsuario}}</label>
+                                <div class="col-12 col-sm-7  flex__informacion ">
+                                    
+                                    <h5 class="titulo__perfil"><i class="bi bi-envelope-at"></i> Correo</h5>
+                                    <small class="info__perfil" for="">{{item.correoUsuario}}</small>
 
                                 </div>
-                                <div class="col-12 col-sm-6 flex__informacion">
-                                    <h5 class="titulo__perfil">Usuario</h5>
-                                    <label class="info__perfil" for="">{{item.nombreUsuario}}</label>
+                                <div class="col-12 col-sm-5 flex__informacion">
+                                                               
+                                    <h5 class="titulo__perfil"><i class="bi bi-person-square"></i> Usuario</h5>
+                                    <small class="info__perfil" for="">{{item.nombreUsuario}}</small>
                                 </div>
                             </div>
 
@@ -202,20 +204,13 @@
 
                     </div>
                     <div>
-
+                    </div>
+                    <div class=" mt-2 mb-2 ">
+                        <small  class="eliminar_Cuenta" data-bs-target="#modal2" data-bs-toggle="modal">Eliminar Cuenta</small>                      
                     </div>
                     <div class=" mt-2 mb-2">
                         <button type="button" class="btn btn-light w-100" (click)="formularioPerfil()"><i class="bi bi-pen-fill"></i>  Editar</button>
                     </div>
-
-                    <div class=" mt-2 mb-2 ">
-                        <label for="" class="eliminar_Cuenta" data-bs-target="#modal2" data-bs-toggle="modal">Eliminar Cuenta</label>
-                      
-                    </div>
-
-                   
-
-
 
                 </div>
                 <div *ngIf="this.banderaActualizarPerfil==true;

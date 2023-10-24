@@ -367,9 +367,9 @@ export class LoginComponent implements OnInit {
 
         /* Metodo para buscar el correo - hacer  */
         this.serviceLogin.getConfirmarCorreoUsuario(correo).subscribe(
-          (data) => {
+          (data) => {            
             debugger
-            if (data.length == 0) {
+            if (data.length == 0) {             
               this.banderaCorreoValido = true;
              /*  this.toastr.success(
                 'El correo es válido para registrarse',
@@ -379,7 +379,7 @@ export class LoginComponent implements OnInit {
                   positionClass: 'toast-bottom-full-width'
                 }
               ); */
-            } 
+            }
           },
           (err) => {
             this.toastr.warning(
