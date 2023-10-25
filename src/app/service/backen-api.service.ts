@@ -6,7 +6,7 @@ import { TipoEstado } from '../model/Configuracion/tipoEstadoAdmin';
 import { tipoEstadoVehiculo } from '../model/Configuracion/tipoEstadoVehiculo';
 import { PerfilAdmin } from '../model/Configuracion/tipoPerfil';
 import { TipoVehiculoConfig } from '../model/Configuracion/tipoVehiculo';
-import { DatosVehiculo } from '../model/Configuracion/vehiculo';
+import { DatosVehiculo, putVehiculo } from '../model/Configuracion/vehiculo';
 import { RecuentoRecAmbiental } from '../model/Dashboard/V_CantidadRecAmbientalUsuario';
 import { CantReclamoMesyAnio } from '../model/Dashboard/V_CantidadRecPorMesyAnio';
 import { RecuentoTipReclamos } from '../model/Dashboard/V_CantidadTipReclamoUsuario';
@@ -359,6 +359,12 @@ export class BackenApiService {
   postVehiculoModal(vehiculo:any):Observable<any>{
     return this.http.post('https://localhost:44363/VehiculosAdmin', vehiculo, this.httpOptions);
   }
+  putVehiculoModal(vehiculo:putVehiculo){
+    var objeto = JSON.stringify(vehiculo);
+    debugger
+    return this.http.put('https://localhost:44363/ModalPutVehiculo/'+vehiculo.IDVehiculo,objeto,this.httpOptions)
+  }
+
 
   /*------------------------ Configuración Modal Marcas ------------------------- */
   postMarcaModal(marca:any):Observable<any>{
