@@ -25,6 +25,7 @@ import { Vehiculo } from '../model/vehiculo';
 import { estadosUsuarios } from '../model/usuario';
 import { putMarca } from '../model/Configuracion/marcaVehiculo';
 import { putModelo } from '../model/Configuracion/modeloVehiculo';
+import { putTipoReclamo } from '../model/Configuracion/tipoReclamo';
 
 @Injectable({
   providedIn: 'root'
@@ -402,6 +403,11 @@ export class BackenApiService {
   /*------------------------ Configuración Modal Tipo Reclamo ------------------------- */
   postTipoReclamoModal(tipoReclamo:any):Observable<any>{
     return this.http.post('https://localhost:44363/TipoReclamoAdmin', tipoReclamo, this.httpOptions);
+  }
+  putTipoReclamoModal(tipoReclamo:putTipoReclamo){
+    var objeto = JSON.stringify(tipoReclamo);
+    debugger
+    return this.http.put('https://localhost:44363/modalPutTipoReclamo/'+tipoReclamo.idTipoReclamo,objeto,this.httpOptions)
   }
   /*------------------------ Configuración Modal Tipo Vehiculo ------------------------- */
   postTipoVehiculoModal(tipoVehiculo:any):Observable<any>{

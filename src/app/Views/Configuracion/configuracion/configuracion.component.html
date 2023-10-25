@@ -522,7 +522,7 @@
                     <div class="row">
 
                         <div class="col-12 divTabla table-responsive-lg" *ngIf="selectIDTipReclamo!=0">
-                            <table class="table table-hover table-bordered table-striped">
+                            <table class="table table-hover">
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col">Tipo Reclamo</th>
@@ -530,7 +530,7 @@
                                         <th scope="col"> - - </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="table-group-divide">
                                     <tr *ngFor="let item of objListaTipoReclamo">
                                         <th scope="row">{{item.nombre}}</th>
                                         <td>{{item.descripcion}}</td>
@@ -543,7 +543,7 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li><a class="dropdown-item"><i class="bi bi-pencil-square">
+                                                        <li><a (click)="openPutModalTipoReclamo(modalPutTipoReclamo,item.idTipoR,item.nombre,item.descripcion)" class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
                                                         <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i>
@@ -1340,6 +1340,38 @@
     </form>
 </ng-template>
 <!-- Put Modal Tipo Reclamo -->
+<ng-template #modalPutTipoReclamo let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modificar Tipo Reclamo</h5>
+            <button (click)="botonCerrarPutModalTipoReclamo()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Nombre del Tipo de Reclamo" [formControl]="ctrlNombreTipoReclamo">
+                    </div>
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Descripción" [formControl]="ctrlDescripcionTipoReclamo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarPutModalTipoReclamo()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="putTipoReclamo()">Modificar</button>
+        </div>
+    </form>
+</ng-template>
 
 <!-- Put Modal Tipo Vehiculo -->
 

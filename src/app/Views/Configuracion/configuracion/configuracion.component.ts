@@ -16,6 +16,7 @@ import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { PageEvent } from '@angular/material/paginator';
 import { PerfilApiService } from 'src/app/service/Perfil/perfil-api.service';
 import { putUsuario } from 'src/app/model/perfil';
+import { putTipoReclamo } from 'src/app/model/Configuracion/tipoReclamo';
 
 
 @Component({
@@ -118,6 +119,11 @@ export class ConfiguracionComponent implements OnInit {
      /* ---Configuración Actualizacion Perfil ---  */
      ctrlNombrePerfil = new FormControl('',[Validators.required]);
      arrayPutPerfil: any [] =[];
+
+        /* ---Configuración Actualizacion Tipo Reclamo ---  */
+     ctrlNombreTipoReclamo = new FormControl('',[Validators.required]);
+     ctrlDescripcionTipoReclamo= new FormControl('',[Validators.required]);
+     arrayPutTipoReclamo:any [] = [];
 
     /* paginacion para las listas */
     pageSize = 5; // Tamaño de página predeterminado
@@ -276,14 +282,21 @@ export class ConfiguracionComponent implements OnInit {
     }
   }
 
-
-
   openPutModalPerfil(putPerfil:any, idPerfil:number,nombre:string){
     debugger
     this.modal.open(putPerfil, { size: 'lg' });
     this.arrayPutPerfil[0] = idPerfil;
     this.arrayPutPerfil[1] = nombre;
   }
+
+  openPutModalTipoReclamo(putTipReclamo:any, idTipoReclamo:number,nombre:string,descripcion:string){
+    debugger
+    this.modal.open(putTipReclamo, { size: 'lg' });
+    this.arrayPutTipoReclamo[0] = Number(idTipoReclamo)
+    this.arrayPutTipoReclamo[1] = nombre +'';
+    this.arrayPutTipoReclamo[2] = descripcion +'';
+  }
+
 
 
   /* metodo para visualizar input del modal nuevo estado */
@@ -331,14 +344,17 @@ export class ConfiguracionComponent implements OnInit {
   }
   botonCerrarModalPerfil(){
     this.modal.dismissAll();
-    this.nombreModalPerfil.setValue('');
+    this.nombreModalPerfil.reset();
   }
   botonCerrarModalUsuario(){
     this.modal.dismissAll();
   }
 
   botonCerrarPutModalPerfil(){
+    this.arrayPutPerfil = [];
+    this.ctrlNombrePerfil.reset();
     this.modal.dismissAll();
+  
   }
 
   botonCerrarPutModalMarca(){
@@ -354,6 +370,9 @@ export class ConfiguracionComponent implements OnInit {
     this.modal.dismissAll();
   }
 
+  botonCerrarPutModalTipoReclamo(){
+    this.modal.dismissAll();
+  }
 
   /* Metodos Get */
 
@@ -447,6 +466,7 @@ export class ConfiguracionComponent implements OnInit {
   getTipoReclamo(): void {
     this.servicio.getTipoReclamo().subscribe(
       (res) => {
+        
         this.objTipoDeReclamo = res;
 
 
@@ -575,6 +595,7 @@ export class ConfiguracionComponent implements OnInit {
     this.servicio.getListaTiposReclamos(this.selectIDTipReclamo).subscribe(
       (res) => {
         this.objListaTipoReclamo = res;
+        
       },
       (err) => console.error(err)
     );
@@ -1077,6 +1098,61 @@ export class ConfiguracionComponent implements OnInit {
     }
   }
 
+  putTipoReclamo(){
+    debugger
+    if(this.ctrlNombreTipoReclamo.value =='' || this.ctrlDescripcionTipoReclamo.value == ''){
+      this.toastr.info(
+        'Complete el campo para realizar la modificación!','Atención',
+        {
+          timeOut: 2000,
+          positionClass: 'toast-top-right',
+        }
+      );
+    }else{
+      debugger
+      var putTipoReclamo : putTipoReclamo ={
+        idTipoReclamo : this.arrayPutTipoReclamo[0],
+        nombre : this.arrayPutTipoReclamo[1],
+        descripcion: this.arrayPutTipoReclamo[2]
+      }
+
+      if(this.ctrlNombreTipoReclamo.value !=''){
+        putTipoReclamo.nombre = this.ctrlNombreTipoReclamo.value +'';
+      }
+      if(this.ctrlDescripcionTipoReclamo.value!=''){
+        putTipoReclamo.descripcion = this.ctrlDescripcionTipoReclamo.value+'';
+      }
+
+      this.servicio.putTipoReclamoModal(putTipoReclamo).subscribe(
+        (data)=>{
+
+          this.toastr.success(
+            'Tipo de Reclamo Modificado!','',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+
+          this.arrayPutTipoReclamo = []
+          this.ctrlNombreTipoReclamo.reset();
+          this.ctrlDescripcionTipoReclamo.reset();
+          this.modal.dismissAll();
+        },
+        (err)=>{
+          this.toastr.warning(
+            'Ocurrió un problema al modificar el Tipo de Reclamo','',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+        }
+      )
+
+
+    }
+  }
   /* ******************************  Modal Tipo Vehiculo ****************************** */
   botonCrearTipoVehiculoModal(){
     
