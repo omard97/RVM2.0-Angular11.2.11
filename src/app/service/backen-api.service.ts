@@ -23,6 +23,7 @@ import { sesionUsuario } from '../model/sesion';
 import { TipoReclamo } from '../model/tipoReclamo';
 import { Vehiculo } from '../model/vehiculo';
 import { estadosUsuarios } from '../model/usuario';
+import { putMarca } from '../model/Configuracion/marcaVehiculo';
 
 @Injectable({
   providedIn: 'root'
@@ -369,8 +370,13 @@ export class BackenApiService {
   /*------------------------ Configuración Modal Marcas ------------------------- */
   postMarcaModal(marca:any):Observable<any>{
     return this.http.post('https://localhost:44363/MarcaAdmin', marca, this.httpOptions);
-
   }
+  putMarcaModal(marca:putMarca){
+    var objeto = JSON.stringify(marca);
+    debugger
+    return this.http.put('https://localhost:44363/modalPutMarca/'+marca.idMarca,objeto,this.httpOptions)
+  }
+
   /*------------------------ Configuración Modal Modelo ------------------------- */
   postModeloModal(modelo:any):Observable<any>{
     return this.http.post('https://localhost:44363/ModeloAdmin', modelo, this.httpOptions);
