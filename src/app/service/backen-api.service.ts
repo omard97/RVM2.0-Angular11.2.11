@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { EstadosAdminConfig } from '../model/Configuracion/estadosAdmin';
 import { TipoEstado } from '../model/Configuracion/tipoEstadoAdmin';
 import { tipoEstadoVehiculo } from '../model/Configuracion/tipoEstadoVehiculo';
-import { PerfilAdmin } from '../model/Configuracion/tipoPerfil';
+import { PerfilAdmin, putPerfilAdmin } from '../model/Configuracion/tipoPerfil';
 import { TipoVehiculoConfig } from '../model/Configuracion/tipoVehiculo';
 import { DatosVehiculo, putVehiculo } from '../model/Configuracion/vehiculo';
 import { RecuentoRecAmbiental } from '../model/Dashboard/V_CantidadRecAmbientalUsuario';
@@ -392,6 +392,12 @@ export class BackenApiService {
 
   postPerfilModal(perfil:any):Observable<any>{
     return this.http.post('https://localhost:44363/TipoPerfilAdmin', perfil, this.httpOptions);
+    
+  }
+  putPerfilModal(perfil:putPerfilAdmin){
+    var objeto = JSON.stringify(perfil);
+    debugger
+    return this.http.put('https://localhost:44363/modalPutPerfil/'+perfil.idPerfil,objeto,this.httpOptions)
   }
   /*------------------------ Configuración Modal Tipo Reclamo ------------------------- */
   postTipoReclamoModal(tipoReclamo:any):Observable<any>{

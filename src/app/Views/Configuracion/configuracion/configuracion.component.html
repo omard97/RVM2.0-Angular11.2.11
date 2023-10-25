@@ -438,14 +438,14 @@
 
 
                         <div class="col-12 divTabla table-responsive-lg">
-                            <table class="table table-hover table-bordered table-striped">
+                            <table class="table table-hover">
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col">Tipo Perfil</th>
                                         <th scope="col"> - - </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="table-group-divide">
                                     <tr *ngFor="let item of objTipoPerfil | slice:paginaDesde:paginaHasta">
                                         <th scope="row">{{item.nombre}}</th>
 
@@ -458,7 +458,7 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li><a class="dropdown-item"><i class="bi bi-pencil-square">
+                                                        <li><a (click)="openPutModalPerfil(modalPutPerfil,item.idPerfil,item.nombre)" class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
                                                         <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i></a></li>
@@ -1312,7 +1312,33 @@
 </ng-template>
 
 <!-- Put Modal Perfil -->
+<ng-template #modalPutPerfil let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modificar Perfil</h5>
+            <button (click)="botonCerrarPutModalPerfil()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
 
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Nombre del Perfil de Usuario" [formControl]="ctrlNombrePerfil">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarPutModalPerfil()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="putPerfil()">Modificar</button>
+        </div>
+    </form>
+</ng-template>
 <!-- Put Modal Tipo Reclamo -->
 
 <!-- Put Modal Tipo Vehiculo -->

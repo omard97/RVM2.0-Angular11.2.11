@@ -5,7 +5,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { TipoEstado } from 'src/app/model/Configuracion/tipoEstadoAdmin';
 import { PostEstado } from 'src/app/model/Configuracion/estadosAdmin';
-import { PerfilAdmin } from 'src/app/model/Configuracion/tipoPerfil';
+import { PerfilAdmin, putPerfilAdmin } from 'src/app/model/Configuracion/tipoPerfil';
 import { TipoReclamo } from 'src/app/model/tipoReclamo';
 import { estadosUsuarios, usuarioConfig } from 'src/app/model/usuario';
 import { TipoVehiculoModal } from 'src/app/model/Configuracion/tipoVehiculo';
@@ -114,6 +114,10 @@ export class ConfiguracionComponent implements OnInit {
     ctrlNombreModelo = new FormControl('',[Validators.required]);
     modeloSeleccionado :string ='';
     arrayModelo: any [] = []; 
+
+     /* ---Configuración Actualizacion Perfil ---  */
+     ctrlNombrePerfil = new FormControl('',[Validators.required]);
+     arrayPutPerfil: any [] =[];
 
     /* paginacion para las listas */
     pageSize = 5; // Tamaño de página predeterminado
@@ -270,7 +274,15 @@ export class ConfiguracionComponent implements OnInit {
         }
       );
     }
-    
+  }
+
+
+
+  openPutModalPerfil(putPerfil:any, idPerfil:number,nombre:string){
+    debugger
+    this.modal.open(putPerfil, { size: 'lg' });
+    this.arrayPutPerfil[0] = idPerfil;
+    this.arrayPutPerfil[1] = nombre;
   }
 
 
@@ -449,6 +461,7 @@ export class ConfiguracionComponent implements OnInit {
     this.servicio.getTipoPerfil().subscribe(
       (res) => {
         this.objTipoPerfil = res;
+        
         
       },
       (err) => console.error(err)
@@ -994,6 +1007,51 @@ export class ConfiguracionComponent implements OnInit {
       this.NotificacionRellenarCampos();
     }
 
+  }
+  putPerfil(){
+    debugger
+    if(this.ctrlNombrePerfil.value==''){
+      this.toastr.info(
+        'Complete el campo para realizar la modificación!','Atención',
+        {
+          timeOut: 2000,
+          positionClass: 'toast-top-right',
+        }
+      );
+    }else{
+      debugger
+      var putPerfil:putPerfilAdmin = {
+        idPerfil: this.arrayPutPerfil[0],
+        nombre: this.arrayPutPerfil[1],
+      }
+      if(this.ctrlNombrePerfil.value!=''){
+        putPerfil.nombre = this.ctrlNombrePerfil.value +'';
+      }
+      this.servicio.putPerfilModal(putPerfil).subscribe(
+        (data)=>{
+
+          this.toastr.success(
+            'Perfil de Usuario Modificado!','',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+          this.arrayPutPerfil = [];
+          this.ctrlNombrePerfil.reset();
+          this.modal.dismissAll();
+        },
+        (err)=>{
+          this.toastr.warning(
+            'Ocurrió un problema al modificar el Perfil de Usuario','',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+        }
+      )
+    }
   }
 
   /* ****************************** Modal Tipo Reclamo ****************************** */
