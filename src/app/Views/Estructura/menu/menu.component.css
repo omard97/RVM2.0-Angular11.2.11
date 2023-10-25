@@ -48,7 +48,7 @@ a:hover{
 
 @media (max-width: 570px) {
     .menu__ancho {
-        width: 9rem !important;
+        /* width: 9rem !important; */
         overflow-x: hidden;
         overflow-y: hidden;
     }
@@ -112,6 +112,17 @@ a:hover{
         color: #f1f1f1 !important;
     }
 }
+.icono__menuPerfil{
+   
+    font-size: 24px;
+}
+
+/* @media screen and (max-width: 573px){
+    .icono__menuPerfil{
+        margin-left: 30px!important;
+        font-size: 20px;
+    }
+} */
 
 
 
