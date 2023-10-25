@@ -9,7 +9,7 @@ import { PerfilAdmin } from 'src/app/model/Configuracion/tipoPerfil';
 import { TipoReclamo } from 'src/app/model/tipoReclamo';
 import { estadosUsuarios, usuarioConfig } from 'src/app/model/usuario';
 import { TipoVehiculoModal } from 'src/app/model/Configuracion/tipoVehiculo';
-import { autoPost } from 'src/app/model/Configuracion/vehiculo';
+import { DatosVehiculo, autoPost, putVehiculo } from 'src/app/model/Configuracion/vehiculo';
 import { postMarca } from 'src/app/model/Configuracion/marcaVehiculo';
 import { postModeloVehiculo } from 'src/app/model/Configuracion/modeloVehiculo';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
@@ -90,7 +90,7 @@ export class ConfiguracionComponent implements OnInit {
     selectIDModeloVehiculo=0;
   
      /* ---Configuración Vehiculos ---  */
-    objListaVehiculos:any;
+    objListaVehiculos:DatosVehiculo [] = [];
     objListaIDMarca:any;
     selecIDMarca=0;
     selecIDModelo=0;
@@ -229,11 +229,12 @@ export class ConfiguracionComponent implements OnInit {
 
   /* Visualizar Modal para ACTUALIZAR */
   openPutModalVehiculo(putModalVehiculo:any,idvehiculo:number){
-    this.modal.open(putModalVehiculo);
+    this.modal.open(putModalVehiculo, { size: 'lg' });
     
     this.servicio.getActualizarModalVehiculo(idvehiculo).subscribe(
       (res) => {
         this.objVehiculoModal=res;
+       
         console.log(this.objVehiculoModal)
         
       },
@@ -318,7 +319,7 @@ export class ConfiguracionComponent implements OnInit {
   }
   
   GetBuscarVehiculos(){
-    
+    //muestro los vehiculos en el carrusel de vehiculos
     if(this.selectIDMarcaVehiculo!=0 && this.selectIDModeloVehiculo!=0){
 
       this.servicio.getConfiguracionVehiculos(this.selectIDMarcaVehiculo,this.selectIDModeloVehiculo).subscribe(
@@ -330,7 +331,7 @@ export class ConfiguracionComponent implements OnInit {
             this.notificacionDatosInexistentes(res);
             this.selectIDMarcaVehiculo=0;
             this.selectIDModeloVehiculo=0;
-            delete this.objListaVehiculos
+             this.objListaVehiculos = []
             this.selectMarcaVehiculo.setValue('');
             this.selectModeloVehiculo.setValue('');
           }
@@ -689,6 +690,55 @@ export class ConfiguracionComponent implements OnInit {
         );
       this.limpiarModalVehiculos(); 
     } 
+  }
+
+  botonActualizarVehiculo(){
+    debugger
+    if(this.nombreTipoVehiculoCtrl.value == "" || this.marcaCtrl.value=="" || this.modeloCtrl.value ==""
+    || this.dominioCtrl.value == "" || this.colorCtrl.value == "" || this.numChasisCtrl.value == ""
+    || this.numMotorCtrl.value == "" || this.listaEstadoVehiculoCtrl.value == "" ){
+      this.toastr.info(
+        'Por favor completa todos los campos antes de modificar el vehículo.','',
+        {
+          timeOut: 2000,
+          positionClass: 'toast-top-right',
+        }
+      );
+    }else{
+
+      var vehiculo: putVehiculo = {
+        IDVehiculo : this.objVehiculoModal[0].idVehiculo,
+        dominio : this.dominioCtrl.value + '',
+        color: this.colorCtrl.value +'',
+        numeroChasis:this.numChasisCtrl.value+'',
+        numeroMotor:this.numMotorCtrl.value + '',
+        ID_MarcaVehiculo : Number(this.marcaCtrl.value),
+        ID_Estado : Number(this.listaEstadoVehiculoCtrl.value),
+        ID_TipoVehiculo : Number(this.nombreTipoVehiculoCtrl.value),
+        ID_Modelo : Number(this.modeloCtrl.value),
+      }
+      debugger
+      
+      this.servicio.putVehiculoModal(vehiculo).subscribe(
+        (data)=>{
+          this.toastr.success(
+            'Vehículo Mdificado!','',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+        },
+        (err) =>{
+
+        }
+      )
+
+      this.limpiarModalVehiculos(); 
+
+      this.modal.dismissAll();
+    }
+
   }
 
   /* ****************************** Modal Marca ****************************** */
