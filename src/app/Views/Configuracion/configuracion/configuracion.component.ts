@@ -10,7 +10,7 @@ import { TipoReclamo } from 'src/app/model/tipoReclamo';
 import { estadosUsuarios, usuarioConfig } from 'src/app/model/usuario';
 import { TipoVehiculoModal } from 'src/app/model/Configuracion/tipoVehiculo';
 import { DatosVehiculo, autoPost, putVehiculo } from 'src/app/model/Configuracion/vehiculo';
-import { postMarca } from 'src/app/model/Configuracion/marcaVehiculo';
+import { postMarca, putMarca } from 'src/app/model/Configuracion/marcaVehiculo';
 import { postModeloVehiculo } from 'src/app/model/Configuracion/modeloVehiculo';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { PageEvent } from '@angular/material/paginator';
@@ -105,6 +105,10 @@ export class ConfiguracionComponent implements OnInit {
     ctrlNombreUsuario=new FormControl('',[Validators.required])
     ctrlNickUsuario=new FormControl('',[Validators.required])
     ctrlEstadoUsuario=new FormControl('',[Validators.required]);
+
+    /* ---Configuración Actualizacion Marca ---  */
+    ctrlNombreMarca=new FormControl('',[Validators.required]);
+    arrayMarca: any [] = []; // utilizada para almacenar el id y el nombre de la marca ingresada
 
     /* paginacion para las listas */
     pageSize = 5; // Tamaño de página predeterminado
@@ -211,7 +215,7 @@ export class ConfiguracionComponent implements OnInit {
     this.modal.open(content);
   }
   visualizarModalVehiculos(content: any) {
-    this.modal.open(content);
+    this.modal.open(content,{ size: 'lg' });
   }
   visualizarModalMarca(content: any) {
     this.modal.open(content);
@@ -244,6 +248,15 @@ export class ConfiguracionComponent implements OnInit {
     
   }
 
+  openPutModalMarca(putMarca:any, id:number, nombre:string){
+    
+    this.modal.open(putMarca, { size: 'lg' });
+    this.arrayMarca[0] = id;
+    this.arrayMarca[1] = nombre;
+  
+
+  }
+
   /* metodo para visualizar input del modal nuevo estado */
   /* visualizarInput() {
     debugger;
@@ -257,6 +270,7 @@ export class ConfiguracionComponent implements OnInit {
   } */
 
   /* Cerrar Modales  */
+  
   botonCerrarNuevoEstado() {
     this.limpiarModalEstado();
   }
@@ -291,6 +305,10 @@ export class ConfiguracionComponent implements OnInit {
     this.modal.dismissAll();
   }
 
+  botonCerrarPutModalPerfil(){
+    this.modal.dismissAll();
+  }
+
 
   /* Metodos Get */
 
@@ -321,11 +339,12 @@ export class ConfiguracionComponent implements OnInit {
   GetBuscarVehiculos(){
     //muestro los vehiculos en el carrusel de vehiculos
     if(this.selectIDMarcaVehiculo!=0 && this.selectIDModeloVehiculo!=0){
-
+      debugger
       this.servicio.getConfiguracionVehiculos(this.selectIDMarcaVehiculo,this.selectIDModeloVehiculo).subscribe(
         (res) => {
           if(res.length!=0){
-            
+            this.objListaVehiculos = [];
+           
             this.objListaVehiculos= res;
           }else{
             this.notificacionDatosInexistentes(res);
@@ -563,7 +582,7 @@ export class ConfiguracionComponent implements OnInit {
   }
 
 
-  /* Modal Estado */
+  /* ****************************** Modal Estado ****************************** */
   botonCrearNuevoEstado() {
     
     /* Crear solo un tipo de estado */
@@ -735,7 +754,7 @@ export class ConfiguracionComponent implements OnInit {
       )
 
       this.limpiarModalVehiculos(); 
-
+      
       this.modal.dismissAll();
     }
 
@@ -759,14 +778,72 @@ export class ConfiguracionComponent implements OnInit {
             'Marca Creada!','Atención',
             {
               timeOut: 2000,
-              positionClass: 'toast-bottom-center',
+              positionClass: 'toast-top-right',
             }
           );
           this.botonCerrarMarca();
         },
-        (err)=>console.error()
+        (err)=>{
+          this.toastr.error(
+            'Ocurrio un error al crear la Marca!','Atención',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+        }
       )
     }
+  }
+
+  putMarcaAuto(){
+
+    if(this.ctrlNombreMarca.value==""){
+      this.toastr.info(
+        'Por favor completa todos el campoo antes de modificar la marca.','',
+        {
+          timeOut: 2000,
+          positionClass: 'toast-top-right',
+        }
+      );
+    }else{
+      var marca : putMarca ={
+        
+          idMarca: this.arrayMarca[0],
+          nombre : this.arrayMarca[1]+'' ,
+      
+      }
+      if(this.ctrlNombreMarca.value !=''){
+        marca.nombre = this.ctrlNombreMarca.value +'';
+      }
+
+      this.servicio.putMarcaModal(marca).subscribe(
+        (data)=>{
+
+          this.toastr.success(
+            'Marca Modificada!','Atención',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+          this.arrayMarca = []
+          this.ctrlNombreMarca.reset();
+          this.modal.dismissAll();
+
+        },
+        (err)=>{
+          this.toastr.error(
+            'Ocurrio un error al modificar la Marca!','Atención',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+        }
+      )
+    }
+
   }
 
   
