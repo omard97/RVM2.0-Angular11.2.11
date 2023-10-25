@@ -66,31 +66,25 @@
                                             <th scope="row">{{item.nombreTipoEstado}}</th>
                                             <td>{{item.nombre}}</td>
                                             <td>
-                                                <div class="btn-group" role="group">
-                                                    <div class="btn-group" role="group">
-                                                        <button id="btnGroupDrop1" type="button"
-                                                            class="btn btn-outline-primary btn-sm dropdown-toggle"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="fas fa-chevron-down"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                            <li class="boton__tabla"><a class="dropdown-item"><i
-                                                                        class="bi bi-pencil-square">
-                                                                        Editar</i></a></li>
-                                                            <li><a class="dropdown-item"><i class="bi bi-trash">
-                                                                        Borrar</i></a></li>
+                                                <button type="button" class="btn btn-secondary btn__opciones "
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Editar"><i class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <!-- <div class="hstack gap-2">
+                                                    <div class="vr"></div>
+                                                    <button type="button"
+                                                        class="btn btn-danger d-inline-block btn__opciones"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Dar de baja"><i class="bi bi-arrow-down"></i>
+                                                    </button>
+                                                </div> -->
 
-                                                        </ul>
-                                                    </div>
-                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <mat-paginator [length]="objEstadosDelTipo.length" 
-                                    [pageSize]="pageSize"
-                                    [pageSizeOptions]="[5, 10, 25, 100]" 
-                                    (page)="cambiarPaginaEstados($event)"
+                                <mat-paginator [length]="objEstadosDelTipo.length" [pageSize]="pageSize"
+                                    [pageSizeOptions]="[5, 10, 25, 100]" (page)="cambiarPaginaEstados($event)"
                                     aria-label="Seleccionar página">
                                 </mat-paginator>
                             </div>
@@ -168,7 +162,7 @@
                         </div>
 
                         <div class="col-12 divTabla table-responsive-lg" *ngIf="objListaVehiculos!=null">
-                            <table class="table table-hover table-bordered table-striped">
+                            <table class="table table-hover">
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col">N Vehiculo</th>
@@ -183,8 +177,8 @@
                                         <th scope="col"> - - </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of objListaVehiculos">
+                                <tbody class="table-group-divide">
+                                    <tr *ngFor="let item of objListaVehiculos | slice:paginaDesde:paginaHasta">
                                         <!-- style="display: none" -->
                                         <td>{{item.idVehiculo}}</td>
                                         <th scope="row">{{item.nombreTipoVehiculo}}</th>
@@ -218,6 +212,10 @@
 
                                 </tbody>
                             </table>
+                            <mat-paginator [length]="objListaVehiculos.length" [pageSize]="pageSize"
+                            [pageSizeOptions]="[5, 10, 25, 100]" (page)="cambiarPaginaUsario($event)"
+                            aria-label="Seleccionar página">
+                        </mat-paginator> <!--  -->
 
                         </div>
                     </div>
@@ -467,10 +465,8 @@
 
                                 </tbody>
                             </table>
-                            <mat-paginator [length]="objTipoPerfil.length" 
-                            [pageSize]="pageSize"
-                                [pageSizeOptions]="[5, 10, 25, 100]" 
-                                (page)="cambiarPaginaPerfiles($event)"
+                            <mat-paginator [length]="objTipoPerfil.length" [pageSize]="pageSize"
+                                [pageSizeOptions]="[5, 10, 25, 100]" (page)="cambiarPaginaPerfiles($event)"
                                 aria-label="Seleccionar página">
                             </mat-paginator>
 
@@ -647,10 +643,8 @@
 
                                 </tbody>
                             </table>
-                            <mat-paginator [length]="objListaTipVehiculos.length" 
-                            [pageSize]="pageSize"
-                                [pageSizeOptions]="[5, 10, 25, 100]" 
-                                (page)="cambiarPaginaTiposVehiculos($event)"
+                            <mat-paginator [length]="objListaTipVehiculos.length" [pageSize]="pageSize"
+                                [pageSizeOptions]="[5, 10, 25, 100]" (page)="cambiarPaginaTiposVehiculos($event)"
                                 aria-label="Seleccionar página">
                             </mat-paginator>
 
@@ -685,24 +679,28 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-3 pb-2">
-                            <input type="text" class="form-control " [formControl]="ctrlNombreUsuario" placeholder="Buscar Usuario">                          
+                            <input type="text" class="form-control " [formControl]="ctrlNombreUsuario"
+                                placeholder="Buscar Usuario">
                         </div>
                         <div class="col-12 col-md-3 pb-2">
-                            <input type="text" class="form-control" [formControl]="ctrlNickUsuario" placeholder="Buscar Nick">                          
+                            <input type="text" class="form-control" [formControl]="ctrlNickUsuario"
+                                placeholder="Buscar Nick">
                         </div>
 
                         <div class="col-12 col-md-3 pb-2">
-                            <select class="form-select " aria-label=".form-select-sm example" (change)="obtenerIdEstadoUsuario($event)" [formControl]="ctrlEstadoUsuario">
+                            <select class="form-select " aria-label=".form-select-sm example"
+                                (change)="obtenerIdEstadoUsuario($event)" [formControl]="ctrlEstadoUsuario">
                                 <option value="" disabled selected> Selecione su Estado </option>
-                                <option *ngFor="let item of objEstadosUsuarios" value="{{item.idEstado}}">{{item.nombre}}</option>
+                                <option *ngFor="let item of objEstadosUsuarios" value="{{item.idEstado}}">
+                                    {{item.nombre}}</option>
                             </select>
                         </div>
                         <div class="col-2 col-md-1 pb-2">
-                            <button type="button" class="btn btn-success" (click)="btn_buscarUsuario()"><i class="bi bi-search"></i></button>
+                            <button type="button" class="btn btn-success" (click)="btn_buscarUsuario()"><i
+                                    class="bi bi-search"></i></button>
                         </div>
                         <div class="col-6 col-md-1 ">
-                            <button type="button" class="btn btn-primary"
-                                ><i class="bi bi-plus-square"></i></button>
+                            <button type="button" class="btn btn-primary"><i class="bi bi-plus-square"></i></button>
                         </div>
                     </div>
                     <div class="row">
@@ -718,7 +716,7 @@
                                         <th>Correo</th> -->
                                         <th class="columna3">Nick</th>
                                         <th class="columna4">Foto </th>
-                                        <th class="columna5" >Estado </th>
+                                        <th class="columna5">Estado </th>
                                         <th class="columna6"> - - </th>
                                     </tr>
                                 </thead>
@@ -739,7 +737,7 @@
                                         </td>
                                         <td class="">{{item.nombreEstado}}</td>
                                         <td class="">
-                                           <!--  <div class="btn-group" role="group">
+                                            <!--  <div class="btn-group" role="group">
                                                 <div class="btn-group" role="group">
                                                     <button id="btnGroupDrop1" type="button"
                                                         class="btn btn-outline-primary btn-sm dropdown-toggle"
@@ -756,24 +754,25 @@
                                                 </div>
                                             </div> -->
                                             <div class="container contenedor_botonesOpciones ">
-                                             <button type="button" class="btn btn-secondary btn__opciones " data-bs-toggle="tooltip"
-                                                  data-bs-placement="top" title="Editar" 
-                                                  (click)="visualizarModalUsuario(modalUsuario, item.idUsuario)"><i class="bi bi-pencil-square"></i>
+                                                <button type="button" class="btn btn-secondary btn__opciones "
+                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"
+                                                    (click)="visualizarModalUsuario(modalUsuario, item.idUsuario)"><i
+                                                        class="bi bi-pencil-square"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-danger d-inline-block btn__opciones " data-bs-toggle="tooltip"
-                                                  data-bs-placement="top" title="Dar de baja"><i class="bi bi-arrow-down"></i>
+                                                <button type="button"
+                                                    class="btn btn-danger d-inline-block btn__opciones "
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Dar de baja"><i class="bi bi-arrow-down"></i>
                                                 </button>
-                                
-                                              </div> <!-- botones -->
+
+                                            </div> <!-- botones -->
                                         </td>
                                     </tr>
 
                                 </tbody>
                             </table>
-                            <mat-paginator [length]="objListaUsuarios.length"
-                             [pageSize]="pageSize"
-                                [pageSizeOptions]="[5, 10, 25, 100]"
-                                 (page)="cambiarPaginaUsario($event)"
+                            <mat-paginator [length]="objListaUsuarios.length" [pageSize]="pageSize"
+                                [pageSizeOptions]="[5, 10, 25, 100]" (page)="cambiarPaginaUsario($event)"
                                 aria-label="Seleccionar página">
                             </mat-paginator> <!--  -->
 
@@ -785,7 +784,7 @@
 
 
 
-    
+
 
 
 
@@ -928,6 +927,7 @@
 
 <!-- Modal Vehiculo -->
 <ng-template #modalVehiculos let-modal>
+    
     <form class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Nuevo Vehiculo</h5>
@@ -1118,6 +1118,7 @@
 
 <!-- Put Modal Vehiculos -->
 <ng-template #modalPutVehiculo let-modal>
+    
     <form class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Actualizar Vehiculo</h5>
@@ -1125,6 +1126,40 @@
                 aria-label="Close"></button>
         </div>
         <div class="modal-body">
+            <div class="container-fluid" style="margin-bottom: 10px;" *ngFor="let item of this.objVehiculoModal">
+                <div class="row">
+                    <div class="col-3">
+                        <small>Tip Vehículo: {{item.nombreTipoVehiculo}}</small>
+                    </div>
+                    <div class="col-3">
+                        <small>Dominio: {{item.dominio}}</small>
+                    </div>
+                    <div class="col-3">
+                        <small>Marca: {{item.marcaAuto}}</small>
+                    </div>
+                    <div class="col-3">
+                        <small>Modelo: {{item.nombreModelo}}</small>
+                    </div>
+                   
+        
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <small>Color: {{item.color}}</small>
+                    </div>
+                    <div class="col-3">
+                        <small>Num Chasis: {{item.chasis}}</small>
+                    </div>
+                    <div class="col-3">
+                        <small>Num Motor: {{item.numMotor}}</small>
+                    </div>
+                    <div class="col-3">
+                        <small>Estado: {{item.nombreEstado}}</small>
+                    </div>
+                    
+                </div>
+        
+            </div>
             <div class="row">
 
                 <div class="col-12 ">
@@ -1132,8 +1167,8 @@
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                         [formControl]="nombreTipoVehiculoCtrl">
                         <option value="" disabled> Seleccione el Tipo de Vehiculo </option>
-                        <option value="{{item.id_TipoVehiculo}}" *ngFor="let item of objVehiculoModal" selected>
-                            {{item.nombreTipoVehiculo}}</option>
+                        <option *ngFor="let item of objTipVehiculo" value="{{item.idTipoVehiculo}}" selected>
+                            {{item.nombre}}</option>
                     </select>
                 </div>
             </div>
@@ -1144,9 +1179,9 @@
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                         [formControl]="marcaCtrl">
                         <option value="" disabled> Selecione la Marca</option>
-                        <option value="{{item.id_Marcavehiculo}}" style="color: black;"
-                            *ngFor="let item of objVehiculoModal" selected>
-                            {{item.marcaAuto}}
+                        <option value="{{item.idMarca}}" style="color: black;"
+                            *ngFor="let item of objListaMarcaVehiculo" selected>
+                            {{item.marcaVehiculo}}
                         </option>
                     </select>
 
@@ -1156,10 +1191,10 @@
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                         [formControl]="modeloCtrl">
                         <option value="" disabled> Selecione el Modelo </option>
-                        <option value="{{item.id_ModeloV}}" style="color: black;" *ngFor="let item of objVehiculoModal"
-                            selected>
-                            {{item.nombreModelo}}
-                        </option>
+                        <option value="{{item.idModelo}}" style="color: black;"
+                        *ngFor="let item of objListaModeloVehiculo" selected>
+                        {{item.modeloVehiculo}}
+                    </option>
                     </select>
 
                 </div>
@@ -1197,7 +1232,7 @@
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                         [formControl]="listaEstadoVehiculoCtrl">
                         <option value="" disabled> Selecione el Estado </option>
-                        <option *ngFor="let item of objVehiculoModal" value="{{item.id_Estado}}" selected>
+                        <option *ngFor="let item of objListaEstadoVehiculo" value="{{item.idEstado}}" selected>
                             {{item.nombreEstado}}</option>
                     </select>
                 </div>
@@ -1207,7 +1242,7 @@
         <div class="modal-footer">
             <button (click)="botonCerrarVehiculo()" type="button" class="btn btn-secondary"
                 data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" (click)="botonCrearVehiculo()" class="btn btn-primary">Crear</button>
+            <button type="button" (click)="botonActualizarVehiculo()" class="btn btn-primary">Modificar</button>
         </div>
     </form>
 </ng-template>
@@ -1227,21 +1262,22 @@
     <form class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Datos Usuario</h5>
-            <button (click)="botonCerrarModalUsuario()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button (click)="botonCerrarModalUsuario()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="container-fluid  ">
                 <div class="row contenedor__infoUsuario ">
 
-                    <div *ngIf="datosUsuario[0].foto!=null"  class=" col-3 p-0 "> 
+                    <div *ngIf="datosUsuario[0].foto!=null" class=" col-3 p-0 ">
                         <img *ngFor="let item of datosUsuario " class="imagen--perfil" height="150" width="auto"
                             src={{item.foto}} alt="">
-                            
+
                     </div>
-                    <div *ngIf="datosUsuario[0].foto==null"  class=" col-3 p-0"> 
-                        <img  class="imagen--perfil" height="150" width="auto"
-                        src='../../../../assets/img/img_usuario.png' alt="">
-                            
+                    <div *ngIf="datosUsuario[0].foto==null" class=" col-3 p-0">
+                        <img class="imagen--perfil" height="150" width="auto"
+                            src='../../../../assets/img/img_usuario.png' alt="">
+
                     </div>
                     <div *ngFor="let item of datosUsuario " class=" col-9 text-center datosUsuario  ">
                         <div class="row ">
@@ -1279,30 +1315,33 @@
                         </div>
 
                     </div>
-                    
+
 
                 </div> <!-- row -->
-                
+
                 <div class="row fila__opcionesUsuario">
                     <div class=" col-12 col-lg-3 p-0 ">
-                        <button type="button" class="btn btn-light w-100 " (click)="formularioUsuario()"><i class="bi bi-pen-fill"></i>  Editar</button>
-                    </div>                   
+                        <button type="button" class="btn btn-light w-100 " (click)="formularioUsuario()"><i
+                                class="bi bi-pen-fill"></i> Editar</button>
+                    </div>
                     <div class="col-12 col-lg-6 div__selectEstado">
 
                         <div class="input-group flex-nowrap">
 
                             <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
-                                  
-                                <select class="form-select " aria-label=".form-select-sm example" (change)="obtenerIDestadoModalUsuario($event)" [formControl]="ctrlEstadoUsuario">
-                                    <option value="" disabled selected> Selecione su Estado </option>
-                                    <option *ngFor="let item of objEstadosUsuarios" value="{{item.idEstado}}">{{item.nombre}}</option>
-                                </select>
 
-                        </div>                                               
+                            <select class="form-select " aria-label=".form-select-sm example"
+                                (change)="obtenerIDestadoModalUsuario($event)" [formControl]="ctrlEstadoUsuario">
+                                <option value="" disabled selected> Selecione su Estado </option>
+                                <option *ngFor="let item of objEstadosUsuarios" value="{{item.idEstado}}">
+                                    {{item.nombre}}</option>
+                            </select>
+
+                        </div>
                     </div>
 
                 </div>
-              <!--   <div class="row">
+                <!--   <div class="row">
                     <div class="col-12 col-sm-3 col-md-3 pb-2 contenedor_btnEditar ">
                         <button type="button" class="btn btn-light w-50" (click)="formularioUsuario()"><i class="bi bi-pen-fill"></i>  Editar</button>
                     </div>
@@ -1314,8 +1353,8 @@
                         <label for="Estado">Estado</label>
                     </div>
                 </div> -->
-                
-               <!--  <div style="margin-bottom: 5px;">
+
+                <!--  <div style="margin-bottom: 5px;">
                     <button type="button" class="btn btn-light" (click)="formularioUsuario()"><i class="bi bi-pen-fill"></i>  Editar</button>
                 </div> -->
             </div> <!-- Informacion usuario -->
@@ -1324,133 +1363,129 @@
                 <small class="text-center" style="color: rgb(131, 131, 131);">
                     <p class="m-0">* Rellene los campos que desea modificar *</p>
                 </small>
-                    <form *ngFor="let item of datosUsuario">
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <!-- Nombre -->
-                                <div class="input-group flex-nowrap inputModal">
+                <form *ngFor="let item of datosUsuario">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <!-- Nombre -->
+                            <div class="input-group flex-nowrap inputModal">
 
-                                    <span class="input-group-text" id="addon-wrapping"><i
-                                            class="bi bi-person"></i></span>
-                                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
-                                        value="" [formControl]="nombrePersonaCtrl">
-
-                                </div>
+                                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                                    value="" [formControl]="nombrePersonaCtrl">
 
                             </div>
-
-                            <div class="col-12  col-sm-6 ">
-                                <!-- Apellido -->
-                                <div class="input-group flex-nowrap inputModal">
-
-
-                                    <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido"
-                                        value="{{item.apellidoPersona}}" [formControl]="apellidoPersonaCtrl">
-                                    <span class="input-group-text" id="addon-wrapping"><i
-                                            class="bi bi-people"></i></span>
-
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <!-- Celular -->
-                                <div class="input-group flex-nowrap inputModal">
-
-                                    <span class="input-group-text" id="addon-wrapping"><i
-                                            class="bi bi-phone"></i></span>
-                                    <input type="number" class="form-control" placeholder="Celular" aria-label="Celular"
-                                        value="{{item.telefonoUsuario}}" [formControl]="celularCtrl">
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-12  col-sm-6 ">
-                                <!-- Dni -->
-                                <div class="input-group flex-nowrap inputModal">
-
-
-                                    <input type="number" class="form-control" placeholder="DNI" aria-label="DNI"
-                                        value="{{item.dniUsuario}}" [formControl]="dniCtrl"><span
-                                        class="input-group-text" id="addon-wrapping"><i class="bi bi-123"></i> </span>
-
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <!-- Correo -->
-                                <div class="input-group flex-nowrap inputModal">
-
-                                    <span class="input-group-text" id="addon-wrapping"><i
-                                            class="bi bi-envelope-at"></i></span>
-                                    <input type="email" class="form-control" placeholder="Correo" aria-label="Correo"
-                                        value="{{item.correoUsuario}}" [formControl]="correoCtrl">
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-12  col-sm-6 ">
-                                <!-- Constraseña -->
-                                <div class="input-group flex-nowrap inputModal">
-
-
-                                    <input type="password" class="form-control" placeholder="Contraseña"
-                                        aria-label="Contraseña" value="{{item.contrasenia}}"
-                                        [formControl]="contraseniaCtrl"><span class="input-group-text"
-                                        id="addon-wrapping"><i class="bi bi-key"></i></span>
-
-                                </div>
-
-                            </div>
-
 
                         </div>
 
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- Nick -->
-                                <div class="input-group flex-nowrap inputModal">
+                        <div class="col-12  col-sm-6 ">
+                            <!-- Apellido -->
+                            <div class="input-group flex-nowrap inputModal">
 
-                                    <span class="input-group-text" id="addon-wrapping"><i
-                                            class="bi bi-person-square"></i></span>
-                                    <input type="text" class="form-control" placeholder="Nick" aria-label="Nick"
-                                        value="{{item.nombreUsuario}}" [formControl]="nombreUsuarioCtrl">
 
-                                </div>
+                                <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido"
+                                    value="{{item.apellidoPersona}}" [formControl]="apellidoPersonaCtrl">
+                                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-people"></i></span>
 
                             </div>
+
                         </div>
 
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- Foto Perfil -->
-                                <div class="input-group flex-nowrap inputModal">
 
-                                    <input type="file" class="form-control" placeholder="Foto Perfil"
-                                        (change)="onFileSelected($event)" accept="image/*"
-                                        aria-label="Foto Perfil"><span class="input-group-text" id="addon-wrapping"><i
-                                            class="bi bi-image"></i></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <!-- Celular -->
+                            <div class="input-group flex-nowrap inputModal">
 
-                                </div>
+                                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-phone"></i></span>
+                                <input type="number" class="form-control" placeholder="Celular" aria-label="Celular"
+                                    value="{{item.telefonoUsuario}}" [formControl]="celularCtrl">
 
                             </div>
+
                         </div>
-                        
 
-                    </form>
+                        <div class="col-12  col-sm-6 ">
+                            <!-- Dni -->
+                            <div class="input-group flex-nowrap inputModal">
 
-                </div>
 
-            
+                                <input type="number" class="form-control" placeholder="DNI" aria-label="DNI"
+                                    value="{{item.dniUsuario}}" [formControl]="dniCtrl"><span class="input-group-text"
+                                    id="addon-wrapping"><i class="bi bi-123"></i> </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <!-- Correo -->
+                            <div class="input-group flex-nowrap inputModal">
+
+                                <span class="input-group-text" id="addon-wrapping"><i
+                                        class="bi bi-envelope-at"></i></span>
+                                <input type="email" class="form-control" placeholder="Correo" aria-label="Correo"
+                                    value="{{item.correoUsuario}}" [formControl]="correoCtrl">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-12  col-sm-6 ">
+                            <!-- Constraseña -->
+                            <div class="input-group flex-nowrap inputModal">
+
+
+                                <input type="password" class="form-control" placeholder="Contraseña"
+                                    aria-label="Contraseña" value="{{item.contrasenia}}"
+                                    [formControl]="contraseniaCtrl"><span class="input-group-text"
+                                    id="addon-wrapping"><i class="bi bi-key"></i></span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Nick -->
+                            <div class="input-group flex-nowrap inputModal">
+
+                                <span class="input-group-text" id="addon-wrapping"><i
+                                        class="bi bi-person-square"></i></span>
+                                <input type="text" class="form-control" placeholder="Nick" aria-label="Nick"
+                                    value="{{item.nombreUsuario}}" [formControl]="nombreUsuarioCtrl">
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Foto Perfil -->
+                            <div class="input-group flex-nowrap inputModal">
+
+                                <input type="file" class="form-control" placeholder="Foto Perfil"
+                                    (change)="onFileSelected($event)" accept="image/*" aria-label="Foto Perfil"><span
+                                    class="input-group-text" id="addon-wrapping"><i class="bi bi-image"></i></span>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </div>
+
+
         </div>
         <div class="modal-footer">
             <button (click)="botonCerrarModalUsuario()" type="button" class="btn btn-secondary"
