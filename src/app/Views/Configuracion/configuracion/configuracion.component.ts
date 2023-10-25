@@ -371,6 +371,9 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   botonCerrarPutModalTipoReclamo(){
+    this.arrayPutTipoReclamo = []
+    this.ctrlNombreTipoReclamo.reset();
+    this.ctrlDescripcionTipoReclamo.reset();
     this.modal.dismissAll();
   }
 
