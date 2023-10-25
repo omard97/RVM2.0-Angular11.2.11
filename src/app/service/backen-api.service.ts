@@ -24,6 +24,7 @@ import { TipoReclamo } from '../model/tipoReclamo';
 import { Vehiculo } from '../model/vehiculo';
 import { estadosUsuarios } from '../model/usuario';
 import { putMarca } from '../model/Configuracion/marcaVehiculo';
+import { putModelo } from '../model/Configuracion/modeloVehiculo';
 
 @Injectable({
   providedIn: 'root'
@@ -381,7 +382,11 @@ export class BackenApiService {
   postModeloModal(modelo:any):Observable<any>{
     return this.http.post('https://localhost:44363/ModeloAdmin', modelo, this.httpOptions);
   }
-
+  putModeloModal(modeloAuto:putModelo){
+    var objeto = JSON.stringify(modeloAuto);
+    debugger
+    return this.http.put('https://localhost:44363/modalPutModelo/'+modeloAuto.idModelo,objeto,this.httpOptions)
+  }
   
   /*------------------------ Configuración Modal Perfil ------------------------- */
 
