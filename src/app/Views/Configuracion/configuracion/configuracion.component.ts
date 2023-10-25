@@ -11,7 +11,7 @@ import { estadosUsuarios, usuarioConfig } from 'src/app/model/usuario';
 import { TipoVehiculoModal } from 'src/app/model/Configuracion/tipoVehiculo';
 import { DatosVehiculo, autoPost, putVehiculo } from 'src/app/model/Configuracion/vehiculo';
 import { postMarca, putMarca } from 'src/app/model/Configuracion/marcaVehiculo';
-import { postModeloVehiculo } from 'src/app/model/Configuracion/modeloVehiculo';
+import { postModeloVehiculo, putModelo } from 'src/app/model/Configuracion/modeloVehiculo';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { PageEvent } from '@angular/material/paginator';
 import { PerfilApiService } from 'src/app/service/Perfil/perfil-api.service';
@@ -109,6 +109,11 @@ export class ConfiguracionComponent implements OnInit {
     /* ---Configuración Actualizacion Marca ---  */
     ctrlNombreMarca=new FormControl('',[Validators.required]);
     arrayMarca: any [] = []; // utilizada para almacenar el id y el nombre de la marca ingresada
+
+    /* ---Configuración Actualizacion Modelo ---  */
+    ctrlNombreModelo = new FormControl('',[Validators.required]);
+    modeloSeleccionado :string ='';
+    arrayModelo: any [] = []; 
 
     /* paginacion para las listas */
     pageSize = 5; // Tamaño de página predeterminado
@@ -234,28 +239,40 @@ export class ConfiguracionComponent implements OnInit {
   /* Visualizar Modal para ACTUALIZAR */
   openPutModalVehiculo(putModalVehiculo:any,idvehiculo:number){
     this.modal.open(putModalVehiculo, { size: 'lg' });
-    
     this.servicio.getActualizarModalVehiculo(idvehiculo).subscribe(
       (res) => {
-        this.objVehiculoModal=res;
-       
-        console.log(this.objVehiculoModal)
-        
+        this.objVehiculoModal=res;   
+        console.log(this.objVehiculoModal)   
       },
       (err) => console.error(err)
-
-    )
-    
+    ) 
   }
 
   openPutModalMarca(putMarca:any, id:number, nombre:string){
-    
     this.modal.open(putMarca, { size: 'lg' });
     this.arrayMarca[0] = id;
     this.arrayMarca[1] = nombre;
-  
-
   }
+
+  openPutModalModelo(putModelo:any){
+    debugger
+    if(this.selectModelo.value!=''){
+
+      this.modal.open(putModelo, { size: 'lg' });
+    this.arrayModelo[0] = this.selecIDModelo;
+    this.arrayModelo[1] = this.modeloSeleccionado;
+    }else{
+      this.toastr.info(
+        'Seleccione un modelo para realizar la modificaión deseada','',
+        {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+        }
+      );
+    }
+    
+  }
+
 
   /* metodo para visualizar input del modal nuevo estado */
   /* visualizarInput() {
@@ -270,6 +287,9 @@ export class ConfiguracionComponent implements OnInit {
   } */
 
   /* Cerrar Modales  */
+  botonCerrarModal(){
+    this.modal.dismissAll();
+  }
   
   botonCerrarNuevoEstado() {
     this.limpiarModalEstado();
@@ -306,6 +326,19 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   botonCerrarPutModalPerfil(){
+    this.modal.dismissAll();
+  }
+
+  botonCerrarPutModalMarca(){
+    this.ctrlNombreMarca.reset();
+    this.arrayMarca = [];
+    this.modal.dismissAll();
+  }
+  botonCerrarPutModalModelo(){
+    this.selecIDMarca=0;
+    this.modeloSeleccionado = '';
+    this.arrayModelo = [];
+    this.ctrlNombreModelo.reset();
     this.modal.dismissAll();
   }
 
@@ -509,8 +542,10 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   obtenerIDModelo(ev:any){
+    debugger
     this.selecIDModelo=0;
     this.selecIDModelo=ev.target.value;
+     this.modeloSeleccionado = (ev.target as HTMLSelectElement).options[(ev.target as HTMLSelectElement).selectedIndex].text;
     console.log("modelo: "+this.selecIDModelo)
   }
 
@@ -868,7 +903,7 @@ export class ConfiguracionComponent implements OnInit {
             'Modelo Creado!','Atención',
             {
               timeOut: 2000,
-              positionClass: 'toast-bottom-center',
+              positionClass: 'toast-top-right',
             }
           );
           this.botonCerrarModelo();      
@@ -877,6 +912,63 @@ export class ConfiguracionComponent implements OnInit {
 
       )
     }
+  }
+
+  putModelo(){
+    debugger
+    if(this.ctrlNombreModelo.value==''){
+      this.toastr.info(
+        'Complete el campo para realizar la modificación!','Atención',
+        {
+          timeOut: 2000,
+          positionClass: 'toast-top-right',
+        }
+      );
+    }else{
+      debugger
+      var modeloAuto: putModelo ={
+        idModelo : Number(this.arrayModelo[0]),
+        nombre :this.arrayModelo[1]+'',
+      }
+
+      if(this.ctrlNombreModelo.value!=''){
+        modeloAuto.nombre = this.ctrlNombreModelo.value +'';
+      }
+
+      this.servicio.putModeloModal(modeloAuto).subscribe(
+        (data) => {
+
+          this.toastr.success(
+            'Modelo de vehículo modificado','',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+          this.selecIDMarca=0;
+          this.modeloSeleccionado = '';
+          this.arrayModelo = [];
+          this.ctrlNombreModelo.reset();
+          
+          this.modal.dismissAll()
+        },
+        (err) =>{
+          this.toastr.warning(
+            'Ocurrió un problema al modificar el Modelo seleccionado','',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+        }
+      )
+
+
+
+    
+    }
+
+
   }
 
 

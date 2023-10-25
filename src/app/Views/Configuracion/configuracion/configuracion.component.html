@@ -345,10 +345,14 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="col-12 col-md-3 btn__padding">
+                        <div class="col-12 col-md-3 btn__padding hstack gap-3">
                             <button type="button" (click)="visualizarModalModelo(modalModelo)"
                                 class="btn btn-primary btn-sm  w-100 ">Nuevo</button>
+                                <div class="vr"></div>
+                            <button type="button" 
+                                class="btn btn-warning btn-sm w-100 "(click)="openPutModalModelo(modalPutModelo)">Modificar</button>
                         </div>
+
                     </div>
                     <div class="row">
 
@@ -1253,7 +1257,7 @@
     <form class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Modificar Marca</h5>
-            <button (click)="botonCerrarPutModalPerfil()" type="button" class="btn-close" data-bs-dismiss="modal"
+            <button (click)="botonCerrarPutModalMarca()" type="button" class="btn-close" data-bs-dismiss="modal"
                 aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -1270,7 +1274,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button (click)="botonCerrarPutModalPerfil()" type="button" class="btn btn-secondary"
+            <button (click)="botonCerrarPutModalMarca()" type="button" class="btn btn-secondary"
                 data-bs-dismiss="modal">Cerrar</button>
             <button type="button" class="btn btn-primary" (click)="putMarcaAuto()">Modificar</button>
         </div>
@@ -1279,6 +1283,33 @@
 
 
 <!-- Put Modal Modelo -->
+<ng-template #modalPutModelo let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modificar  Modelo</h5>
+            <button (click)="botonCerrarPutModalModelo()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Nombre del Modelo de Auto" [formControl]="ctrlNombreModelo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarPutModalModelo()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="putModelo()">Modificar</button>
+        </div>
+    </form>
+</ng-template>
 
 <!-- Put Modal Perfil -->
 
