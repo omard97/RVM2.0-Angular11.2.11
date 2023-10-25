@@ -8,7 +8,7 @@ import { PostEstado } from 'src/app/model/Configuracion/estadosAdmin';
 import { PerfilAdmin, putPerfilAdmin } from 'src/app/model/Configuracion/tipoPerfil';
 import { TipoReclamo } from 'src/app/model/tipoReclamo';
 import { estadosUsuarios, usuarioConfig } from 'src/app/model/usuario';
-import { TipoVehiculoModal } from 'src/app/model/Configuracion/tipoVehiculo';
+import { TipoVehiculoModal, putTipoVehiculo } from 'src/app/model/Configuracion/tipoVehiculo';
 import { DatosVehiculo, autoPost, putVehiculo } from 'src/app/model/Configuracion/vehiculo';
 import { postMarca, putMarca } from 'src/app/model/Configuracion/marcaVehiculo';
 import { postModeloVehiculo, putModelo } from 'src/app/model/Configuracion/modeloVehiculo';
@@ -120,10 +120,15 @@ export class ConfiguracionComponent implements OnInit {
      ctrlNombrePerfil = new FormControl('',[Validators.required]);
      arrayPutPerfil: any [] =[];
 
-        /* ---Configuración Actualizacion Tipo Reclamo ---  */
+      /* ---Configuración Actualizacion Tipo Reclamo ---  */
      ctrlNombreTipoReclamo = new FormControl('',[Validators.required]);
      ctrlDescripcionTipoReclamo= new FormControl('',[Validators.required]);
      arrayPutTipoReclamo:any [] = [];
+
+     /* ---Configuración Actualizacion Tipo vehiculo ---  */
+     ctrlNombreTipoVehiculo = new FormControl('',[Validators.required]);
+     ctrlDescripcionTipoVehiculo= new FormControl('',[Validators.required]);
+     arrayPutTipoVehiculo:any [] = [];
 
     /* paginacion para las listas */
     pageSize = 5; // Tamaño de página predeterminado
@@ -296,6 +301,12 @@ export class ConfiguracionComponent implements OnInit {
     this.arrayPutTipoReclamo[1] = nombre +'';
     this.arrayPutTipoReclamo[2] = descripcion +'';
   }
+  openModalTipoVehiculo(putTipoVehiculo:any, idTipo:number,nombre:string,descripcion:string){
+    this.modal.open(putTipoVehiculo,{ size: 'lg' })
+    this.arrayPutTipoVehiculo[0] = Number(idTipo);
+    this.arrayPutTipoVehiculo[1] = nombre +'';
+    this.arrayPutTipoVehiculo[2] = descripcion +'';
+  }
 
 
 
@@ -374,6 +385,9 @@ export class ConfiguracionComponent implements OnInit {
     this.arrayPutTipoReclamo = []
     this.ctrlNombreTipoReclamo.reset();
     this.ctrlDescripcionTipoReclamo.reset();
+    this.modal.dismissAll();
+  }
+  botonCerrarPutModalTipoVehiculo(){
     this.modal.dismissAll();
   }
 
@@ -617,6 +631,7 @@ export class ConfiguracionComponent implements OnInit {
         (res) => {
 
           if(res.length!=0){
+            debugger
             this.objListaTipVehiculos = res;
           }else{
             this.notificacionDatosInexistentes(res);
@@ -1178,6 +1193,62 @@ export class ConfiguracionComponent implements OnInit {
     }else{
       this.NotificacionRellenarCampos();
     }
+  }
+
+  putTipoVehiculo(){
+    if(this.ctrlNombreTipoVehiculo.value == '' || this.ctrlDescripcionTipoVehiculo.value == ''){
+      this.toastr.info(
+        'Complete los campo para realizar la modificación!','Atención',
+        {
+          timeOut: 2000,
+          positionClass: 'toast-top-right',
+        }
+      );
+    }else{
+
+      var putTipVehiculo : putTipoVehiculo ={
+        idTipoVehiculo: this.arrayPutTipoVehiculo[0],
+        nombre: this.arrayPutTipoVehiculo[1],
+        descripcion: this.arrayPutTipoVehiculo[2]
+      }
+
+      if(this.ctrlNombreTipoVehiculo.value != ''){
+        putTipVehiculo.nombre = this.ctrlNombreTipoVehiculo.value +'';
+      }
+      if(this.ctrlDescripcionTipoVehiculo.value !=''){
+        putTipVehiculo.descripcion = this.ctrlDescripcionTipoVehiculo.value +'';
+      }
+
+      this.servicio.putTipoVehiculoModal(putTipVehiculo).subscribe(
+        (data)=>{
+
+          this.toastr.success(
+            'Tipo de Vehículo Modificado!','',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+
+          this.arrayPutTipoVehiculo = [];
+          this.ctrlNombreTipoVehiculo.reset();
+          this.ctrlDescripcionTipoVehiculo.reset();
+          this.modal.dismissAll();
+        },
+        (err)=>{
+          this.toastr.warning(
+            'Ocurrió un problema al modificar el Tipo de Vehículo','',
+            {
+              timeOut: 2000,
+              positionClass: 'toast-top-right',
+            }
+          );
+        }
+      )
+
+
+    }
+
   }
  
    /* ******************************  Modal Usuario ****************************** */

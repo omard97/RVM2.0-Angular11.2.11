@@ -10,3 +10,10 @@ export class TipoVehiculoModal{
     descripcion:string="";
     
 }
+
+export class putTipoVehiculo{
+    idTipoVehiculo: number=0;
+    nombre: string="";
+    descripcion:string="";
+    
+}

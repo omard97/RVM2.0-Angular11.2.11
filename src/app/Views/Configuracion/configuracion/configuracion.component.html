@@ -101,7 +101,7 @@
         <h2 class="accordion-header" id="headingVehiculos">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseVehiculos" aria-expanded="false" aria-controls="collapseVehiculos">
-                Vehiculos
+                Vehículos
             </button>
         </h2>
         <div id="collapseVehiculos" class="accordion-collapse collapse" aria-labelledby="headingVehiculos"
@@ -110,7 +110,7 @@
 
                 <div class="container">
                     <div class="container-fluid Centrado">
-                        <h3>Vehiculos</h3>
+                        <h3>Vehículos</h3>
                     </div>
                     <div class="row">
                         <div class="col-12">
@@ -569,7 +569,7 @@
         <h2 class="accordion-header" id="headingTiposVehiculos">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseTiposVehiculos" aria-expanded="false" aria-controls="collapseTiposVehiculos">
-                Tipos de Vehiculos
+                Tipos de Vehículos
             </button>
         </h2>
         <div id="collapseTiposVehiculos" class="accordion-collapse collapse" aria-labelledby="headingTiposVehiculos"
@@ -577,10 +577,10 @@
             <div class="accordion-body">
                 <div class="container">
                     <div class="container-fluid Centrado">
-                        <h3>Tipos de Vehiculo</h3>
+                        <h3>Tipos de Vehículo</h3>
                     </div>
                     <div class="container-fluid Centrado mb-1">
-                        <small>Seleccione el <b>Tipo de Vehiculo</b> para poder realizar las configuraciones
+                        <small>Seleccione el <b>Tipo de Vehículo</b> para poder realizar las configuraciones
                             necesarias</small>
                     </div>
                     <div class="row">
@@ -600,8 +600,44 @@
                     </div>
                     <div class="row">
 
+                        <div class="col-12 divTabla  table-responsive-lg" *ngIf="objListaTipVehiculos.length!=0">
+                            <table class="table table-hover ">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Descripción</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody  class="table-group-divide">
+                                    <tr *ngFor="let item of objListaTipVehiculos | slice:paginaDesde:paginaHasta">
+                                        <th scope="row">{{item.nombre}}</th>
+                                        <td>{{item.descripcion}}</td>
+                                        
+                                        
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button"
+                                                        class="btn btn-outline-primary btn-sm dropdown-toggle"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                        <li><a (click)="openModalTipoVehiculo(modalPutTipoVehiculo,item.idTipoVehiculo,item.nombre,item.descripcion)" class="dropdown-item"><i class="bi bi-pencil-square">
+                                                                    Editar</i></a></li>
+                                                        <li><a class="dropdown-item"><i class="bi bi-trash">
+                                                                    Borrar</i></a></li>
 
-                        <div class="col-12 divTabla  table-responsive-lg" *ngIf="selectIDTipVehiculo!=0">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        <!-- <div class="col-12 divTabla  table-responsive-lg" *ngIf="objListaTipVehiculos.length!=0">
                             <table class="table table-hover table-bordered table-striped">
                                 <thead class="table-light">
                                     <tr>
@@ -647,7 +683,7 @@
                                     </tr>
 
                                 </tbody>
-                            </table>
+                            </table> -->
                             <mat-paginator [length]="objListaTipVehiculos.length" [pageSize]="pageSize"
                                 [pageSizeOptions]="[5, 10, 25, 100]" (page)="cambiarPaginaTiposVehiculos($event)"
                                 aria-label="Seleccionar página">
@@ -898,7 +934,7 @@
 <ng-template #modalTiposVehiculos let-modal>
     <form class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Tipo De Vehiculo</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Tipo De Vehículo</h5>
             <button (click)="botonCerrarNuevoTipoVehiculoModal()" type="button" class="btn-close"
                 data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -909,7 +945,7 @@
                     <div class="col-12">
                         <label for="formGroupExampleInput" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="formGroupExampleInput"
-                            placeholder="Nombre del Tipo de Vehiculo deseado"
+                            placeholder="Nombre del Tipo de Vehículo deseado"
                             [formControl]="nombreTipoVehiculoCtrlModal">
                     </div>
                 </div>
@@ -935,7 +971,7 @@
     
     <form class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Vehiculo</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Vehículo</h5>
             <button (click)="botonCerrarVehiculo()" type="button" class="btn-close" data-bs-dismiss="modal"
                 aria-label="Close"></button>
         </div>
@@ -943,7 +979,7 @@
             <div class="row">
 
                 <div class="col-12 ">
-                    <label for="formGroupExampleInput" class="form-label">Tipo Vehiculo</label>
+                    <label for="formGroupExampleInput" class="form-label">Tipo Vehículo</label>
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                         [formControl]="nombreTipoVehiculoCtrl">
                         <option value="" disabled> Selecione el Tipo de Vehiculo </option>
@@ -1126,7 +1162,7 @@
     
     <form class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Actualizar Vehiculo</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Actualizar Vehículo</h5>
             <button (click)="botonCerrarVehiculo()" type="button" class="btn-close" data-bs-dismiss="modal"
                 aria-label="Close"></button>
         </div>
@@ -1168,10 +1204,10 @@
             <div class="row">
 
                 <div class="col-12 ">
-                    <label for="formGroupExampleInput" class="form-label">Tipo Vehiculo</label>
+                    <label for="formGroupExampleInput" class="form-label">Tipo Vehículo</label>
                     <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                         [formControl]="nombreTipoVehiculoCtrl">
-                        <option value="" disabled> Seleccione el Tipo de Vehiculo </option>
+                        <option value="" disabled> Seleccione el Tipo de Vehículo </option>
                         <option *ngFor="let item of objTipVehiculo" value="{{item.idTipoVehiculo}}" selected>
                             {{item.nombre}}</option>
                     </select>
@@ -1374,6 +1410,40 @@
 </ng-template>
 
 <!-- Put Modal Tipo Vehiculo -->
+<ng-template #modalPutTipoVehiculo let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modificar el Tipo de Vehículo</h5>
+            <button (click)="botonCerrarPutModalTipoVehiculo()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Nombre del Tipo de Reclamo" [formControl]="ctrlNombreTipoVehiculo">
+                    </div>
+                    <div class="col-12">
+                        <label for="formGroupExampleInput" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="Descripción" [formControl]="ctrlDescripcionTipoVehiculo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarPutModalTipoVehiculo()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="putTipoVehiculo()">Modificar</button>
+        </div>
+    </form>
+</ng-template>
+
+
 
 <!-- Modal Usuario -->
 <ng-template #modalUsuario let-modal>
