@@ -25,3 +25,15 @@ export class autoPost{
     id_TipoVehiculo: number=0;
     id_modelo:number=0;
 }
+
+export class putVehiculo {
+    IDVehiculo:number=0;
+    dominio:string='';
+    color:string='';
+    numeroChasis:string='';
+    numeroMotor:string='';
+    ID_MarcaVehiculo:number = 0;
+    ID_Estado:number = 0;
+    ID_TipoVehiculo:number = 0;
+    ID_Modelo:number = 0;
+  }
