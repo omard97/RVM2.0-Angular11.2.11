@@ -243,7 +243,7 @@ export class MenuComponent implements OnInit {
       .setHTML(`
         <div style="text-align: center;">
           <h6 style>Aquí estoy</h6>
-          <span>Estoy en este lugar del mundo</span>
+          
         </div>
         `);
 
