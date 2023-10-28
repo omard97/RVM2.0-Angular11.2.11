@@ -22,7 +22,7 @@ export class LugaresService {
     return !!this.userLocation;
   }
 
-  constructor(private placesApiClient: PlacesApiClient, private mapService:MapaService) {
+  constructor(private placesApiClient: PlacesApiClient, private mapService: MapaService) {
     this.getUserLocation();
   }
 
@@ -33,6 +33,7 @@ export class LugaresService {
 
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => {
+          
           this.userLocation = [coords.longitude, coords.latitude];
           console.log(this.userLocation);
           resolve(this.userLocation);
@@ -50,7 +51,7 @@ export class LugaresService {
   //getPlacesByQuery
   getLugaresPorBusqueda(query: string = '') {
     // todo: evaluar cuando el query es nulo
-    if( query.length === 0 ){
+    if (query.length === 0) {
       this.lugares = [];
       this.isLoadingPlaces = false;
       return;
@@ -66,7 +67,7 @@ export class LugaresService {
       }
     }).subscribe(resp => {
 
-     
+
       this.isLoadingPlaces = false;
       this.lugares = resp.features;
       this.mapService.createMarkersFromPlaces(this.lugares); // o la respuesta resp.features
