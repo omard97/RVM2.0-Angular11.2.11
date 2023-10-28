@@ -1,4 +1,4 @@
-<div class="container-fluid shadow-lg p-3 rounded border border-2 contenedorPrincipal">
+<div class="container-fluid shadow-lg rounded border border-2 contenedorPrincipal">
 
     <div class="row animate__animated animate__fadeIn">
         <div class="col-12">
@@ -78,9 +78,9 @@
                 <fieldset>
                     <div class="row" style="margin: 0 auto">
                         <!-- Estados Reclamos -->
-                        <div class="col-12 pt-1 pb-1" *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
+                        <div class="col-12 pt-2 pb-2" *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
                             <!-- <h5 class="text-center">Estados del reclamo</h5> -->
-                            <div class="form-check form-check-inline" *ngFor="let item of Tiporecla">
+                            <div class="form-check form-check-inline pt-2 pb-2" *ngFor="let item of Tiporecla">
                                 <input class="form-check-input" (change)="dataChangedEstadoReclamo($event)" type="radio"
                                     name="EstadosRec" [id]="item.idTipoReclamo" [value]="item.idTipoReclamo">
                                 <!-- [disabled]="this.arregloDetalleReclamo[0]?.nombreTRec != item.nombre" -->
@@ -349,7 +349,7 @@
                         <div class="col-12 col-sm-4 animate__animated animate__fadeIn"
                             *ngIf="banderaEdicionReclamo==true"><!-- true -->
 
-                            <button type="button" class="btn btn-outline-success botones" data-bs-toggle="tooltip"
+                            <button type="button" class="btn btn-success botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Actualizar Reclamo"
                                 (click)="MetodoActualizarReclamo()"><i
                                     class="fas fa-sync-alt fa-lg"></i>Actualizar</button>
@@ -359,7 +359,7 @@
 
                         </div>
                         <div class=" col-12 col-sm-4 animate__animated animate__fadeIn">
-                            <button type="button" class="btn btn-outline-danger botones" data-bs-toggle="tooltip"
+                            <button type="button" class="btn btn-danger botones" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="Cancelar Reclamo" (click)="limpiarPantalla()"><i
                                     class="fas fa-times fa-lg"></i>
                                 Cancelar</button>
