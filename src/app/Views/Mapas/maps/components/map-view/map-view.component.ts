@@ -132,6 +132,7 @@ export class MapViewComponent implements AfterViewInit {
           <span>${this.lugaresService.userLocation}</span>
         </div>
         `);
+        
     //a este nuevo marcador lo incorporo al mapa
     new Marker({ color: 'red' })
       .setLngLat(this.lugaresService.userLocation)
@@ -143,7 +144,10 @@ export class MapViewComponent implements AfterViewInit {
 
       //const popupContent = `<h6>${coordenada.latitud}</h6><p>${coordenada.longitud}</p>`;
       //creación de la tarjeta del marcador
-      const popupContent = new Popup().setHTML(`
+      const popupContent = new Popup({
+        closeButton: false, // Si quieres mostrar o no el botón de cerrar en el popup
+        closeOnClick: true // Si quieres cerrar el popup al hacer clic en el mapa
+      }).setHTML(`
                   <style>
                      @font-face {
                     font-family: OpenSans-Regular;
@@ -188,7 +192,8 @@ export class MapViewComponent implements AfterViewInit {
             </div> <!-- .tarjeta--informacion -->
             
            `);
-      //incorporo el marcador en el mapa, seria una lista de marcadores en el mapa
+
+           // Create a popup, but don't add it to the map yet.
       new Marker({ color: 'rgb(13, 123, 227)' })
         .setLngLat([coordenada.longitud, coordenada.latitud])
         .setPopup(popupContent)
