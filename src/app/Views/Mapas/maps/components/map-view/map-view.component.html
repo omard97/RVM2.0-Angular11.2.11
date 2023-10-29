@@ -1,10 +1,90 @@
+<main class="border border-2 shadow  bg-body rounded mt-3">
 
-<div class=" container-fluid">
+    <div class="contenedor_titulo">
+
+        <h1>Mi Mapa</h1>
+
+    </div>
+
+    <div class="container-fluid contenedor_filtros" >
+        <div class="row">
+            
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
+
+                <!-- <h5>Tipo de Reclamo/Estado</h5> -->
+                <div class="form-floating">
+                  <select class="form-select d-inline-block seleccionFiltros  " data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Tipo de Reclamo" placeholder="Clic para abrir" 
+                     id="floatingSelect" aria-label="Floating label select example">
+                    <!-- Default select example -->
+                    <option value="" disabled selected> --- Tipo de Reclamo no selecionado --- </option>
+                    <option *ngFor="let item of " selected>
+                    </option>
+                    
+                  </select>
+                  <label for="floatingSelect">Tipo de Estado</label>
+                </div>
+        
+              </div>
+        
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
+        
+               <!--  <h5>Estado</h5> -->
+                <div class="form-floating">
+                  <select class="form-select seleccionFiltros" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Estado de Reclamo" aria-label="" 
+                     id="floatingSelect" aria-label="Floating label select example">
+                    <option value="" disabled selected> --- Estado no selecionado --- </option>
+                    <option value="" *ngFor="let item of " selected>
+                    </option>
+        
+                  </select>
+                  <label for="floatingSelect">Estado</label>
+                </div>
+        
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
+                <!-- <h5>Fecha</h5> -->
+                <input class="form-control calendario" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha Inicio"
+                  type="date" placeholder="Fecha" value="" max="" [formControl]="">
+                <!--   <div class="row">
+                    <div class="col">
+                      
+                    </div>
+                     <div class="col-md-6">
+                        <h5 for="">Fecha Fin</h5>
+                        <input id="Fecha" class="calendario d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top"
+                          title="Fecha Fin" name="name" type="date" placeholder="Fecha" [formControl]="fechaHastaCtrl">
+                      </div> 
+                  </div> -->
+              </div>
+              
+        
+           
+        
+              
+        
+        
+              <div  class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+                <div class="contenedor_buscar animate__animated animate__fadeIn">
+                  <button class="btn btn-primary w-100 " data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Buscar Reclamos" ><i class="bi bi-search"></i>Buscar</button>
+                </div>
+        
+              </div>
 
 
 
-</div>
 
+        </div>
+
+    </div>
+
+
+
+
+</main>
 <!-- Aca creamos y mostramos el mapa -->
-<div #mapDiv class="map-container"></div>
+<div #mapDiv class="map-container border border-2"></div>
 <!-- <pre #info id='coordenadas'></pre> -->
