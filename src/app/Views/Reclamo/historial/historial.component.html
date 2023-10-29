@@ -10,41 +10,44 @@
   <div class="container-fluid busquedaFiltros ">
     <div class="row ">
 
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 animate__animated animate__fadeIn">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
 
-        <h5>Tipo de Reclamo/Estado</h5>
-        <div>
+        <!-- <h5>Tipo de Reclamo/Estado</h5> -->
+        <div class="form-floating">
           <select class="form-select d-inline-block seleccionFiltros  " data-bs-toggle="tooltip" data-bs-placement="top"
-            title="Tipo de Reclamo" placeholder="Clic para abrir" (change)="obtenerIDTipoReclamo($event)" aria-label=""
-            [formControl]="tipoReclamoCtrl">
+            title="Tipo de Reclamo" placeholder="Clic para abrir" (change)="obtenerIDTipoReclamo($event)"
+            [formControl]="tipoReclamoCtrl" id="floatingSelect" aria-label="Floating label select example">
             <!-- Default select example -->
             <option value="" disabled> --- Tipo de Reclamo no selecionado --- </option>
-            <option *ngFor="let item of listaEstados" value="{{item.idTipoEstado}}" selected>{{item.nombreTipoEstado}}</option>
-
+            <option *ngFor="let item of listaEstados" value="{{item.idTipoEstado}}" selected>{{item.nombreTipoEstado}}
+            </option>
+            
           </select>
+          <label for="floatingSelect">Tipo de Estado</label>
         </div>
 
       </div>
 
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 animate__animated animate__fadeIn">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
 
-        <h5>Estado</h5>
-        <div>
+       <!--  <h5>Estado</h5> -->
+        <div class="form-floating">
           <select class="form-select seleccionFiltros" data-bs-toggle="tooltip" data-bs-placement="top"
             title="Estado de Reclamo" aria-label="" (change)="obtenerIDEstadoReclamo($event)"
-            [formControl]="estadoReclamoCtrl">
+            [formControl]="estadoReclamoCtrl" id="floatingSelect" aria-label="Floating label select example">
             <option value="" disabled> --- Estado no selecionado --- </option>
             <option value="{{item.idEstado}}" *ngFor="let item of estadosReclamoFiltro" selected>{{item.nombre}}
             </option>
 
           </select>
+          <label for="floatingSelect">Estado</label>
         </div>
 
       </div>
-      <div class="col-12 col-sm-6 col-md-4 col-lg-2 animate__animated animate__fadeIn">
-        <h5>Fecha</h5>
-        <input  class="form-control calendario" data-bs-toggle="tooltip" data-bs-placement="top"
-          title="Fecha Inicio" type="date" placeholder="Fecha" value="{{fechaHoy}}" max="{{fechaHoy}}" [formControl]="fechaDesdeCtrl" >
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
+        <!-- <h5>Fecha</h5> -->
+        <input class="form-control calendario" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha Inicio"
+          type="date" placeholder="Fecha" value="{{fechaHoy}}" max="{{fechaHoy}}" [formControl]="fechaDesdeCtrl">
         <!--   <div class="row">
             <div class="col">
               
@@ -57,17 +60,20 @@
           </div> -->
       </div>
       <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)"
-        class="col-12 col-sm-6 col-md-6 col-lg-2 animate__animated animate__fadeIn">
-        <h5>Usuario</h5>
-        <div>
+        class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3  animate__animated animate__fadeIn">
+       <!--  <h5>Usuario</h5> -->
+        <div class="form-floating">
           <input type="text" class="form-control d-inline-block seleccionFiltros" data-bs-toggle="tooltip"
-            data-bs-placement="top" title="Nombre del Usuario" id="nombreUsuario" placeholder="Nombre del Usuario"
+            data-bs-placement="top" title="Nombre del Usuario" id="floatingInputValue" placeholder="Usuario"
             [formControl]="nombreUsuarioCtrl">
+            <label for="floatingInputValue">Nombre de Usuario</label>
         </div>
       </div>
 
+   
+      <!-- boton administrador -->
       <div *ngIf="(this.usuario.idRol==1 || this.usuario.idRol==2)"
-        class="col-12  col-md-6 col-lg-2 animate__animated animate__fadeIn">
+        class="col-12 col-sm-12 col-md-12 col-lg-12 col-xxl-12 animate__animated animate__fadeIn">
         <div class="contenedor_buscar">
           <button class="btn btn-primary d-inline-block btnBuscar" data-bs-toggle="tooltip" data-bs-placement="top"
             title="Buscar Reclamo" (click)="btnBuscarReclamosFiltrados()"><i class="bi bi-search"></i>Buscar</button>
@@ -75,10 +81,10 @@
 
       </div>
 
-
-      <div *ngIf="( this.usuario.idRol==3)" class="col-12 col-sm-6 col-md-12 col-lg-4">
-        <div class="contenedor_buscar animate__animated animate__fadeIn">
-          <button class="btn btn-primary w-100 " data-bs-toggle="tooltip" data-bs-placement="top"
+      <!-- boton usuario -->
+      <div *ngIf="( this.usuario.idRol==3)" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+        <div class="contenedor_buscar">
+          <button class="btn btn-primary w-100  animate__animated animate__fadeIn " data-bs-toggle="tooltip" data-bs-placement="top"
             title="Buscar Reclamos" (click)="btnBuscarReclamosFiltrados()"><i class="bi bi-search"></i>Buscar</button>
         </div>
 
@@ -220,12 +226,15 @@
             <p><i class="far fa-clock"></i><span class="span-text"> Hora: </span>{{index.hora}}</p>
             <p *ngIf="(index.dominio!='-' || index.dominio=='')" class="card-text"><i class="fas fa-car"></i> <span
                 class="span-text"> Dominio: </span>{{index.dominio}}</p>
-            
-              <p *ngIf="(index.modelo!=''  )"><i class="bi bi-car-front-fill"></i><span class="span-text"> Modelo: </span> {{index.modelo}}</p>  
-              <p *ngIf="(index.marca!='')"><i class="bi bi-car-front-fill"></i><span class="span-text"> Marca: </span>{{index.marca}}</p>
-              <p *ngIf="(index.color!='')"><i class="bi bi-palette"></i><span class="span-text"> Color: </span>{{index.color}}</p>
-            
-            
+
+            <p *ngIf="(index.modelo!=''  )"><i class="bi bi-car-front-fill"></i><span class="span-text"> Modelo: </span>
+              {{index.modelo}}</p>
+            <p *ngIf="(index.marca!='')"><i class="bi bi-car-front-fill"></i><span class="span-text"> Marca:
+              </span>{{index.marca}}</p>
+            <p *ngIf="(index.color!='')"><i class="bi bi-palette"></i><span class="span-text"> Color:
+              </span>{{index.color}}</p>
+
+
             <p><i class="fas fa-map-signs"></i><span class="span-text"> Dirección: </span>{{index.direccion}} </p>
             <!-- <p><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>{{item.altura}}</p> -->
 

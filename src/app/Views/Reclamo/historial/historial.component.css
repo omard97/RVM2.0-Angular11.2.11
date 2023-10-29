@@ -85,7 +85,7 @@ img {
   transition: all 0.5s ease;
 }
 
-@media (max-width: 378px) {
+@media  screen and  (max-width: 378px){ 
 
   .textoIcono,
   .icoMensaje {
@@ -102,26 +102,25 @@ img {
 
 /************* Inputs *************/
 /* las clases de tipo de reclamo y estado */
+@media screen and (max-width: 572px){
+ 
+}
 .form-select {
   width: 100%;
   cursor: pointer;
 }
 
 .calendario {
-
-
-  height: 35px;
-
+  margin-bottom: 10px;
+  height: 58px;
   cursor: pointer;
-
+  text-align: center;
 }
 
-#nombreUsuario {
-  width: 100%;
-}
 
 .seleccionFiltros {
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
 /************* Clases ************ */
@@ -144,7 +143,7 @@ img {
 
 /* div del boton bsca */
 .contenedor_buscar {
-  margin-top: 1.5rem;
+  margin-top: 10px;
 }
 
 /* Boton buscar */
