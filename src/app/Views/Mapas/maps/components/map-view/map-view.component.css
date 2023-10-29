@@ -1,17 +1,29 @@
+@font-face {
+    font-family: OpenSans-Regular;
+    src: url(../../../../../../assets/fonts/OpenSans-Regular.ttf)
+  }
+  
+
+  :host {
+    --colorPrincipal: #e6621f;
+  }
+
+
+/* contenedor del mapa en donde se ven los marcadores */
 .map-container {
     position: fixed;
-    top: 10rem;
+    top: 195px;
     right: 0px;
     width: 100vw;
-    height: 83%;
+    height: 79%;
     
 }
 
-  
+
 /* cuando se usa en un monitor 24 pulgadas ya que el alto del mapa no se ajusta al cambiar de monitor */
 @media (min-height:1045px) {
     .map-container {
-        height: 77vh;    
+        height: 74vh;    
     }
 }
 
@@ -28,4 +40,51 @@
     text-align: center;
     color: #222;
     background: #fff;
+    
 }
+/* Contenedor de la vista del marcador del mapa */
+:host ::ng-deep .mapboxgl-popup-content {
+    
+    font-family: OpenSans-Regular;
+    border-radius: 10px;
+  }
+
+main{
+    
+    padding: 20px 0px;
+
+}
+
+h1{
+    font-size: 32px;
+    color: var(--colorPrincipal);
+    letter-spacing: 0.25em;/* Espaciado */
+    word-spacing: 0.25em;/* Espaciado */
+
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+}
+
+/* --------------------------- Input Filtros --------------------------- */
+.form-select {
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .calendario {
+    margin-bottom: 10px;
+    height: 58px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  
+  .seleccionFiltros {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .contenedor_buscar {
+    margin-top: 10px;
+  }
