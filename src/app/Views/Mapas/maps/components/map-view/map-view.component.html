@@ -1,90 +1,90 @@
-<main class="border border-2 shadow  bg-body rounded mt-3">
+<main class="  mt-3 main__Filtros">
 
-    <div class="contenedor_titulo">
+  <div class="contenedor_titulo">
 
-        <h1>Mi Mapa</h1>
+    <h1>Mi Mapa</h1>
 
-    </div>
+  </div>
 
-    <div class="container-fluid contenedor_filtros" >
-        <div class="row">
-            
-
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
-
-                <!-- <h5>Tipo de Reclamo/Estado</h5> -->
-                <div class="form-floating">
-                  <select class="form-select d-inline-block seleccionFiltros  " data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Tipo de Reclamo" placeholder="Clic para abrir" 
-                     id="floatingSelect" aria-label="Floating label select example">
-                    <!-- Default select example -->
-                    <option value="" disabled selected> --- Tipo de Reclamo no selecionado --- </option>
-                    <option *ngFor="let item of " selected>
-                    </option>
-                    
-                  </select>
-                  <label for="floatingSelect">Tipo de Estado</label>
-                </div>
-        
-              </div>
-        
-              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
-        
-               <!--  <h5>Estado</h5> -->
-                <div class="form-floating">
-                  <select class="form-select seleccionFiltros" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Estado de Reclamo" aria-label="" 
-                     id="floatingSelect" aria-label="Floating label select example">
-                    <option value="" disabled selected> --- Estado no selecionado --- </option>
-                    <option value="" *ngFor="let item of " selected>
-                    </option>
-        
-                  </select>
-                  <label for="floatingSelect">Estado</label>
-                </div>
-        
-              </div>
-              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
-                <!-- <h5>Fecha</h5> -->
-                <input class="form-control calendario" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha Inicio"
-                  type="date" placeholder="Fecha" value="" max="" [formControl]="">
-                <!--   <div class="row">
-                    <div class="col">
-                      
-                    </div>
-                     <div class="col-md-6">
-                        <h5 for="">Fecha Fin</h5>
-                        <input id="Fecha" class="calendario d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top"
-                          title="Fecha Fin" name="name" type="date" placeholder="Fecha" [formControl]="fechaHastaCtrl">
-                      </div> 
-                  </div> -->
-              </div>
-              
-        
-           
-        
-              
-        
-        
-              <div  class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3">
-                <div class="contenedor_buscar animate__animated animate__fadeIn">
-                  <button class="btn btn-primary w-100 " data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Buscar Reclamos" ><i class="bi bi-search"></i>Buscar</button>
-                </div>
-        
-              </div>
+  <div class="container-fluid contenedor_filtros">
+    <div class="row">
 
 
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
 
+        <!-- <h5>Tipo de Reclamo/Estado</h5> -->
+        <div class="form-floating">
+          <select class="form-select d-inline-block seleccionFiltros  " data-bs-toggle="tooltip" data-bs-placement="top"
+            (change)="obtenerIDTipoReclamo($event)" [formControl]="tipoReclamoMapaCtrl" title="Tipo de Estado" aria-label=""
+            placeholder="Clic para abrir" id="floatingSelect" aria-label="Floating label select example">
+            <!-- Default select example -->
+            <option value="" disabled selected> --- Tipo de Reclamo no selecionado --- </option>
+            <option *ngFor="let item of listaEstados" value="{{item.idTipoEstado}}">{{item.nombreTipoEstado}}</option>
 
+          </select>
+          <label for="floatingSelect">Tipo de Estado</label>
         </div>
 
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
+
+        <!--  <h5>Estado</h5> -->
+        <div class="form-floating">
+          <select class="form-select seleccionFiltros" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Estado de Reclamo" aria-label="" (change)="obtenerIDEstadoReclamo($event)"
+            [formControl]="estadoReclamoMapaCtrl" id="floatingSelect" aria-label="Floating label select example">
+            <option value="" disabled selected> --- Estado no selecionado --- </option>
+            <option value="{{item.idEstado}}" *ngFor="let item of estadosReclamoFiltro">{{item.nombre}}
+            </option>
+
+          </select>
+          <label for="floatingSelect">Estado</label>
+        </div>
+
+      </div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
+        <!-- <h5>Fecha</h5> -->
+        <input class="form-control calendario" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha Inicio" (change)="obtenerFechaSelect($event)"
+          type="date" placeholder="Fecha" value="{{fechaHoy}}" max="{{fechaHoy}}" [formControl]="fechaDesdeMapaCtrl">
+       
+      </div>
+
+
+
+
+
+
+
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3">
+        <div class="contenedor_buscar animate__animated animate__fadeIn">
+          <button class="btn btn-primary w-100 " data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Buscar Reclamos" (click)="buscarMarcadores()"><i class="bi bi-search"></i> Buscar</button>
+        </div>
+
+      </div>
+
+
+
+
     </div>
+
+  </div>
 
 
 
 
 </main>
+<!-- <button class="btn btn-primary boton__canvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="bi bi-list"></i> Lista</button>
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p>Try scrolling the rest of the page to see this option in action.</p>
+  </div>
+</div> -->
 <!-- Aca creamos y mostramos el mapa -->
 <div #mapDiv class="map-container border border-2"></div>
 <!-- <pre #info id='coordenadas'></pre> -->
