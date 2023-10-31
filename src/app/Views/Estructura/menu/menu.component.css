@@ -170,17 +170,28 @@ a:hover{
 }
 
 /* Iconos menu */
-.bi-journal-text,
-.bi-geo-alt {
-    font-size: calc(1.275rem + .3vw) !important;
-}
 
-.bi-calendar3,
+
+/* .bi-calendar3,
 .bi-journal-arrow-up {
     font-size: calc(1.1rem + .3vw) !important;
     margin-right: 10px;
 
+} */
+/* .ico__Historial,
+.ico__Reclamo{
+    font-size: calc(1.1rem + .3vw) !important;
+    margin-right: 10px;
+} */
+
+.ico__Dashboard,
+.ico__Reclamo,
+.ico__Historial,
+.ico__Mapa,
+.ico__Estadistica{
+    font-size: calc(1.275rem + .3vw) !important;
 }
+
 
 .menu__perfil{
     height: 40px;
