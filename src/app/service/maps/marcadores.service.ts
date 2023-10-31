@@ -20,10 +20,15 @@ export class MarcadoresService {
    }
 
    //busco los reclamos con su ubicacion para mostarlos en el mapa
-   obtenerLugares(idUsuario:number){
+   obtenerLugares(idUsuario:number, idRol:number){
+    debugger
+    return this.http.get<any>('https://localhost:44363/ubicacionReclamos?idUsuario='+idUsuario+'&idRol='+idRol);
+   }
 
-    return this.http.get<any>('https://localhost:44363/ubicacionReclamos?idUsuario='+idUsuario);
 
-
+   /* Filtros de marcadores */
+   getMarcadoresporEstados(idUsuario:number, idRol:number,iDTipoEstado:number,iDEstado:number,fecha:string){
+    debugger
+    return this.http.get<any>('https://localhost:44363/ubicacionReclamos/'+idUsuario+'/'+idRol +'/'+iDTipoEstado + '/'+ iDEstado+'/'+fecha);
    }
 }
