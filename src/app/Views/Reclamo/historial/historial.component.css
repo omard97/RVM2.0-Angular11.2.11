@@ -209,16 +209,16 @@ img {
   color: rgb(219, 106, 0);
 }
 .text-EnRevision {
-  color: #a4c60d;
+  color: rgb(164, 198, 13);
 }
 
 
 .text-Solucionado {
-  color: #049b0c;
+  color: rgb(4, 155, 12);
 }
 
 .text-Descartado {
-  color: red;
+  color: rgb(255, 0, 0);
 }
 
 .container-table100 {

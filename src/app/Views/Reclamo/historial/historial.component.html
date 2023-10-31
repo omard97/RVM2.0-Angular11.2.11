@@ -18,7 +18,7 @@
             title="Tipo de Reclamo" placeholder="Clic para abrir" (change)="obtenerIDTipoReclamo($event)"
             [formControl]="tipoReclamoCtrl" id="floatingSelect" aria-label="Floating label select example">
             <!-- Default select example -->
-            <option value="" disabled> --- Tipo de Reclamo no selecionado --- </option>
+            <option value="" disabled> --- Tipo de Estado no selecionado --- </option>
             <option *ngFor="let item of listaEstados" value="{{item.idTipoEstado}}" selected>{{item.nombreTipoEstado}}
             </option>
             
@@ -47,7 +47,7 @@
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 animate__animated animate__fadeIn">
         <!-- <h5>Fecha</h5> -->
         <input class="form-control calendario" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha Inicio"
-          type="date" placeholder="Fecha" value="{{fechaHoy}}" max="{{fechaHoy}}" [formControl]="fechaDesdeCtrl">
+                  type="date" placeholder="Fecha" value="{{fechaHoy}}" max="{{fechaHoy}}" [formControl]="fechaDesdeCtrl">
         <!--   <div class="row">
             <div class="col">
               

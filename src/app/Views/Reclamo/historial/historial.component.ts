@@ -56,7 +56,7 @@ export class HistorialComponent implements OnInit {
   estadosReclamoFiltro: any;
   fechaHoy:any;
 
-  public FER: EstadoReclamo[] = []; /* filtro estadoRecmo.ts */
+ /*  public FER: EstadoReclamo[] = []; */ /* filtro estadoRecmo.ts */
 
   selectIDTipReclamo = 0; /* Variable para capturar el valor del tipo de reclamo */
   selectIDEstadoReclamo = 0; /* Variable para capturar el id del estado del tipo de reclamo */
@@ -234,11 +234,11 @@ export class HistorialComponent implements OnInit {
   }
 
   getEstadoReclamo(idTipoReclamo: number) {
-    
+    //busco los estados del tipo de estado seleccionado
     this.detalleReclamo.getFiltroEstadoHistorial(idTipoReclamo).subscribe(
       (res) => {
         this.estadosReclamoFiltro = res;
-        this.FER = res;
+        /* this.FER = res; */
 
         console.log('Estados Reclamos', this.estadosReclamoFiltro);
       },
@@ -392,8 +392,7 @@ export class HistorialComponent implements OnInit {
         this.banderaIconoCarga =false; 
 
         this.toastr.info(
-          'No se puede realizar la acción deseada',
-'',
+          'No se puede realizar la acción deseada','',
           {
             timeOut: 5000,
             
