@@ -15,6 +15,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.component';
 import { ExitGuard } from './guards/exit.guard';
 import { CanDeactivateGuard } from './guards/can-deactivate.guard';
+import { EstadisticasComponent } from './Views/estadisticas/estadisticas.component';
 
 
 
@@ -35,6 +36,7 @@ const routes: Routes = [
       { path: 'historial/:id', component: ReclamoComponent, canDeactivate: [CanDeactivateGuard] }, /* editar reclamo desde el comp. reclamo */
       { path: 'mapa', component: MapasComponent },
       { path: 'configuracion', component: ConfiguracionComponent },
+      { path: 'estadisticas', component: EstadisticasComponent},
     ]
   },
   { path: '**', component: PageNotFoundComponent },

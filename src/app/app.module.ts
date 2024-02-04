@@ -37,6 +37,7 @@ import { NosotrosComponent } from './Views/nosotros/nosotros.component';
 import { PageNotFoundComponent } from './Views/page-not-found/page-not-found.component';
 import { VehicleTableComponent } from './Views/Component/vehicle-table/vehicle-table.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { EstadisticasComponent } from './Views/estadisticas/estadisticas.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     FooterComponent,
     NosotrosComponent,
     PageNotFoundComponent,
-    VehicleTableComponent
+    VehicleTableComponent,
+    EstadisticasComponent
     
     
   ],
