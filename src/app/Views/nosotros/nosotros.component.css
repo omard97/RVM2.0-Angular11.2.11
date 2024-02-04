@@ -128,7 +128,7 @@ h2 {
 
 
 
-/* Tarjeta Integrantes */
+/* Tarjeta Colaborador */
 
 .container__tarjeta {
   transition-duration: 0.4s;
@@ -136,12 +136,12 @@ h2 {
   justify-content: center;
 }
 
-.titulo__integrante {
+.titulo__Colaborador {
   display: flex;
   justify-content: center;
 }
 
-.tarjeta__integrante {
+.tarjeta__Colaborador {
   height: auto;
   width: 250px;
 }
