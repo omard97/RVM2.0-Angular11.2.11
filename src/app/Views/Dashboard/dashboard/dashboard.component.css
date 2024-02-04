@@ -58,14 +58,14 @@
   } */
   
   .dashboard__tablaAnio {
-    height: 420px; /* Alto */
+    height: 100%; /* Alto */
     background-color: rgb(224, 224, 224);
   }
 
   .input_busquedaAnio{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items:center;
   }
   
   .contenedor__tablaAnio{

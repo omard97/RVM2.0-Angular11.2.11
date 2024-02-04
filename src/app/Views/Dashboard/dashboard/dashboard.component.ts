@@ -59,9 +59,11 @@ export class DashboardComponent implements OnInit {
     
   }
 
+  /* grid circulares */
   
   colorScheme = {
-    domain: ['#a8385d', '#E44D25', '#5AA454', '#aae3f5', '#CFC0BB'],
+    domain: ['#ff0000', '#a4c60d', '#db6a00', '#0b7010', '#CFC0BB'],
+    /* Descartado, en revisión, Pendiente, Solucionado, total de reclamos */
   };
   cardColor: string = '#163543';
   fitContainerTarjetas=true;
@@ -84,9 +86,9 @@ export class DashboardComponent implements OnInit {
     gradient = true;
     showLegendBarra = false; /* ver la lista de barras */
     showXAxisLabel = true;
-    xAxisLabel = 'Tipo De Reclamo';
+    xAxisLabel = 'Tipo De Reclamos Realizados';
     showYAxisLabel = true;
-    yAxisLabel = 'Utilizados';
+    yAxisLabel = 'Realizados';
     rotateXAxisTicks=true;
 
 
@@ -99,8 +101,8 @@ export class DashboardComponent implements OnInit {
   /*----------------------------------------------------------------------------------------------------  */
   /* grafico de reclamo ambientales - utiliza las mismas opciones de diseño pero se modifican los colores y textos */
   colorSchemeBarraAmbiental="forest";
-  yAxisLabelAmbiental = 'Utilizados';
-  xAxisLabelAmbiental = 'Reclamos Ambientales';
+  yAxisLabelAmbiental = 'Realizados';
+  xAxisLabelAmbiental = 'Reclamos Ambientales Realizados';
 
 
 
@@ -151,7 +153,7 @@ export class DashboardComponent implements OnInit {
   showLegend5 = false;
   showXAxisLabel5 = true;
   animacionBarras:boolean=true;
-  xAxisLabel5 = `Reclamos del Año`;
+  xAxisLabel5 = `Reclamos del Año Realizados`;
   showYAxisLabel5 = true;
   yAxisLabel5 = 'Cantidad';
   tituloLeyenda:string="Mes"
