@@ -19,3 +19,11 @@ export class tipoEstadoHistorial{
   nombreTipoEstado: string='';
   
 }
+
+export class estadoReclamoPost{
+
+  idEstado: number =0;
+  estadoNombre : string ='';
+  idTipoEstado: number =0;
+  tipoEstadoNombre : string ='';
+}

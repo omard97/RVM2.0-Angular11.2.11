@@ -13,6 +13,11 @@
 }
 
 
+.disabled-option {
+    color: grey!important;
+}
+
+
 
 
 
@@ -324,33 +329,37 @@ tbody tr:hover {
   table tbody tr td:nth-child(2):before {
     content: "Dirección";
   }
-
   table tbody tr td:nth-child(3):before {
-    content: "Fecha";
+    content: "Altura";
   }
 
   table tbody tr td:nth-child(4):before {
-    content: "Foto";
+    content: "Fecha";
   }
 
   table tbody tr td:nth-child(5):before {
-    content: "Hora";
+    content: "Foto";
   }
 
   table tbody tr td:nth-child(6):before {
-    content: "Motivo";
+    content: "Hora";
   }
 
   table tbody tr td:nth-child(7):before {
-    content: "Tipo Reclamo";
+    content: "Motivo";
   }
 
   table tbody tr td:nth-child(8):before {
+    content: "Tipo Reclamo";
+  }
+
+  table tbody tr td:nth-child(9):before {
     content: "Estado";
   }
 
   
   /* este ancho se tiene en cuenta cuando la pantalla a 993px */
+  .column0
   .column1,
   .column2,
   .column3,

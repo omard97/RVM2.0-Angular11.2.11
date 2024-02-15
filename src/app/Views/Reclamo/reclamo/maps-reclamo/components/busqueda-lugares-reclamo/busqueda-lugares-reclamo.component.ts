@@ -20,6 +20,7 @@ export class BusquedaLugaresReclamoComponent  {
     this.debounceTimer = setTimeout(() => {
       
       this.placesReclamoServices.getPlacesByQuery( query );
+      debugger
       /* this.lugaresService.getLugaresPorBusqueda(query); */
       console.log('Enviar este query: ', query)
 

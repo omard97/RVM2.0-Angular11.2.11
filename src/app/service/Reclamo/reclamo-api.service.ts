@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { estadoReclamoPost } from 'src/app/model/filtrosHistorial/estadoReclamo';
 
 
 @Injectable({
@@ -16,7 +17,12 @@ export class ReclamoApiService {
   constructor(private http:HttpClient) { }
 
 
- 
+  /* el tipo de reclamo que se selecciono va a devolver su tipo de estado - es decir si seleccione seguridad me trae los estados de seguridad */
+ getEstadoReclamo(nombreTipoReclamo:string){
+
+  return this.http.get<estadoReclamoPost[]>('https://localhost:44363/EstadoReclamoXTipoReclamo/'+nombreTipoReclamo);
+
+ }
 
 
 }

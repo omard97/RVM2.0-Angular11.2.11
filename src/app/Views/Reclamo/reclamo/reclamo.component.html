@@ -18,10 +18,11 @@
                     <table *ngIf="banderaTabla == 1">
                         <thead>
                             <tr class="table100-head">
-                                <!-- <th class="column1">Altura</th> -->
+                                
                                 <th class="column1">Descripción</th>
                                 <!-- ngIf="item.dominio !== '-' && item.nombreMarca !== ' ' && item.nombreModelo !== ' '" -->
                                 <th class="column2">Dirección</th>
+                                <th class="column0">Altura</th>
                                 <th class="column3" *ngIf="item.dominio !== '-' ">Dominio</th>
                                 <th class="column4">Fecha</th>
                                 <th class="column5">Foto</th>
@@ -36,9 +37,10 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <!-- <td class="column1">{{item.altura}} </td> -->
+                                
                                 <td class="column1">{{item.descripcion}}</td>
                                 <td class="column2">{{item.direccion}}</td>
+                                <td class="column0">{{item.altura}} </td>
                                 <td class="column3" *ngIf="item.dominio !== '-' ">{{item.dominio}}</td>
                                 <td class="column4">{{item.fecha | date:'dd-MM-yyyy'}} </td>
                                 <td class="column5"><img class="rounded-3" src="{{item.foto}}" alt="Foto"
@@ -78,7 +80,8 @@
                 <fieldset>
                     <div class="row" style="margin: 0 auto">
                         <!-- Estados Reclamos -->
-                        <div class="col-12 pt-2 pb-2" *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
+                        <div class="col-12 pt-2 pb-2"
+                            *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
                             <!-- <h5 class="text-center">Estados del reclamo</h5> -->
                             <div class="form-check form-check-inline pt-2 pb-2" *ngFor="let item of Tiporecla">
                                 <input class="form-check-input" (change)="dataChangedEstadoReclamo($event)" type="radio"
@@ -92,8 +95,8 @@
 
                                 <span class="input-group-text" id="addon-wrapping"><i class="bi bi-repeat"></i></span>
 
-                                <select class="form-select form-select-sm" name="example" [formControl]="estadoReclamoCtrl"
-                                    aria-label=".form-select-sm example" >
+                                <select class="form-select form-select-sm" name="example"
+                                    [formControl]="estadoReclamoCtrl" aria-label=".form-select-sm example">
                                     <option value="" disabled> --- Tipo de Estado no selecionado ---</option>
                                     <option value="{{item.idEstado}}" name="Esta"
                                         *ngFor="let item of objetEstadoReclamo">
@@ -103,7 +106,7 @@
 
                             </div>
 
-                        
+
                         </div>
                     </div>
                     <div class="row" style="margin: 0 auto">
@@ -120,15 +123,11 @@
                                     [formControl]="tipoReclamoCtrl" (change)="dataChangedTipoReclamo($event)">
                                     <option value="" disabled> --- Tipo de Reclamo no selecionado --- </option>
                                     <option value="{{item.idTipoReclamo}}" style="color: black;"
-                                        *ngFor="let item of Tiporecla">
+                                        *ngFor="let item of Tiporecla" [attr.disabled]="(item.idTipoReclamo !== 1 && item.idTipoReclamo !== 2) ? true : null" [ngClass]="{'disabled-option': (item.idTipoReclamo !== 1 && item.idTipoReclamo !== 2)}">
 
                                         {{item.nombre}}
-
                                     </option>
-
-                                </select>
-
-
+                                </select>                    
                             </div>
 
 
@@ -200,7 +199,7 @@
                                         class="bi bi-123 icono__input"></i></span>
 
                                 <input id="dominio" name="text" type="text" placeholder="Patente" class="form-control "
-                                    [formControl]="dominioCtrl" >
+                                    [formControl]="dominioCtrl">
 
                             </div>
 

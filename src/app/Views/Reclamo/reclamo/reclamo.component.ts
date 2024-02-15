@@ -20,6 +20,9 @@ import { Title } from '@angular/platform-browser';
 import { OnExit } from 'src/app/guards/exit.guard';
 import { formatDate } from '@angular/common';
 import { EstadosService } from 'src/app/service/Estados/estados.service';
+import { ReclamoApiService } from 'src/app/service/Reclamo/reclamo-api.service';
+import { dir } from 'console';
+import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 
 
 @Component({
@@ -103,10 +106,11 @@ export class ReclamoComponent implements OnInit, OnExit {
   validacionTipoReclamo: any;
 
   selectIdTipoReclamo: number = 0; //se establece en 0 para que no se muestren los combobox de los reclamos
+  
   selectIdinfoReclamo: number = 0;
   selectIdMarcaVehiculo: number = 0;
   selectIdModeloVehiculo: number = 0;
-  nombreTipoReclamo?: string;
+  nombreTipoReclamo!: string;
 
   ruta: any;
   IDUsuario: any; /* se utiliza para navegar entre los componentes */
@@ -144,19 +148,27 @@ export class ReclamoComponent implements OnInit, OnExit {
   //bandera para visualizar la tabla 
    banderaTabla: number = 0;
 
+   //mejorar ubicacion - utilizado para capturar la calle y altura, asi registrarlo en reclamo - el completo es para el input text
+   // esto se usa en busqueda-lugares-reclamos
+   calle: string = ''; // variable que se usa para registrar el reclamo
+   altura: string =''; // variable que se usa para registrar el reclamo
+   ubicacionCompleta : string = '';
+
+   @ViewChild('txtQuery') txtQuery: any;  // Asegúrate de importar ViewChild asi poder cambiar el texto del input
+
   constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService,
-    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title, private serviceEstado: EstadosService) { 
+    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title, private serviceEstado: EstadosService, private reclamoApi:ReclamoApiService) { 
 
       
 
     titulo.setTitle('Reclamo') // titulo de la pesaña del navegador
-      debugger
+     
     
   
     this.rutaURL = window.location.pathname.split('/');
     this.usuario.idUsuario = this.rutaURL[2];
     this.IDDetalleR = this.rutaURL[4]; /* en la posicion 5 esta el detalle del reclamo a actualizar */
-    debugger
+   
     this.getRolUsuario(); /*obtengo todos los datos */
     this.getListReclamoAmbiental();
     this.getListMarca();
@@ -314,57 +326,102 @@ export class ReclamoComponent implements OnInit, OnExit {
       
       /* si es vial que se agrege el estado pendiente de vial sino queda en 1 para el ambiental */
       if (this.selectIdTipoReclamo == 2) {
-        RegistroRecl.ID_Estado = 5;
+        RegistroRecl.ID_Estado = 5; //pendiente vial
 
       }
-
       /* Obtengo el id para validar mas adelante en el detalle si es ambiental o vial */
-      this.validacionTipoReclamo = RegistroRecl.ID_TipoReclamo;   
-      
-      this.service.postReclamo(RegistroRecl).subscribe(
+     // this.validacionTipoReclamo = RegistroRecl.ID_Estado ;   
+      debugger
+
+      //Si o si tiene que ser ambiental o vial, sino no entra
+      if(this.selectIdTipoReclamo ==1 || this.selectIdTipoReclamo ==2){
+        this.service.postReclamo(RegistroRecl).subscribe(
+          (res) => {          
+            this.registrarDetalleReclamo(res); /* metodo para registrar el detalle */
+          },
+          (err) => console.error(err)
+        );
+      }else{
+        this.toastr.info(
+          'En estos momentos no se pueden realizar reclamos con el tipo de reclamo que seleccionó',
+          'Seleccione Ambiental o Vial'
+        );         
+      }
+
+
+      /*this.reclamoApi.getEstadoReclamo(this.nombreTipoReclamo).subscribe(
         (res) => {
+          debugger
+             RegistroRecl.ID_Estado = res[0].idEstado;
           
-          this.registrarDetalleReclamo(res); /* metodo para registrar el detalle */
+          
+
+          
+         
         },
         (err) => console.error(err)
-      );
+      ) */
+      
+
+      
+
+      
     }
   }
 
-  registrarDetalleReclamo(infoRec: any) {
+  public rellenarUbicacion(calle:string, altura:string, direccionCompleta:string){
+    debugger
+    this.txtQuery.nativeElement.value = direccionCompleta;
+    this.calle = calle;
+    this.altura = altura;
+    this.ubicacionCompleta = this.ubicacionCompleta;
     
-    if (this.validacionTipoReclamo == 1) {
-      /* Si es ambiental */
-      
-      var RegistroDetReclamo: DetalleReclamo = {
-        descripcion: this.descripcionCtrl.value + '',
-        direccion: this.ubicacionCtrl.value + '',
-        altura: 0, /*  */
-        dominio:  '-',
-        ID_ReclamoAmbiental: Number(this.selectIdinfoReclamo),
-        /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
-        ID_Reclamo: infoRec.idReclamo,
-        longitud: this.ubicacionReclamo.longitud + '',
-        latitud: this.ubicacionReclamo.latitud+ ''
-      };
+   
 
+  }
+
+  registrarDetalleReclamo(infoRec: any) {
+    debugger
+    // cuando sea ambiental o distinto de vehicular, es decir que es cualquier otro tipo de reclamo excepto vehicular
+    if (this.selectIdTipoReclamo ==1) {
+      /* Si es ambiental */
       debugger
-      this.service.postDetalleReclamo(RegistroDetReclamo).subscribe(
-        (res) => {
-          this.Notificacion();
-          console.clear(); /* limpio la consola */
-          this.limpiarPantalla();
-        },
-        (err) => console.error(err)
-      );
-    } else {
+     
+        var RegistroDetReclamo: DetalleReclamo = {
+          descripcion: this.descripcionCtrl.value + '',
+          direccion: this.calle + '', 
+          altura: Number(this.altura),
+          dominio:  '-',
+          ID_ReclamoAmbiental: Number(this.selectIdinfoReclamo),
+          /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
+          ID_Reclamo: infoRec.idReclamo,
+          longitud: this.ubicacionReclamo.longitud + '',
+          latitud: this.ubicacionReclamo.latitud+ ''
+        };
+
+        debugger
+        this.service.postDetalleReclamo(RegistroDetReclamo).subscribe(
+          (res) => {
+            this.Notificacion();
+            console.clear(); /* limpio la consola */
+            this.limpiarPantalla();
+          },
+          (err) => console.error(err)
+        );
+    
+        
       
+      
+
+    
+    } else if(this.selectIdTipoReclamo == 2){
+      debugger
       /* Cuando sea Vehicular */
       /* Primero el detalle de reclamo */
       var RegistroDetReclamo: DetalleReclamo = {
         descripcion: this.descripcionCtrl.value + '',
-        direccion: this.ubicacionCtrl.value + '',
-        altura: 0, /* Number(this.alturaCtrl.value) */
+        direccion: this.calle + '', 
+        altura: Number(this.altura),
         dominio: this.dominioCtrl.value + '',
         ID_ReclamoAmbiental: 0,
         /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
@@ -382,6 +439,14 @@ export class ReclamoComponent implements OnInit, OnExit {
         },
         (err) => console.error(err)
       );
+    }else{
+      debugger
+      this.toastr.info(
+        'En estos momentos no se pueden realizar reclamos con el tipo de reclamo que seleccionó',
+        'Seleccione Ambiental o Vial'
+      );
+      
+    
     }
   }
   RegVehiculo() {
@@ -424,8 +489,23 @@ export class ReclamoComponent implements OnInit, OnExit {
       (err) => console.error(err)
     );
   }
+
+
   dataChangedTipoReclamo(ev: any) {
+    debugger
+   
     this.selectIdTipoReclamo = ev.target.value;
+
+     /* for (let i = 0; i < this.Tiporecla.length; i++) {
+      
+      if(this.selectIdTipoReclamo==this.Tiporecla[i].idTipoReclamo)
+      {
+        debugger
+        this.nombreTipoReclamo = this.Tiporecla[i].nombre!.toString();
+        break;
+      }
+      
+     } */
   }
 
   dataChangedIdMarcaVehiculo(ev: any) {
@@ -499,7 +579,13 @@ ambiental */
 
           /* Acá pregunto si es ambiental o vial, si es ambiental sigo lo comun si es vial traigo los datos del auto */
           if (info[0].idTipoRec == 1) {
+            debugger
             this.arregloDetalleReclamo = info;
+
+            this.calle = this.arregloDetalleReclamo[0].direccion;
+            this.altura = this.arregloDetalleReclamo[0].altura;
+            this.ubicacionCompleta = this.calle + ' ' + this.altura;
+
             console.log(this.arregloDetalleReclamo);
            
             this.banderaTabla = this.arregloDetalleReclamo[0].idTipoRec; // tambien puede ser directamente 1 - ambiental
@@ -547,7 +633,7 @@ ambiental */
   dataChangedEstadoReclamo(ev: any) {
     /* Capturo el id del tipo de reclamo y luego lo uso para traer sus estados */
     this.idEstadoReclamo = ev.target.value;
-
+   
     this.serviceEstado.getEstados(this.idEstadoReclamo).subscribe(
       (data) => {
         console.log("Estados de los tipos de reclamos seleccionados")
@@ -584,7 +670,7 @@ ambiental */
         'Atención',
         {
           timeOut: 5000,
-          progressBar: true,
+         
         }
       );
     } else if (this.arregloDetalleReclamo[0].idTipoRec != this.idEstadoReclamo && this.usuario.idRol == 1) {
@@ -593,7 +679,7 @@ ambiental */
         'Atención',
         {
           timeOut: 5000,
-          progressBar: true,
+         
         }
       );
     } else {
@@ -668,7 +754,7 @@ ambiental */
     
     var putDescripcion: any;
     var putUbicacion: any;
-    /* var putAltura: any; */ /* no se usa, la altura se agrega en la descripcion */
+    var putAltura: any; /* no se usa, la altura se agrega en la descripcion */
     var putDominio: any;
     var putID_ReclamoAmbiental: any;
     var putLongitud:any;
@@ -693,8 +779,16 @@ ambiental */
       putUbicacion = this.arregloDetalleReclamo[0].direccion;
     }
     if (this.ubicacionCtrl.value != '') {
-      putUbicacion = this.ubicacionCtrl.value + '';
+      putUbicacion = this.direccion;
     }
+    debugger
+    if( this.ubicacionCompleta.includes(this.altura)){//cuando no se cambia la altura o posee la misma altura que ya esta en la BD, esto es por ejemplo si tengo la misma altura pero distinta direccion
+      putAltura = this.arregloDetalleReclamo[0].altura
+    }
+    if(!this.ubicacionCompleta.includes(this.altura)){// si la direccion es distinta a la que ya esta en la BD, procese a cambiarlo, pese que sea de la misma direccion o distinta.
+      putAltura = this.altura;
+    }
+
     /* if (this.alturaCtrl.value == '') {
       putAltura = this.arregloDetalleReclamo[0].altura;
     }
@@ -730,7 +824,7 @@ ambiental */
       IDDetalleReclamo: Number(this.arregloDetalleReclamo[0].idDetalleReclamo),
       descripcion: String(putDescripcion),
       direccion: String(putUbicacion),
-      altura: 0,
+      altura: Number(putAltura),
       dominio: String(putDominio),
       ID_ReclamoAmbiental: Number(putID_ReclamoAmbiental),
       ID_Reclamo: Number(this.arregloDetalleReclamo[0].iD_Reclamo),
@@ -849,6 +943,7 @@ ambiental */
 
       this.placesReclamoServices.getPlacesByQuery( query );
       /* this.lugaresService.getLugaresPorBusqueda(query); */
+      debugger
       console.log('nombre Ubicacion: ', query)
 
     }, 1000)
