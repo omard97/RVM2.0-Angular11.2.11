@@ -3,6 +3,7 @@ import { MapReclamoService, PlacesReclamoService } from '../../services';
 import { Feature } from '../../interfaces/places';
 import { ReclamoComponent } from '../../../reclamo.component';
 import { concat } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-resultados-lugares-reclamo',
@@ -11,7 +12,7 @@ import { concat } from 'rxjs';
 })
 export class ResultadosLugaresReclamoComponent implements OnInit {
   public selectedId:  string = '';
-  constructor(private placesReclamoService: PlacesReclamoService, private mapReclamoService: MapReclamoService, private reclamoService: ReclamoComponent) {
+  constructor(private placesReclamoService: PlacesReclamoService, private mapReclamoService: MapReclamoService, private reclamoService: ReclamoComponent, private toastr:ToastrService) {
     
 
     
@@ -19,7 +20,7 @@ export class ResultadosLugaresReclamoComponent implements OnInit {
 
   calle: string = ''; // variable que se usa para registrar el reclamo
   altura: string =''; // variable que se usa para registrar el reclamo
-
+  localidad: string = '';
   ubicacionCompleta : string = '';
 
   ngOnInit(): void {
@@ -42,20 +43,40 @@ export class ResultadosLugaresReclamoComponent implements OnInit {
     debugger
     this.calle = place.text.toUpperCase(); //Nombre de la calle que seleccioné
     this.altura = place.address;// altura de la calle que seleccioné
-
+    this.localidad = place.place_name;
     this.ubicacionCompleta = this.calle + ' ' + this.altura; 
 
-    this.reclamoService.rellenarUbicacion(this.calle, this.altura, this.ubicacionCompleta);
+    if(this.localidad.includes('Villa María') || this.localidad.includes('Villa Nueva')){
+      if(this.altura !=undefined && this.calle!=undefined){
 
-    this.selectedId = place.id; /* ya se que id de ubicacion es */
-    console.log('ID Selecionado: ', this.selectedId)
-    const[ lng , lat ] = place.center;
-    this.reclamoService.almacenarUbicacion(lng,lat); /* se lo envio al componente reclamo para luego poder guardar la ubicacion en el mapa */
-    this.mapReclamoService.flyTo([lng , lat])
+      
+        this.reclamoService.rellenarUbicacion(this.calle, this.altura, this.localidad , this.ubicacionCompleta);
+  
+        this.selectedId = place.id; /* ya se que id de ubicacion es */
+        console.log('ID Selecionado: ', this.selectedId)
+        const[ lng , lat ] = place.center;
+        this.reclamoService.almacenarUbicacion(lng,lat); /* se lo envio al componente reclamo para luego poder guardar la ubicacion en el mapa */
+        this.mapReclamoService.flyTo([lng , lat])
+    
+        
+        
+        this.placesReclamoService.ocultarListaResultados();
+      } else{
+        this.toastr.info(
+          'Ingrese la altura de la dirección deseada',
+          ''
+        );
+      }
+    }else{
+      this.toastr.info(
+        'Realice la busqueda dentro de la localidad de Villa María o Villa Nueva',
+        ''
+      );
+    }
 
-    
-    
-    this.placesReclamoService.ocultarListaResultados();
+
+   
+   
 
   }
 

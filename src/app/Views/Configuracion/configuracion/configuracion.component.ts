@@ -17,6 +17,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { PerfilApiService } from 'src/app/service/Perfil/perfil-api.service';
 import { putUsuario } from 'src/app/model/perfil';
 import { putTipoReclamo } from 'src/app/model/Configuracion/tipoReclamo';
+import { localidad } from 'src/app/model/localidad';
 
 
 @Component({
@@ -103,9 +104,15 @@ export class ConfiguracionComponent implements OnInit {
     idUsuario = 0;
     idEstadoUsuario = 0;
     objUsuarioSelect:any;
-    ctrlNombreUsuario=new FormControl('',[Validators.required])
-    ctrlNickUsuario=new FormControl('',[Validators.required])
-    ctrlEstadoUsuario=new FormControl('',[Validators.required]);
+    ctrlNombreUsuario = new FormControl('',[Validators.required])
+    ctrlNickUsuario = new FormControl('',[Validators.required])
+    ctrlEstadoUsuario = new FormControl('',[Validators.required]);
+
+     /* ---Configuración Localidad ---  */
+     objListaLocalidades:localidad [] = [];
+     ctrlNombreLocalidad = new FormControl('',[Validators.required]);
+    
+
 
     /* ---Configuración Actualizacion Marca ---  */
     ctrlNombreMarca=new FormControl('',[Validators.required]);
@@ -198,6 +205,7 @@ export class ConfiguracionComponent implements OnInit {
     this.getMarcaVehiculo();
     this.getModeloVehiculo();
     this.getIdEstadoVehiculoModal();
+    this.getLocalidades();
   }
 
   ngOnInit(): void {
@@ -531,6 +539,26 @@ export class ConfiguracionComponent implements OnInit {
     )
   }
 
+  // utilizado para rellenar el select en el cual se almacenan solo 2 estados activos e inactivos
+  // utilizado para rellenar la tabla de configuracion localidades, mostrara todas las localidades y su pais
+  getLocalidades(){
+    this.servicio.getLocalidades().subscribe(
+      (data)=>{
+        console.log(data)
+       this.objListaLocalidades = data ;
+         },
+      (err)=>{
+        this.toastr.info(
+          'No se encuentran localidades registradas','',
+          {
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+          }
+        );
+      }
+    )
+  }
+
   btn_buscarUsuario(){
     debugger
     if(this.ctrlNombreUsuario.value =='' || this.ctrlNickUsuario.value=='' || this.ctrlEstadoUsuario.value == ''){
@@ -544,6 +572,52 @@ export class ConfiguracionComponent implements OnInit {
     }else{
 
       //hacer metodo para traer y mostrar el usuario
+
+
+
+    }
+  }
+
+  btn_buscarLocalidad(){
+    if(this.ctrlNombreLocalidad.value==''){
+      this.toastr.info(
+        'No ingresó los datos necesarios para realizar la busqueda','',
+        {
+          timeOut: 5000,
+          positionClass: 'toast-top-right',
+        }
+      );
+    }else{
+
+
+      this.servicio.getFiltrarLocalidades(this.ctrlNombreLocalidad.value.toUpperCase()).subscribe(
+        (data)=>{
+          debugger
+          if(data.length ==0){
+            this.toastr.info(
+              'La localidad '+this.ctrlNombreLocalidad.value+' no se encuentra registrada','',
+              {
+                timeOut: 5000,
+                positionClass: 'toast-top-right',
+              }
+            );
+          }else{
+            this.objListaLocalidades = data ;
+          }
+          
+         
+          },
+        (err)=>{
+          this.toastr.info(
+            'La localidad '+this.ctrlNombreLocalidad.value+' no se encuentra registrada','',
+            {
+              timeOut: 5000,
+              positionClass: 'toast-top-right',
+            }
+          );
+        }
+      )
+
 
 
 
@@ -1439,6 +1513,9 @@ export class ConfiguracionComponent implements OnInit {
       this.M_cambioPaginas(pagina)
     }
     cambiarPaginaUsario(pagina: PageEvent){
+      this.M_cambioPaginas(pagina)
+    }
+    cambiarPaginaULocalidad(pagina: PageEvent){
       this.M_cambioPaginas(pagina)
     }
 

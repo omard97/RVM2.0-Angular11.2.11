@@ -67,8 +67,8 @@
                                             <td>{{item.nombre}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-secondary btn__opciones "
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Editar"><i class="bi bi-pencil-square"></i>
+                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i
+                                                        class="bi bi-pencil-square"></i>
                                                 </button>
                                                 <!-- <div class="hstack gap-2">
                                                     <div class="vr"></div>
@@ -213,9 +213,9 @@
                                 </tbody>
                             </table>
                             <mat-paginator [length]="objListaVehiculos.length" [pageSize]="pageSize"
-                            [pageSizeOptions]="[5, 10, 25, 100]" (page)="cambiarPaginaUsario($event)"
-                            aria-label="Seleccionar página">
-                        </mat-paginator> <!--  -->
+                                [pageSizeOptions]="[5, 10, 25, 100]" (page)="cambiarPaginaUsario($event)"
+                                aria-label="Seleccionar página">
+                            </mat-paginator> <!--  -->
 
                         </div>
                     </div>
@@ -291,8 +291,8 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li><a (click)="openPutModalMarca(modalPutMarca,item.idMarca, item.nombre)" 
-                                                            class="dropdown-item"><i class="bi bi-pencil-square">
+                                                        <li><a (click)="openPutModalMarca(modalPutMarca,item.idMarca, item.nombre)"
+                                                                class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
                                                         <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i></a></li>
@@ -348,9 +348,9 @@
                         <div class="col-12 col-md-3 btn__padding hstack gap-3">
                             <button type="button" (click)="visualizarModalModelo(modalModelo)"
                                 class="btn btn-primary btn-sm  w-100 ">Nuevo</button>
-                                <div class="vr"></div>
-                            <button type="button" 
-                                class="btn btn-warning btn-sm w-100 "(click)="openPutModalModelo(modalPutModelo)">Modificar</button>
+                            <div class="vr"></div>
+                            <button type="button" class="btn btn-warning btn-sm w-100 "
+                                (click)="openPutModalModelo(modalPutModelo)">Modificar</button>
                         </div>
 
                     </div>
@@ -458,7 +458,8 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li><a (click)="openPutModalPerfil(modalPutPerfil,item.idPerfil,item.nombre)" class="dropdown-item"><i class="bi bi-pencil-square">
+                                                        <li><a (click)="openPutModalPerfil(modalPutPerfil,item.idPerfil,item.nombre)"
+                                                                class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
                                                         <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i></a></li>
@@ -543,7 +544,8 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li><a (click)="openPutModalTipoReclamo(modalPutTipoReclamo,item.idTipoR,item.nombre,item.descripcion)" class="dropdown-item"><i class="bi bi-pencil-square">
+                                                        <li><a (click)="openPutModalTipoReclamo(modalPutTipoReclamo,item.idTipoR,item.nombre,item.descripcion)"
+                                                                class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
                                                         <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i>
@@ -606,15 +608,15 @@
                                     <tr>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Descripción</th>
-                                        
+
                                     </tr>
                                 </thead>
-                                <tbody  class="table-group-divide">
+                                <tbody class="table-group-divide">
                                     <tr *ngFor="let item of objListaTipVehiculos | slice:paginaDesde:paginaHasta">
                                         <th scope="row">{{item.nombre}}</th>
                                         <td>{{item.descripcion}}</td>
-                                        
-                                        
+
+
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <div class="btn-group" role="group">
@@ -624,7 +626,8 @@
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li><a (click)="openModalTipoVehiculo(modalPutTipoVehiculo,item.idTipoVehiculo,item.nombre,item.descripcion)" class="dropdown-item"><i class="bi bi-pencil-square">
+                                                        <li><a (click)="openModalTipoVehiculo(modalPutTipoVehiculo,item.idTipoVehiculo,item.nombre,item.descripcion)"
+                                                                class="dropdown-item"><i class="bi bi-pencil-square">
                                                                     Editar</i></a></li>
                                                         <li><a class="dropdown-item"><i class="bi bi-trash">
                                                                     Borrar</i></a></li>
@@ -637,7 +640,7 @@
 
                                 </tbody>
                             </table>
-                        <!-- <div class="col-12 divTabla  table-responsive-lg" *ngIf="objListaTipVehiculos.length!=0">
+                            <!-- <div class="col-12 divTabla  table-responsive-lg" *ngIf="objListaTipVehiculos.length!=0">
                             <table class="table table-hover table-bordered table-striped">
                                 <thead class="table-light">
                                     <tr>
@@ -830,7 +833,95 @@
 
 
     </div>
+    <!--Localidades-->
+    <div class="accordion margen config__estilo">
+        <h2 class="accordion-header" id="headingLocalidad">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseLocalidad" aria-expanded="false" aria-controls="collapseLocalidad"
+                (click)="getLocalidades()">
+                Localidades
+            </button>
+        </h2>
+        <div id="collapseLocalidad" class="accordion-collapse collapse" aria-labelledby="headingLocalidad"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="container">
+                    <div class="container-fluid Centrado">
+                        <h3>Localidades</h3>
+                    </div>
+                    <div class="container-fluid Centrado mb-1">
+                        <small>Busque la <b>localidad</b> que desea para realizar las configuraciones
+                            necesarias</small>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12 col-md-6 pb-2">
+                                <input type="text" class="form-control " [formControl]="ctrlNombreLocalidad"
+                                    placeholder="Buscar Localidad" (keyup.enter)="btn_buscarLocalidad()" 
+                                    [class.is-invalid]="ctrlNombreLocalidad.invalid && (ctrlNombreLocalidad.dirty || ctrlNombreLocalidad.touched)">
+                            </div> 
+                            
+                            <div class="col-2 col-md-1 pb-2 ">
+                                <button type="button" class="btn btn-success" (click)="btn_buscarLocalidad()"><i
+                                        class="bi bi-search"></i></button>
+                            </div>
+                            <div class="col-6 col-md-1 ">
+                                <button type="button" class="btn btn-primary"><i class="bi bi-plus-square"></i></button>
+                            </div>
+                            
 
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-12 divTabla table-responsive-lg">
+                            <table class="table  animate__animated animate__fadeIn ">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="columna1">Localidad</th>
+                                        <th class="columna2">Pais</th>                                                                            
+                                        <th class="columna6 text-center"> - - </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divide animate__animated animate__fadeIn">
+                                    <tr *ngFor="let item of objListaLocalidades | slice:paginaDesde:paginaHasta">
+                                        <th class="">{{item.localidad}}</th>
+                                        <td class="">{{item.pais}}</td>                                                                                                                
+                                        <td class="">
+                                         
+                                            <div class="container contenedor_botonesOpciones  ">
+                                                <button type="button" class="btn btn-secondary btn__opciones "
+                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i
+                                                        class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <button type="button"
+                                                    class="btn btn-danger d-inline-block btn__opciones "
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Dar de baja"><i class="bi bi-arrow-down"></i>
+                                                </button>
+
+                                            </div> <!-- botones -->
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <mat-paginator [length]="objListaLocalidades.length" [pageSize]="pageSize"
+                                [pageSizeOptions]="[5, 10, 25, 100]" (page)="cambiarPaginaUsario($event)"
+                                aria-label="Seleccionar página">
+                            </mat-paginator> <!--  -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- Localidades -->
+
+    
+    
 
 
 </div>
@@ -968,7 +1059,7 @@
 
 <!-- Modal Vehiculo -->
 <ng-template #modalVehiculos let-modal>
-    
+
     <form class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Nuevo Vehículo</h5>
@@ -1159,7 +1250,7 @@
 
 <!-- Put Modal Vehiculos -->
 <ng-template #modalPutVehiculo let-modal>
-    
+
     <form class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Actualizar Vehículo</h5>
@@ -1181,8 +1272,8 @@
                     <div class="col-3">
                         <small>Modelo: {{item.nombreModelo}}</small>
                     </div>
-                   
-        
+
+
                 </div>
                 <div class="row">
                     <div class="col-3">
@@ -1197,9 +1288,9 @@
                     <div class="col-3">
                         <small>Estado: {{item.nombreEstado}}</small>
                     </div>
-                    
+
                 </div>
-        
+
             </div>
             <div class="row">
 
@@ -1233,9 +1324,9 @@
                         [formControl]="modeloCtrl">
                         <option value="" disabled> Selecione el Modelo </option>
                         <option value="{{item.idModelo}}" style="color: black;"
-                        *ngFor="let item of objListaModeloVehiculo" selected>
-                        {{item.modeloVehiculo}}
-                    </option>
+                            *ngFor="let item of objListaModeloVehiculo" selected>
+                            {{item.modeloVehiculo}}
+                        </option>
                     </select>
 
                 </div>
@@ -1322,7 +1413,7 @@
 <ng-template #modalPutModelo let-modal>
     <form class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modificar  Modelo</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Modificar Modelo</h5>
             <button (click)="botonCerrarPutModalModelo()" type="button" class="btn-close" data-bs-dismiss="modal"
                 aria-label="Close"></button>
         </div>
@@ -1395,8 +1486,8 @@
                     </div>
                     <div class="col-12">
                         <label for="formGroupExampleInput" class="form-label">Descripción</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput"
-                            placeholder="Descripción" [formControl]="ctrlDescripcionTipoReclamo">
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Descripción"
+                            [formControl]="ctrlDescripcionTipoReclamo">
                     </div>
                 </div>
             </div>
@@ -1429,8 +1520,8 @@
                     </div>
                     <div class="col-12">
                         <label for="formGroupExampleInput" class="form-label">Descripción</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput"
-                            placeholder="Descripción" [formControl]="ctrlDescripcionTipoVehiculo">
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Descripción"
+                            [formControl]="ctrlDescripcionTipoVehiculo">
                     </div>
                 </div>
             </div>

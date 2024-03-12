@@ -152,6 +152,7 @@ export class ReclamoComponent implements OnInit, OnExit {
    // esto se usa en busqueda-lugares-reclamos
    calle: string = ''; // variable que se usa para registrar el reclamo
    altura: string =''; // variable que se usa para registrar el reclamo
+   localidad:string = '';
    ubicacionCompleta : string = '';
 
    @ViewChild('txtQuery') txtQuery: any;  // Asegúrate de importar ViewChild asi poder cambiar el texto del input
@@ -369,13 +370,23 @@ export class ReclamoComponent implements OnInit, OnExit {
     }
   }
 
-  public rellenarUbicacion(calle:string, altura:string, direccionCompleta:string){
+  public rellenarUbicacion(calle:string, altura:string, localidad:string, direccionCompleta:string){
     debugger
-    this.txtQuery.nativeElement.value = direccionCompleta;
-    this.calle = calle;
-    this.altura = altura;
-    this.ubicacionCompleta = this.ubicacionCompleta;
-    
+    if(altura !=undefined && calle!=undefined)
+    {
+      this.txtQuery.nativeElement.value = direccionCompleta;
+      this.calle = calle;
+      this.altura = altura;
+      this.localidad = localidad; // contiene toda la direccion completa (sin la altura) pero se usa para validar que el reclamo se realice dentro de villa maria
+      this.ubicacionCompleta = this.ubicacionCompleta;
+      
+     alert('Usted esta en '+ this.localidad)
+    }else{
+      this.toastr.info(
+        'Ingrese la altura de la dirección deseada',
+        ''
+      );
+    }
    
 
   }

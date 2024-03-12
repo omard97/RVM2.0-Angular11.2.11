@@ -26,6 +26,8 @@ import { estadosUsuarios } from '../model/usuario';
 import { putMarca } from '../model/Configuracion/marcaVehiculo';
 import { putModelo } from '../model/Configuracion/modeloVehiculo';
 import { putTipoReclamo } from '../model/Configuracion/tipoReclamo';
+import { VE_ReclamosXLocalidades } from '../model/Estadistica/VE_ReclamosXLocalidades';
+import { localidad } from '../model/localidad';
 
 @Injectable({
   providedIn: 'root'
@@ -286,7 +288,12 @@ export class BackenApiService {
       return this.http.get<CantReclamoMesyAnio[]>('https://localhost:44363/V_CantidadRecPorMesyAnio/'+idUsuario+'/'+anio);
     }
   }
+    /* ---------------------------- Estadística ------------------------------------- */
 
+    getReclamosXLocalidades(IDUsuario:number):Observable<VE_ReclamosXLocalidades[]>{ 
+      debugger
+      return this.http.get<VE_ReclamosXLocalidades[]>('https://localhost:44363/VE_ReclamosXLocalidades/'+IDUsuario);
+    }
 
   /* ---------------------------- Configuración ------------------------------------- */
 
@@ -347,6 +354,16 @@ export class BackenApiService {
   getFiltroUsuariosConfiguracion(nombreU:string, nickU:string,idEstado:number){
 
   }
+
+  //Se utiliza en la pantalla de Configuración - al inciar la pantalla llama al metodo
+  getLocalidades(){
+    return this.http.get<localidad[]>('https://localhost:44363/localidad');
+  }
+  getFiltrarLocalidades(nombreLocalidad:string){
+    return this.http.get<localidad[]>('https://localhost:44363/localidadesAdmin/'+nombreLocalidad);
+  }
+/*------------------------ Fin Configuración ------------------------- */
+
 
   /*------------------------ Configuración Modal tipo estado y Estado ------------------------- */
   postTipoEstado(tipoEstado: any ):Observable<any>{
@@ -428,6 +445,7 @@ export class BackenApiService {
     return this.http.put('https://localhost:44363/modalUsuario/'+usuario.IDUsuario,objeto,this.httpOptions)
   }
 
+  
   
  
 
