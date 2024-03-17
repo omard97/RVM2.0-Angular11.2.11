@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BackenApiService } from 'src/app/service/backen-api.service';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, Validators } from '@angular/forms';
@@ -7,7 +7,7 @@ import { TipoEstado } from 'src/app/model/Configuracion/tipoEstadoAdmin';
 import { PostEstado } from 'src/app/model/Configuracion/estadosAdmin';
 import { PerfilAdmin, putPerfilAdmin } from 'src/app/model/Configuracion/tipoPerfil';
 import { TipoReclamo } from 'src/app/model/tipoReclamo';
-import { estadosUsuarios, usuarioConfig } from 'src/app/model/usuario';
+import { bajaUsuario, estadosUsuarios, usuarioConfig } from 'src/app/model/usuario';
 import { TipoVehiculoModal, putTipoVehiculo } from 'src/app/model/Configuracion/tipoVehiculo';
 import { DatosVehiculo, autoPost, putVehiculo } from 'src/app/model/Configuracion/vehiculo';
 import { postMarca, putMarca } from 'src/app/model/Configuracion/marcaVehiculo';
@@ -26,169 +26,171 @@ import { localidad } from 'src/app/model/localidad';
   styleUrls: ['./configuracion.component.css']
 })
 export class ConfiguracionComponent implements OnInit {
-   /* Modal Estados */
-   nombreEstadoCtrl = new FormControl('', [Validators.required]);
-   /*  nombreTipoEstadoCtrl = new FormControl('', [Validators.required]); */
-    listaTipoEstadoCtrl = new FormControl('', [Validators.required]);
-    nombreTipoReclamoCtrl = new FormControl('', [Validators.required]);
-    descripcionTipoReclamoCtrl = new FormControl('',[Validators.required])
-    switchTipoEstadoCtrl = new FormControl('',[Validators.required])
-  
-    /* Modal Vehiculo */
-    nombreTipoVehiculoCtrl = new FormControl('', [Validators.required]);
-    dominioCtrl = new FormControl('', [Validators.required]);
-    marcaCtrl = new FormControl('', [Validators.required]);
-    modeloCtrl = new FormControl('', [Validators.required]);
-    colorCtrl = new FormControl('', [Validators.required]);
-    numChasisCtrl = new FormControl('', [Validators.required]);
-    numMotorCtrl = new FormControl('', [Validators.required]);
-    listaEstadoVehiculoCtrl = new FormControl('', [Validators.required]);
-  
-    nombreModalMarcaCrtl = new FormControl('', [Validators.required]);
-    nombreModalModelo = new FormControl('', [Validators.required]);
-  
-    nombreModalPerfil = new FormControl('', [Validators.required]);
-  
-    selectMarcaVehiculo = new FormControl('', [Validators.required]);
-    selectModeloVehiculo = new FormControl('',[Validators.required]);
-  
-    selectMarca = new FormControl('',[Validators.required]);
-    selectModelo=new FormControl('',[Validators.required]);
-  
-    /* Modal TipoVehiculo */
-    descripcionTipoVehiculoModal = new FormControl('', [Validators.required]);
-    nombreTipoVehiculoCtrlModal = new FormControl('', [Validators.required]);
-  
-    /* ---Configuración Tipo Estado ---  */
-    objTipoEstado: any; /* Select */
-    objEstadosDelTipo: any [] = []; /* Tabla */
-    selectIDTipEstado = 0; /* Variable para capturar el valor del tipo de estado */
+  /* Modal Estados */
+  nombreEstadoCtrl = new FormControl('', [Validators.required]);
+  /*  nombreTipoEstadoCtrl = new FormControl('', [Validators.required]); */
+  listaTipoEstadoCtrl = new FormControl('', [Validators.required]);
+  nombreTipoReclamoCtrl = new FormControl('', [Validators.required]);
+  descripcionTipoReclamoCtrl = new FormControl('', [Validators.required])
+  switchTipoEstadoCtrl = new FormControl('', [Validators.required])
+
+  /* Modal Vehiculo */
+  nombreTipoVehiculoCtrl = new FormControl('', [Validators.required]);
+  dominioCtrl = new FormControl('', [Validators.required]);
+  marcaCtrl = new FormControl('', [Validators.required]);
+  modeloCtrl = new FormControl('', [Validators.required]);
+  colorCtrl = new FormControl('', [Validators.required]);
+  numChasisCtrl = new FormControl('', [Validators.required]);
+  numMotorCtrl = new FormControl('', [Validators.required]);
+  listaEstadoVehiculoCtrl = new FormControl('', [Validators.required]);
+
+  nombreModalMarcaCrtl = new FormControl('', [Validators.required]);
+  nombreModalModelo = new FormControl('', [Validators.required]);
+
+  nombreModalPerfil = new FormControl('', [Validators.required]);
+
+  selectMarcaVehiculo = new FormControl('', [Validators.required]);
+  selectModeloVehiculo = new FormControl('', [Validators.required]);
+
+  selectMarca = new FormControl('', [Validators.required]);
+  selectModelo = new FormControl('', [Validators.required]);
+
+  /* Modal TipoVehiculo */
+  descripcionTipoVehiculoModal = new FormControl('', [Validators.required]);
+  nombreTipoVehiculoCtrlModal = new FormControl('', [Validators.required]);
+
+  /* ---Configuración Tipo Estado ---  */
+  objTipoEstado: any; /* Select */
+  objEstadosDelTipo: any[] = []; /* Tabla */
+  selectIDTipEstado = 0; /* Variable para capturar el valor del tipo de estado */
 
   /* ---Modal Tipo Estado ---  */
-    objModalTipoEstado: any;
-    selectIDTipEstadoModal = 0;
+  objModalTipoEstado: any;
+  selectIDTipEstadoModal = 0;
 
   /* ---Configuración Tipo Vehículo ---  */
-    objTipVehiculo: any; /* Select */
-    selectIDTipVehiculo = 0; /* Tabla */
-    objListaTipVehiculos: any [] = [];
-  
-    /* ---Configuración Tipo Reclamo ---  */
-    objTipoDeReclamo: any; /* Select */
-    selectIDTipReclamo = 0; /* Variable para capturar el valor del tipo de reclamo */
-    objListaTipoReclamo: any;
-  
-    /* ---Configuración Tipo Perfil ---  */
-    objTipoPerfil: any [] = []; /* Select */
-    selectIDTipPerfil = 0; /* Variable para capturar el valor del tipo de reclamo */
-    objListaTipoPerfil: any;
-  
-     /* ---Configuración Marcas ---  */
-    selectIDMarcaVehiculo=0;
-    objListaMarcaVehiculo:any;
-  
-     /* ---Configuración Modelos---  */
-    objListaModeloVehiculo:any;
-    selectIDModeloVehiculo=0;
-  
-     /* ---Configuración Vehiculos ---  */
-    objListaVehiculos:DatosVehiculo [] = [];
-    objListaIDMarca:any;
-    selecIDMarca=0;
-    selecIDModelo=0;
-    textoEstadoModal="Tipo de Estado";
+  objTipVehiculo: any; /* Select */
+  selectIDTipVehiculo = 0; /* Tabla */
+  objListaTipVehiculos: any[] = [];
 
-     /* ---Configuración Usuarios ---  */
-    objListaUsuarios:usuarioConfig [] = [];
-    objEstadosUsuarios: estadosUsuarios [] = []; // estados activo inactivo
-    idUsuario = 0;
-    idEstadoUsuario = 0;
-    objUsuarioSelect:any;
-    ctrlNombreUsuario = new FormControl('',[Validators.required])
-    ctrlNickUsuario = new FormControl('',[Validators.required])
-    ctrlEstadoUsuario = new FormControl('',[Validators.required]);
+  /* ---Configuración Tipo Reclamo ---  */
+  objTipoDeReclamo: any; /* Select */
+  selectIDTipReclamo = 0; /* Variable para capturar el valor del tipo de reclamo */
+  objListaTipoReclamo: any;
 
-     /* ---Configuración Localidad ---  */
-     objListaLocalidades:localidad [] = [];
-     ctrlNombreLocalidad = new FormControl('',[Validators.required]);
-    
+  /* ---Configuración Tipo Perfil ---  */
+  objTipoPerfil: any[] = []; /* Select */
+  selectIDTipPerfil = 0; /* Variable para capturar el valor del tipo de reclamo */
+  objListaTipoPerfil: any;
 
+  /* ---Configuración Marcas ---  */
+  selectIDMarcaVehiculo = 0;
+  objListaMarcaVehiculo: any;
 
-    /* ---Configuración Actualizacion Marca ---  */
-    ctrlNombreMarca=new FormControl('',[Validators.required]);
-    arrayMarca: any [] = []; // utilizada para almacenar el id y el nombre de la marca ingresada
+  /* ---Configuración Modelos---  */
+  objListaModeloVehiculo: any;
+  selectIDModeloVehiculo = 0;
 
-    /* ---Configuración Actualizacion Modelo ---  */
-    ctrlNombreModelo = new FormControl('',[Validators.required]);
-    modeloSeleccionado :string ='';
-    arrayModelo: any [] = []; 
+  /* ---Configuración Vehiculos ---  */
+  objListaVehiculos: DatosVehiculo[] = [];
+  objListaIDMarca: any;
+  selecIDMarca = 0;
+  selecIDModelo = 0;
+  textoEstadoModal = "Tipo de Estado";
 
-     /* ---Configuración Actualizacion Perfil ---  */
-     ctrlNombrePerfil = new FormControl('',[Validators.required]);
-     arrayPutPerfil: any [] =[];
+  /* ---Configuración Usuarios ---  */
+  objListaUsuarios: usuarioConfig[] = [];
+  objEstadosUsuarios: estadosUsuarios[] = []; // estados activo inactivo
+  idUsuario = 0;
+  idEstadoUsuario = 0;
+  objUsuarioSelect: any;
+  ctrlNombreUsuario = new FormControl('', [Validators.required])
+  ctrlNickUsuario = new FormControl('', [Validators.required])
+  ctrlEstadoUsuario = new FormControl('', [Validators.required]);
 
-      /* ---Configuración Actualizacion Tipo Reclamo ---  */
-     ctrlNombreTipoReclamo = new FormControl('',[Validators.required]);
-     ctrlDescripcionTipoReclamo= new FormControl('',[Validators.required]);
-     arrayPutTipoReclamo:any [] = [];
-
-     /* ---Configuración Actualizacion Tipo vehiculo ---  */
-     ctrlNombreTipoVehiculo = new FormControl('',[Validators.required]);
-     ctrlDescripcionTipoVehiculo= new FormControl('',[Validators.required]);
-     arrayPutTipoVehiculo:any [] = [];
-
-    /* paginacion para las listas */
-    pageSize = 5; // Tamaño de página predeterminado
-    paginaDesde: number=0;
-    paginaHasta: number =5;
-  
-    /* banderaTextEstado: boolean = false; */
-    banderaSelectEstado: boolean = false; //false
-  
-    objListaEstadoVehiculo:any;
-  
-    banderaSwitch: boolean = false;
-    animacionSwitch="";
-  
-    /* modal put vehiculo - actualizar */
-    objVehiculoModal:any;
+  /* ---Configuración Localidad ---  */
+  objListaLocalidades: localidad[] = [];
+  ctrlNombreLocalidad = new FormControl('', [Validators.required]);
 
 
 
-    /* Modal Usuario - Actualiar */
-    nombrePersonaCtrl = new FormControl('', [Validators.required]);
-    apellidoPersonaCtrl = new FormControl('', [Validators.required]);
-    celularCtrl = new FormControl('', [Validators.required]);
-    dniCtrl = new FormControl('', [Validators.required]);
-    correoCtrl = new FormControl('', [Validators.required]);
-    contraseniaCtrl = new FormControl('', [Validators.required]);
-    nombreUsuarioCtrl = new FormControl('', [Validators.required]);
-    fotoCtrl = new FormControl('', [Validators.required]);
-    datosUsuario:any [] =[]
-    banderaActualizarUsuario: boolean = false;
-    estadoUsuario: number=0;
-    /* Guardar foto de perfil para actualizar */
-    imagePerfilDataUrl!:string;
-  
-    ruta: any;
-    /* IDUsuario: any; */
-    /* IDRol: any; */
-    IDSesion: any;
+  /* ---Configuración Actualizacion Marca ---  */
+  ctrlNombreMarca = new FormControl('', [Validators.required]);
+  arrayMarca: any[] = []; // utilizada para almacenar el id y el nombre de la marca ingresada
 
-    usuario = {
-      idUsuario: 0,
-      nick: '',
-      idRol: 0,
-      rol: '',
-      IDsesion:0,
-    }
+  /* ---Configuración Actualizacion Modelo ---  */
+  ctrlNombreModelo = new FormControl('', [Validators.required]);
+  modeloSeleccionado: string = '';
+  arrayModelo: any[] = [];
 
-  constructor(config: NgbModalConfig, private servicio: BackenApiService, private modal: NgbModal,private toastr: ToastrService, public serviceUsuario: MenuApiService, private servicePerfil:PerfilApiService) { 
+  /* ---Configuración Actualizacion Perfil ---  */
+  ctrlNombrePerfil = new FormControl('', [Validators.required]);
+  arrayPutPerfil: any[] = [];
+
+  /* ---Configuración Actualizacion Tipo Reclamo ---  */
+  ctrlNombreTipoReclamo = new FormControl('', [Validators.required]);
+  ctrlDescripcionTipoReclamo = new FormControl('', [Validators.required]);
+  arrayPutTipoReclamo: any[] = [];
+
+  /* ---Configuración Actualizacion Tipo vehiculo ---  */
+  ctrlNombreTipoVehiculo = new FormControl('', [Validators.required]);
+  ctrlDescripcionTipoVehiculo = new FormControl('', [Validators.required]);
+  arrayPutTipoVehiculo: any[] = [];
+
+  /* paginacion para las listas */
+  pageSize = 10; // Tamaño de página predeterminado
+  paginaDesde: number = 0;
+  paginaHasta: number = 10;
+
+  /* banderaTextEstado: boolean = false; */
+  banderaSelectEstado: boolean = false; //false
+
+  objListaEstadoVehiculo: any;
+
+  banderaSwitch: boolean = false;
+  animacionSwitch = "";
+
+  /* modal put vehiculo - actualizar */
+  objVehiculoModal: any;
+
+
+
+  /* Modal Usuario - Actualiar */
+  nombrePersonaCtrl = new FormControl('', [Validators.required]);
+  apellidoPersonaCtrl = new FormControl('', [Validators.required]);
+  celularCtrl = new FormControl('', [Validators.required]);
+  dniCtrl = new FormControl('', [Validators.required]);
+  correoCtrl = new FormControl('', [Validators.required]);
+  contraseniaCtrl = new FormControl('', [Validators.required]);
+  nombreUsuarioCtrl = new FormControl('', [Validators.required]);
+  fotoCtrl = new FormControl('', [Validators.required]);
+  datosUsuario: any[] = []
+  banderaActualizarUsuario: boolean = false;
+  estadoUsuario: number = 0;
+  /* Guardar foto de perfil para actualizar */
+  imagePerfilDataUrl!: string;
+  usuarioSeleccionadoId: number | null = null; //Modal de confirmacion de dar de baja al usuario
+  idUsuarioBaja: number = 0;
+
+  ruta: any;
+  /* IDUsuario: any; */
+  /* IDRol: any; */
+  IDSesion: any;
+
+  usuario = {
+    idUsuario: 0,
+    nick: '',
+    idRol: 0,
+    rol: '',
+    IDsesion: 0,
+  }
+
+  constructor(config: NgbModalConfig, private servicio: BackenApiService, private modal: NgbModal, private toastr: ToastrService, public serviceUsuario: MenuApiService, private servicePerfil: PerfilApiService) {
     /* Configuracion del Modal */
     config.backdrop = 'static';
     config.keyboard = false;
     config.centered = true;
-    
+
 
     //Obtengo la URL y la separo en base a los / en lo que al final obtengo un array
     this.ruta = window.location.pathname.split('/');
@@ -196,7 +198,7 @@ export class ConfiguracionComponent implements OnInit {
 
     this.getRolUsuario();
 
-   
+
     this.getTipoEstado();
 
     this.getTipoReclamo();
@@ -211,27 +213,27 @@ export class ConfiguracionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-   /* utilizado solamente para visualizar etiquetas que dependen del rol del usuario */
-   getRolUsuario() {
-    
+  /* utilizado solamente para visualizar etiquetas que dependen del rol del usuario */
+  getRolUsuario() {
+
     this.serviceUsuario.getRolUsuario(this.usuario.idUsuario).subscribe(
       (data) => {
-        
-          this.usuario.idUsuario= data[0].idUsuario,
-          this.usuario.nick= data[0].nick,
+
+        this.usuario.idUsuario = data[0].idUsuario,
+          this.usuario.nick = data[0].nick,
           this.usuario.idRol = data[0].idRol,
-          this.usuario.rol=data[0].rol
-          
-         
-          
+          this.usuario.rol = data[0].rol
+
+
+
       },
       (error) => {
         console.error(error);
       }
     )
 
-}
-  
+  }
+
   /* Visualizar el modal nuevo estado */
   visualizarModal(content: any) {
     this.modal.open(content);
@@ -243,7 +245,7 @@ export class ConfiguracionComponent implements OnInit {
     this.modal.open(content);
   }
   visualizarModalVehiculos(content: any) {
-    this.modal.open(content,{ size: 'lg' });
+    this.modal.open(content, { size: 'lg' });
   }
   visualizarModalMarca(content: any) {
     this.modal.open(content);
@@ -254,39 +256,43 @@ export class ConfiguracionComponent implements OnInit {
   visualizarModalPerfil(content: any) {
     this.modal.open(content);
   }
-  visualizarModalUsuario(content: any, idUsuario:number) {
-    this.modal.open(content,{ size: 'lg' });
+  visualizarModalUsuario(content: any, idUsuario: number) {
+    this.modal.open(content, { size: 'lg' });
     this.getDatosUsuarioSeleccionado(idUsuario);
+  }
+  visualizarModalBajaUsuario(content: any, idUsuario: number) {
+    this.modal.open(content, { size: 'lg' });
+    this.idUsuarioBaja = idUsuario;
   }
 
   /* Visualizar Modal para ACTUALIZAR */
-  openPutModalVehiculo(putModalVehiculo:any,idvehiculo:number){
+  openPutModalVehiculo(putModalVehiculo: any, idvehiculo: number) {
     this.modal.open(putModalVehiculo, { size: 'lg' });
     this.servicio.getActualizarModalVehiculo(idvehiculo).subscribe(
       (res) => {
-        this.objVehiculoModal=res;   
-        console.log(this.objVehiculoModal)   
+        this.objVehiculoModal = res;
+        console.log(this.objVehiculoModal)
       },
       (err) => console.error(err)
-    ) 
+    )
   }
 
-  openPutModalMarca(putMarca:any, id:number, nombre:string){
+  openPutModalMarca(putMarca: any, id: number, nombre: string) {
     this.modal.open(putMarca, { size: 'lg' });
     this.arrayMarca[0] = id;
     this.arrayMarca[1] = nombre;
   }
 
-  openPutModalModelo(putModelo:any){
+  openPutModalModelo(putModelo: any) {
     debugger
-    if(this.selectModelo.value!=''){
+    if (this.selectModelo.value != '') {
 
       this.modal.open(putModelo, { size: 'lg' });
-    this.arrayModelo[0] = this.selecIDModelo;
-    this.arrayModelo[1] = this.modeloSeleccionado;
-    }else{
+      this.arrayModelo[0] = this.selecIDModelo;
+      this.arrayModelo[1] = this.modeloSeleccionado;
+    } else {
       this.toastr.info(
-        'Seleccione un modelo para realizar la modificaión deseada','',
+        'Seleccione un modelo para realizar la modificaión deseada', '',
         {
           timeOut: 3000,
           positionClass: 'toast-top-right',
@@ -295,25 +301,25 @@ export class ConfiguracionComponent implements OnInit {
     }
   }
 
-  openPutModalPerfil(putPerfil:any, idPerfil:number,nombre:string){
+  openPutModalPerfil(putPerfil: any, idPerfil: number, nombre: string) {
     debugger
     this.modal.open(putPerfil, { size: 'lg' });
     this.arrayPutPerfil[0] = idPerfil;
     this.arrayPutPerfil[1] = nombre;
   }
 
-  openPutModalTipoReclamo(putTipReclamo:any, idTipoReclamo:number,nombre:string,descripcion:string){
+  openPutModalTipoReclamo(putTipReclamo: any, idTipoReclamo: number, nombre: string, descripcion: string) {
     debugger
     this.modal.open(putTipReclamo, { size: 'lg' });
     this.arrayPutTipoReclamo[0] = Number(idTipoReclamo)
-    this.arrayPutTipoReclamo[1] = nombre +'';
-    this.arrayPutTipoReclamo[2] = descripcion +'';
+    this.arrayPutTipoReclamo[1] = nombre + '';
+    this.arrayPutTipoReclamo[2] = descripcion + '';
   }
-  openModalTipoVehiculo(putTipoVehiculo:any, idTipo:number,nombre:string,descripcion:string){
-    this.modal.open(putTipoVehiculo,{ size: 'lg' })
+  openModalTipoVehiculo(putTipoVehiculo: any, idTipo: number, nombre: string, descripcion: string) {
+    this.modal.open(putTipoVehiculo, { size: 'lg' })
     this.arrayPutTipoVehiculo[0] = Number(idTipo);
-    this.arrayPutTipoVehiculo[1] = nombre +'';
-    this.arrayPutTipoVehiculo[2] = descripcion +'';
+    this.arrayPutTipoVehiculo[1] = nombre + '';
+    this.arrayPutTipoVehiculo[2] = descripcion + '';
   }
 
 
@@ -331,10 +337,10 @@ export class ConfiguracionComponent implements OnInit {
   } */
 
   /* Cerrar Modales  */
-  botonCerrarModal(){
+  botonCerrarModal() {
     this.modal.dismissAll();
   }
-  
+
   botonCerrarNuevoEstado() {
     this.limpiarModalEstado();
   }
@@ -342,7 +348,7 @@ export class ConfiguracionComponent implements OnInit {
     this.nombreTipoReclamoCtrl.setValue('');
     this.descripcionTipoReclamoCtrl.setValue('');
     this.modal.dismissAll();
-    
+
   }
   botonCerrarNuevoTipoVehiculoModal() {
     this.nombreTipoVehiculoCtrlModal.setValue('');
@@ -361,119 +367,123 @@ export class ConfiguracionComponent implements OnInit {
     this.nombreModalModelo.setValue('');
     this.modal.dismissAll();
   }
-  botonCerrarModalPerfil(){
+  botonCerrarModalPerfil() {
     this.modal.dismissAll();
     this.nombreModalPerfil.reset();
   }
-  botonCerrarModalUsuario(){
+  botonCerrarModalUsuario() {
     this.modal.dismissAll();
   }
 
-  botonCerrarPutModalPerfil(){
+  botonCerrarPutModalPerfil() {
     this.arrayPutPerfil = [];
     this.ctrlNombrePerfil.reset();
     this.modal.dismissAll();
-  
+
   }
 
-  botonCerrarPutModalMarca(){
+  botonCerrarPutModalMarca() {
     this.ctrlNombreMarca.reset();
     this.arrayMarca = [];
     this.modal.dismissAll();
   }
-  botonCerrarPutModalModelo(){
-    this.selecIDMarca=0;
+  botonCerrarPutModalModelo() {
+    this.selecIDMarca = 0;
     this.modeloSeleccionado = '';
     this.arrayModelo = [];
     this.ctrlNombreModelo.reset();
     this.modal.dismissAll();
   }
 
-  botonCerrarPutModalTipoReclamo(){
+  botonCerrarPutModalTipoReclamo() {
     this.arrayPutTipoReclamo = []
     this.ctrlNombreTipoReclamo.reset();
     this.ctrlDescripcionTipoReclamo.reset();
     this.modal.dismissAll();
   }
-  botonCerrarPutModalTipoVehiculo(){
+  botonCerrarPutModalTipoVehiculo() {
+    this.modal.dismissAll();
+  }
+
+  botonCerrarConfirmacionBajaUsuario() {
     this.modal.dismissAll();
   }
 
   /* Metodos Get */
 
-  getTipoEstado(){
-    
+  getTipoEstado() {
+
     this.servicio.getTipoEstadoAdmin().subscribe(
       (res) => {
-        
-        if(res.length!=0){
+
+        if (res.length != 0) {
           this.objTipoEstado = res;
           this.objModalTipoEstado = res;
 
-         
 
 
-        }else{
+
+        } else {
           this.notificacionDatosInexistentes(res);
           delete this.objTipoEstado
           delete this.objModalTipoEstado
         }
-        
+
 
       },
       (error) => console.error(error)
     );
   }
-  
-  GetBuscarVehiculos(){
+
+  GetBuscarVehiculos() {
     //muestro los vehiculos en el carrusel de vehiculos
-    if(this.selectIDMarcaVehiculo!=0 && this.selectIDModeloVehiculo!=0){
+    if (this.selectIDMarcaVehiculo != 0 && this.selectIDModeloVehiculo != 0) {
       debugger
-      this.servicio.getConfiguracionVehiculos(this.selectIDMarcaVehiculo,this.selectIDModeloVehiculo).subscribe(
+      this.servicio.getConfiguracionVehiculos(this.selectIDMarcaVehiculo, this.selectIDModeloVehiculo).subscribe(
         (res) => {
-          if(res.length!=0){
+          if (res.length != 0) {
             this.objListaVehiculos = [];
-           
-            this.objListaVehiculos= res;
-          }else{
+
+            this.objListaVehiculos = res;
+          } else {
             this.notificacionDatosInexistentes(res);
-            this.selectIDMarcaVehiculo=0;
-            this.selectIDModeloVehiculo=0;
-             this.objListaVehiculos = []
+            this.selectIDMarcaVehiculo = 0;
+            this.selectIDModeloVehiculo = 0;
+            this.objListaVehiculos = []
             this.selectMarcaVehiculo.setValue('');
             this.selectModeloVehiculo.setValue('');
           }
-          
-         
+
+
         },
         (error) => console.error(error)
       )
-    }else{
+    } else {
       this.NotificacionRellenarCampos();
     }
 
-    
+
   }
 
-  getMarcaVehiculo(){
+  getMarcaVehiculo() {
     /* Se utiliza en vehiculo y marca */
     this.servicio.getMarca().subscribe(
       (res) => {
-      this.objListaMarcaVehiculo = res;
-     
-    },
-    (error) => console.error(error)
+        this.objListaMarcaVehiculo = res;
+
+      },
+      (error) => console.error(error)
     );
   }
 
-  getModeloVehiculo(){
+  getModeloVehiculo() {
     /* Se utiliza en vehiculo y modelo */
     this.servicio.getModelo().subscribe(
       (res) => {
-      this.objListaModeloVehiculo = res;
-      
-    },
-    (error) => console.error(error)
+        this.objListaModeloVehiculo = res;
+
+      },
+      (error) => console.error(error)
     );
   }
 
@@ -482,7 +492,7 @@ export class ConfiguracionComponent implements OnInit {
     this.servicio.getTipVehiculo().subscribe(
       (res) => {
         this.objTipVehiculo = res;
-        
+
       },
       (error) => console.error(error)
     );
@@ -491,11 +501,11 @@ export class ConfiguracionComponent implements OnInit {
   getTipoReclamo(): void {
     this.servicio.getTipoReclamo().subscribe(
       (res) => {
-        
+
         this.objTipoDeReclamo = res;
 
 
-        
+
 
       },
       (err) => console.error(err)
@@ -506,34 +516,34 @@ export class ConfiguracionComponent implements OnInit {
     this.servicio.getTipoPerfil().subscribe(
       (res) => {
         this.objTipoPerfil = res;
-        
-        
+
+
       },
       (err) => console.error(err)
     );
   }
 
   /* Este metodo se accionara en el momento en se abre la pestaña de USUARIOS ' para no sobrecargar de peticiones al abrir la pestaña de configuración */
-  getusuarios(){
-   
+  getusuarios() {
+
     this.servicio.getUsuarios().subscribe(
-      (data)=>{
+      (data) => {
         console.log(data[0])
         this.objListaUsuarios = data;
         this.getEstadosUsuarios();
       },
-      (err)=>{
+      (err) => {
         console.log(err)
       }
     )
   }
   // utilizado para rellenar el select en el cual se almacenan solo 2 estados activos e inactivos
-  getEstadosUsuarios(){
+  getEstadosUsuarios() {
     this.servicio.getEstadosFiltroUsuariosConfig('Usuario').subscribe(
-      (data)=>{
+      (data) => {
         this.objEstadosUsuarios = data;
       },
-      (err)=>{
+      (err) => {
         console.log(err)
       }
     )
@@ -541,15 +551,15 @@ export class ConfiguracionComponent implements OnInit {
 
   // utilizado para rellenar el select en el cual se almacenan solo 2 estados activos e inactivos
   // utilizado para rellenar la tabla de configuracion localidades, mostrara todas las localidades y su pais
-  getLocalidades(){
+  getLocalidades() {
     this.servicio.getLocalidades().subscribe(
-      (data)=>{
+      (data) => {
         console.log(data)
-       this.objListaLocalidades = data ;
-         },
-      (err)=>{
+        this.objListaLocalidades = data;
+      },
+      (err) => {
         this.toastr.info(
-          'No se encuentran localidades registradas','',
+          'No se encuentran localidades registradas', '',
           {
             timeOut: 5000,
             positionClass: 'toast-top-right',
@@ -559,57 +569,132 @@ export class ConfiguracionComponent implements OnInit {
     )
   }
 
-  btn_buscarUsuario(){
+  btn_buscarUsuario() {
+    //Este metodo filtra usuarios por Nombre de persona o su nick y su estado, el estado si o si 
     debugger
-    if(this.ctrlNombreUsuario.value =='' || this.ctrlNickUsuario.value=='' || this.ctrlEstadoUsuario.value == ''){
+    if ((this.ctrlNombreUsuario.value == '' && this.ctrlNickUsuario.value == '' && this.ctrlEstadoUsuario.value == '') || this.ctrlEstadoUsuario.value == '') {
       this.toastr.info(
-        'No ingresó los datos necesarios para realizar la busqueda','',
+        'No ingresó los datos necesarios para realizar la busqueda', '',
         {
           timeOut: 5000,
           positionClass: 'toast-top-right',
         }
       );
-    }else{
-
-      //hacer metodo para traer y mostrar el usuario
-
-
-
-    }
-  }
-
-  btn_buscarLocalidad(){
-    if(this.ctrlNombreLocalidad.value==''){
-      this.toastr.info(
-        'No ingresó los datos necesarios para realizar la busqueda','',
-        {
-          timeOut: 5000,
-          positionClass: 'toast-top-right',
-        }
-      );
-    }else{
-
-
-      this.servicio.getFiltrarLocalidades(this.ctrlNombreLocalidad.value.toUpperCase()).subscribe(
-        (data)=>{
+    } else {
+      debugger
+      if (this.ctrlNombreUsuario.value == '') {
+        this.ctrlNombreUsuario.value == ' '
+      }
+      if (this.ctrlNickUsuario.value == '') {
+        this.ctrlNickUsuario.value == ' '
+      }
+      this.servicio.getFiltroUsuariosConfiguracion(this.ctrlNombreUsuario.value, this.ctrlEstadoUsuario.value).subscribe(
+        (data) => {
           debugger
-          if(data.length ==0){
+          if (data.length == 0) {
             this.toastr.info(
-              'La localidad '+this.ctrlNombreLocalidad.value+' no se encuentra registrada','',
+              'El usuario no se encuentra registrado', '',
               {
                 timeOut: 5000,
                 positionClass: 'toast-top-right',
               }
             );
-          }else{
-            this.objListaLocalidades = data ;
+          } else {
+            this.objListaUsuarios = data;
           }
-          
-         
-          },
-        (err)=>{
+
+        },
+        (err) => {
           this.toastr.info(
-            'La localidad '+this.ctrlNombreLocalidad.value+' no se encuentra registrada','',
+            'Ocurrio un error al relizar la busqueda del usuario', '',
+            {
+              timeOut: 5000,
+              positionClass: 'toast-top-right',
+            }
+          );
+        }
+      )
+
+    }
+  }
+
+  /* ****************************** Modal Confirmar baja ****************************** */
+  confirmarBajaUsuario() {
+    debugger
+    //solamente se manda el idusuario que se seleccion y automaticamente se manda con el numero 10 que es el valor de inactivo de usuarios
+
+
+    var usuario: bajaUsuario = {
+      idUsuario: Number(this.idUsuarioBaja),
+      id_Estado: Number(10)
+
+    }
+
+
+    this.servicio.putBajaUsuario(usuario).subscribe(
+      (data) => {
+
+        this.toastr.info(
+          'Se dio de baja al usuario seleccionado', '',
+          {
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+          }
+        );
+
+        this.objListaUsuarios = [];
+        this.getusuarios();
+        this.botonCerrarConfirmacionBajaUsuario();
+
+
+      },
+      (err) => {
+        this.toastr.info(
+          'Ocurrio un error al relizar la baja del usuario', '',
+          {
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+          }
+        );
+      }
+    )
+
+
+
+  }
+
+  btn_buscarLocalidad() {
+    if (this.ctrlNombreLocalidad.value == '') {
+      this.toastr.info(
+        'No ingresó los datos necesarios para realizar la busqueda', '',
+        {
+          timeOut: 5000,
+          positionClass: 'toast-top-right',
+        }
+      );
+    } else {
+
+
+      this.servicio.getFiltrarLocalidades(this.ctrlNombreLocalidad.value.toUpperCase()).subscribe(
+        (data) => {
+          debugger
+          if (data.length == 0) {
+            this.toastr.info(
+              'La localidad ' + this.ctrlNombreLocalidad.value + ' no se encuentra registrada', '',
+              {
+                timeOut: 5000,
+                positionClass: 'toast-top-right',
+              }
+            );
+          } else {
+            this.objListaLocalidades = data;
+          }
+
+
+        },
+        (err) => {
+          this.toastr.info(
+            'La localidad ' + this.ctrlNombreLocalidad.value + ' no se encuentra registrada', '',
             {
               timeOut: 5000,
               positionClass: 'toast-top-right',
@@ -628,49 +713,49 @@ export class ConfiguracionComponent implements OnInit {
   obtenerIDTipoEstado(ev: any) {
     this.selectIDTipEstado = 0;
     this.selectIDTipEstado = ev.target.value;
-    if(this.selectIDTipEstado!=0){
+    if (this.selectIDTipEstado != 0) {
       this.servicio.getEstadosDelTipo(this.selectIDTipEstado).subscribe(
         (res) => {
           this.objEstadosDelTipo = res;
-  
+
           this.notificacionDatosInexistentes(res);
         },
         (error) => console.error(error)
       );
 
     }
-    
+
   }
 
-  obtenerIDMarcaVehiculo(ev: any){
-    this.selectIDMarcaVehiculo=0;
-    this.selectIDMarcaVehiculo=ev.target.value;
-    console.log("marca vehiculo: "+this.selectIDMarcaVehiculo)
+  obtenerIDMarcaVehiculo(ev: any) {
+    this.selectIDMarcaVehiculo = 0;
+    this.selectIDMarcaVehiculo = ev.target.value;
+    console.log("marca vehiculo: " + this.selectIDMarcaVehiculo)
   }
 
-  obtenerIDModeloVehiculo(ev:any){
-    this.selectIDModeloVehiculo=0;
-    this.selectIDModeloVehiculo=ev.target.value;
-    console.log("modelo Vehiculo: "+this.selectIDModeloVehiculo)
+  obtenerIDModeloVehiculo(ev: any) {
+    this.selectIDModeloVehiculo = 0;
+    this.selectIDModeloVehiculo = ev.target.value;
+    console.log("modelo Vehiculo: " + this.selectIDModeloVehiculo)
   }
 
-  obtenerIDMarca(ev:any){
-    this.selecIDMarca=0;
-    this.selecIDMarca=ev.target.value;
+  obtenerIDMarca(ev: any) {
+    this.selecIDMarca = 0;
+    this.selecIDMarca = ev.target.value;
     this.servicio.getIDMarca(this.selecIDMarca).subscribe(
       (res) => {
-        this.objListaIDMarca= res;
+        this.objListaIDMarca = res;
       },
       (error) => console.error(error)
     );
   }
 
-  obtenerIDModelo(ev:any){
+  obtenerIDModelo(ev: any) {
     debugger
-    this.selecIDModelo=0;
-    this.selecIDModelo=ev.target.value;
-     this.modeloSeleccionado = (ev.target as HTMLSelectElement).options[(ev.target as HTMLSelectElement).selectedIndex].text;
-    console.log("modelo: "+this.selecIDModelo)
+    this.selecIDModelo = 0;
+    this.selecIDModelo = ev.target.value;
+    this.modeloSeleccionado = (ev.target as HTMLSelectElement).options[(ev.target as HTMLSelectElement).selectedIndex].text;
+    console.log("modelo: " + this.selecIDModelo)
   }
 
   obtenerIDTipoPerfil(ev: any) {
@@ -686,7 +771,7 @@ export class ConfiguracionComponent implements OnInit {
     this.servicio.getListaTiposReclamos(this.selectIDTipReclamo).subscribe(
       (res) => {
         this.objListaTipoReclamo = res;
-        
+
       },
       (err) => console.error(err)
     );
@@ -697,61 +782,61 @@ export class ConfiguracionComponent implements OnInit {
     /* selecciono un tipo y muestro la lista de esos tipos de vehiculos */
     this.selectIDTipVehiculo = dato.target.value;
 
-    if( this.selectIDTipVehiculo!=0){
+    if (this.selectIDTipVehiculo != 0) {
 
-      
+
 
       this.servicio.getListaTiposVehiculos(this.selectIDTipVehiculo).subscribe(
         (res) => {
 
-          if(res.length!=0){
+          if (res.length != 0) {
             debugger
             this.objListaTipVehiculos = res;
-          }else{
+          } else {
             this.notificacionDatosInexistentes(res);
-             this.objListaTipVehiculos =[]; // se cambio de obj:any a obj:any [] = [] y se elimino el delete
-            this.selectIDTipVehiculo=0;
+            this.objListaTipVehiculos = []; // se cambio de obj:any a obj:any [] = [] y se elimino el delete
+            this.selectIDTipVehiculo = 0;
           }
-          
+
         },
         (error) => console.error(error)
       );
-    }else{
+    } else {
       this.NotificacionRellenarCampos();
     }
-    
+
   }
   //por ahora no se usa, es para obtener la informacion de usuario selecionado
-  obtenerIdUsuario(id:any){
-  
+  obtenerIdUsuario(id: any) {
+
     this.idUsuario = id.target.value;
     /* crear metodo para traer los datos del usuario - podria usar los datos del usuario que esta en objListausuario */
     this.servicio.getUsuarioSelecionado(this.idUsuario).subscribe(
-      (data)=>{
+      (data) => {
         console.table(data[0])
         this.objUsuarioSelect = data[0];
         console.log(this.objUsuarioSelect)
       },
-      (err) =>{
+      (err) => {
         console.log(err)
       }
     )
   }
 
-  obtenerIdEstadoUsuario(idEstado:any){
+  obtenerIdEstadoUsuario(idEstado: any) {
     this.idEstadoUsuario = idEstado.target.value;
   }
 
 
   /* ****************************** Modal Estado ****************************** */
   botonCrearNuevoEstado() {
-    
+
     /* Crear solo un tipo de estado */
-    if(this.nombreEstadoCtrl.value!="" && this.selectIDTipEstadoModal == 0  && this.banderaSwitch==false){
+    if (this.nombreEstadoCtrl.value != "" && this.selectIDTipEstadoModal == 0 && this.banderaSwitch == false) {
 
-      var nombreEstado ='';
+      var nombreEstado = '';
 
-      var TipEstado: TipoEstado={
+      var TipEstado: TipoEstado = {
         nombre: this.nombreEstadoCtrl.value,
       }
       debugger
@@ -759,49 +844,49 @@ export class ConfiguracionComponent implements OnInit {
         (res) => {
 
 
-          this.postEstado(res,'pendiente') // utilizado para crear un tipo de estaod con 4 estados por defecto
+          this.postEstado(res, 'pendiente') // utilizado para crear un tipo de estaod con 4 estados por defecto
         },
         (err) => console.error(err)
       );
 
 
       /* Creo un estado con tipo de estado */
-    }else if (this.nombreEstadoCtrl.value != '' && this.selectIDTipEstadoModal != 0 && this.banderaSwitch==true) {
+    } else if (this.nombreEstadoCtrl.value != '' && this.selectIDTipEstadoModal != 0 && this.banderaSwitch == true) {
       //En lugar de crear 4 estados por defecto acá creo uno personalizado para el tipo de estado seleccionado
-      var Estado: PostEstado={
+      var Estado: PostEstado = {
         nombre: this.nombreEstadoCtrl.value,
         id_TipoEstado: Number(this.selectIDTipEstadoModal)
       }
-      
+
       this.servicio.postEstado(Estado).subscribe(
         (res) => {
-          
+
         },
         (err) => console.error(err)
       )
       this.NotificacionEstadoCreado();
       this.limpiarModalEstado();
-      
+
     } else {
       this.NotificacionRellenarCampos();
     }
   }
   //creo un tipo de estado con los 4 estados por defecto - pendiente, en revision, solucionado, descartado
-  postEstado(dataTipoEstado:any,nombreEstado:string){
+  postEstado(dataTipoEstado: any, nombreEstado: string) {
     debugger
-      var Estado: PostEstado={
-        nombre: nombreEstado,
-        id_TipoEstado: dataTipoEstado.idTipoEstado
-      }
-      
-      this.servicio.postEstado(Estado).subscribe(
-        (res) => {
-          
-        },
-        (err) => console.error(err)
-      )
-      this.NotificacionEstadoCreado();
-      this.limpiarModalEstado();
+    var Estado: PostEstado = {
+      nombre: nombreEstado,
+      id_TipoEstado: dataTipoEstado.idTipoEstado
+    }
+
+    this.servicio.postEstado(Estado).subscribe(
+      (res) => {
+
+      },
+      (err) => console.error(err)
+    )
+    this.NotificacionEstadoCreado();
+    this.limpiarModalEstado();
   }
   obtenerIDTipoEstadoModal(ev: any) {
     this.selectIDTipEstadoModal = 0;
@@ -809,113 +894,113 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   switchTipoEstadoModal() {
-    if(this.banderaSwitch==false){
-      this.banderaSwitch=true; /* Se visualiza */
-      this.textoEstadoModal="Estado"
+    if (this.banderaSwitch == false) {
+      this.banderaSwitch = true; /* Se visualiza */
+      this.textoEstadoModal = "Estado"
       this.selectIDTipEstadoModal = 0;
-    }else{
-      this.banderaSwitch=false;
-      this.textoEstadoModal="Tipo de Estado";
+    } else {
+      this.banderaSwitch = false;
+      this.textoEstadoModal = "Tipo de Estado";
       this.selectIDTipEstadoModal = 0;
-      
+
     }
   }
 
   /* ****************************** Modal Vehiculo ****************************** */
-  getIdEstadoVehiculoModal(){
+  getIdEstadoVehiculoModal() {
     this.servicio.getidActivoVehiculo().subscribe(
       (res) => {
-        this.objListaEstadoVehiculo= res;
+        this.objListaEstadoVehiculo = res;
       },
       (error) => console.error(error)
     );
   }
 
   botonCrearVehiculo() {
-   
-    if((this.nombreTipoVehiculoCtrl.value === null || this.dominioCtrl.value === null ||  this.marcaCtrl.value === null ||  this.modeloCtrl.value === null ||
-      this.colorCtrl.value=== null || this.numChasisCtrl.value === null ||  this.numMotorCtrl.value===null ||  this.listaEstadoVehiculoCtrl.value === null)
-      || 
-      (this.nombreTipoVehiculoCtrl.value === '' || this.dominioCtrl.value === '' ||   this.marcaCtrl.value === '' ||   this.modeloCtrl.value === '' || 
-      this.colorCtrl.value === '' ||  this.numChasisCtrl.value === '' ||   this.numMotorCtrl.value=== '' ||   this.listaEstadoVehiculoCtrl.value=== '')){
+
+    if ((this.nombreTipoVehiculoCtrl.value === null || this.dominioCtrl.value === null || this.marcaCtrl.value === null || this.modeloCtrl.value === null ||
+      this.colorCtrl.value === null || this.numChasisCtrl.value === null || this.numMotorCtrl.value === null || this.listaEstadoVehiculoCtrl.value === null)
+      ||
+      (this.nombreTipoVehiculoCtrl.value === '' || this.dominioCtrl.value === '' || this.marcaCtrl.value === '' || this.modeloCtrl.value === '' ||
+        this.colorCtrl.value === '' || this.numChasisCtrl.value === '' || this.numMotorCtrl.value === '' || this.listaEstadoVehiculoCtrl.value === '')) {
 
       this.NotificacionRellenarCampos();
-    } else  {
-     
+    } else {
+
       var auto: autoPost = {
         dominio: this.dominioCtrl.value,
         color: this.colorCtrl.value,
-        numeroChasis:  this.numChasisCtrl.value+'',
-        numeroMotor: this.numMotorCtrl.value+'',
+        numeroChasis: this.numChasisCtrl.value + '',
+        numeroMotor: this.numMotorCtrl.value + '',
         id_MarcaVehiculo: Number(this.marcaCtrl.value),
         id_Estado: Number(this.listaEstadoVehiculoCtrl.value),
         id_TipoVehiculo: Number(this.nombreTipoVehiculoCtrl.value),
         id_modelo: Number(this.modeloCtrl.value)
       }
 
-      
+
 
       this.servicio.postVehiculoModal(auto).subscribe(
-        (res)=>{     
+        (res) => {
         },
-        (err)=> console.log(err)
-        );
+        (err) => console.log(err)
+      );
 
-        this.toastr.success(
-          'Vehiculo Creado!','Atención',
-          {
-            timeOut: 2000,
-            positionClass: 'toast-bottom-center',
-          }
-        );
-      this.limpiarModalVehiculos(); 
-    } 
+      this.toastr.success(
+        'Vehiculo Creado!', 'Atención',
+        {
+          timeOut: 2000,
+          positionClass: 'toast-bottom-center',
+        }
+      );
+      this.limpiarModalVehiculos();
+    }
   }
 
-  botonActualizarVehiculo(){
+  botonActualizarVehiculo() {
     debugger
-    if(this.nombreTipoVehiculoCtrl.value == "" || this.marcaCtrl.value=="" || this.modeloCtrl.value ==""
-    || this.dominioCtrl.value == "" || this.colorCtrl.value == "" || this.numChasisCtrl.value == ""
-    || this.numMotorCtrl.value == "" || this.listaEstadoVehiculoCtrl.value == "" ){
+    if (this.nombreTipoVehiculoCtrl.value == "" || this.marcaCtrl.value == "" || this.modeloCtrl.value == ""
+      || this.dominioCtrl.value == "" || this.colorCtrl.value == "" || this.numChasisCtrl.value == ""
+      || this.numMotorCtrl.value == "" || this.listaEstadoVehiculoCtrl.value == "") {
       this.toastr.info(
-        'Por favor completa todos los campos antes de modificar el vehículo.','',
+        'Por favor completa todos los campos antes de modificar el vehículo.', '',
         {
           timeOut: 2000,
           positionClass: 'toast-top-right',
         }
       );
-    }else{
+    } else {
 
       var vehiculo: putVehiculo = {
-        IDVehiculo : this.objVehiculoModal[0].idVehiculo,
-        dominio : this.dominioCtrl.value + '',
-        color: this.colorCtrl.value +'',
-        numeroChasis:this.numChasisCtrl.value+'',
-        numeroMotor:this.numMotorCtrl.value + '',
-        ID_MarcaVehiculo : Number(this.marcaCtrl.value),
-        ID_Estado : Number(this.listaEstadoVehiculoCtrl.value),
-        ID_TipoVehiculo : Number(this.nombreTipoVehiculoCtrl.value),
-        ID_Modelo : Number(this.modeloCtrl.value),
+        IDVehiculo: this.objVehiculoModal[0].idVehiculo,
+        dominio: this.dominioCtrl.value + '',
+        color: this.colorCtrl.value + '',
+        numeroChasis: this.numChasisCtrl.value + '',
+        numeroMotor: this.numMotorCtrl.value + '',
+        ID_MarcaVehiculo: Number(this.marcaCtrl.value),
+        ID_Estado: Number(this.listaEstadoVehiculoCtrl.value),
+        ID_TipoVehiculo: Number(this.nombreTipoVehiculoCtrl.value),
+        ID_Modelo: Number(this.modeloCtrl.value),
       }
       debugger
-      
+
       this.servicio.putVehiculoModal(vehiculo).subscribe(
-        (data)=>{
+        (data) => {
           this.toastr.success(
-            'Vehículo Mdificado!','',
+            'Vehículo Mdificado!', '',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
             }
           );
         },
-        (err) =>{
+        (err) => {
 
         }
       )
 
-      this.limpiarModalVehiculos(); 
-      
+      this.limpiarModalVehiculos();
+
       this.modal.dismissAll();
     }
 
@@ -923,20 +1008,20 @@ export class ConfiguracionComponent implements OnInit {
 
   /* ****************************** Modal Marca ****************************** */
 
-  PostMarcaModal(){
-    
-    if(this.nombreModalMarcaCrtl.value===null || this.nombreModalMarcaCrtl.value ===''){
+  PostMarcaModal() {
+
+    if (this.nombreModalMarcaCrtl.value === null || this.nombreModalMarcaCrtl.value === '') {
       this.NotificacionRellenarCampos();
-    }else{ 
-      var marca : postMarca={
+    } else {
+      var marca: postMarca = {
         nombre: this.nombreModalMarcaCrtl.value,
       }
 
       this.servicio.postMarcaModal(marca).subscribe(
-        (res)=>{
-          res=res;
+        (res) => {
+          res = res;
           this.toastr.success(
-            'Marca Creada!','Atención',
+            'Marca Creada!', 'Atención',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -944,9 +1029,9 @@ export class ConfiguracionComponent implements OnInit {
           );
           this.botonCerrarMarca();
         },
-        (err)=>{
+        (err) => {
           this.toastr.error(
-            'Ocurrio un error al crear la Marca!','Atención',
+            'Ocurrio un error al crear la Marca!', 'Atención',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -957,32 +1042,32 @@ export class ConfiguracionComponent implements OnInit {
     }
   }
 
-  putMarcaAuto(){
+  putMarcaAuto() {
 
-    if(this.ctrlNombreMarca.value==""){
+    if (this.ctrlNombreMarca.value == "") {
       this.toastr.info(
-        'Por favor completa todos el campoo antes de modificar la marca.','',
+        'Por favor completa todos el campoo antes de modificar la marca.', '',
         {
           timeOut: 2000,
           positionClass: 'toast-top-right',
         }
       );
-    }else{
-      var marca : putMarca ={
-        
-          idMarca: this.arrayMarca[0],
-          nombre : this.arrayMarca[1]+'' ,
-      
+    } else {
+      var marca: putMarca = {
+
+        idMarca: this.arrayMarca[0],
+        nombre: this.arrayMarca[1] + '',
+
       }
-      if(this.ctrlNombreMarca.value !=''){
-        marca.nombre = this.ctrlNombreMarca.value +'';
+      if (this.ctrlNombreMarca.value != '') {
+        marca.nombre = this.ctrlNombreMarca.value + '';
       }
 
       this.servicio.putMarcaModal(marca).subscribe(
-        (data)=>{
+        (data) => {
 
           this.toastr.success(
-            'Marca Modificada!','Atención',
+            'Marca Modificada!', 'Atención',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -993,9 +1078,9 @@ export class ConfiguracionComponent implements OnInit {
           this.modal.dismissAll();
 
         },
-        (err)=>{
+        (err) => {
           this.toastr.error(
-            'Ocurrio un error al modificar la Marca!','Atención',
+            'Ocurrio un error al modificar la Marca!', 'Atención',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -1007,80 +1092,80 @@ export class ConfiguracionComponent implements OnInit {
 
   }
 
-  
+
   /* ****************************** Modal Modelos ****************************** */
 
-  postModeloVehiculo(){
-    
-    if(this.nombreModalModelo.value === ''){
+  postModeloVehiculo() {
+
+    if (this.nombreModalModelo.value === '') {
 
       this.NotificacionRellenarCampos();
 
-    }else{
-      var modelo:postModeloVehiculo={
-        nombre:this.nombreModalModelo.value+'',
+    } else {
+      var modelo: postModeloVehiculo = {
+        nombre: this.nombreModalModelo.value + '',
       }
 
       this.servicio.postModeloModal(modelo).subscribe(
-        (res)=>{
+        (res) => {
           delete this.objListaModeloVehiculo;
           this.getModeloVehiculo();
           this.toastr.success(
-            'Modelo Creado!','Atención',
+            'Modelo Creado!', 'Atención',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
             }
           );
-          this.botonCerrarModelo();      
+          this.botonCerrarModelo();
         },
-        (err)=>console.error()
+        (err) => console.error()
 
       )
     }
   }
 
-  putModelo(){
+  putModelo() {
     debugger
-    if(this.ctrlNombreModelo.value==''){
+    if (this.ctrlNombreModelo.value == '') {
       this.toastr.info(
-        'Complete el campo para realizar la modificación!','Atención',
+        'Complete el campo para realizar la modificación!', 'Atención',
         {
           timeOut: 2000,
           positionClass: 'toast-top-right',
         }
       );
-    }else{
+    } else {
       debugger
-      var modeloAuto: putModelo ={
-        idModelo : Number(this.arrayModelo[0]),
-        nombre :this.arrayModelo[1]+'',
+      var modeloAuto: putModelo = {
+        idModelo: Number(this.arrayModelo[0]),
+        nombre: this.arrayModelo[1] + '',
       }
 
-      if(this.ctrlNombreModelo.value!=''){
-        modeloAuto.nombre = this.ctrlNombreModelo.value +'';
+      if (this.ctrlNombreModelo.value != '') {
+        modeloAuto.nombre = this.ctrlNombreModelo.value + '';
       }
 
       this.servicio.putModeloModal(modeloAuto).subscribe(
         (data) => {
 
           this.toastr.success(
-            'Modelo de vehículo modificado','',
+            'Modelo de vehículo modificado', '',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
             }
           );
-          this.selecIDMarca=0;
+          this.selecIDMarca = 0;
           this.modeloSeleccionado = '';
           this.arrayModelo = [];
           this.ctrlNombreModelo.reset();
-          
+
           this.modal.dismissAll()
         },
-        (err) =>{
+        (err) => {
           this.toastr.warning(
-            'Ocurrió un problema al modificar el Modelo seleccionado','',
+            'Ocurrió un problema al modificar el Modelo seleccionado', '',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -1091,7 +1176,7 @@ export class ConfiguracionComponent implements OnInit {
 
 
 
-    
+
     }
 
 
@@ -1099,16 +1184,16 @@ export class ConfiguracionComponent implements OnInit {
 
 
   /* ****************************** Modal Perfil ****************************** */
-  botonCrearPerfilModal(){
-    
-    if(this.nombreModalPerfil.value!=''){
+  botonCrearPerfilModal() {
 
-      var objPerfil:PerfilAdmin={
-        nombre : this.nombreModalPerfil.value,
+    if (this.nombreModalPerfil.value != '') {
+
+      var objPerfil: PerfilAdmin = {
+        nombre: this.nombreModalPerfil.value,
       }
       this.servicio.postPerfilModal(objPerfil).subscribe(
-        (resp)=>{
-           this.objTipoPerfil = []; // se cambio el delete
+        (resp) => {
+          this.objTipoPerfil = []; // se cambio el delete
           this.getTipoPerfil();
         },
         (err) => console.error(err)
@@ -1116,35 +1201,35 @@ export class ConfiguracionComponent implements OnInit {
       debugger
       this.NotificacionPerfilCreado();
 
-    }else{
+    } else {
       this.NotificacionRellenarCampos();
     }
 
   }
-  putPerfil(){
+  putPerfil() {
     debugger
-    if(this.ctrlNombrePerfil.value==''){
+    if (this.ctrlNombrePerfil.value == '') {
       this.toastr.info(
-        'Complete el campo para realizar la modificación!','Atención',
+        'Complete el campo para realizar la modificación!', 'Atención',
         {
           timeOut: 2000,
           positionClass: 'toast-top-right',
         }
       );
-    }else{
+    } else {
       debugger
-      var putPerfil:putPerfilAdmin = {
+      var putPerfil: putPerfilAdmin = {
         idPerfil: this.arrayPutPerfil[0],
         nombre: this.arrayPutPerfil[1],
       }
-      if(this.ctrlNombrePerfil.value!=''){
-        putPerfil.nombre = this.ctrlNombrePerfil.value +'';
+      if (this.ctrlNombrePerfil.value != '') {
+        putPerfil.nombre = this.ctrlNombrePerfil.value + '';
       }
       this.servicio.putPerfilModal(putPerfil).subscribe(
-        (data)=>{
+        (data) => {
 
           this.toastr.success(
-            'Perfil de Usuario Modificado!','',
+            'Perfil de Usuario Modificado!', '',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -1154,9 +1239,9 @@ export class ConfiguracionComponent implements OnInit {
           this.ctrlNombrePerfil.reset();
           this.modal.dismissAll();
         },
-        (err)=>{
+        (err) => {
           this.toastr.warning(
-            'Ocurrió un problema al modificar el Perfil de Usuario','',
+            'Ocurrió un problema al modificar el Perfil de Usuario', '',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -1169,57 +1254,57 @@ export class ConfiguracionComponent implements OnInit {
 
   /* ****************************** Modal Tipo Reclamo ****************************** */
   botonCrearNuevoTipoReclamo() {
-    
-    if (this.nombreTipoReclamoCtrl.value != '' && this.descripcionTipoReclamoCtrl.value!='') {
 
-      var tipoRec: TipoReclamo ={
+    if (this.nombreTipoReclamoCtrl.value != '' && this.descripcionTipoReclamoCtrl.value != '') {
+
+      var tipoRec: TipoReclamo = {
         nombre: this.nombreTipoReclamoCtrl.value,
         descripcion: this.descripcionTipoReclamoCtrl.value,
       }
-      
+
       this.servicio.postTipoReclamoModal(tipoRec).subscribe(
-        (resp)=>{
+        (resp) => {
           delete this.objTipoDeReclamo;
-          this.getTipoReclamo();    
+          this.getTipoReclamo();
         },
         (err) => console.error(err)
-      ) 
+      )
       this.NotificacionTipoReclamoCreado();
     } else {
       this.NotificacionRellenarCampos();
     }
   }
 
-  putTipoReclamo(){
+  putTipoReclamo() {
     debugger
-    if(this.ctrlNombreTipoReclamo.value =='' || this.ctrlDescripcionTipoReclamo.value == ''){
+    if (this.ctrlNombreTipoReclamo.value == '' || this.ctrlDescripcionTipoReclamo.value == '') {
       this.toastr.info(
-        'Complete el campo para realizar la modificación!','Atención',
+        'Complete el campo para realizar la modificación!', 'Atención',
         {
           timeOut: 2000,
           positionClass: 'toast-top-right',
         }
       );
-    }else{
+    } else {
       debugger
-      var putTipoReclamo : putTipoReclamo ={
-        idTipoReclamo : this.arrayPutTipoReclamo[0],
-        nombre : this.arrayPutTipoReclamo[1],
+      var putTipoReclamo: putTipoReclamo = {
+        idTipoReclamo: this.arrayPutTipoReclamo[0],
+        nombre: this.arrayPutTipoReclamo[1],
         descripcion: this.arrayPutTipoReclamo[2]
       }
 
-      if(this.ctrlNombreTipoReclamo.value !=''){
-        putTipoReclamo.nombre = this.ctrlNombreTipoReclamo.value +'';
+      if (this.ctrlNombreTipoReclamo.value != '') {
+        putTipoReclamo.nombre = this.ctrlNombreTipoReclamo.value + '';
       }
-      if(this.ctrlDescripcionTipoReclamo.value!=''){
-        putTipoReclamo.descripcion = this.ctrlDescripcionTipoReclamo.value+'';
+      if (this.ctrlDescripcionTipoReclamo.value != '') {
+        putTipoReclamo.descripcion = this.ctrlDescripcionTipoReclamo.value + '';
       }
 
       this.servicio.putTipoReclamoModal(putTipoReclamo).subscribe(
-        (data)=>{
+        (data) => {
 
           this.toastr.success(
-            'Tipo de Reclamo Modificado!','',
+            'Tipo de Reclamo Modificado!', '',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -1231,9 +1316,9 @@ export class ConfiguracionComponent implements OnInit {
           this.ctrlDescripcionTipoReclamo.reset();
           this.modal.dismissAll();
         },
-        (err)=>{
+        (err) => {
           this.toastr.warning(
-            'Ocurrió un problema al modificar el Tipo de Reclamo','',
+            'Ocurrió un problema al modificar el Tipo de Reclamo', '',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -1246,58 +1331,58 @@ export class ConfiguracionComponent implements OnInit {
     }
   }
   /* ******************************  Modal Tipo Vehiculo ****************************** */
-  botonCrearTipoVehiculoModal(){
-    
-    if(this.nombreTipoVehiculoCtrlModal.value!='' && this.descripcionTipoVehiculoModal.value!=''){
+  botonCrearTipoVehiculoModal() {
 
-      var objTipoVehiculo:TipoVehiculoModal ={
+    if (this.nombreTipoVehiculoCtrlModal.value != '' && this.descripcionTipoVehiculoModal.value != '') {
+
+      var objTipoVehiculo: TipoVehiculoModal = {
         nombre: this.nombreTipoVehiculoCtrlModal.value,
         descripcion: this.descripcionTipoVehiculoModal.value,
       }
       debugger
       this.servicio.postTipoVehiculoModal(objTipoVehiculo).subscribe(
-        (resp)=>{
-           delete this.objTipVehiculo;
-           this.getTipoVehiculo();
+        (resp) => {
+          delete this.objTipVehiculo;
+          this.getTipoVehiculo();
         },
         (err) => console.error(err)
       )
-      
+
       this.NotificacionTipoVehiculoCreado();
-    }else{
+    } else {
       this.NotificacionRellenarCampos();
     }
   }
 
-  putTipoVehiculo(){
-    if(this.ctrlNombreTipoVehiculo.value == '' || this.ctrlDescripcionTipoVehiculo.value == ''){
+  putTipoVehiculo() {
+    if (this.ctrlNombreTipoVehiculo.value == '' || this.ctrlDescripcionTipoVehiculo.value == '') {
       this.toastr.info(
-        'Complete los campo para realizar la modificación!','Atención',
+        'Complete los campo para realizar la modificación!', 'Atención',
         {
           timeOut: 2000,
           positionClass: 'toast-top-right',
         }
       );
-    }else{
+    } else {
 
-      var putTipVehiculo : putTipoVehiculo ={
+      var putTipVehiculo: putTipoVehiculo = {
         idTipoVehiculo: this.arrayPutTipoVehiculo[0],
         nombre: this.arrayPutTipoVehiculo[1],
         descripcion: this.arrayPutTipoVehiculo[2]
       }
 
-      if(this.ctrlNombreTipoVehiculo.value != ''){
-        putTipVehiculo.nombre = this.ctrlNombreTipoVehiculo.value +'';
+      if (this.ctrlNombreTipoVehiculo.value != '') {
+        putTipVehiculo.nombre = this.ctrlNombreTipoVehiculo.value + '';
       }
-      if(this.ctrlDescripcionTipoVehiculo.value !=''){
-        putTipVehiculo.descripcion = this.ctrlDescripcionTipoVehiculo.value +'';
+      if (this.ctrlDescripcionTipoVehiculo.value != '') {
+        putTipVehiculo.descripcion = this.ctrlDescripcionTipoVehiculo.value + '';
       }
 
       this.servicio.putTipoVehiculoModal(putTipVehiculo).subscribe(
-        (data)=>{
+        (data) => {
 
           this.toastr.success(
-            'Tipo de Vehículo Modificado!','',
+            'Tipo de Vehículo Modificado!', '',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -1309,9 +1394,9 @@ export class ConfiguracionComponent implements OnInit {
           this.ctrlDescripcionTipoVehiculo.reset();
           this.modal.dismissAll();
         },
-        (err)=>{
+        (err) => {
           this.toastr.warning(
-            'Ocurrió un problema al modificar el Tipo de Vehículo','',
+            'Ocurrió un problema al modificar el Tipo de Vehículo', '',
             {
               timeOut: 2000,
               positionClass: 'toast-top-right',
@@ -1324,28 +1409,28 @@ export class ConfiguracionComponent implements OnInit {
     }
 
   }
- 
-   /* ******************************  Modal Usuario ****************************** */
 
-   getDatosUsuarioSeleccionado(idUsuario:number){
+  /* ******************************  Modal Usuario ****************************** */
+
+  getDatosUsuarioSeleccionado(idUsuario: number) {
     /* Datos del usuario seleccionado */
     this.servicePerfil.getdatosPerfil(idUsuario).subscribe(
-      (data)=>{
-        this.datosUsuario=data;/* almacenado para utilizar en el metodo actualizarUsuario */
+      (data) => {
+        this.datosUsuario = data;/* almacenado para utilizar en el metodo actualizarUsuario */
         console.log(this.datosUsuario)
       }
     )
-   }
+  }
 
-   formularioUsuario(){
-    if(this.banderaActualizarUsuario == false){
+  formularioUsuario() {
+    if (this.banderaActualizarUsuario == false) {
       this.banderaActualizarUsuario = true;
-    }else{
+    } else {
       this.banderaActualizarUsuario = false;
       this.limpiarFormulario();
     }
-   }
-   limpiarFormulario() {
+  }
+  limpiarFormulario() {
     this.nombrePersonaCtrl.reset()
     this.apellidoPersonaCtrl.reset()
     this.celularCtrl.reset()
@@ -1354,10 +1439,10 @@ export class ConfiguracionComponent implements OnInit {
     this.contraseniaCtrl.reset()
     this.nombreUsuarioCtrl.reset()
   }
-  obtenerIDestadoModalUsuario(id:any){
+  obtenerIDestadoModalUsuario(id: any) {
     this.estadoUsuario = id.target.value;
   }
-   actualizarUsuario(){
+  actualizarUsuario() {
     let putUser: putUsuario = {
       IDUsuario: this.datosUsuario[0].idUsuario,
       Nombre: '',
@@ -1371,22 +1456,22 @@ export class ConfiguracionComponent implements OnInit {
       id_Estado: this.datosUsuario[0].id_Estado,
       foto: '',
     }
-   }
+  }
 
-   /* ---------------------- Input file ----------------------*/
+  /* ---------------------- Input file ----------------------*/
   onFileSelected(event: any) {
     if (event.target.files && event.target.files.length) {
       const file = event.target.files[0];
       this.uploadImage(file);
     }
   }
-/* leer el contenido del archivo seleccionado y convertirlo en un formato utilizable, como una URL de datos */
+  /* leer el contenido del archivo seleccionado y convertirlo en un formato utilizable, como una URL de datos */
   uploadImage(file: File) {
     const reader = new FileReader();
     reader.onload = () => {
       this.imagePerfilDataUrl = reader.result as string;
-      
-      
+
+
       // Aquí puedes realizar acciones adicionales con la imagen,
       // como enviarla al servidor o mostrarla en la interfaz de usuario.
     };
@@ -1397,7 +1482,7 @@ export class ConfiguracionComponent implements OnInit {
   limpiarModalEstado() {
     /* cuando se cierra el modal o se crea el estado o el tipo de estado */
     this.banderaSwitch = false;
-    this.textoEstadoModal="Tipo De Estado";
+    this.textoEstadoModal = "Tipo De Estado";
     this.selectIDTipEstadoModal = 0;
     this.nombreEstadoCtrl.setValue('');
     this.modal.dismissAll();
@@ -1413,13 +1498,13 @@ export class ConfiguracionComponent implements OnInit {
     this.listaEstadoVehiculoCtrl.setValue('');
   }
 
-  limpiarModalTipoReclamos(){
+  limpiarModalTipoReclamos() {
     this.nombreTipoReclamoCtrl.setValue('');
     this.descripcionTipoReclamoCtrl.setValue('');
-     this.modal.dismissAll();
+    this.modal.dismissAll();
   }
-  
-/* Notificaciones */
+
+  /* Notificaciones */
   NotificacionRellenarCampos() {
     this.toastr.warning(
       'Complete el formulario para realizar la operación!',
@@ -1460,7 +1545,7 @@ export class ConfiguracionComponent implements OnInit {
 
     this.botonCerrarModalPerfil();
   }
-  NotificacionTipoReclamoCreado(){
+  NotificacionTipoReclamoCreado() {
     this.toastr.success(
       'Tipo De Reclam Creado!',
       'Atención',
@@ -1472,7 +1557,7 @@ export class ConfiguracionComponent implements OnInit {
     this.botonCerrarTipoReclamo();
   }
 
-  NotificacionTipoVehiculoCreado(){
+  NotificacionTipoVehiculoCreado() {
     this.toastr.success(
       'Tipo De Vehiculo Creado!',
       'Atención',
@@ -1484,8 +1569,8 @@ export class ConfiguracionComponent implements OnInit {
     this.botonCerrarNuevoTipoVehiculoModal();
   }
 
-  notificacionDatosInexistentes(res:any){
-    if(res.length==0){
+  notificacionDatosInexistentes(res: any) {
+    if (res.length == 0) {
       this.toastr.info(
         'No hay datos para la busqueda requerida',
         'Atención',
@@ -1497,37 +1582,37 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   /* Paginacion en tablas */
-    /* Usuario */
-    M_cambioPaginas(pagina:PageEvent){
-      this.paginaDesde = pagina.pageIndex * pagina.pageSize;
-      this.paginaHasta =  this.paginaDesde + pagina.pageSize;
-    }
-    
-    cambiarPaginaEstados(pagina: PageEvent){
-      this.M_cambioPaginas(pagina)
-    }
-    cambiarPaginaPerfiles(pagina: PageEvent){
-      this.M_cambioPaginas(pagina)
-    }
-    cambiarPaginaTiposVehiculos(pagina: PageEvent){
-      this.M_cambioPaginas(pagina)
-    }
-    cambiarPaginaUsario(pagina: PageEvent){
-      this.M_cambioPaginas(pagina)
-    }
-    cambiarPaginaULocalidad(pagina: PageEvent){
-      this.M_cambioPaginas(pagina)
+  /* Usuario */
+  M_cambioPaginas(pagina: PageEvent) {
+    this.paginaDesde = pagina.pageIndex * pagina.pageSize;
+    this.paginaHasta = this.paginaDesde + pagina.pageSize;
+  }
+
+  cambiarPaginaEstados(pagina: PageEvent) {
+    this.M_cambioPaginas(pagina)
+  }
+  cambiarPaginaPerfiles(pagina: PageEvent) {
+    this.M_cambioPaginas(pagina)
+  }
+  cambiarPaginaTiposVehiculos(pagina: PageEvent) {
+    this.M_cambioPaginas(pagina)
+  }
+  cambiarPaginaUsario(pagina: PageEvent) {
+    this.M_cambioPaginas(pagina)
+  }
+  cambiarPaginaULocalidad(pagina: PageEvent) {
+    this.M_cambioPaginas(pagina)
+  }
+
+  /* Metodos para buscar usuarios */
+  /* m_buscarUsuario(nombre:any){
+    nombre = nombre.target.value;
+    if(nombre==''){
+
+    }else{
+      this.objListaUsuarios.find(nombre);
     }
 
-    /* Metodos para buscar usuarios */
-    /* m_buscarUsuario(nombre:any){
-      nombre = nombre.target.value;
-      if(nombre==''){
-
-      }else{
-        this.objListaUsuarios.find(nombre);
-      }
-
-    } */
+  } */
 
 }

@@ -1,3 +1,5 @@
+import { ClassField } from "@angular/compiler";
+
 export class nickUsuario {
     idUsuario: number = 0;
     nick: string = '';
@@ -27,4 +29,9 @@ export class estadosUsuarios{
     nombre : string = '';
     idTipoEstado : number = 0;
     nombreTipoEstado : string = '';
+}
+
+export class bajaUsuario{
+    idUsuario: number = 0;
+    id_Estado: number = 0;
 }

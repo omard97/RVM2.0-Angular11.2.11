@@ -147,6 +147,13 @@ input::-webkit-inner-spin-button {
 
 /* ------ Modal Usuario ------ */
 
+.text-Activo{
+  color: rgb(4, 155, 12);
+}
+.text-Inactivo{
+  color: rgb(255, 0, 0);
+}
+
 .imagen--perfil {
   border-radius: 1rem;
 }

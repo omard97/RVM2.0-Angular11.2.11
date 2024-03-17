@@ -22,7 +22,7 @@ import { ReclamoAmbiental } from '../model/reclamoAmbiental';
 import { sesionUsuario } from '../model/sesion';
 import { TipoReclamo } from '../model/tipoReclamo';
 import { Vehiculo } from '../model/vehiculo';
-import { estadosUsuarios } from '../model/usuario';
+import { bajaUsuario, estadosUsuarios, usuarioConfig } from '../model/usuario';
 import { putMarca } from '../model/Configuracion/marcaVehiculo';
 import { putModelo } from '../model/Configuracion/modeloVehiculo';
 import { putTipoReclamo } from '../model/Configuracion/tipoReclamo';
@@ -351,9 +351,21 @@ export class BackenApiService {
   }
 
   //Metodo para filtrar la lista de usuarios de la pantalla de configuración
-  getFiltroUsuariosConfiguracion(nombreU:string, nickU:string,idEstado:number){
-
+  getFiltroUsuariosConfiguracion(nombreU:string,idEstado:number){
+    debugger
+    return this.http.get<usuarioConfig[]>('https://localhost:44363/usuarioFiltroadmin/'+nombreU+'/'+idEstado);
   }
+
+  putBajaUsuario(bajaUsuario: bajaUsuario):Observable<any>{
+    var dato = JSON.stringify(bajaUsuario);
+    
+    return this.http.put('https://localhost:44363/usuarioFiltroadmin/'+bajaUsuario.idUsuario,dato,this.httpOptions)
+  }
+
+ /*  getFiltronickUConfiguracion(nickU:string,idEstado:number){
+    debugger
+    return this.http.get<usuarioConfig[]>('https://localhost:44363/NickFiltroAdmin/'+nickU+'/'+idEstado);
+  } */
 
   //Se utiliza en la pantalla de Configuración - al inciar la pantalla llama al metodo
   getLocalidades(){

@@ -722,14 +722,11 @@
                             necesarias</small>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-md-3 pb-2">
+                        <div class="col-12 col-md-7 pb-2">
                             <input type="text" class="form-control " [formControl]="ctrlNombreUsuario"
-                                placeholder="Buscar Usuario">
+                                placeholder="Nombre/Nick de usuario" (keyup.enter)="btn_buscarUsuario()" >
                         </div>
-                        <div class="col-12 col-md-3 pb-2">
-                            <input type="text" class="form-control" [formControl]="ctrlNickUsuario"
-                                placeholder="Buscar Nick">
-                        </div>
+                        
 
                         <div class="col-12 col-md-3 pb-2">
                             <select class="form-select " aria-label=".form-select-sm example"
@@ -743,21 +740,18 @@
                             <button type="button" class="btn btn-success" (click)="btn_buscarUsuario()"><i
                                     class="bi bi-search"></i></button>
                         </div>
-                        <div class="col-6 col-md-1 ">
+                        <!-- <div class="col-6 col-md-1 ">
                             <button type="button" class="btn btn-primary"><i class="bi bi-plus-square"></i></button>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
 
                         <div class="col-12 divTabla table-responsive-lg">
-                            <table class="table  animate__animated animate__fadeIn ">
+                            <table class="table tabla animate__animated animate__fadeIn ">
                                 <thead class="table-light">
                                     <tr>
                                         <th class="columna1">Nombre</th>
                                         <th class="columna2">Apellido</th>
-                                        <!-- <th>Teléfono</th>
-                                        <th>DNI</th>
-                                        <th>Correo</th> -->
                                         <th class="columna3">Nick</th>
                                         <th class="columna4">Foto </th>
                                         <th class="columna5">Estado </th>
@@ -767,10 +761,7 @@
                                 <tbody class="table-group-divide animate__animated animate__fadeIn">
                                     <tr *ngFor="let item of objListaUsuarios | slice:paginaDesde:paginaHasta">
                                         <th class="">{{item.nombreUsuario}}</th>
-                                        <td class="">{{item.apellido}}</td>
-                                        <!-- <td>{{item.telefono}}</td>
-                                        <td>{{item.dni }}</td>
-                                        <td>{{item.email}}</td> -->
+                                        <td class="">{{item.apellido}}</td>                                      
                                         <td class="">{{item.nick}}</td>
                                         <td class="">
                                             <img *ngIf="item.foto != null" loading="lazy" class="rounded img__usuario "
@@ -779,24 +770,11 @@
                                                 alt="Foto" src='../../../../assets/img/img_no_disponible.png'>
 
                                         </td>
-                                        <td class="">{{item.nombreEstado}}</td>
-                                        <td class="">
-                                            <!--  <div class="btn-group" role="group">
-                                                <div class="btn-group" role="group">
-                                                    <button id="btnGroupDrop1" type="button"
-                                                        class="btn btn-outline-primary btn-sm dropdown-toggle"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li><a class="dropdown-item"><i class="bi bi-pencil-square">
-                                                                    Editar</i></a></li>
-                                                        <li><a class="dropdown-item"><i class="bi bi-trash">
-                                                                    Borrar</i></a></li>
-
-                                                    </ul>
-                                                </div>
-                                            </div> -->
+                                        <td [ngClass]="{
+                                            'text-Activo': item.nombreEstado === 'Activo',
+                                            'text-Inactivo': item.nombreEstado ==='Inactivo'                                            
+                                          } ">{{item.nombreEstado}}</td>
+                                        <td class="">                                          
                                             <div class="container contenedor_botonesOpciones ">
                                                 <button type="button" class="btn btn-secondary btn__opciones "
                                                     data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"
@@ -806,8 +784,11 @@
                                                 <button type="button"
                                                     class="btn btn-danger d-inline-block btn__opciones "
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Dar de baja"><i class="bi bi-arrow-down"></i>
+                                                    title="Dar de baja" (click)="visualizarModalBajaUsuario(modalConfirmarBajaUsuario,item.idUsuario)" [disabled]="((item.idEstado!=9))"><i class="bi bi-person-fill-x"></i>
                                                 </button>
+
+
+                                              
 
                                             </div> <!-- botones -->
                                         </td>
@@ -1611,7 +1592,7 @@
 
                             <select class="form-select " aria-label=".form-select-sm example"
                                 (change)="obtenerIDestadoModalUsuario($event)" [formControl]="ctrlEstadoUsuario">
-                                <option value="" disabled selected> Selecione su Estado </option>
+                                <option value="" disabled selected> Selecione su estado </option>
                                 <option *ngFor="let item of objEstadosUsuarios" value="{{item.idEstado}}">
                                     {{item.nombre}}</option>
                             </select>
@@ -1774,6 +1755,28 @@
     </form>
 </ng-template>
 
+
+
+
+
+<ng-template #modalConfirmarBajaUsuario let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Confirmar baja del usuario</h5>
+            <button (click)="botonCerrarConfirmacionBajaUsuario()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+           <p> ¿Estás seguro de que deseas dar de baja a este usuario?</p>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarConfirmacionBajaUsuario()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-danger" (click)="confirmarBajaUsuario()">Dar de baja</button>
+        </div>
+    </form>
+</ng-template>
 
 <!-- Modal configuracion Estado -->
 <!-- <div #contenido class="modal fade" id="modalEstados" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
