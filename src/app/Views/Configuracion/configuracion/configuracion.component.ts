@@ -17,7 +17,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { PerfilApiService } from 'src/app/service/Perfil/perfil-api.service';
 import { putUsuario } from 'src/app/model/perfil';
 import { putTipoReclamo } from 'src/app/model/Configuracion/tipoReclamo';
-import { localidad } from 'src/app/model/localidad';
+import { bajaLoc, localidad } from 'src/app/model/localidad';
 
 
 @Component({
@@ -111,7 +111,9 @@ export class ConfiguracionComponent implements OnInit {
   /* ---Configuración Localidad ---  */
   objListaLocalidades: localidad[] = [];
   ctrlNombreLocalidad = new FormControl('', [Validators.required]);
-
+  ctrlPostNombreLocalidad = new FormControl('', [Validators.required]);
+  nombreBaja: string = "";
+  idBajaLocalidad:number =0;
 
 
   /* ---Configuración Actualizacion Marca ---  */
@@ -258,12 +260,22 @@ export class ConfiguracionComponent implements OnInit {
   }
   visualizarModalUsuario(content: any, idUsuario: number) {
     this.modal.open(content, { size: 'lg' });
-    this.getDatosUsuarioSeleccionado(idUsuario);
+    this.getDatosUsuarioSeleccionado(idUsuario);// para visualizar los datos del usuario seleccionado
   }
   visualizarModalBajaUsuario(content: any, idUsuario: number) {
     this.modal.open(content, { size: 'lg' });
     this.idUsuarioBaja = idUsuario;
   }
+  visualizarModalLocalidad(content: any) {
+    this.modal.open(content, { size: 'lg' });
+  }
+  visualizarModalBajaLocalidad(content: any, nombreLocalidad:string, item:any) {
+    this.modal.open(content, { size: 'lg' });
+    debugger
+     this.nombreBaja = nombreLocalidad;
+     this.idBajaLocalidad = item.idLocalidad 
+  }
+  
 
   /* Visualizar Modal para ACTUALIZAR */
   openPutModalVehiculo(putModalVehiculo: any, idvehiculo: number) {
@@ -406,6 +418,13 @@ export class ConfiguracionComponent implements OnInit {
   }
 
   botonCerrarConfirmacionBajaUsuario() {
+    this.modal.dismissAll();
+  }
+  botonCerrarModalLocalidad() {
+    this.modal.dismissAll();
+  }
+
+  botonCerrarBajaLocalidad() {
     this.modal.dismissAll();
   }
 
@@ -618,50 +637,6 @@ export class ConfiguracionComponent implements OnInit {
     }
   }
 
-  /* ****************************** Modal Confirmar baja ****************************** */
-  confirmarBajaUsuario() {
-    debugger
-    //solamente se manda el idusuario que se seleccion y automaticamente se manda con el numero 10 que es el valor de inactivo de usuarios
-
-
-    var usuario: bajaUsuario = {
-      idUsuario: Number(this.idUsuarioBaja),
-      id_Estado: Number(10)
-
-    }
-
-
-    this.servicio.putBajaUsuario(usuario).subscribe(
-      (data) => {
-
-        this.toastr.info(
-          'Se dio de baja al usuario seleccionado', '',
-          {
-            timeOut: 5000,
-            positionClass: 'toast-top-right',
-          }
-        );
-
-        this.objListaUsuarios = [];
-        this.getusuarios();
-        this.botonCerrarConfirmacionBajaUsuario();
-
-
-      },
-      (err) => {
-        this.toastr.info(
-          'Ocurrio un error al relizar la baja del usuario', '',
-          {
-            timeOut: 5000,
-            positionClass: 'toast-top-right',
-          }
-        );
-      }
-    )
-
-
-
-  }
 
   btn_buscarLocalidad() {
     if (this.ctrlNombreLocalidad.value == '') {
@@ -702,11 +677,101 @@ export class ConfiguracionComponent implements OnInit {
           );
         }
       )
+    }
+  }
+  
+  /* Crear una nueva localidad */
+  postNuevaLocalidad(){
 
+
+    if(this.ctrlPostNombreLocalidad.value==""){
+      this.toastr.warning(
+        'Escriba el nombre de la localidad para poder registralo',
+        '',
+        {
+          timeOut: 2000,
+        }
+      )
+    }else{
+
+      var Postlocalidad : localidad ={
+        nombre : (this.ctrlPostNombreLocalidad.value + "").toUpperCase(),
+        provincia : "CÓRDOBA",
+        ID_Pais:  1,
+        pais : "ARGENTINA",
+        iD_EstadoLocalidad : 1 //estado Activo - que en esa localidad se utiliza el sistema o hay reclamos
+      }
+
+      this.servicio.PostLocalidad(Postlocalidad).subscribe(
+        (res) => {
+          this.toastr.success(
+            'Localidad registrada con exito',
+            '',
+            {
+              timeOut: 4000,
+            }
+          )
+
+          this.objListaLocalidades = [];
+          this.getLocalidades();
+          this.ctrlPostNombreLocalidad.reset;
+        },
+        (err) => console.error(
+          this.toastr.warning(
+            'Ocurrio un error al registrar la nueva localidad',
+            '',
+            {
+              timeOut: 4000,
+            }
+          )
+        )
+      )
 
 
 
     }
+
+
+    
+  }
+
+  confirmarBajaLocalidad(idBajaL:number){
+
+    /* Se realiza una actualizacion al estado - se cambia el estado a 2 par darlo de baja */
+    debugger
+    console.log(idBajaL)
+
+    debugger
+    //solamente se manda el idusuario que se seleccion y automaticamente se manda con el numero 10 que es el valor de inactivo de usuarios
+    var localidad: bajaLoc = {
+      IDLocalidad: Number(idBajaL),
+      iD_EstadoLocalidad: Number(2)
+
+    }
+
+    this.servicio.putConfirmarBajaLocalidad(localidad).subscribe(
+      (res) => {
+        this.toastr.success(
+          'Se dio de baja la localidad',
+          '',
+          {
+            timeOut: 4000,
+          }
+        )
+        this.objListaLocalidades = [];
+        this.getLocalidades();
+      },
+      (error) => console.error(
+        this.toastr.warning(
+          'Ocurrio un error al dar de baja la localidad.',
+          '',
+          {
+            timeOut: 4000,
+          }
+        )
+      )
+    )
+
   }
 
   /* Metodos para obtener los valores de los selec */
@@ -1416,6 +1481,7 @@ export class ConfiguracionComponent implements OnInit {
     /* Datos del usuario seleccionado */
     this.servicePerfil.getdatosPerfil(idUsuario).subscribe(
       (data) => {
+        debugger
         this.datosUsuario = data;/* almacenado para utilizar en el metodo actualizarUsuario */
         console.log(this.datosUsuario)
       }
@@ -1478,6 +1544,49 @@ export class ConfiguracionComponent implements OnInit {
     reader.readAsDataURL(file);
   }
   /* ---------------------- Fin Input file ----------------------*/
+
+
+  
+  /* ****************************** Modal Confirmar baja de usuario ****************************** */
+  confirmarBajaUsuario() {
+    debugger
+    //solamente se manda el idusuario que se seleccion y automaticamente se manda con el numero 10 que es el valor de inactivo de usuarios
+    var usuario: bajaUsuario = {
+      idUsuario: Number(this.idUsuarioBaja),
+      id_Estado: Number(10)
+
+    }
+    this.servicio.putBajaUsuario(usuario).subscribe(
+      (data) => {
+
+        this.toastr.info(
+          'Se dio de baja al usuario seleccionado', '',
+          {
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+          }
+        );
+
+        this.objListaUsuarios = [];
+        this.getusuarios();
+        this.botonCerrarConfirmacionBajaUsuario();
+
+
+      },
+      (err) => {
+        this.toastr.info(
+          'Ocurrio un error al relizar la baja del usuario', '',
+          {
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+          }
+        );
+      }
+    )
+  }
+ /* ----------------------------- Modal Confirmar baja de usuario ----------------------------- */
+
+
   /* ******************************  FIN Modal Usuario ****************************** */
   limpiarModalEstado() {
     /* cuando se cierra el modal o se crea el estado o el tipo de estado */

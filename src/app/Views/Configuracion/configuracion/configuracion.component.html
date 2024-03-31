@@ -147,13 +147,21 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="col-12 col-md-12 col-lg-2 padding_Vechiculos flex__botones">
+                           <!--      <div class="col-12 col-md-12 col-lg-2 padding_Vechiculos flex__botones hstack gap-3">
                                     <button type="button" class="btn btn-success btn-sm  "
-                                        (click)="GetBuscarVehiculos()">Buscar</button>
+                                        (click)="GetBuscarVehiculos()"><i class="bi bi-plus-square"></i>Buscar</button>
 
-
+                                        <div class="vr"></div>
                                     <button type="button" (click)="visualizarModalVehiculos(modalVehiculos)"
-                                        class="btn btn-primary btn-sm  ">Nuevo</button>
+                                        class="btn btn-primary btn-sm  "><i
+                                        class="bi bi-search"></i>Nuevo</button>
+                                </div> -->
+
+                                <div class="col-12 col-md-12 col-lg-2  padding_Vechiculos hstack gap-3 ">
+                                    <button type="button" class="btn btn-primary"  (click)="GetBuscarVehiculos()"><i class="bi bi-plus-square"></i></button>
+                                    <div class="vr"></div>
+                                    <button type="button" class="btn btn-success" (click)="visualizarModalVehiculos(modalVehiculos)"><i
+                                        class="bi bi-search"></i></button>
                                 </div>
 
 
@@ -724,13 +732,15 @@
                     <div class="row">
                         <div class="col-12 col-md-7 pb-2">
                             <input type="text" class="form-control " [formControl]="ctrlNombreUsuario"
-                                placeholder="Nombre/Nick de usuario" (keyup.enter)="btn_buscarUsuario()" >
+                                placeholder="Nombre/Nick de usuario" (keyup.enter)="btn_buscarUsuario()"
+                                [class.is-invalid]="ctrlNombreUsuario.invalid && (ctrlNombreUsuario.dirty || ctrlNombreUsuario.touched)" >
                         </div>
                         
 
                         <div class="col-12 col-md-3 pb-2">
                             <select class="form-select " aria-label=".form-select-sm example"
-                                (change)="obtenerIdEstadoUsuario($event)" [formControl]="ctrlEstadoUsuario">
+                                (change)="obtenerIdEstadoUsuario($event)" [formControl]="ctrlEstadoUsuario"
+                                [class.is-invalid]="ctrlEstadoUsuario.invalid && (ctrlEstadoUsuario.dirty || ctrlEstadoUsuario.touched)">
                                 <option value="" disabled selected> Selecione su Estado </option>
                                 <option *ngFor="let item of objEstadosUsuarios" value="{{item.idEstado}}">
                                     {{item.nombre}}</option>
@@ -738,7 +748,7 @@
                         </div>
                         <div class="col-2 col-md-1 pb-2">
                             <button type="button" class="btn btn-success" (click)="btn_buscarUsuario()"><i
-                                    class="bi bi-search"></i></button>
+                                    class="bi bi-search" ></i></button>
                         </div>
                         <!-- <div class="col-6 col-md-1 ">
                             <button type="button" class="btn btn-primary"><i class="bi bi-plus-square"></i></button>
@@ -836,21 +846,24 @@
                     </div>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-12 col-md-6 pb-2">
+                            <div class="col-12  col-md-12 col-lg-2 pb-2">
+                                
+                            </div> 
+
+                            <div class="col-12 col-md-12 col-lg-7  pb-2">
                                 <input type="text" class="form-control " [formControl]="ctrlNombreLocalidad"
                                     placeholder="Buscar Localidad" (keyup.enter)="btn_buscarLocalidad()" 
                                     [class.is-invalid]="ctrlNombreLocalidad.invalid && (ctrlNombreLocalidad.dirty || ctrlNombreLocalidad.touched)">
                             </div> 
                             
-                            <div class="col-2 col-md-1 pb-2 ">
+                          
+                            <div class="col-12 col-md-12 col-lg-3  btn__padding hstack gap-3 justify-content-center pb-2">
+                                <button type="button" class="btn btn-primary" (click)="visualizarModalLocalidad(PostLocalidad)"><i class="bi bi-plus-square"></i></button>
+                                <div class="vr"></div>
                                 <button type="button" class="btn btn-success" (click)="btn_buscarLocalidad()"><i
-                                        class="bi bi-search"></i></button>
-                            </div>
-                            <div class="col-6 col-md-1 ">
-                                <button type="button" class="btn btn-primary"><i class="bi bi-plus-square"></i></button>
+                                    class="bi bi-search"></i></button>
                             </div>
                             
-
                         </div>
 
                     </div>
@@ -862,13 +875,18 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th class="columna1">Localidad</th>
-                                        <th class="columna2">Pais</th>                                                                            
-                                        <th class="columna6 text-center"> - - </th>
+                                        <th class="columna2">Provincia</th> 
+                                        <th class="columna3">Pais</th>                                                                            
+                                        <th class="columna4 text-center"> - - </th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-group-divide animate__animated animate__fadeIn">
+                                <tbody class="table-group-divide animate__animated animate__fadeIn ">
                                     <tr *ngFor="let item of objListaLocalidades | slice:paginaDesde:paginaHasta">
-                                        <th class="">{{item.localidad}}</th>
+                                        <th 
+                                        [ngClass]="{                                            
+                                            'text-Inactivo': item.iD_EstadoLocalidad == 2                                          
+                                          }">{{item.nombre}}</th>
+                                        <td class="">{{item.provincia}}</td>
                                         <td class="">{{item.pais}}</td>                                                                                                                
                                         <td class="">
                                          
@@ -880,7 +898,7 @@
                                                 <button type="button"
                                                     class="btn btn-danger d-inline-block btn__opciones "
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Dar de baja"><i class="bi bi-arrow-down"></i>
+                                                    title="Dar de baja" [disabled]="((item.iD_EstadoLocalidad==2))" (click)="visualizarModalBajaLocalidad(modalBajaLocalidad,item.nombre,item)"><i class="bi bi-arrow-down"></i>
                                                 </button>
 
                                             </div> <!-- botones -->
@@ -1525,56 +1543,58 @@
             <button (click)="botonCerrarModalUsuario()" type="button" class="btn-close" data-bs-dismiss="modal"
                 aria-label="Close"></button>
         </div>
+ 
         <div class="modal-body">
             <div class="container-fluid  ">
                 <div class="row contenedor__infoUsuario ">
 
-                    <div *ngIf="datosUsuario[0].foto!=null" class=" col-3 p-0 ">
-                        <img *ngFor="let item of datosUsuario " class="imagen--perfil" height="150" width="auto"
-                            src={{item.foto}} alt="">
+                    <div *ngIf="datosUsuario[0].foto!=null" class=" col-2">
+                        <img *ngFor="let item of datosUsuario " class="imagen--perfil" height="150" width="auto" src={{item.foto}} alt="">
 
                     </div>
                     <div *ngIf="datosUsuario[0].foto==null" class=" col-3 p-0">
-                        <img class="imagen--perfil" height="150" width="auto"
-                            src='../../../../assets/img/img_usuario.png' alt="">
+                        <img class="imagen--perfil" height="150" width="auto" src='../../../../assets/img/img_usuario.png' alt="">
 
                     </div>
                     <div *ngFor="let item of datosUsuario " class=" col-9 text-center datosUsuario  ">
                         <div class="row ">
                             <div class="col-12 col-sm-6 flex__informacion"> <!-- shadow rounded border border-1 -->
-                                <h5 class="titulo__perfil">Nombre</h5>
+                                <h5 class="titulo__perfil"><i class="bi bi-person"></i> Nombre</h5>
                                 <label for="" class="info__perfil">{{item.nombrePersona}}</label>
 
                             </div>
                             <div class="col-12 col-sm-6 flex__informacion">
-                                <h5 class="titulo__perfil">Apellido</h5>
+
+                                <h5 class="titulo__perfil"><i class="bi bi-person"></i> Apellido</h5>
                                 <label class="info__perfil" for="">{{item.apellidoPersona}}</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-sm-6 flex__informacion">
-                                <h5 class="titulo__perfil">Celular</h5>
+                                <h5 class="titulo__perfil"><i class="bi bi-phone"></i></h5>
                                 <label class="info__perfil" for="">{{item.telefonoUsuario}}</label>
 
                             </div>
                             <div class="col-12 col-sm-6 flex__informacion ">
-                                <h5 class="titulo__perfil">DNI</h5>
+                                <h5 class="titulo__perfil"><i class="bi bi-person-vcard"></i></h5>
                                 <label class="info__perfil" for="">{{item.dniUsuario}}</label>
                             </div>
                         </div>
                         <div class="row ">
                             <div class="col-12 col-sm-6 flex__informacion ">
-                                <h5 class="titulo__perfil">Correo</h5>
+                                <h5 class="titulo__perfil"><i class="bi bi-envelope-at"></i></h5>
                                 <label class="info__perfil" for="">{{item.correoUsuario}}</label>
 
                             </div>
                             <div class="col-12 col-sm-6 flex__informacion ">
-                                <h5 class="titulo__perfil">Usuario</h5>
+                                <h5 class="titulo__perfil"><i class="bi bi-person-circle"></i> Usuario</h5>
                                 <label class="info__perfil" for="">{{item.nombreUsuario}}</label>
                             </div>
                         </div>
 
                     </div>
+
+                    
 
 
                 </div> <!-- row -->
@@ -1584,7 +1604,7 @@
                         <button type="button" class="btn btn-light w-100 " (click)="formularioUsuario()"><i
                                 class="bi bi-pen-fill"></i> Editar</button>
                     </div>
-                    <div class="col-12 col-lg-6 div__selectEstado">
+                <!--     <div class="col-12 col-lg-6 div__selectEstado">
 
                         <div class="input-group flex-nowrap">
 
@@ -1598,7 +1618,7 @@
                             </select>
 
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
                 <!--   <div class="row">
@@ -1628,7 +1648,6 @@
                         <div class="col-12 col-sm-6">
                             <!-- Nombre -->
                             <div class="input-group flex-nowrap inputModal">
-
                                 <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
                                 <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
                                     value="" [formControl]="nombrePersonaCtrl">
@@ -1640,8 +1659,6 @@
                         <div class="col-12  col-sm-6 ">
                             <!-- Apellido -->
                             <div class="input-group flex-nowrap inputModal">
-
-
                                 <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido"
                                     value="{{item.apellidoPersona}}" [formControl]="apellidoPersonaCtrl">
                                 <span class="input-group-text" id="addon-wrapping"><i class="bi bi-people"></i></span>
@@ -1750,7 +1767,7 @@
         <div class="modal-footer">
             <button (click)="botonCerrarModalUsuario()" type="button" class="btn btn-secondary"
                 data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="botonCerrarModalUsuario()">Actualizar</button>
+            <button type="button" class="btn btn-primary" (click)="botonCerrarModalUsuario()" [disabled]="((datosUsuario[0].id_Estado!=9))">Actualizar</button>
         </div>
     </form>
 </ng-template>
@@ -1774,6 +1791,48 @@
             <button (click)="botonCerrarConfirmacionBajaUsuario()" type="button" class="btn btn-secondary"
                 data-bs-dismiss="modal">Cerrar</button>
             <button type="button" class="btn btn-danger" (click)="confirmarBajaUsuario()">Dar de baja</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #PostLocalidad let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Localidad</h5>
+            <button (click)="botonCerrarModalLocalidad()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+           <p>Escriba la localidad que desee registrar</p>
+
+           <input class="form-control" type="text" placeholder="Nombre de la localidad" [formControl]="ctrlPostNombreLocalidad"
+           [class.is-invalid]="ctrlPostNombreLocalidad.invalid && (ctrlPostNombreLocalidad.dirty || ctrlPostNombreLocalidad.touched)">
+
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarModalLocalidad()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-success" (click)="postNuevaLocalidad()">Crear</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #modalBajaLocalidad let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Confirmar baja de la localidad</h5>
+            <button (click)="botonCerrarBajaLocalidad()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           <p> ¿Estás seguro de que deseas dar de baja a esta localidad?</p>
+           <li>{{nombreBaja}}</li>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarBajaLocalidad()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-danger" (click)="confirmarBajaLocalidad(idBajaLocalidad)">Dar de baja</button>
         </div>
     </form>
 </ng-template>
