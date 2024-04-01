@@ -891,15 +891,21 @@
                                         <td class="">
                                          
                                             <div class="container contenedor_botonesOpciones  ">
-                                                <button type="button" class="btn btn-secondary btn__opciones "
+                                                <button (click)="visualizarModalConfigLocalidad(modalConfigLocalidad,item.nombre,item)" type="button" class="btn btn-secondary btn__opciones "
                                                     data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i
                                                         class="bi bi-pencil-square"></i>
                                                 </button>
-                                                <button type="button"
+                                                <button *ngIf="item.iD_EstadoLocalidad==1" type="button"
                                                     class="btn btn-danger d-inline-block btn__opciones "
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Dar de baja" [disabled]="((item.iD_EstadoLocalidad==2))" (click)="visualizarModalBajaLocalidad(modalBajaLocalidad,item.nombre,item)"><i class="bi bi-arrow-down"></i>
+                                                    title="Dar de baja"  (click)="visualizarModalBajaLocalidad(modalBajaLocalidad,item.nombre,item)"><i class="bi bi-arrow-down"></i>
                                                 </button>
+
+                                                <button *ngIf="item.iD_EstadoLocalidad==2" type="button"
+                                                class="btn btn-success d-inline-block btn__opciones "
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Dar de alta"  (click)="visualizarModalAltaLocalidad(modalAltaLocalidad,item.nombre,item)"><i class="bi bi-arrow-up"></i>
+                                            </button>
 
                                             </div> <!-- botones -->
                                         </td>
@@ -1832,7 +1838,49 @@
         <div class="modal-footer">
             <button (click)="botonCerrarBajaLocalidad()" type="button" class="btn btn-secondary"
                 data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-danger" (click)="confirmarBajaLocalidad(idBajaLocalidad)">Dar de baja</button>
+            <button type="button" class="btn btn-danger" (click)="confirmarBajaAltaLocalidad(idBajaLocalidad,2)">Confirmar</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #modalAltaLocalidad let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Confirmar baja de la localidad</h5>
+            <button (click)="botonCerrarBajaLocalidad()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           <p> ¿Estás seguro de que deseas dar de alta a esta localidad?</p>
+           <li>{{nombreBaja}}</li>
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarBajaLocalidad()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-danger" (click)="confirmarBajaAltaLocalidad(idBajaLocalidad,1)">Confirmar</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #modalConfigLocalidad let-modal>
+    <form class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Nombre</h5>
+            <button (click)="botonCerrarBajaLocalidad()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p class="">Modifique el nombre de la localidad seleccionada</p>
+            <p><li>{{nombreBaja}}</li> </p>
+            
+           
+            <input class="form-control" type="text" placeholder="Nombre de la localidad" [formControl]="ctrlPutNombreLocalidad"
+            [class.is-invalid]="ctrlPutNombreLocalidad.invalid && (ctrlPutNombreLocalidad.dirty || ctrlPutNombreLocalidad.touched)">
+        </div>
+        <div class="modal-footer">
+            <button (click)="botonCerrarBajaLocalidad()" type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-danger" (click)="confirmarModificacionLoc(idBajaLocalidad)">Confirmar</button>
         </div>
     </form>
 </ng-template>

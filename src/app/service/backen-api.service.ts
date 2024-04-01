@@ -27,7 +27,7 @@ import { putMarca } from '../model/Configuracion/marcaVehiculo';
 import { putModelo } from '../model/Configuracion/modeloVehiculo';
 import { putTipoReclamo } from '../model/Configuracion/tipoReclamo';
 import { VE_ReclamosXLocalidades } from '../model/Estadistica/VE_ReclamosXLocalidades';
-import { bajaLoc, localidad } from '../model/localidad';
+import { bajaLoc, localidad, nombreLoc } from '../model/localidad';
 
 @Injectable({
   providedIn: 'root'
@@ -379,12 +379,16 @@ export class BackenApiService {
     return this.http.post('https://localhost:44363/Localidad', localidad, this.httpOptions);
   }
 
-  putConfirmarBajaLocalidad(bajaLoca:bajaLoc):Observable<any>{
+  putConfirmarBajaAltaLocalidad(bajaLoca:bajaLoc):Observable<any>{
 
     var dato = JSON.stringify(bajaLoca);
     return this.http.put('https://localhost:44363/Localidad/'+bajaLoca.IDLocalidad,dato,this.httpOptions)
 
 
+  }
+  putNombreLocalidad(nombreLoc: nombreLoc):Observable<any>{
+    var dato = JSON.stringify(nombreLoc);
+    return this.http.put('https://localhost:44363/LocalidadesAdmin/'+nombreLoc.IDLocalidad,dato,this.httpOptions)
   }
 
 /*------------------------ Fin Configuración ------------------------- */

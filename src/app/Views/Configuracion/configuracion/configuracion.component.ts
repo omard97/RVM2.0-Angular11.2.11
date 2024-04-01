@@ -17,7 +17,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { PerfilApiService } from 'src/app/service/Perfil/perfil-api.service';
 import { putUsuario } from 'src/app/model/perfil';
 import { putTipoReclamo } from 'src/app/model/Configuracion/tipoReclamo';
-import { bajaLoc, localidad } from 'src/app/model/localidad';
+import { bajaLoc, localidad, nombreLoc } from 'src/app/model/localidad';
 
 
 @Component({
@@ -112,6 +112,7 @@ export class ConfiguracionComponent implements OnInit {
   objListaLocalidades: localidad[] = [];
   ctrlNombreLocalidad = new FormControl('', [Validators.required]);
   ctrlPostNombreLocalidad = new FormControl('', [Validators.required]);
+  ctrlPutNombreLocalidad = new FormControl('', [Validators.required]);
   nombreBaja: string = "";
   idBajaLocalidad:number =0;
 
@@ -275,6 +276,21 @@ export class ConfiguracionComponent implements OnInit {
      this.nombreBaja = nombreLocalidad;
      this.idBajaLocalidad = item.idLocalidad 
   }
+
+  visualizarModalAltaLocalidad(content: any, nombreLocalidad:string, item:any) {
+    this.modal.open(content, { size: 'lg' });
+    debugger
+     this.nombreBaja = nombreLocalidad;
+     this.idBajaLocalidad = item.idLocalidad 
+  }
+  visualizarModalConfigLocalidad(content: any, nombreLocalidad:string, item:any){
+    this.modal.open(content, { size: 'lg' });
+    debugger
+     this.nombreBaja = nombreLocalidad;
+     this.idBajaLocalidad = item.idLocalidad 
+  }
+
+
   
 
   /* Visualizar Modal para ACTUALIZAR */
@@ -735,31 +751,45 @@ export class ConfiguracionComponent implements OnInit {
     
   }
 
-  confirmarBajaLocalidad(idBajaL:number){
-
-    /* Se realiza una actualizacion al estado - se cambia el estado a 2 par darlo de baja */
-    debugger
-    console.log(idBajaL)
-
+  confirmarBajaAltaLocalidad(idBajaL:number,estado:number){
     debugger
     //solamente se manda el idusuario que se seleccion y automaticamente se manda con el numero 10 que es el valor de inactivo de usuarios
     var localidad: bajaLoc = {
-      IDLocalidad: Number(idBajaL),
-      iD_EstadoLocalidad: Number(2)
+      IDLocalidad: 0,
+      iD_EstadoLocalidad:0
 
     }
 
-    this.servicio.putConfirmarBajaLocalidad(localidad).subscribe(
+    if(estado==2){
+      /* Baja de localidad */
+      localidad ={
+        IDLocalidad : Number(idBajaL),
+        iD_EstadoLocalidad: Number(2)
+       
+      }
+    }else{
+       /* alta de localidad */
+       localidad ={
+        IDLocalidad : Number(idBajaL),
+        iD_EstadoLocalidad: Number(1)    
+      }
+    }
+    this.servicio.putConfirmarBajaAltaLocalidad(localidad).subscribe(
       (res) => {
-        this.toastr.success(
-          'Se dio de baja la localidad',
-          '',
-          {
-            timeOut: 4000,
-          }
-        )
+        if (estado = 1) {
+          this.toastr.success(
+            'Se dio de alta la localidad','',
+            {timeOut: 4000,}
+          )
+        }else{
+          this.toastr.success(
+            'Se dio de Baja la localidad','',
+            {timeOut: 4000,}
+          )
+        }
         this.objListaLocalidades = [];
         this.getLocalidades();
+        this.modal.dismissAll();
       },
       (error) => console.error(
         this.toastr.warning(
@@ -771,6 +801,59 @@ export class ConfiguracionComponent implements OnInit {
         )
       )
     )
+
+  }
+
+  confirmarModificacionLoc(idLocalidad:number){
+    //utilizado para modificar el nombre - en la api se hace en configuracion - LocalidadesAdminControllers
+    var localidad: nombreLoc = {
+      IDLocalidad: 0,
+      nombre: ""
+
+    }
+    debugger
+
+    if(this.ctrlPutNombreLocalidad.value == ""){
+      this.toastr.warning(
+        'Complete el campo faltante',
+        '',
+        {
+          timeOut: 4000,
+        }
+      )
+    }else{
+      localidad = {
+        IDLocalidad : Number(idLocalidad),
+        nombre : (this.ctrlPutNombreLocalidad.value + '').toUpperCase()
+      }
+
+      this.servicio.putNombreLocalidad(localidad).subscribe(
+        (res) => {
+          this.toastr.success(
+            'Cambios realizados correctamente',
+            '',
+            {
+              timeOut: 4000,
+            }
+          )
+          
+          this.objListaLocalidades = [];
+          this.getLocalidades();
+          this.modal.dismissAll();
+        },
+        (error) => console.error(
+          this.toastr.warning(
+            'Ocurrio un error al modificar la localidad',
+            '',
+            {
+              timeOut: 4000,
+            }
+          )
+        )
+      )
+
+
+    }
 
   }
 

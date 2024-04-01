@@ -13,3 +13,8 @@ export class bajaLoc{
     iD_EstadoLocalidad : number = 0;
 }
 
+
+export class nombreLoc{
+    IDLocalidad: number = 0;
+    nombre : string = "";
+}
