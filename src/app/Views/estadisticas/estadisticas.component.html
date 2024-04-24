@@ -1,41 +1,71 @@
+<div class="container-fluid  border contenedor_tarjetas p-1 rounded-3 d-flex ">
 
-    <div class="container-fluid  border contenedor_tarjetas p-1 rounded-3 d-flex ">
+  <div class="card m-1 cardNuevaTarjeta" style="width: 10rem;">
+    <img src="" class="card-img-top" alt="">
+    <div class="card-body text-center ">
+      <small class="card-text"><i class="bi bi-plus-circle-dotted  icono "></i></small>
+    </div>
+  </div>
+  <div *ngFor="let item of tarjetasLocalidades;" class="m-1 pointer">
 
-      <div class="card m-1 cardNuevaTarjeta" style="width: 10rem;">
-        <img src="" class="card-img-top" alt="">
-          <div class="card-body text-center ">
-            <small class="card-text" ><i class="bi bi-plus-circle-dotted  icono "></i></small>
-          </div>
+    <div class="card" style="width: 10rem; height: 5rem;" (click)="verEstadistica(usuario.idUsuario,item.idLocalidad)">
+      <img src="" class="card-img-top" alt="">
+
+      <div class="card-body text-center mt-2 ">
+        <small class="card-text">{{item.localidad}}</small>
+        <p class="card-text">{{item.cantidad}}</p>
       </div>
-        <div  *ngFor="let item of tarjetasLocalidades;" class="m-1 pointer">
-        
-             <div class="card" style="width: 10rem; height: 5rem;" (click)="verEstadistica(usuario.idUsuario,item.idLocalidad)">
-                <img src="" class="card-img-top" alt="">
-
-                  <div class="card-body text-center mt-2 " >
-                    <small class="card-text">{{item.localidad}}</small>
-                    <p class="card-text">{{item.cantidad}}</p>
-                  </div>
-              </div> 
-
-              
-        </div>
     </div>
 
-<!--     <ngx-charts-bar-horizontal-2d
-  
-  [scheme]="colorScheme"
-  [schemeType]="schemeType"
-  [results]="localidadXcalle"
-  [gradient]="gradient"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [legend]="showLegend"
-  [legendPosition]="legendPosition"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
 
-  >
-</ngx-charts-bar-horizontal-2d> -->
+  </div>
+</div>
+
+<!-- dona de porcentajes de localidades -->
+<div class="general container-fluid ">
+  <div class="row rounded rounded-4 shadow-lg height_row colorFondo">
+    <div class="col-4 ">
+
+
+      <!-- estadistica de dona para las localidades - no se modifica -->
+      <ngx-charts-advanced-pie-chart class="" [viewPie]="viewPieG1" [scheme]="colorSchemePie" [results]="estadisticaGeneral"
+        [gradientPie]="gradientPie" [animations]="animacionBarras" [label]="label1">
+      </ngx-charts-advanced-pie-chart>
+
+
+    </div>
+
+    <div class="col-8 ">
+
+
+      <!-- estadistica de dona de las calles de la localidad que se selecciona -->
+      <ngx-charts-advanced-pie-chart [viewPie2]="viewPie2" [scheme]="colorSchemePie2" [results]="callesDeLaLocalidad"
+        [gradientPie]="gradientPie2" [animations]="animacionBarras2" [label]="label2">
+      </ngx-charts-advanced-pie-chart>
+
+
+    </div>
+
+
+  </div>
+</div>
+
+<div class=" container-fluid mt-3">
+  <div class="row rounded rounded-4 shadow-lg">
+    <div class="col-12">
+
+
+
+
+
+    </div>
+
+  </div>
+</div>
+
+<div class="container-fluid mt-5">
+
+  
+
+
+</div>

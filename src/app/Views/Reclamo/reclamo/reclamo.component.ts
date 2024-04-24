@@ -23,6 +23,7 @@ import { EstadosService } from 'src/app/service/Estados/estados.service';
 import { ReclamoApiService } from 'src/app/service/Reclamo/reclamo-api.service';
 import { dir } from 'console';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
+import { LocalidadService } from 'src/app/service/Localidad/localidad.service';
 
 
 @Component({
@@ -154,11 +155,13 @@ export class ReclamoComponent implements OnInit, OnExit {
    altura: string =''; // variable que se usa para registrar el reclamo
    localidad:string = '';
    ubicacionCompleta : string = '';
+   localidadUnica:string ='';
+   idlocalidadReclamo:number=0;
 
    @ViewChild('txtQuery') txtQuery: any;  // Asegúrate de importar ViewChild asi poder cambiar el texto del input
 
   constructor(private serviceUsuario: MenuApiService, private service: BackenApiService, private serviceLogin:LoginApiService , private router: Router, private toastr:ToastrService,
-    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title, private serviceEstado: EstadosService, private reclamoApi:ReclamoApiService) { 
+    private placesReclamoServices: PlacesReclamoService,private mapaReclamoService:MapReclamoService, private titulo:Title, private serviceEstado: EstadosService, private reclamoApi:ReclamoApiService, private serviceLocalidad:LocalidadService) { 
 
       
 
@@ -310,8 +313,6 @@ export class ReclamoComponent implements OnInit, OnExit {
       this.obtenerHora();
       var RegistroRecl: Reclamo = {
         fecha: this.fechaHoy + '',
-        
-        
         hora: this.horaActual + '',
         ID_Sesion: Number(this.usuario.IDsesion),
         ID_TipoReclamo: Number(this.selectIdTipoReclamo),
@@ -370,15 +371,22 @@ export class ReclamoComponent implements OnInit, OnExit {
     }
   }
 
-  public rellenarUbicacion(calle:string, altura:string, localidad:string, direccionCompleta:string){
+  public rellenarUbicacion(calle:string, altura:string, localidad:string, direccionCompleta:string, localidadUnica:string){
     debugger
     if(altura !=undefined && calle!=undefined)
     {
+      debugger
       this.txtQuery.nativeElement.value = direccionCompleta;
       this.calle = calle;
       this.altura = altura;
       this.localidad = localidad; // contiene toda la direccion completa (sin la altura) pero se usa para validar que el reclamo se realice dentro de villa maria
       this.ubicacionCompleta = this.ubicacionCompleta;
+      this.localidadUnica = localidadUnica // se tiene que validar para registrar el reclamo, si no esta registrado de antes se crea un post y se agrega el id, si ya esta creado se obtiene el id y se agrega al detalle
+
+
+      //metodo para traer el id de localidad y asi registrarlo en el reclamo.. tambien se puede usar para editar
+      this.validarLocalidad(this.localidadUnica)
+
       
      alert('Usted esta en '+ this.localidad)
     }else{
@@ -387,15 +395,64 @@ export class ReclamoComponent implements OnInit, OnExit {
         ''
       );
     }
-   
+  }
+  validarLocalidad(localidadUnica:string){
+    //utilizado para obtener el id de la localidad en el momento de seleccionar la misma localidad
+    // por el momento siempre va a ser villa maria, pero se agrega esta funcionalidad para el futuro
+    this.serviceLocalidad.getLocalidadReclamo(localidadUnica).subscribe(
+      (data) => {
+        debugger
+        console.log(data)
+        this.idlocalidadReclamo = data[0].idLocalidad; //Utilizada en el momento de crear el reclamo
 
+      },
+      (err) => {
+        this.toastr.info(
+          'No se encuentran localidades registradas', '',
+          {
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+          }
+        );
+      }
+    )
+  }
+
+  verificarLocalidad(){
+    this.service.getLocalidades().subscribe(
+      (data) => {
+        debugger
+        console.log(data)
+        //this.objListaLocalidades = data;
+
+        //esta funcion se iba a utilizar para validar la localidad, si ya estaba registrada en la Base de Datos entonces no se crea un nuevo registro de localidad
+        //de lo contrario se cree un nuevo registro de localidad y luego el reclamo
+
+
+      },
+      (err) => {
+        this.toastr.info(
+          'No se encuentran localidades registradas', '',
+          {
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+          }
+        );
+      }
+    )
   }
 
   registrarDetalleReclamo(infoRec: any) {
     debugger
+
+     //verificacion de que si la localidad que se ingreso en la provincia de cordoba existe entonces no se crea sino que se le agrega el id de esa localidad.
+
+
+
     // cuando sea ambiental o distinto de vehicular, es decir que es cualquier otro tipo de reclamo excepto vehicular
     if (this.selectIdTipoReclamo ==1) {
       /* Si es ambiental */
+
       debugger
      
         var RegistroDetReclamo: DetalleReclamo = {
@@ -407,8 +464,12 @@ export class ReclamoComponent implements OnInit, OnExit {
           /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
           ID_Reclamo: infoRec.idReclamo,
           longitud: this.ubicacionReclamo.longitud + '',
-          latitud: this.ubicacionReclamo.latitud+ ''
+          latitud: this.ubicacionReclamo.latitud+ '',
+          ID_Localidad:Number(this.idlocalidadReclamo)    // se tiene que agregar el id de la localidad
         };
+
+
+        
 
         debugger
         this.service.postDetalleReclamo(RegistroDetReclamo).subscribe(
@@ -438,7 +499,8 @@ export class ReclamoComponent implements OnInit, OnExit {
         /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
         ID_Reclamo: infoRec.idReclamo,
         longitud: this.ubicacionReclamo.longitud + '',
-        latitud: this.ubicacionReclamo.latitud + ''
+        latitud: this.ubicacionReclamo.latitud + '',
+        ID_Localidad:Number(this.idlocalidadReclamo)
       };
       /* DETALLE RECLAMO */
       this.service.postDetalleReclamo(RegistroDetReclamo).subscribe(
@@ -693,7 +755,8 @@ ambiental */
          
         }
       );
-    } else {
+    
+    }else {
       debugger
       var putfecha: any;
       var putfoto: any;
@@ -770,6 +833,7 @@ ambiental */
     var putID_ReclamoAmbiental: any;
     var putLongitud:any;
     var putLatitud:any;
+    var putID_Localidad:number=0;
     debugger
 
     if (this.selectIdinfoReclamo == 0) {
@@ -790,7 +854,7 @@ ambiental */
       putUbicacion = this.arregloDetalleReclamo[0].direccion;
     }
     if (this.ubicacionCtrl.value != '') {
-      putUbicacion = this.direccion;
+      putUbicacion = this.calle;
     }
     debugger
     if( this.ubicacionCompleta.includes(this.altura)){//cuando no se cambia la altura o posee la misma altura que ya esta en la BD, esto es por ejemplo si tengo la misma altura pero distinta direccion
@@ -830,6 +894,16 @@ ambiental */
     if (this.ubicacionReclamo.latitud  != 0) {
       putLatitud = this.ubicacionReclamo.latitud;
     }
+    debugger
+    //no busque una nueva direccion entonces mantengo el mismo id
+    if(this.idlocalidadReclamo==0){
+      putID_Localidad =this.arregloDetalleReclamo[0].iD_Localidad;
+    }
+    //busque una direccion y la seleccione entonces tengo un nuevo id
+    if(this.idlocalidadReclamo!=0){
+      putID_Localidad=Number(this.idlocalidadReclamo)
+    }
+
 
     var detalleReclamo: DetalleReclamo = {
       IDDetalleReclamo: Number(this.arregloDetalleReclamo[0].idDetalleReclamo),
@@ -840,7 +914,8 @@ ambiental */
       ID_ReclamoAmbiental: Number(putID_ReclamoAmbiental),
       ID_Reclamo: Number(this.arregloDetalleReclamo[0].iD_Reclamo),
       longitud: putLongitud + '',
-      latitud: putLatitud +''
+      latitud: putLatitud +'',
+      ID_Localidad: Number(putID_Localidad)//ID_Localidad
     };
     debugger
     

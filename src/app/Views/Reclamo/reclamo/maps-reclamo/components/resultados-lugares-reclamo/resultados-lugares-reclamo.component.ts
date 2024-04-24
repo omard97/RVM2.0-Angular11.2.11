@@ -22,6 +22,7 @@ export class ResultadosLugaresReclamoComponent implements OnInit {
   altura: string =''; // variable que se usa para registrar el reclamo
   localidad: string = '';
   ubicacionCompleta : string = '';
+  localidadUnica : string = '';
 
   ngOnInit(): void {
   }
@@ -41,16 +42,17 @@ export class ResultadosLugaresReclamoComponent implements OnInit {
   /* moverse entre lugares */
   flyTo( place : Feature ){
     debugger
+    this.localidadUnica = place.context[1].text; // localidad para validar en reclamo y si se registra o no
     this.calle = place.text.toUpperCase(); //Nombre de la calle que seleccioné
     this.altura = place.address;// altura de la calle que seleccioné
     this.localidad = place.place_name;
     this.ubicacionCompleta = this.calle + ' ' + this.altura; 
-
-    if(this.localidad.includes('Villa María') || this.localidad.includes('Villa Nueva')){
+    debugger
+    if(this.localidad.includes('Villa María') || this.localidad.includes('Villa María')){
       if(this.altura !=undefined && this.calle!=undefined){
 
       
-        this.reclamoService.rellenarUbicacion(this.calle, this.altura, this.localidad , this.ubicacionCompleta);
+        this.reclamoService.rellenarUbicacion(this.calle, this.altura, this.localidad , this.ubicacionCompleta, this.localidadUnica);
   
         this.selectedId = place.id; /* ya se que id de ubicacion es */
         console.log('ID Selecionado: ', this.selectedId)
@@ -69,7 +71,7 @@ export class ResultadosLugaresReclamoComponent implements OnInit {
       }
     }else{
       this.toastr.info(
-        'Realice la busqueda dentro de la localidad de Villa María o Villa Nueva',
+        'Realice la busqueda dentro de la provincia de Córdoba',
         ''
       );
     }

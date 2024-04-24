@@ -1,14 +1,9 @@
 export class VeReclamosLocalidadXCalle {
+  name: string = "";
+  series: DataSeries[] = [];
+}
 
-   
-    
-        Direccion: string = "";
-        "series": [
-          {
-            altura: number ,
-            cantidad: number,
-           
-          }
-        ]
-
+export class DataSeries {
+  name: string = "";
+  value: number = 0;
 }

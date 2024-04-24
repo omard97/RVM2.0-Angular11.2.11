@@ -174,6 +174,7 @@ export class HistorialComponent implements OnInit {
       this.detalleReclamo.getHistorialHoy(this.fechaHoy,this.usuario.idUsuario,1,5,this.usuario.idRol).subscribe(
         (info) => {
           console.log(info);
+          debugger
 
           if (info.length == 0) {
             this.banderaAlerta=true;
@@ -529,7 +530,7 @@ export class HistorialComponent implements OnInit {
     );
   }
 
-  verMapa(longitud:any, latitud:any, direccion:any){
+  verMapa(longitud:any, latitud:any, direccion:any, altura:any){
     /* apreto el boton y automaticamente envio las coordenadas a la funcion verMapadesdeHistorial del menuComponent */
    
     if(longitud == null || latitud == null){
@@ -544,7 +545,7 @@ export class HistorialComponent implements OnInit {
       );
       
     }else{
-      this.menuComponent.verMapadesdeHistorial(longitud,latitud,direccion)
+      this.menuComponent.verMapadesdeHistorial(longitud,latitud,direccion, altura)
       this.longitud='';
       this.latitud='';
       this.direccion=''

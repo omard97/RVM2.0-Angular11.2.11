@@ -290,6 +290,9 @@ export class BackenApiService {
   }
     /* ---------------------------- Estadística ------------------------------------- */
 
+   
+
+
     getReclamosXLocalidades(IDUsuario:number):Observable<VE_ReclamosXLocalidades[]>{ 
       debugger
       return this.http.get<VE_ReclamosXLocalidades[]>('https://localhost:44363/VE_ReclamosXLocalidades/'+IDUsuario);

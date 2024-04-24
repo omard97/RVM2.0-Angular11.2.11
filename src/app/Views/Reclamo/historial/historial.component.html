@@ -154,7 +154,7 @@
               <div class="container ">
 
                 <button *ngIf="item.longitud || item.latitud" type="button" class="btn btn-primary btn__opciones "
-                  (click)="verMapa(item.longitud, item.latitud, item.direccion)" data-bs-toggle="modal"
+                  (click)="verMapa(item.longitud, item.latitud, item.direccion,item.altura)" data-bs-toggle="modal"
                   data-bs-target="#mapaModal">
                   <i class="bi bi-geo-alt-fill"></i>
                 </button>
@@ -241,7 +241,7 @@
 
             <div class="container btn__tarjeta">
               <button *ngIf="index.longitud || index.latitud" type="button" class="btn btn-primary"
-                (click)="verMapa(index.longitud, index.latitud, index.direccion)" data-bs-toggle="modal"
+                (click)="verMapa(index.longitud, index.latitud, index.direccion, index.altura)" data-bs-toggle="modal"
                 data-bs-target="#mapaModal">
                 <i class="bi bi-geo-alt-fill"></i>
               </button>

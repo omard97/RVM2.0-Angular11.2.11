@@ -26,6 +26,13 @@
 
 
 }
+.colorFondo{
+    background-color: rgb(227, 227, 227);
+}
+.height_row{
+    height: 230px;
+    
+}
 
 
 .icono {

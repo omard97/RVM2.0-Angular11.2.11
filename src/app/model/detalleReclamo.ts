@@ -9,6 +9,7 @@ export interface DetalleReclamo {
   ID_Reclamo?: number;
   longitud?: string,
   latitud?: string,
+  ID_Localidad?:number
 }
 
 /* cuando es vehicular */
@@ -38,6 +39,7 @@ export interface DetalleReclamoActualizar {
   foto: string;
   longitud?: string,
   latitud?: string,
+  id_localidad?:number,
 }
 
 export interface DetalleReclamoVehicularActualizar{

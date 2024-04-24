@@ -57,6 +57,7 @@ export class MenuComponent implements OnInit {
   banderaActualizarPerfil: boolean = false;
 
    direccion: string='';
+    alturaDirec :string = '';
 
 
 
@@ -224,11 +225,14 @@ export class MenuComponent implements OnInit {
   
   }
 
-  verMapadesdeHistorial(lng:string , lat:string, direc:string){
+  verMapadesdeHistorial(lng:string , lat:string, direc:string, alturaDirec:string){
     /* recibo los las cooerdenadas de la funcion verMapa del historial component para luego crear y mostrar un mapa con la ubicacion del reclamo */
     var longitd = Number(lng);
     var latitud = Number(lat)
     this.direccion = direc;
+    this.alturaDirec = alturaDirec;
+
+    debugger
 
     
     const map = new Map({
