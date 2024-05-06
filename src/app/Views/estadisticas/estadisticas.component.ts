@@ -1,10 +1,15 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+
 import { estadisticaGeneral } from 'src/app/model/Estadistica/EstPorcentajeCalleXLocalidad';
 import { VE_CallesXlocalidad2 } from 'src/app/model/Estadistica/VE_CallesXlocalidad2';
 
 import { VE_ReclamosXLocalidades } from 'src/app/model/Estadistica/VE_ReclamosXLocalidades';
+import { V_CantidadTipoReclamoDelMes } from 'src/app/model/Estadistica/V_CantidadTipoReclamoDelMes';
+import { V_EstadisticaXmes } from 'src/app/model/Estadistica/V_EstadisticaXmes';
 import { VeReclamosLocalidadXCalle } from 'src/app/model/Estadistica/VeReclamosLocalidadXCalle';
+import { v_ReclamosEnLaSemana } from 'src/app/model/Estadistica/v_ReclamosEnLaSemana';
 import { EstadisticaService } from 'src/app/service/Estadistica/estadistica.service';
 import { MenuApiService } from 'src/app/service/Menu/menu-api.service';
 import { BackenApiService } from 'src/app/service/backen-api.service';
@@ -18,6 +23,8 @@ export class EstadisticasComponent implements OnInit {
   ruta: any;
   IDUsuario: any;
   IDRol: any;
+  fecha:string;
+  mesActual:string;
 
   usuario = {
     idUsuario: 0,
@@ -34,18 +41,37 @@ export class EstadisticasComponent implements OnInit {
   estadisticaGeneral: estadisticaGeneral[] = [];
 
   callesDeLaLocalidad: VE_CallesXlocalidad2[] = [];//grafico 2 de torta - visualiza las cantidad de reclamos que se hicieron en la localidad especificando la calle
+  V_EstadisticaXmess: V_EstadisticaXmes[] = [];
+  v_ReclamosEnLaSemanaa: v_ReclamosEnLaSemana[] = [];
+  V_CantidadTipoReclamoDelMess : V_CantidadTipoReclamoDelMes[] = [];
 
   constructor( private titulo:Title,private serviceUsuario: MenuApiService, private service:BackenApiService, private serviceEstadistica:EstadisticaService) {
-
+    
     titulo.setTitle('Estadísticas');
+    this.fecha = new Date().getFullYear().toString();
+    this.mesActual = (new Date().getMonth() + 1).toString();
+    debugger
     this.ruta = window.location.pathname.split('/');
      this.usuario.idUsuario = this.ruta[2];
      this.getRolUsuario();
      this.getTarjetas();
      this.getPorcentajesLocalidades(); //utilizado para rellenar el grafico estilo torta general - el primer grafico
+     this.V_EstadisticaXmes(this.usuario.idUsuario, this.usuario.idRol,this.fecha);
+
+     if(this.usuario.idUsuario==1){
+      this.v_ReclamosEnLaSemana(1,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
+      
+      this.V_CantidadTipoReclamoDelMes(1,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
+     }else{
+      this.v_ReclamosEnLaSemana(3,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
+      this.V_CantidadTipoReclamoDelMes(3,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
+     }
+    
+     
    }
 
   ngOnInit(): void {
+
   }
 
   getRolUsuario() {
@@ -54,7 +80,8 @@ export class EstadisticasComponent implements OnInit {
         this.usuario.idUsuario = data[0].idUsuario,
           this.usuario.nick = data[0].nick,
           this.usuario.idRol = data[0].idRol,
-          this.usuario.rol = data[0].rol        
+          this.usuario.rol = data[0].rol     
+
           
       },
       (error) => {
@@ -69,7 +96,7 @@ export class EstadisticasComponent implements OnInit {
 
        this.tarjetasLocalidades = res;
        console.log(this.tarjetasLocalidades)
-       
+       debugger
         
       },
       (error) => {
@@ -101,6 +128,7 @@ export class EstadisticasComponent implements OnInit {
    // metodo click que rellena los graficos dependiendo de que localidad se seleccionoGrupos de barras 
    verEstadistica(IDUsuario:number, IDLocalidad:number){
     this.localidadXcalle = [];
+    
     this.serviceEstadistica.getReclamosLocalidadesXCalle(IDLocalidad,IDUsuario).subscribe(
       (data) => {
         
@@ -110,6 +138,7 @@ export class EstadisticasComponent implements OnInit {
         debugger
         //Crear un metodo en el cual rellene el segundo grafico de torta, visualize el nombre de la calle y su porcentaje de calles que es la cantidad
         this.getCallesXLocalidad2(IDUsuario,IDLocalidad);
+        
 
       },
       (err) =>{
@@ -156,7 +185,7 @@ export class EstadisticasComponent implements OnInit {
   viewPie2: any[] = [];
 
   // options
-  gradientPie2: boolean = true;
+  gradient: boolean = true;
   showLegendPie2: boolean = true;
   showLabelsPie2: boolean = true;
   isDoughnutPie2: boolean = true;
@@ -187,12 +216,141 @@ export class EstadisticasComponent implements OnInit {
     '#9c9ede', '#7375b5', '#575757', '#1c1c1c']
   };
 
+  //3er grafico - tabla horizontal el cual muestra la cantidad de reclamos en el año
+  V_EstadisticaXmes(IDUsuario:number, idRol:number, fecha:string){
 
+    this.serviceEstadistica.V_EstadisticaXmes(IDUsuario,idRol,fecha).subscribe(
+      (data) => {
+        
+        this.V_EstadisticaXmess = data;
+      },
+      (err) =>{
+        console.log(err)
+      }
+    )
+    
+  }
+  selectMes(event:any){
+    //metodos cuando solo se selecciona el mes deseado del grafico
+    console.log('Mes seleccionado' + event.name) //nombre
+    this.serviceEstadistica.V_ReclamoEnLaSemanaDelMes(this.usuario.idRol,this.usuario.idUsuario,event.name,Number(this.fecha)).subscribe(
+      (data)=>{
+        this.v_ReclamosEnLaSemanaa = []
+        this.v_ReclamosEnLaSemanaa = data
+        console.log(data)
+       
+      },
+      (err)=>{
+        console.log(err)
+      }
+
+    )
+    debugger
+    this.serviceEstadistica.V_CantidadTipoReclamoDelMesSelect(this.usuario.idRol,this.usuario.idUsuario,event.name,Number(this.fecha)).subscribe(
+      (data)=>{
+        this.V_CantidadTipoReclamoDelMess = []
+        this.V_CantidadTipoReclamoDelMess = data
+        console.log(data)
+       
+      },
+      (err)=>{
+        console.log(err)
+      }
+
+    )
+    
+    //crear un metodo que me busque el mes con los datos y mostrar las semanas 
+    //his.v_ReclamosEnLaSemana(this.usuario.idRol,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha)) /* Number(this.mesActual) */
+  }
+  showXAxis3: boolean = true;
+  showYAxis3: boolean = true;
+  gradient3: boolean = true;
+  showLegend3: boolean = false;
+  showXAxisLabel3: boolean = true;
+  yAxisLabel3: string = 'Meses';
+  showYAxisLabel3: boolean = true;
+  xAxisLabel3: string = 'Cantidad';
+  showDataLabel3:boolean = true;
+
+  colorScheme3 = {
+    domain: [
+      '#87CEEB',  // Enero: Azul claro
+      '#0abfbc',  // Febrero: Rosa
+      '#BFFF00',  // Marzo: Verde lima
+      '#FFFF99',  // Abril: Amarillo pastel
+      '#50C878',  // Mayo: Verde esmeralda
+      '#FFA500',  // Junio: Naranja brillante
+      '#DC143C',  // Julio: Rojo carmesí
+      '#800080',  // Agosto: Morado profundo
+      '#8B4513',  // Septiembre: Marrón tierra
+      '#FF4500',  // Octubre: Anaranjado oscuro
+      '#808000',  // Noviembre: Verde oliva
+      '#4B0082'   // Diciembre: Azul índigo
+    ]
+  };
+
+  v_ReclamosEnLaSemana(idRol:number, idUsuario:number, mes:number,anio:number){
+    debugger
+    this.serviceEstadistica.v_ReclamosEnLaSemana(idRol,idUsuario,mes,anio).subscribe(
+      (data)=>{
+        this.v_ReclamosEnLaSemanaa = data
+        console.log(this.v_ReclamosEnLaSemanaa)
+        debugger
+  
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
+
+  }
+
+  //Grafico de dia de la semana
+  view4: number[] = [200,300];
+  showXAxis4 = true;
+  showYAxis4 = true;
+  gradient4 = true;
+  showLegend4 = true;
+  showXAxisLabel4 = true;
+  xAxisLabel4 = 'Día';
+  showYAxisLabel4 = true;
+  yAxisLabel4 = 'Cantidad';
+  showDataLabel:boolean = true;
+  colorScheme = {
+    domain: [' #1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+    '#8c564b', '#e377c2']
+  };
+
+
+  //grafico de tipos de reclamos en el mes y anio actual - cuando se abre la pantalla
+  V_CantidadTipoReclamoDelMes(idRol:number, idUsuario:number, mes:number,anio:number){
+    debugger
+    this.serviceEstadistica.V_CantidadTipoReclamoDelMes(idRol,idUsuario,mes,anio).subscribe(
+      (data)=>{
+        debugger
+        this.V_CantidadTipoReclamoDelMess = data
+       
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
+
+  }
+  view5: number[] = [0,0];
+  showXAxis5 = true;
+  showYAxis5 = true;
+  gradient5 = true;
+  showLegend5 = false;
+  showXAxisLabel5 = true;
+  xAxisLabel5 = 'Tipo';
+  showYAxisLabel5 = true;
+  yAxisLabel5 = 'Cantidad';
+  showDataLabel5= true;
  
-
-
-
-
+  colorScheme5 = {
+    domain: ['#4CAF50', '#FFC107']
+  };
 
 
 

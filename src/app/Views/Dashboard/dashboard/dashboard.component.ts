@@ -90,10 +90,23 @@ export class DashboardComponent implements OnInit {
     showYAxisLabel = true;
     yAxisLabel = 'Realizados';
     rotateXAxisTicks=true;
+    colorScheme3 = {
+      domain: ['#1f77b4', '#1f77b4']
+    };
 
 
-    colorSchemeBarra = {
-      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    view2: any[] = [,];
+    showXAxis2 = true;
+    showYAxis2 = true;
+    gradient2 = true;
+    showLegend2 = true;
+    showXAxisLabel2 = true;
+    xAxisLabel2 = 'Tipo De Reclamos Realizados';
+    showYAxisLabel2 = true;
+    yAxisLabel2 = 'Cantidad';
+    showDataLabel2:boolean = true;
+    colorScheme2 = {
+      domain: ['#4CAF50', '#FFC107']
     };
 
   /*----------------------------------------------------------------------------------------------------  */
@@ -103,6 +116,7 @@ export class DashboardComponent implements OnInit {
   colorSchemeBarraAmbiental="forest";
   yAxisLabelAmbiental = 'Realizados';
   xAxisLabelAmbiental = 'Reclamos Ambientales Realizados';
+  showDataLabel1:boolean = true;
 
 
 
@@ -140,6 +154,7 @@ export class DashboardComponent implements OnInit {
 
   legendtitle: string='Causas';
   legendPosicion3: string = 'right';
+  
 
   
   /*------------------------------------------------------------- */
@@ -157,12 +172,61 @@ export class DashboardComponent implements OnInit {
   showYAxisLabel5 = true;
   yAxisLabel5 = 'Cantidad';
   tituloLeyenda:string="Mes"
-  
-
+/*   colorScheme5 = {
+    domain: [ '#87CEEB',  // Enero: Azul claro
+    '#0abfbc',  // Febrero: Rosa
+    '#BFFF00',  // Marzo: Verde lima
+    '#FFFF99',  // Abril: Amarillo pastel
+    '#50C878',  // Mayo: Verde esmeralda
+    '#FFA500',  // Junio: Naranja brillante
+    '#DC143C',  // Julio: Rojo carmesí
+    '#800080',  // Agosto: Morado profundo
+    '#8B4513',  // Septiembre: Marrón tierra
+    '#FF4500',  // Octubre: Anaranjado oscuro
+    '#808000',  // Noviembre: Verde oliva
+    '#4B0082'   // Diciembre: Azul índigo 
+      ]
+  }; */
+  view4: any[] = [,];
+  showXAxis4: boolean = true;
+  showYAxis4: boolean = true;
+  gradient4: boolean = true;
+  showLegend4: boolean = true;
+  showXAxisLabel4: boolean = true;
+  yAxisLabel4: string = 'Meses';
+  showYAxisLabel4: boolean = true;
+  xAxisLabel4: string = 'Cantidad';
+  showDataLabel4:boolean = true;
 
   colorScheme5 = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: [
+     
+        // Verano
+        '#d9d65c',  // Junio: Amarillo oro
+        '#FFA500',  // Julio: Naranja
+        '#FF6347',  // Agosto: Rosa coral
+    
+        // Otoño
+        '#8B4513',  // Septiembre: Marrón
+        '#FF4500',  // Octubre: Rojo anaranjado
+        '#8A2BE2',  // Noviembre: Azul púrpura
+    
+        // Invierno
+        '#4682B4',  // Diciembre: Azul acero
+        '#778899',  // Enero: Gris azulado
+        '#87CEEB',  // Febrero: Azul cielo
+    
+        // Primavera
+        '#7FFF00',  // Marzo: Verde lima
+        '#00FF7F',  // Abril: Verde primavera
+        '#d9d65c'   // Mayo: Amarillo oro
+    
+    ]
   };
+
+
+
+
   /* utilizado solamente para visualizar etiquetas que dependen del rol del usuario */
     getRolUsuario() {
     this.serviceUsuario.getRolUsuario(this.usuario.idUsuario).subscribe (

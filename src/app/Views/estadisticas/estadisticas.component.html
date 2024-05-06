@@ -29,7 +29,7 @@
 
       <!-- estadistica de dona para las localidades - no se modifica -->
       <ngx-charts-advanced-pie-chart class="" [viewPie]="viewPieG1" [scheme]="colorSchemePie" [results]="estadisticaGeneral"
-        [gradientPie]="gradientPie" [animations]="animacionBarras" [label]="label1">
+        [gradient]="gradient" [animations]="animacionBarras" [label]="label1">
       </ngx-charts-advanced-pie-chart>
 
 
@@ -40,7 +40,7 @@
 
       <!-- estadistica de dona de las calles de la localidad que se selecciona -->
       <ngx-charts-advanced-pie-chart [viewPie2]="viewPie2" [scheme]="colorSchemePie2" [results]="callesDeLaLocalidad"
-        [gradientPie]="gradientPie2" [animations]="animacionBarras2" [label]="label2">
+        [gradient]="gradient" [animations]="animacionBarras2" [label]="label2">
       </ngx-charts-advanced-pie-chart>
 
 
@@ -50,22 +50,80 @@
   </div>
 </div>
 
-<div class=" container-fluid mt-3">
-  <div class="row rounded rounded-4 shadow-lg">
-    <div class="col-12">
+<div class=" container-fluid mt-3 ">
+  <div class="row rounded rounded-4 shadow-lg row_height">
+    <div class="col-4">
 
+        <ngx-charts-bar-horizontal
+        [scheme]="colorScheme3"
+        [results]="V_EstadisticaXmess"
+        [gradient]="gradient3"
+        [xAxis]="showXAxis3"
+        [yAxis]="showYAxis3"
+        [legend]="showLegend3"
+        [showXAxisLabel]="showXAxisLabel3"
+        [showYAxisLabel]="showYAxisLabel3"
+        [xAxisLabel]="xAxisLabel3"
+        [yAxisLabel]="yAxisLabel3"
+        [showDataLabel]="showDataLabel3"
+        (select)="selectMes($event)">
+      </ngx-charts-bar-horizontal>
+    </div>
+    <div class="col-4">
 
+      <ngx-charts-bar-vertical
+        [view5]="view5"
+        [scheme]="colorScheme"
+        [results]="v_ReclamosEnLaSemanaa"
+        [gradient]="gradient"
+        [xAxis]="showXAxis4"
+        [yAxis]="showYAxis4"
+        [legend]="showLegend4"
+        [showXAxisLabel]="showXAxisLabel4"
+        [showYAxisLabel]="showYAxisLabel4"
+        [xAxisLabel]="xAxisLabel4"
+        [yAxisLabel]="yAxisLabel4"
+        [showDataLabel]="showDataLabel">
+      </ngx-charts-bar-vertical>
 
+        <!--      <small> Gráfico de líneas de reclamos por día de la semana: Crea un gráfico de líneas que muestre la cantidad de reclamos recibidos en cada día de la semana. Esto podría revelar patrones de comportamiento, como si hay días específicos con más reclamos que otros. </small>
+            <smal>Cuando seleccione una barra del mes se desplegaran 4 graficos correspondientes al mes seleccionado</smal> -->
+    </div>
+    <div class="col-4">
+        
+      <ngx-charts-bar-vertical
+        [view5]="view5"
+        [scheme]="colorScheme5"
+        [results]="V_CantidadTipoReclamoDelMess"
+        [gradient]="gradient5"
+        [xAxis]="showXAxis5"
+        [yAxis]="showYAxis5"
+        [legend]="showLegend5"
+        
+        [showXAxisLabel]="showXAxisLabel5"
+        [showYAxisLabel]="showYAxisLabel5"
+        [xAxisLabel]="xAxisLabel5"
+        [yAxisLabel]="yAxisLabel5"
+        [showDataLabel]="showDataLabel5">
+        []
+      </ngx-charts-bar-vertical>
 
-
+        <!--      <small> Gráfico de líneas de reclamos por día de la semana: Crea un gráfico de líneas que muestre la cantidad de reclamos recibidos en cada día de la semana. Esto podría revelar patrones de comportamiento, como si hay días específicos con más reclamos que otros. </small>
+            <smal>Cuando seleccione una barra del mes se desplegaran 4 graficos correspondientes al mes seleccionado</smal> -->
     </div>
 
   </div>
 </div>
 
-<div class="container-fluid mt-5">
+<div class="container-fluid">
 
-  
+  <div class="col-12">
+
+    <p>Grafico de Tiempo</p>
+    <small>Este grafico se van a mostrar los reclamos con respecto a la hora que se realizo, <br>
+    es decir que visualiza la cantidad de reclamos con respecto a un rango de horas y en el mes y año que se hizo</small>
+    <small> usar pie grid para las horas</small>
+  </div>
 
 
 </div>

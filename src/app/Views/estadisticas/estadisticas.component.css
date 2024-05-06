@@ -43,3 +43,7 @@
 .pointer {
     cursor: pointer!important;
 }
+
+.row_height{
+    height: 250px;
+}
