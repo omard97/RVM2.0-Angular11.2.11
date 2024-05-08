@@ -6,6 +6,7 @@ import { VE_CallesXlocalidad2 } from 'src/app/model/Estadistica/VE_CallesXlocali
 import { VE_ReclamosXLocalidades } from 'src/app/model/Estadistica/VE_ReclamosXLocalidades';
 import { V_CantidadTipoReclamoDelMes } from 'src/app/model/Estadistica/V_CantidadTipoReclamoDelMes';
 import { V_EstadisticaXmes } from 'src/app/model/Estadistica/V_EstadisticaXmes';
+import { V_ReclamosEnElTiempo } from 'src/app/model/Estadistica/V_ReclamosEnElTiempo';
 import { VeReclamosLocalidadXCalle } from 'src/app/model/Estadistica/VeReclamosLocalidadXCalle';
 import { v_ReclamosEnLaSemana } from 'src/app/model/Estadistica/v_ReclamosEnLaSemana';
 
@@ -65,5 +66,11 @@ export class EstadisticaService {
   V_CantidadTipoReclamoDelMesSelect(idRol:number, idUsuario:number, nombreMes:string,anio:number){
     return this.http.get<V_CantidadTipoReclamoDelMes[]>('https://localhost:44363/V_CantidadTipoReclamoDelMes?idRol='+idRol+'&idUsuario='+idUsuario+'&nombreMes='+nombreMes+'&anio='+anio)
   }
+
+  //V_ReclamosEnElTiempo - visualiza todos los reclamos hechos en un intervalo de tiempo de todos los años
+  V_ReclamosEnElTiempo(idRol:number, idUsuario:number,  mes:number,anio:number){
+    return this.http.get<V_ReclamosEnElTiempo[]>('https://localhost:44363/V_ReclamosEnElTiempo/'+idRol +'/'+idUsuario+'/'+mes+'/'+anio)
+  }
+
 
 }
