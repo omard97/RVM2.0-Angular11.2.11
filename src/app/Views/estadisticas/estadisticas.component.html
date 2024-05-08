@@ -115,14 +115,22 @@
   </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid ">
 
-  <div class="col-12">
+  
 
-    <p>Grafico de Tiempo</p>
-    <small>Este grafico se van a mostrar los reclamos con respecto a la hora que se realizo, <br>
-    es decir que visualiza la cantidad de reclamos con respecto a un rango de horas y en el mes y año que se hizo</small>
-    <small> usar pie grid para las horas</small>
+
+
+  <div class="row">
+    <div class="col-12">    
+      <ngx-charts-pie-grid 
+      
+        [view]="[width,height]"
+        [showLegend6]="showLegend6"
+        [scheme]="colorScheme6"
+        [results]="V_ReclamosEnElTiempoo">
+      </ngx-charts-pie-grid>
+    </div>
   </div>
 
 

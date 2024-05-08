@@ -47,3 +47,5 @@
 .row_height{
     height: 250px;
 }
+
+#pie-chart-parent { display: grid; }
