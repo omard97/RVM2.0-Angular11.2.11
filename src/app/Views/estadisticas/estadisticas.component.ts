@@ -8,6 +8,7 @@ import { VE_CallesXlocalidad2 } from 'src/app/model/Estadistica/VE_CallesXlocali
 import { VE_ReclamosXLocalidades } from 'src/app/model/Estadistica/VE_ReclamosXLocalidades';
 import { V_CantidadTipoReclamoDelMes } from 'src/app/model/Estadistica/V_CantidadTipoReclamoDelMes';
 import { V_EstadisticaXmes } from 'src/app/model/Estadistica/V_EstadisticaXmes';
+import { V_ReclamosEnElTiempo } from 'src/app/model/Estadistica/V_ReclamosEnElTiempo';
 import { VeReclamosLocalidadXCalle } from 'src/app/model/Estadistica/VeReclamosLocalidadXCalle';
 import { v_ReclamosEnLaSemana } from 'src/app/model/Estadistica/v_ReclamosEnLaSemana';
 import { EstadisticaService } from 'src/app/service/Estadistica/estadistica.service';
@@ -32,6 +33,9 @@ export class EstadisticasComponent implements OnInit {
     idRol: 0,
     rol: ''
   }
+ //Resolver el tema del ancho
+  width: number =3000;
+  height:number = 1000;
 
   localidadXcalle!:VeReclamosLocalidadXCalle[];
   
@@ -44,6 +48,7 @@ export class EstadisticasComponent implements OnInit {
   V_EstadisticaXmess: V_EstadisticaXmes[] = [];
   v_ReclamosEnLaSemanaa: v_ReclamosEnLaSemana[] = [];
   V_CantidadTipoReclamoDelMess : V_CantidadTipoReclamoDelMes[] = [];
+  V_ReclamosEnElTiempoo : V_ReclamosEnElTiempo[]=[];
 
   constructor( private titulo:Title,private serviceUsuario: MenuApiService, private service:BackenApiService, private serviceEstadistica:EstadisticaService) {
     
@@ -58,14 +63,19 @@ export class EstadisticasComponent implements OnInit {
      this.getPorcentajesLocalidades(); //utilizado para rellenar el grafico estilo torta general - el primer grafico
      this.V_EstadisticaXmes(this.usuario.idUsuario, this.usuario.idRol,this.fecha);
 
+
      if(this.usuario.idUsuario==1){
       this.v_ReclamosEnLaSemana(1,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
       
       this.V_CantidadTipoReclamoDelMes(1,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
+      this.V_ReclamosEnElTiempo(1,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
      }else{
       this.v_ReclamosEnLaSemana(3,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
       this.V_CantidadTipoReclamoDelMes(3,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
+      this.V_ReclamosEnElTiempo(3,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
      }
+
+     
     
      
    }
@@ -353,6 +363,58 @@ export class EstadisticasComponent implements OnInit {
   };
 
 
+
+
+
+  V_ReclamosEnElTiempo(idRol:number, idUsuario:number, mes:number,anio:number){
+    this.serviceEstadistica.V_ReclamosEnElTiempo(idRol,idUsuario,mes,anio).subscribe(
+      (data)=>{
+        debugger
+        this.V_ReclamosEnElTiempoo = data
+       
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
+
+  }
+
+
+
+  // options
+  view: any[] = [0,0]; // Dimensiones iniciales
+  minWidth6: number = 0;
+  showLegend6: boolean = true;
+  showLabels6: boolean = true;
+  
+
+  colorScheme6 = {
+    domain: ['#000000',
+             '#000033',
+             '#000066',
+             '#000099',
+             '#0000CC',
+             '#0000FF', 
+             '#FF6600', 
+             '#FF8000',
+             '#FF9900', 
+             '#FFB266', 
+             '#FFCC99', 
+             '#FFE0B3', 
+             '#FFFFCC', 
+             '#FFFF99', 
+             '#FFFF66', 
+             '#FFFF33',
+             '#FFFF00', 
+             '#FFCC00', 
+             '#FFB266', 
+             '#FF9933', 
+             '#FF8000', 
+             '#CC6600', 
+             '#993300', 
+             '#660000']
+};
 
 
 
