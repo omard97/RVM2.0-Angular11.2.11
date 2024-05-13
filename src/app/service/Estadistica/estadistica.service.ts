@@ -96,6 +96,10 @@ export class EstadisticaService {
     return this.http.get<V_CantidadTipoReclamoDelMes[]>('https://localhost:44363/V_CantidadTipoReclamoDelMesFiltro?idRol='+idRol+'&idUsuario='+idUsuario+'&nombreMes='+nombreMes+'&anio='+ anio+'&idLocalidad='+idLocalidad)
   }
 
+  V_ReclamosEnElTiempoFiltro(idRol:number, idUsuario:number,  mes:number,anio:number,idLocalidad:number){
+    return this.http.get<V_ReclamosEnElTiempo[]>('https://localhost:44363/V_ReclamosEnElTiempoFiltro/'+idRol +'/'+idUsuario+'/'+mes+'/'+anio+'/'+idLocalidad)
+  }
+
 
 
 
