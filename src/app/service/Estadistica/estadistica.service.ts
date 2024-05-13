@@ -75,6 +75,7 @@ export class EstadisticaService {
 
 
 
+// ------------------------------ FILTROS ------------------------------
 
   //V_EstadisticaXmes - Filtro grafico de barras horizontales
   V_EstadisticaXmesFiltro(idUsuario:number,idRol:number,anio:number, idLocalidad:number){
@@ -87,4 +88,16 @@ export class EstadisticaService {
     debugger
      return this.http.get<v_ReclamosEnLaSemana[]>('https://localhost:44363/v_ReclamosEnLaSemanaFiltro?idRol='+idRol+'&idUsuario='+idUsuario+'&nombreMes='+nombreMes+'&anio='+ anio+'&idLocalidad='+idLocalidad)
   }
+
+  // V_CantidadTipoReclamoDelMesSelect - cuando selecciona el mes del grafico busca los reclamos de ese mes seleccionado
+
+  V_CantidadTipoReclamoDelMesSelectFiltro(idRol:number,idUsuario:number, nombreMes:string,anio:number,idLocalidad:number){
+
+    return this.http.get<V_CantidadTipoReclamoDelMes[]>('https://localhost:44363/V_CantidadTipoReclamoDelMesFiltro?idRol='+idRol+'&idUsuario='+idUsuario+'&nombreMes='+nombreMes+'&anio='+ anio+'&idLocalidad='+idLocalidad)
+  }
+
+
+
+
+
 }

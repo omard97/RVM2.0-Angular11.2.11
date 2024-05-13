@@ -34,7 +34,7 @@ export class EstadisticasComponent implements OnInit {
   mesActual:string;
   idlocalidadInicio:number = 1 //1 = es Villa María por defecto
   nombrePieLocalidad:string = '';
-  banderaFiltro:number=0; // 1 no se usa el filtro, 2 si se usa filtro
+  banderaFiltro:number=1; // 1 no se usa el filtro, 2 si se usa filtro
  
 
   usuario = {
@@ -307,6 +307,7 @@ export class EstadisticasComponent implements OnInit {
       //Se usaron los filtros, entonces el grafico de barras tiene que filtrar por filtros
       this.v_ReclamosEnLaSemanaFiltro(this.usuario.idRol,this.usuario.idUsuario,event.name,this.selectAnioLocalidad,this.selectIDLocalidad)
 
+      this.V_CantidadTipoReclamoDelMesSelectFiltro(this.usuario.idRol,this.usuario.idUsuario,event.name,this.selectAnioLocalidad,this.selectIDLocalidad)
     }
 
 
@@ -517,6 +518,24 @@ filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number
 
 
     )
+  }
+
+  V_CantidadTipoReclamoDelMesSelectFiltro(idRol:number,idUsuario:number, nombreMes:string,anio:number,idLocalidad:number){
+    this.serviceEstadistica.V_CantidadTipoReclamoDelMesSelectFiltro(idRol,idUsuario,nombreMes,anio,idLocalidad).subscribe(
+
+      (data)=>{
+        debugger
+        this.V_CantidadTipoReclamoDelMess = []
+          this.V_CantidadTipoReclamoDelMess = data
+      },
+      (err)=>{
+        console.log(err)
+      }
+
+
+    )
+
+
   }
   
 
