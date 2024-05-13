@@ -1,5 +1,6 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 
 import { estadisticaGeneral } from 'src/app/model/Estadistica/EstPorcentajeCalleXLocalidad';
@@ -18,14 +19,23 @@ import { BackenApiService } from 'src/app/service/backen-api.service';
 @Component({
   selector: 'app-estadisticas',
   templateUrl: './estadisticas.component.html',
-  styleUrls: ['./estadisticas.component.css']
+  styleUrls: ['./estadisticas.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class EstadisticasComponent implements OnInit {
+  localidadCtrl = new FormControl('', [Validators.required]);
+  anioCtrl = new FormControl('', [Validators.required]);
+  selectIDLocalidad = 0; /* Variable para capturar el valor del tipo de reclamo */
+  selectAnioLocalidad = 0; //Variable para obtener el año para luego filtrar
   ruta: any;
   IDUsuario: any;
   IDRol: any;
   fecha:string;
   mesActual:string;
+  idlocalidadInicio:number = 1 //1 = es Villa María por defecto
+  nombrePieLocalidad:string = '';
+  banderaFiltro:number=0; // 1 no se usa el filtro, 2 si se usa filtro
+ 
 
   usuario = {
     idUsuario: 0,
@@ -33,9 +43,7 @@ export class EstadisticasComponent implements OnInit {
     idRol: 0,
     rol: ''
   }
- //Resolver el tema del ancho
-  width: number =3000;
-  height:number = 1000;
+
 
   localidadXcalle!:VeReclamosLocalidadXCalle[];
   
@@ -58,11 +66,14 @@ export class EstadisticasComponent implements OnInit {
     debugger
     this.ruta = window.location.pathname.split('/');
      this.usuario.idUsuario = this.ruta[2];
+     
      this.getRolUsuario();
      this.getTarjetas();
      this.getPorcentajesLocalidades(); //utilizado para rellenar el grafico estilo torta general - el primer grafico
      this.V_EstadisticaXmes(this.usuario.idUsuario, this.usuario.idRol,this.fecha);
-
+     debugger
+     this.verEstadistica(this.usuario.idUsuario,this.idlocalidadInicio)
+    
 
      if(this.usuario.idUsuario==1){
       this.v_ReclamosEnLaSemana(1,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
@@ -82,6 +93,22 @@ export class EstadisticasComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  // Función para generar las opciones del select
+ 
+
+  obtenerIDLocalidad(ev: any) { 
+    this.selectIDLocalidad = ev.target.value;
+    console.log(this.selectIDLocalidad);
+    debugger
+    this.verEstadistica(this.usuario.idUsuario,this.selectIDLocalidad)
+  }
+
+  obtenerAnio(ev: any) {
+    this.selectAnioLocalidad = ev.target.value;
+    console.log(this.selectAnioLocalidad);
+    debugger  
   }
 
   getRolUsuario() {
@@ -137,6 +164,7 @@ export class EstadisticasComponent implements OnInit {
 
    // metodo click que rellena los graficos dependiendo de que localidad se seleccionoGrupos de barras 
    verEstadistica(IDUsuario:number, IDLocalidad:number){
+    debugger
     this.localidadXcalle = [];
     
     this.serviceEstadistica.getReclamosLocalidadesXCalle(IDLocalidad,IDUsuario).subscribe(
@@ -159,11 +187,13 @@ export class EstadisticasComponent implements OnInit {
   }
 
   getCallesXLocalidad2(IDUsuario:number, IDLocalidad:number){
+  
     debugger
     this.serviceEstadistica.getVE_CallesXlocalidad2(IDUsuario,IDLocalidad).subscribe(
       (data) => {
         debugger
         console.log(data)
+        debugger
         this.callesDeLaLocalidad = data;
 
         //segunda estadistica
@@ -178,7 +208,7 @@ export class EstadisticasComponent implements OnInit {
 
   //Torta con porcentaje - es la general
   
-  viewPieG1: any[] = [];
+  viewPieG1: number[] = [0,0];
 
   // options
   gradientPie: boolean = true;
@@ -200,7 +230,7 @@ export class EstadisticasComponent implements OnInit {
   showLabelsPie2: boolean = true;
   isDoughnutPie2: boolean = true;
   animacionBarras2:boolean= true;
-  label2:string ='Total de Reclamos'
+  label2:string = 'Calles'
   colorSchemePie2 = {
     domain: [' #1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
     '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
@@ -241,33 +271,46 @@ export class EstadisticasComponent implements OnInit {
     
   }
   selectMes(event:any){
-    //metodos cuando solo se selecciona el mes deseado del grafico
-    console.log('Mes seleccionado' + event.name) //nombre
-    this.serviceEstadistica.V_ReclamoEnLaSemanaDelMes(this.usuario.idRol,this.usuario.idUsuario,event.name,Number(this.fecha)).subscribe(
-      (data)=>{
-        this.v_ReclamosEnLaSemanaa = []
-        this.v_ReclamosEnLaSemanaa = data
-        console.log(data)
-       
-      },
-      (err)=>{
-        console.log(err)
-      }
-
-    )
     debugger
-    this.serviceEstadistica.V_CantidadTipoReclamoDelMesSelect(this.usuario.idRol,this.usuario.idUsuario,event.name,Number(this.fecha)).subscribe(
-      (data)=>{
-        this.V_CantidadTipoReclamoDelMess = []
-        this.V_CantidadTipoReclamoDelMess = data
-        console.log(data)
-       
-      },
-      (err)=>{
-        console.log(err)
-      }
+    if(this.banderaFiltro==1){
+      //No se está usando los filtros, cuando el usuario abre la pantalla y quiere seleccionar los meses del grafico
+      //metodos cuando solo se selecciona el mes deseado del grafico
+      console.log('Mes seleccionado' + event.name) //nombre
+      this.serviceEstadistica.V_ReclamoEnLaSemanaDelMes(this.usuario.idRol,this.usuario.idUsuario,event.name,Number(this.fecha)).subscribe(
+        (data)=>{
+          this.v_ReclamosEnLaSemanaa = []
+          this.v_ReclamosEnLaSemanaa = data
+          console.log(data)
+        
+        },
+        (err)=>{
+          console.log(err)
+        }
 
-    )
+      )
+      debugger
+      //tipos de reclamos en ese mes seleccionado
+      this.serviceEstadistica.V_CantidadTipoReclamoDelMesSelect(this.usuario.idRol,this.usuario.idUsuario,event.name,Number(this.fecha)).subscribe(
+        (data)=>{
+          this.V_CantidadTipoReclamoDelMess = []
+          this.V_CantidadTipoReclamoDelMess = data
+          console.log(data)
+        
+        },
+        (err)=>{
+          console.log(err)
+        }
+
+      )
+    }else{
+
+      //Se usaron los filtros, entonces el grafico de barras tiene que filtrar por filtros
+      this.v_ReclamosEnLaSemanaFiltro(this.usuario.idRol,this.usuario.idUsuario,event.name,this.selectAnioLocalidad,this.selectIDLocalidad)
+
+    }
+
+
+    
     
     //crear un metodo que me busque el mes con los datos y mostrar las semanas 
     //his.v_ReclamosEnLaSemana(this.usuario.idRol,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha)) /* Number(this.mesActual) */
@@ -277,7 +320,7 @@ export class EstadisticasComponent implements OnInit {
   gradient3: boolean = true;
   showLegend3: boolean = false;
   showXAxisLabel3: boolean = true;
-  yAxisLabel3: string = 'Meses';
+  yAxisLabel3: string = 'Mese/s';
   showYAxisLabel3: boolean = true;
   xAxisLabel3: string = 'Cantidad';
   showDataLabel3:boolean = true;
@@ -322,7 +365,7 @@ export class EstadisticasComponent implements OnInit {
   gradient4 = true;
   showLegend4 = true;
   showXAxisLabel4 = true;
-  xAxisLabel4 = 'Día';
+  xAxisLabel4 = 'Día/s';
   showYAxisLabel4 = true;
   yAxisLabel4 = 'Cantidad';
   showDataLabel:boolean = true;
@@ -353,7 +396,7 @@ export class EstadisticasComponent implements OnInit {
   gradient5 = true;
   showLegend5 = false;
   showXAxisLabel5 = true;
-  xAxisLabel5 = 'Tipo';
+  xAxisLabel5 = 'Tipo/s';
   showYAxisLabel5 = true;
   yAxisLabel5 = 'Cantidad';
   showDataLabel5= true;
@@ -383,10 +426,17 @@ export class EstadisticasComponent implements OnInit {
 
 
   // options
-  view: any[] = [0,0]; // Dimensiones iniciales
-  minWidth6: number = 0;
-  showLegend6: boolean = true;
-  showLabels6: boolean = true;
+  // ancho y alto
+  view6: number[] = [0,0];
+  showXAxis6 = true;
+  showYAxis6 = true;
+  gradient6 = true;
+  showLegend6 = false;
+  showXAxisLabel6 = true;
+  xAxisLabel6 = 'Hora a.m - p.m';
+  showYAxisLabel6 = true;
+  yAxisLabel6 = 'Cantidad';
+  showDataLabel6= true;
   
 
   colorScheme6 = {
@@ -415,6 +465,62 @@ export class EstadisticasComponent implements OnInit {
              '#993300', 
              '#660000']
 };
+
+
+
+
+
+filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number){
+  //Cuando se aprieta el boton de buscar por filtros
+  this.banderaFiltro=2; // se usa el filtro
+  debugger
+
+  if(IdRol==1){
+
+  }else{
+
+
+    this.verEstadisticaFiltro(idUsuario,IdRol , anio,idLocalidad,)
+
+    
+
+
+
+  }
+}
+
+  verEstadisticaFiltro(idUsuario:number,IdRol:number , anio:number,idLocalidad:number){
+    this.V_EstadisticaXmess=[]
+    this.serviceEstadistica.V_EstadisticaXmesFiltro(idUsuario,IdRol,anio,idLocalidad).subscribe(
+      (data)=>{
+        debugger
+        this.V_EstadisticaXmess = data   
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
+  }
+
+  v_ReclamosEnLaSemanaFiltro(idRol:number,idUsuario:number, nombreMes:string,anio:number,idLocalidad:number){
+    debugger
+    this.serviceEstadistica.v_ReclamosEnLaSemanaFiltro(idRol,idUsuario,nombreMes,anio,idLocalidad).subscribe(
+
+      (data)=>{
+        debugger
+        this.v_ReclamosEnLaSemanaa = []
+          this.v_ReclamosEnLaSemanaa = data
+      },
+      (err)=>{
+        console.log(err)
+      }
+
+
+    )
+  }
+  
+
+
 
 
 

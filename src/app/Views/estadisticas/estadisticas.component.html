@@ -1,15 +1,63 @@
-<div class="container-fluid  border contenedor_tarjetas p-1 rounded-3 d-flex ">
+<div class="container-fluid  border contenedor_tarjetas p-1 rounded-3 animate__animated animate__fadeIn">
 
-  <div class="card m-1 cardNuevaTarjeta" style="width: 10rem;">
+ <!--  <div class="card m-1 cardNuevaTarjeta" style="width: 10rem;">
     <img src="" class="card-img-top" alt="">
     <div class="card-body text-center ">
       <small class="card-text"><i class="bi bi-plus-circle-dotted  icono "></i></small>
     </div>
-  </div>
-  <div *ngFor="let item of tarjetasLocalidades;" class="m-1 pointer">
+  </div> -->
+  <div class="row">
+    <div class="col-12 col-sm-5">
 
-    <div class="card" style="width: 10rem; height: 5rem;" (click)="verEstadistica(usuario.idUsuario,item.idLocalidad)">
-      <img src="" class="card-img-top" alt="">
+      <div class="form-floating m-2">
+        <select class="form-select d-inline-block seleccionFiltros  " data-bs-toggle="tooltip" data-bs-placement="top"
+          title="Localidades" placeholder="Clic para abrir" (change)="obtenerIDLocalidad($event)"
+          [formControl]="localidadCtrl" id="floatingSelect" aria-label="Floating label select example">
+          <!-- Default select example -->
+          <option value="" disabled>- Localidad no seleccionada -</option>
+          <option  *ngFor="let item of tarjetasLocalidades" value="{{item.idLocalidad}}" selected>{{item.localidad}}
+          </option>
+          
+        </select>
+        <label for="floatingSelect">Localidades</label>
+      </div>
+
+
+    </div>
+    <div class="col-12 col-sm-5">
+      <div class="form-floating m-2">
+        <select class="form-select d-inline-block seleccionFiltros   " data-bs-toggle="tooltip" data-bs-placement="top"
+          title="Año" placeholder="Clic para abrir" (change)="obtenerAnio($event)"
+          [formControl]="anioCtrl" id="floatingSelect" aria-label="Floating label select example">
+          <!-- Default select example -->
+          <option value="" disabled>- Año no seleccionado -</option>
+          <option value="2024" selected>2024
+          <option value="2023" selected>2023
+          </option>
+          
+        </select>
+        <label for="floatingSelect">Años</label>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-2 text-center mt-2">
+    <div class="m-2">
+      <button class="btn btn-primary d-inline-block btnBuscar" (click)="filtrarEstadistica(usuario.idUsuario,usuario.idRol,selectAnioLocalidad,selectIDLocalidad)" data-bs-toggle="tooltip" data-bs-placement="top"
+        title="Buscar Estadísticas"><i class="bi bi-search me-2"></i>Buscar</button>
+    </div>
+
+  </div>
+
+  </div>
+  
+
+
+
+<!--   <div *ngFor="let item of tarjetasLocalidades;" class="m-1 pointer">
+
+    
+    <div class="card" style="width: 10rem; height: 5rem;" (click)="verEstadistica(usuario.idUsuario,item.idLocalidad,item.localidad)">
+      
 
       <div class="card-body text-center mt-2 ">
         <small class="card-text">{{item.localidad}}</small>
@@ -18,17 +66,17 @@
     </div>
 
 
-  </div>
+  </div> -->
 </div>
 
 <!-- dona de porcentajes de localidades -->
 <div class="general container-fluid ">
   <div class="row rounded rounded-4 shadow-lg height_row colorFondo">
-    <div class="col-4 ">
+    <div class="col-4">
 
 
       <!-- estadistica de dona para las localidades - no se modifica -->
-      <ngx-charts-advanced-pie-chart class="" [viewPie]="viewPieG1" [scheme]="colorSchemePie" [results]="estadisticaGeneral"
+      <ngx-charts-advanced-pie-chart class="torta"  [scheme]="colorSchemePie" [results]="estadisticaGeneral"
         [gradient]="gradient" [animations]="animacionBarras" [label]="label1">
       </ngx-charts-advanced-pie-chart>
 
@@ -115,23 +163,46 @@
   </div>
 </div>
 
-<div class="container-fluid ">
+<div class="container-fluid">
+  <div class="row rounded rounded-4 shadow-lg row_height">
+
+    <ngx-charts-bar-vertical
+    [view5]="view6"
+    [scheme]="colorScheme6"
+    [results]="V_ReclamosEnElTiempoo"
+    [gradient]="gradient6"
+    [xAxis]="showXAxis6"
+    [yAxis]="showYAxis6"
+   
+    [showXAxisLabel]="showXAxisLabel6"
+    [showYAxisLabel]="showYAxisLabel6"
+    [xAxisLabel]="xAxisLabel6"
+    [yAxisLabel]="yAxisLabel6"
+    [showDataLabel]="showDataLabel6">
+  </ngx-charts-bar-vertical>
+
+  </div>
+</div>
+
+
 
   
 
 
 
-  <div class="row">
-    <div class="col-12">    
-      <ngx-charts-pie-grid 
-      
-        [view]="[width,height]"
+ 
+    
+<!--       <ngx-charts-pie-grid
+      [minWidth]="20"
+        [viewPieG2]="viewPieG2"
         [showLegend6]="showLegend6"
         [scheme]="colorScheme6"
         [results]="V_ReclamosEnElTiempoo">
-      </ngx-charts-pie-grid>
-    </div>
-  </div>
+      </ngx-charts-pie-grid> -->
+    
+ 
 
 
-</div>
+
+
+

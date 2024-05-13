@@ -2,12 +2,27 @@
     margin: 0.7rem 0 1rem 0;
     background-color: rgb(22, 53, 67);
 }
+.active{
+    background-color: rgb(42, 99, 125);
+}
+.card{
+    background-color: rgb(188, 188, 188);
+    color: rgb(85, 85, 85);
+}
 
-
-.cardNuevaTarjeta:hover {
+/* .cardNuevaTarjeta:not(:hover) {
     transition: background-color 0.8s ease;
+    background-color: rgb(25, 62, 80);
+    color: rgba(248, 248, 248, 0.856);
+    border-style: dashed !important;
+    border: 2px solid rgba(248, 248, 248, 0.856);
+    transition: 0.5s ease;
+} */
+
+.card:hover {
+    transition:0.8s ease;
     /* Ajusta la duración y la función de temporización según tus preferencias */
-    background-color: rgb(231, 229, 229);
+    background-color: rgb(242, 242, 242);
     /* Cambia esto al color deseado */
     color: black;
     border-style: dashed !important;
@@ -17,17 +32,9 @@
 
 }
 
-.cardNuevaTarjeta:not(:hover) {
-    transition: background-color 0.8s ease;
-    background-color: rgb(25, 62, 80);
-    color: rgba(248, 248, 248, 0.856);
-    border-style: dashed !important;
-    border: 2px solid rgba(248, 248, 248, 0.856);
 
-
-}
 .colorFondo{
-    background-color: rgb(227, 227, 227);
+    background-color: rgba(248, 248, 248, 0.856);
 }
 .height_row{
     height: 230px;
@@ -48,4 +55,13 @@
     height: 250px;
 }
 
-#pie-chart-parent { display: grid; }
+.advanced-pie-chart {
+    font-size: 36px !important;
+    position: left !important;
+}
+
+
+.seleccionFiltros {
+    font-size: 14px;
+    
+  }
