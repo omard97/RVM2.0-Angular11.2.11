@@ -477,16 +477,11 @@ filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number
   debugger
 
   if(IdRol==1){
-
+  // Realizar funcionalidad para el administrador - front y back
+  // Los filtros ya estan creados, solo queda realizar los metodos en angular y modificar la consulta de la api
   }else{
-
-
-    this.verEstadisticaFiltro(idUsuario,IdRol , anio,idLocalidad,)
-
-    
-
-
-
+    this.verEstadisticaFiltro(idUsuario,IdRol , anio,idLocalidad)
+    this.V_ReclamosEnElTiempoFiltro(IdRol,idUsuario,0,anio,idLocalidad)
   }
 }
 
@@ -536,6 +531,22 @@ filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number
     )
 
 
+  }
+
+  V_ReclamosEnElTiempoFiltro(idRol:number,idUsuario:number, mes:number,anio:number,idLocalidad:number){
+
+    this.serviceEstadistica.V_ReclamosEnElTiempoFiltro(idRol,idUsuario,mes,anio,idLocalidad).subscribe(
+
+      (data)=>{
+        debugger
+        this.V_ReclamosEnElTiempoo = [];
+        this.V_ReclamosEnElTiempoo = data;
+
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )
   }
   
 
