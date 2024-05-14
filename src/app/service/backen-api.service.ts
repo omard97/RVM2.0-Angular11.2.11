@@ -293,9 +293,9 @@ export class BackenApiService {
    
 
 
-    getReclamosXLocalidades(IDUsuario:number):Observable<VE_ReclamosXLocalidades[]>{ 
+    getReclamosXLocalidades(IDUsuario:number,idrol:number):Observable<VE_ReclamosXLocalidades[]>{ 
       debugger
-      return this.http.get<VE_ReclamosXLocalidades[]>('https://localhost:44363/VE_ReclamosXLocalidades/'+IDUsuario);
+      return this.http.get<VE_ReclamosXLocalidades[]>('https://localhost:44363/VE_ReclamosXLocalidades/'+IDUsuario+'/'+idrol);
     }
 
   /* ---------------------------- Configuración ------------------------------------- */
