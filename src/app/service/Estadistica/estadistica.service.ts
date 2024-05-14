@@ -32,9 +32,9 @@ export class EstadisticaService {
   }
 
   //Metodo para rellenar el primer grafico de torta y las tarjetas
-  getEstadisticaGeneral(IDUsuario:number){ 
+  getEstadisticaGeneral(IDUsuario:number, idRol:number){ 
     debugger
-    return this.http.get<estadisticaGeneral[]>('https://localhost:44363/EstPorcentajeCalleXLocalidad/'+IDUsuario);
+    return this.http.get<estadisticaGeneral[]>('https://localhost:44363/EstPorcentajeCalleXLocalidad/'+IDUsuario+'/'+idRol);
   }
 
   getVE_CallesXlocalidad2(IDUsuario:number,IDLocalidad:number){
