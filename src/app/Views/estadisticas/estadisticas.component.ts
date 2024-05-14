@@ -60,16 +60,17 @@ export class EstadisticasComponent implements OnInit {
 
   constructor( private titulo:Title,private serviceUsuario: MenuApiService, private service:BackenApiService, private serviceEstadistica:EstadisticaService) {
     
+   
     titulo.setTitle('Estadísticas');
     this.fecha = new Date().getFullYear().toString();
     this.mesActual = (new Date().getMonth() + 1).toString();
     debugger
     this.ruta = window.location.pathname.split('/');
-     this.usuario.idUsuario = this.ruta[2];
+    this.usuario.idUsuario = this.ruta[2];
      
      this.getRolUsuario();
-     this.getTarjetas();
-     this.getPorcentajesLocalidades(); //utilizado para rellenar el grafico estilo torta general - el primer grafico
+     //this.getTarjetas();
+     //this.getPorcentajesLocalidades(); //utilizado para rellenar el grafico estilo torta general - el primer grafico
      this.V_EstadisticaXmes(this.usuario.idUsuario, this.usuario.idRol,this.fecha);
      debugger
      this.verEstadistica(this.usuario.idUsuario,this.idlocalidadInicio)
@@ -85,14 +86,10 @@ export class EstadisticasComponent implements OnInit {
       this.V_CantidadTipoReclamoDelMes(3,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
       this.V_ReclamosEnElTiempo(3,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
      }
-
-     
-    
-     
    }
 
   ngOnInit(): void {
-
+    
   }
 
   // Función para generar las opciones del select
@@ -112,13 +109,14 @@ export class EstadisticasComponent implements OnInit {
   }
 
   getRolUsuario() {
+    debugger
     this.serviceUsuario.getRolUsuario(this.usuario.idUsuario).subscribe (
       (data) => {
         this.usuario.idUsuario = data[0].idUsuario,
           this.usuario.nick = data[0].nick,
           this.usuario.idRol = data[0].idRol,
           this.usuario.rol = data[0].rol     
-
+          this.getTarjetas();
           
       },
       (error) => {
@@ -126,15 +124,16 @@ export class EstadisticasComponent implements OnInit {
       }
     )
   }
- //tarjetas en la cual 
+ //Select que contiene todas las localidades tanto para administrador como usuario 
   getTarjetas(){ 
-    this.service.getReclamosXLocalidades(this.usuario.idUsuario).subscribe(
+   debugger
+    this.service.getReclamosXLocalidades(this.usuario.idUsuario,this.usuario.idRol).subscribe(
       (res) => {
 
        this.tarjetasLocalidades = res;
        console.log(this.tarjetasLocalidades)
        debugger
-        
+        this.getPorcentajesLocalidades();
       },
       (error) => {
         console.error(error);
@@ -145,10 +144,10 @@ export class EstadisticasComponent implements OnInit {
  
 
   
-  //Estadisticas generales / usado para el usuario logueado
-
+  //Estadisticas generales / usado para el usuario logueado / primer grafico
   getPorcentajesLocalidades(){
-    this.serviceEstadistica.getEstadisticaGeneral(this.usuario.idUsuario).subscribe(
+    debugger
+    this.serviceEstadistica.getEstadisticaGeneral(this.usuario.idUsuario, this.usuario.idRol).subscribe(
       (res) => {
 
        this.estadisticaGeneral= res;
