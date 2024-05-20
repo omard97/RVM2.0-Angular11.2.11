@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { id } from '@swimlane/ngx-charts';
 import { Observable } from 'rxjs';
 import { estadisticaGeneral } from 'src/app/model/Estadistica/EstPorcentajeCalleXLocalidad';
 import { VE_CallesXlocalidad2 } from 'src/app/model/Estadistica/VE_CallesXlocalidad2';
@@ -27,8 +28,9 @@ export class EstadisticaService {
     return this.http.get<VE_ReclamosXLocalidades[]>('https://localhost:44363/VE_ReclamosXLocalidades/'+IDUsuario);
   } */
 
-  getReclamosLocalidadesXCalle(IDUsuario:number,IDLocalidad:number){
-    return this.http.get<VeReclamosLocalidadXCalle[]>('https://localhost:44363/VeReclamosLocalidadXCalle/'+IDUsuario+'/'+IDLocalidad);
+  //Segundo grafico
+  getReclamosLocalidadesXCalle(IDUsuario:number,IDLocalidad:number, idRol:number){
+    return this.http.get<VeReclamosLocalidadXCalle[]>('https://localhost:44363/VeReclamosLocalidadXCalle/'+IDUsuario+'/'+IDLocalidad+'/'+idRol);
   }
 
   //Metodo para rellenar el primer grafico de torta y las tarjetas
@@ -37,8 +39,8 @@ export class EstadisticaService {
     return this.http.get<estadisticaGeneral[]>('https://localhost:44363/EstPorcentajeCalleXLocalidad/'+IDUsuario+'/'+idRol);
   }
 
-  getVE_CallesXlocalidad2(IDUsuario:number,IDLocalidad:number){
-    return this.http.get<VE_CallesXlocalidad2[]>('https://localhost:44363/VE_CallesXlocalidad2/'+IDUsuario+'/'+IDLocalidad);
+  getVE_CallesXlocalidad2(IDUsuario:number,IDLocalidad:number, idrol:number){
+    return this.http.get<VE_CallesXlocalidad2[]>('https://localhost:44363/VE_CallesXlocalidad2/'+IDUsuario+'/'+IDLocalidad+'/'+idrol);
   }
 
 
