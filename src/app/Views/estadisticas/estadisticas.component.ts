@@ -44,6 +44,59 @@ export class EstadisticasComponent implements OnInit {
     rol: ''
   }
 
+  mes = [
+    {
+      name: "Enero",
+      value: 0,
+    },
+    {
+      name: "Febrero",
+      value: 0,
+    },
+    {
+      name: "Marzo",
+      value: 0,
+    },
+    {
+      name: "Abril",
+      value: 0,
+    },
+    {
+      name: "Mayo",
+      value: 0,
+    },
+    {
+      name: "Junio",
+      value: 0,
+    },
+    {
+      name: "Julio",
+      value: 0,
+    },
+
+    {
+      name: "Agosto",
+      value: 0,
+    },
+    {
+      name: "Septiembre",
+      value: 0,
+    },
+    {
+      name: "Octubre",
+      value: 0,
+    },
+    {
+      name: "Noviembre",
+      value: 0,
+    },
+    {
+      name: "Diciembre",
+      value: 0,
+    }
+
+  ]
+
 
   localidadXcalle!:VeReclamosLocalidadXCalle[];
   
@@ -64,59 +117,59 @@ export class EstadisticasComponent implements OnInit {
     titulo.setTitle('Estadísticas');
     this.fecha = new Date().getFullYear().toString();
     this.mesActual = (new Date().getMonth() + 1).toString();
-    debugger
+    
     this.ruta = window.location.pathname.split('/');
     this.usuario.idUsuario = this.ruta[2];
      
      this.getRolUsuario();
      //this.getTarjetas();
      //this.getPorcentajesLocalidades(); //utilizado para rellenar el grafico estilo torta general - el primer grafico
-     this.V_EstadisticaXmes(this.usuario.idUsuario, this.usuario.idRol,this.fecha);
-     debugger
-     this.verEstadistica(this.usuario.idUsuario,this.idlocalidadInicio)
+     //this.V_EstadisticaXmes(this.usuario.idUsuario, this.usuario.idRol,this.fecha);
+     
+     //this.verEstadistica(this.usuario.idUsuario,this.idlocalidadInicio)
     
 
-     if(this.usuario.idUsuario==1){
+    /*  if(this.usuario.idUsuario==1){
+      debugger
       this.v_ReclamosEnLaSemana(1,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
       
       this.V_CantidadTipoReclamoDelMes(1,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
       this.V_ReclamosEnElTiempo(1,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
      }else{
+      debugger
       this.v_ReclamosEnLaSemana(3,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
       this.V_CantidadTipoReclamoDelMes(3,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
       this.V_ReclamosEnElTiempo(3,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
-     }
+     } */
    }
 
   ngOnInit(): void {
     
   }
 
-  // Función para generar las opciones del select
- 
-
+  //select localidades, selecciona una localidad y se actualiza el grafico
   obtenerIDLocalidad(ev: any) { 
     this.selectIDLocalidad = ev.target.value;
     console.log(this.selectIDLocalidad);
-    debugger
-    this.verEstadistica(this.usuario.idUsuario,this.selectIDLocalidad)
+    
+    this.verEstadistica(this.usuario.idUsuario,this.selectIDLocalidad, this.usuario.idRol)
   }
 
   obtenerAnio(ev: any) {
     this.selectAnioLocalidad = ev.target.value;
     console.log(this.selectAnioLocalidad);
-    debugger  
+      
   }
 
   getRolUsuario() {
-    debugger
+    
     this.serviceUsuario.getRolUsuario(this.usuario.idUsuario).subscribe (
       (data) => {
         this.usuario.idUsuario = data[0].idUsuario,
           this.usuario.nick = data[0].nick,
           this.usuario.idRol = data[0].idRol,
           this.usuario.rol = data[0].rol     
-          this.getTarjetas();
+          this.getTarjetas(); //Son tarjetas pero es el select de localidades
           
       },
       (error) => {
@@ -126,13 +179,13 @@ export class EstadisticasComponent implements OnInit {
   }
  //Select que contiene todas las localidades tanto para administrador como usuario 
   getTarjetas(){ 
-   debugger
+   
     this.service.getReclamosXLocalidades(this.usuario.idUsuario,this.usuario.idRol).subscribe(
       (res) => {
 
        this.tarjetasLocalidades = res;
        console.log(this.tarjetasLocalidades)
-       debugger
+       
         this.getPorcentajesLocalidades();
       },
       (error) => {
@@ -146,13 +199,14 @@ export class EstadisticasComponent implements OnInit {
   
   //Estadisticas generales / usado para el usuario logueado / primer grafico
   getPorcentajesLocalidades(){
-    debugger
+    
     this.serviceEstadistica.getEstadisticaGeneral(this.usuario.idUsuario, this.usuario.idRol).subscribe(
       (res) => {
 
        this.estadisticaGeneral= res;
+       //muestro la barra de calles
        
-       
+       this.verEstadistica(this.usuario.idUsuario, 1, this.usuario.idRol)
         
       },
       (error) => {
@@ -162,40 +216,51 @@ export class EstadisticasComponent implements OnInit {
   }
 
    // metodo click que rellena los graficos dependiendo de que localidad se seleccionoGrupos de barras 
-   verEstadistica(IDUsuario:number, IDLocalidad:number){
-    debugger
-    this.localidadXcalle = [];
+   verEstadistica(IDUsuario:number, IDLocalidad:number,idrol:number){
+    //2do grafico
+    if(this.banderaFiltro==1){
+      //si no se usa el filtro entonces actualiza el segundo grafico
+      //No llamar al metodo, hacer el llamado a la peticion desde este mismo, sino se actualizan todos los graficos
+      this.getCallesXLocalidad2(IDUsuario,IDLocalidad, idrol);
+    }else{
+      // cuando se usa el filtro que 
+      //terminar esto
+    }
+  
+    /* this.localidadXcalle = [];
     
-    this.serviceEstadistica.getReclamosLocalidadesXCalle(IDLocalidad,IDUsuario).subscribe(
+    this.serviceEstadistica.getReclamosLocalidadesXCalle(IDLocalidad,IDUsuario, this.usuario.idRol).subscribe(
       (data) => {
         
         console.log(data)
         this.localidadXcalle = data;
 
         debugger
-        //Crear un metodo en el cual rellene el segundo grafico de torta, visualize el nombre de la calle y su porcentaje de calles que es la cantidad
-        this.getCallesXLocalidad2(IDUsuario,IDLocalidad);
+        
+       
         
 
       },
       (err) =>{
         console.log(err)
       }
-    )
+    ) */
    
   }
 
-  getCallesXLocalidad2(IDUsuario:number, IDLocalidad:number){
+  //2do grafico luego de seleccionar la localidad 
+  getCallesXLocalidad2(IDUsuario:number, IDLocalidad:number, idrol:number){
   
-    debugger
-    this.serviceEstadistica.getVE_CallesXlocalidad2(IDUsuario,IDLocalidad).subscribe(
+    
+    this.serviceEstadistica.getVE_CallesXlocalidad2(IDUsuario,IDLocalidad,idrol).subscribe(
       (data) => {
-        debugger
+      
         console.log(data)
-        debugger
+      
         this.callesDeLaLocalidad = data;
 
-        //segunda estadistica
+        //3er grafico - por meses 
+        this.V_EstadisticaXmes(this.usuario.idUsuario, this.usuario.idRol,this.fecha);
  
       },
       (err) =>{
@@ -262,6 +327,11 @@ export class EstadisticasComponent implements OnInit {
       (data) => {
         
         this.V_EstadisticaXmess = data;
+        //4to grafico de reclamos en la semana
+        debugger
+        this.v_ReclamosEnLaSemana(this.usuario.idRol,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
+        //
+
       },
       (err) =>{
         console.log(err)
@@ -287,7 +357,7 @@ export class EstadisticasComponent implements OnInit {
         }
 
       )
-      debugger
+      
       //tipos de reclamos en ese mes seleccionado
       this.serviceEstadistica.V_CantidadTipoReclamoDelMesSelect(this.usuario.idRol,this.usuario.idUsuario,event.name,Number(this.fecha)).subscribe(
         (data)=>{
@@ -349,6 +419,8 @@ export class EstadisticasComponent implements OnInit {
         this.v_ReclamosEnLaSemanaa = data
         console.log(this.v_ReclamosEnLaSemanaa)
         debugger
+        //5to grafico que muestra la cantidad de tipos de reclamos en el mes actual, cuando inicio la pantalla
+        this.V_CantidadTipoReclamoDelMes(this.usuario.idRol,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
   
       },
       (err)=>{
@@ -382,6 +454,8 @@ export class EstadisticasComponent implements OnInit {
       (data)=>{
         debugger
         this.V_CantidadTipoReclamoDelMess = data
+        //6to grafico, visualiza todos los reclamos con una hora promedio, muestra todos los que hiciste
+        this.V_ReclamosEnElTiempo(this.usuario.idRol,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
        
       },
       (err)=>{
@@ -478,9 +552,15 @@ filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number
   if(IdRol==1){
   // Realizar funcionalidad para el administrador - front y back
   // Los filtros ya estan creados, solo queda realizar los metodos en angular y modificar la consulta de la api
+
+    this.verEstadisticaFiltro(idUsuario,IdRol , anio,idLocalidad)
+    this.V_ReclamosEnElTiempoFiltro(IdRol,idUsuario,IdRol,anio,idLocalidad)
+
   }else{
     this.verEstadisticaFiltro(idUsuario,IdRol , anio,idLocalidad)
-    this.V_ReclamosEnElTiempoFiltro(IdRol,idUsuario,0,anio,idLocalidad)
+
+    //Se paso el idrol a 0 asi entra en el metodo
+    this.V_ReclamosEnElTiempoFiltro(IdRol,idUsuario,IdRol,anio,idLocalidad)
   }
 }
 
@@ -489,7 +569,15 @@ filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number
     this.serviceEstadistica.V_EstadisticaXmesFiltro(idUsuario,IdRol,anio,idLocalidad).subscribe(
       (data)=>{
         debugger
-        this.V_EstadisticaXmess = data   
+        if(data.length == 0){
+
+
+
+          this.V_EstadisticaXmess = this.mes 
+        }else{
+          this.V_EstadisticaXmess = data 
+        }
+          
       },
       (err)=>{
         console.log(err)
