@@ -90,6 +90,7 @@ export class DashboardComponent implements OnInit {
     showYAxisLabel = true;
     yAxisLabel = 'Realizados';
     rotateXAxisTicks=true;
+    showGridLines: boolean = false;
     colorScheme3 = {
       domain: ['#1f77b4', '#1f77b4']
     };
