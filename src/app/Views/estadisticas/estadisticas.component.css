@@ -54,6 +54,9 @@
 .row_height{
     height: 250px;
 }
+.row_heightHora{
+    height: 250px;
+}
 
 .advanced-pie-chart {
     font-size: 36px !important;
@@ -65,3 +68,86 @@
     font-size: 14px;
     
   }
+
+
+  .general {
+    padding: 20px;
+  }
+
+ 
+  
+ 
+  
+  
+
+  /* mas de 766px */
+  /* ajusta el conenedor de los dos primeros graficos */
+  @media (min-width: 766px) {
+    .torta {
+       
+        transition:0.8s ease;
+        width: 100%;
+        height: 300px!important; /* Ajusta este valor según necesites */
+      }
+
+      
+  }
+
+  /* mas de 900px */
+   /* ajusta el conenedor de los dos primeros graficos */
+  @media (min-width: 900px) {
+    .torta {
+       
+        transition:0.8s ease;
+        width: 100%;
+        height: 250px!important; /* Ajusta este valor según necesites */
+      }
+
+      
+  }
+
+  /* Cuando es menor o igual a 766px */
+  @media (max-width: 766px) {
+    .torta {
+        transition:0.8s ease;
+        width: 100%;
+        height: 500px!important; /* Ajusta este valor según necesites */
+      }
+    .flexx {
+        flex: 1;
+      }
+    .flexx-colum {
+        display: flex;
+        flex-direction: column;
+      }
+    .espacioEntreGraficos {
+      margin-bottom: 20px; /* Espacio entre los gráficos en pantallas pequeñas */
+    }
+
+
+    .barras{
+        padding-right: 0px!important;
+        width: 100%;
+        height: 900px!important; /* Ajusta este valor según necesites */
+      }
+     
+    
+  }
+
+  @media (min-width: 768px) and (max-width: 992px) {
+    .contenedorHora{
+        padding-top: 30px;
+    }
+    .graficobarra{
+        height: 300px!important;
+     
+    }
+    .row_height{
+        height: 500px!important;
+    }
+    .row_heightHora {
+      height: 500px;
+      
+    }
+  }
+  
