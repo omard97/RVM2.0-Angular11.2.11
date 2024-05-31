@@ -36,6 +36,7 @@ export class EstadisticasComponent implements OnInit {
   nombrePieLocalidad:string = '';
   banderaFiltro:number=1; // 1 no se usa el filtro, 2 si se usa filtro
  
+  nombreLocalidadSeleccionada: string=''  ;
 
   usuario = {
     idUsuario: 0,
@@ -144,12 +145,16 @@ export class EstadisticasComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    this.localidadCtrl.valueChanges.subscribe(idLocalidad => {
+      const selectedLocalidad = this.tarjetasLocalidades.find(item => item.idLocalidad === idLocalidad);
+      this.nombreLocalidadSeleccionada = selectedLocalidad ? selectedLocalidad.localidad : '';
+    });
   }
 
   //select localidades, selecciona una localidad y se actualiza el grafico
   obtenerIDLocalidad(ev: any) { 
     this.selectIDLocalidad = ev.target.value;
+    const idLocalidad = (ev.target as HTMLSelectElement).value;
     console.log(this.selectIDLocalidad);
     
     this.verEstadistica(this.usuario.idUsuario,this.selectIDLocalidad, this.usuario.idRol)
@@ -225,6 +230,21 @@ export class EstadisticasComponent implements OnInit {
     }else{
       // cuando se usa el filtro que 
       //terminar esto
+      this.serviceEstadistica.getVE_CallesXlocalidad2(IDUsuario,IDLocalidad,idrol).subscribe(
+        (data) => {
+        
+          console.log(data)
+        
+          this.callesDeLaLocalidad = data;
+  
+          //3er grafico - por meses 
+         
+   
+        },
+        (err) =>{
+          console.log(err)
+        }
+      )
     }
   
     /* this.localidadXcalle = [];
@@ -294,7 +314,7 @@ export class EstadisticasComponent implements OnInit {
   showLabelsPie2: boolean = true;
   isDoughnutPie2: boolean = true;
   animacionBarras2:boolean= true;
-  label2:string = 'Calles'
+  label2:string = 'Reclamos realizados por calle'
   colorSchemePie2 = {
     domain: [' #1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
     '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf',
@@ -328,7 +348,7 @@ export class EstadisticasComponent implements OnInit {
         
         this.V_EstadisticaXmess = data;
         //4to grafico de reclamos en la semana
-        debugger
+        
         this.v_ReclamosEnLaSemana(this.usuario.idRol,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
         //
 
@@ -340,7 +360,7 @@ export class EstadisticasComponent implements OnInit {
     
   }
   selectMes(event:any){
-    debugger
+    
     if(this.banderaFiltro==1){
       //No se está usando los filtros, cuando el usuario abre la pantalla y quiere seleccionar los meses del grafico
       //metodos cuando solo se selecciona el mes deseado del grafico
@@ -413,12 +433,12 @@ export class EstadisticasComponent implements OnInit {
   };
 
   v_ReclamosEnLaSemana(idRol:number, idUsuario:number, mes:number,anio:number){
-    debugger
+    
     this.serviceEstadistica.v_ReclamosEnLaSemana(idRol,idUsuario,mes,anio).subscribe(
       (data)=>{
         this.v_ReclamosEnLaSemanaa = data
         console.log(this.v_ReclamosEnLaSemanaa)
-        debugger
+        
         //5to grafico que muestra la cantidad de tipos de reclamos en el mes actual, cuando inicio la pantalla
         this.V_CantidadTipoReclamoDelMes(this.usuario.idRol,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
   
@@ -449,10 +469,10 @@ export class EstadisticasComponent implements OnInit {
 
   //grafico de tipos de reclamos en el mes y anio actual - cuando se abre la pantalla
   V_CantidadTipoReclamoDelMes(idRol:number, idUsuario:number, mes:number,anio:number){
-    debugger
+    
     this.serviceEstadistica.V_CantidadTipoReclamoDelMes(idRol,idUsuario,mes,anio).subscribe(
       (data)=>{
-        debugger
+        
         this.V_CantidadTipoReclamoDelMess = data
         //6to grafico, visualiza todos los reclamos con una hora promedio, muestra todos los que hiciste
         this.V_ReclamosEnElTiempo(this.usuario.idRol,this.usuario.idUsuario,Number(this.mesActual),Number(this.fecha))
@@ -486,7 +506,7 @@ export class EstadisticasComponent implements OnInit {
   V_ReclamosEnElTiempo(idRol:number, idUsuario:number, mes:number,anio:number){
     this.serviceEstadistica.V_ReclamosEnElTiempo(idRol,idUsuario,mes,anio).subscribe(
       (data)=>{
-        debugger
+        
         this.V_ReclamosEnElTiempoo = data
        
       },
@@ -547,7 +567,7 @@ export class EstadisticasComponent implements OnInit {
 filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number){
   //Cuando se aprieta el boton de buscar por filtros
   this.banderaFiltro=2; // se usa el filtro
-  debugger
+  
 
   if(IdRol==1){
   // Realizar funcionalidad para el administrador - front y back
@@ -568,7 +588,7 @@ filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number
     this.V_EstadisticaXmess=[]
     this.serviceEstadistica.V_EstadisticaXmesFiltro(idUsuario,IdRol,anio,idLocalidad).subscribe(
       (data)=>{
-        debugger
+        
         if(data.length == 0){
 
 
@@ -586,11 +606,11 @@ filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number
   }
 
   v_ReclamosEnLaSemanaFiltro(idRol:number,idUsuario:number, nombreMes:string,anio:number,idLocalidad:number){
-    debugger
+    
     this.serviceEstadistica.v_ReclamosEnLaSemanaFiltro(idRol,idUsuario,nombreMes,anio,idLocalidad).subscribe(
 
       (data)=>{
-        debugger
+        
         this.v_ReclamosEnLaSemanaa = []
           this.v_ReclamosEnLaSemanaa = data
       },
@@ -606,7 +626,7 @@ filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number
     this.serviceEstadistica.V_CantidadTipoReclamoDelMesSelectFiltro(idRol,idUsuario,nombreMes,anio,idLocalidad).subscribe(
 
       (data)=>{
-        debugger
+        
         this.V_CantidadTipoReclamoDelMess = []
           this.V_CantidadTipoReclamoDelMess = data
       },
@@ -625,7 +645,7 @@ filtrarEstadistica(idUsuario:number,IdRol:number, anio:number,idLocalidad:number
     this.serviceEstadistica.V_ReclamosEnElTiempoFiltro(idRol,idUsuario,mes,anio,idLocalidad).subscribe(
 
       (data)=>{
-        debugger
+        
         this.V_ReclamosEnElTiempoo = [];
         this.V_ReclamosEnElTiempoo = data;
 
