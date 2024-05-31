@@ -25,3 +25,11 @@ export class getLocalidadRec {
     Nombre: string = "";
     Provincia: string = "";
 }
+
+export class postLocalidad{
+   
+    nombre: string = '';
+    provincia: string = '';
+    ID_Pais: number = 0;
+    iD_EstadoLocalidad: number = 0;
+}
