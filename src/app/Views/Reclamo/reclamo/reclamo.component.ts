@@ -24,6 +24,7 @@ import { ReclamoApiService } from 'src/app/service/Reclamo/reclamo-api.service';
 import { dir } from 'console';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 import { LocalidadService } from 'src/app/service/Localidad/localidad.service';
+import {  postLocalidad } from 'src/app/model/localidad';
 
 
 @Component({
@@ -157,6 +158,8 @@ export class ReclamoComponent implements OnInit, OnExit {
    ubicacionCompleta : string = '';
    localidadUnica:string ='';
    idlocalidadReclamo:number=0;
+   banderaLocalidad:boolean = false; //Falso si no esta registrado, verdadero si esta registrado
+                                     // Se usa para validar a la hora de crear el reclamo, en el text dirección.
 
    @ViewChild('txtQuery') txtQuery: any;  // Asegúrate de importar ViewChild asi poder cambiar el texto del input
 
@@ -290,7 +293,8 @@ export class ReclamoComponent implements OnInit, OnExit {
     debugger
     /* Validacion en el caso que registre un input vacio o cambie de tipo de reclamo y tenga un input vacio */
     /* reclamo Ambiental */
-   if ((this.tipoReclamoCtrl.value =='' || this.tipoReclamoCtrl.value == 1) && (this.tipoReclamoCtrl.invalid  || this.reclamoAmbientalCtrl.invalid  ||  this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == '' )) { /*  || this.FotoCtrl.invalid  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == ''  ||   this.fechaCtrl.value == '' this.horaCtrl.value == '' ||*/ 
+   if ((this.tipoReclamoCtrl.value =='' || this.tipoReclamoCtrl.value == 1) &&
+     (this.tipoReclamoCtrl.invalid  || this.reclamoAmbientalCtrl.invalid  ||  this.ubicacionCtrl.value == '' || this.descripcionCtrl.value == '' )) { /*  || this.FotoCtrl.invalid  || this.urlFotoCtrl.value == '' || this.alturaCtrl.value == ''  ||   this.fechaCtrl.value == '' this.horaCtrl.value == '' ||*/ 
       this.toastr.warning(
         'Quedan datos por rellenar en el formulario, verifique y podrá enviar su reclamo',
         '',
@@ -381,6 +385,7 @@ export class ReclamoComponent implements OnInit, OnExit {
       this.altura = altura;
       this.localidad = localidad; // contiene toda la direccion completa (sin la altura) pero se usa para validar que el reclamo se realice dentro de villa maria
       this.ubicacionCompleta = this.ubicacionCompleta;
+      debugger
       this.localidadUnica = localidadUnica // se tiene que validar para registrar el reclamo, si no esta registrado de antes se crea un post y se agrega el id, si ya esta creado se obtiene el id y se agrega al detalle
 
 
@@ -399,11 +404,41 @@ export class ReclamoComponent implements OnInit, OnExit {
   validarLocalidad(localidadUnica:string){
     //utilizado para obtener el id de la localidad en el momento de seleccionar la misma localidad
     // por el momento siempre va a ser villa maria, pero se agrega esta funcionalidad para el futuro
+    debugger
     this.serviceLocalidad.getLocalidadReclamo(localidadUnica).subscribe(
       (data) => {
         debugger
         console.log(data)
-        this.idlocalidadReclamo = data[0].idLocalidad; //Utilizada en el momento de crear el reclamo
+
+        if(data.length==0){
+          //Quiere decir que la localidad no esta registrada, se pasa a registrar
+          var localidad : postLocalidad ={
+            nombre : localidadUnica+'',
+            provincia: "Córdoba",
+            ID_Pais: 1,
+            iD_EstadoLocalidad:1
+          }
+
+
+          this.serviceLocalidad.PostLocalidad(localidad).subscribe(
+            (data) => {
+              console.log(data)
+              this.idlocalidadReclamo = data[0].idlocalidad;
+            },
+            (error) =>{
+              console.log(error)
+            }
+          )
+
+
+        }else{
+          debugger
+          //Si ya esta registrada entonces se obtiene el id
+          this.idlocalidadReclamo = data[0].idLocalidad; //Utilizada en el momento de crear el reclamo
+        }
+
+
+       
 
       },
       (err) => {
@@ -418,16 +453,92 @@ export class ReclamoComponent implements OnInit, OnExit {
     )
   }
 
-  verificarLocalidad(){
-    this.service.getLocalidades().subscribe(
+  verificarLocalidad(localidadUnica:string, infoRec:any){
+    
+    debugger
+    this.serviceLocalidad.getLocalidadReclamo(localidadUnica).subscribe(
       (data) => {
         debugger
         console.log(data)
-        //this.objListaLocalidades = data;
 
-        //esta funcion se iba a utilizar para validar la localidad, si ya estaba registrada en la Base de Datos entonces no se crea un nuevo registro de localidad
-        //de lo contrario se cree un nuevo registro de localidad y luego el reclamo
+        if(data.length==0){
+          
+          //Aca no entra nunca
 
+        }else{
+          debugger
+          //Si ya esta registrada entonces se obtiene el id
+          this.idlocalidadReclamo = data[0].idLocalidad; //Utilizada en el momento de crear el detalle del reclamo
+
+          if (this.selectIdTipoReclamo ==1) {
+            /* Si es ambiental */
+      
+            debugger
+           
+              var RegistroDetReclamo: DetalleReclamo = {
+                descripcion: this.descripcionCtrl.value + '',
+                direccion: this.calle + '', 
+                altura: Number(this.altura),
+                dominio:  '-',
+                ID_ReclamoAmbiental: Number(this.selectIdinfoReclamo),
+                /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
+                ID_Reclamo: infoRec.idReclamo,
+                longitud: this.ubicacionReclamo.longitud + '',
+                latitud: this.ubicacionReclamo.latitud+ '',
+                ID_Localidad:Number(this.idlocalidadReclamo)    // se tiene que agregar el id de la localidad
+              };
+    
+              debugger
+              this.service.postDetalleReclamo(RegistroDetReclamo).subscribe(
+                (res) => {
+                  this.Notificacion();
+                  console.clear(); /* limpio la consola */
+                  this.limpiarPantalla();
+                },
+                (err) => console.error(err)
+              );
+          
+          } else if(this.selectIdTipoReclamo == 2){
+            debugger
+            /* Cuando sea Vehicular */
+            /* Primero el detalle de reclamo */
+            var RegistroDetReclamo: DetalleReclamo = {
+              descripcion: this.descripcionCtrl.value + '',
+              direccion: this.calle + '', 
+              altura: Number(this.altura),
+              dominio: this.dominioCtrl.value + '',
+              ID_ReclamoAmbiental: 0,
+              /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
+              ID_Reclamo: infoRec.idReclamo,
+              longitud: this.ubicacionReclamo.longitud + '',
+              latitud: this.ubicacionReclamo.latitud + '',
+              ID_Localidad:Number(this.idlocalidadReclamo)
+            };
+            /* DETALLE RECLAMO */
+            this.service.postDetalleReclamo(RegistroDetReclamo).subscribe(
+              (resDetRecla) => {
+                this.ID_DetReclamo = resDetRecla.idDetalleReclamo; /* se guarda el ID del detalle de reclamo recien creado
+                para no perder el dato y despues insertarlo en RegVehiculoxDetalle*/
+                this.RegVehiculo(); /* Se procede a realizar el registro del vehiculo  */
+              },
+              (err) => console.error(err)
+            );
+          }else{
+            debugger
+            this.toastr.info(
+              'En estos momentos no se pueden realizar reclamos con el tipo de reclamo que seleccionó',
+              'Seleccione Ambiental o Vial'
+            );
+            
+          
+          }
+
+
+
+        }
+
+
+       
 
       },
       (err) => {
@@ -440,87 +551,25 @@ export class ReclamoComponent implements OnInit, OnExit {
         );
       }
     )
+
+
+
+
+
+
   }
 
   registrarDetalleReclamo(infoRec: any) {
     debugger
 
      //verificacion de que si la localidad que se ingreso en la provincia de cordoba existe entonces no se crea sino que se le agrega el id de esa localidad.
+     this.verificarLocalidad(this.localidadUnica, infoRec);
 
-
+     // HACER!!! METER TODO EL POST DEL DETALLE RECLAMO EN VALIDAR.
+     // TIENE QUE IR EN EL ELSE, CUANDO LA LOCALIDAD YA ESTA CARGADA, CON ESO SE SOLUCIONA EL PROBLEMA
 
     // cuando sea ambiental o distinto de vehicular, es decir que es cualquier otro tipo de reclamo excepto vehicular
-    if (this.selectIdTipoReclamo ==1) {
-      /* Si es ambiental */
-
-      debugger
-     
-        var RegistroDetReclamo: DetalleReclamo = {
-          descripcion: this.descripcionCtrl.value + '',
-          direccion: this.calle + '', 
-          altura: Number(this.altura),
-          dominio:  '-',
-          ID_ReclamoAmbiental: Number(this.selectIdinfoReclamo),
-          /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
-          ID_Reclamo: infoRec.idReclamo,
-          longitud: this.ubicacionReclamo.longitud + '',
-          latitud: this.ubicacionReclamo.latitud+ '',
-          ID_Localidad:Number(this.idlocalidadReclamo)    // se tiene que agregar el id de la localidad
-        };
-
-
-        
-
-        debugger
-        this.service.postDetalleReclamo(RegistroDetReclamo).subscribe(
-          (res) => {
-            this.Notificacion();
-            console.clear(); /* limpio la consola */
-            this.limpiarPantalla();
-          },
-          (err) => console.error(err)
-        );
     
-        
-      
-      
-
-    
-    } else if(this.selectIdTipoReclamo == 2){
-      debugger
-      /* Cuando sea Vehicular */
-      /* Primero el detalle de reclamo */
-      var RegistroDetReclamo: DetalleReclamo = {
-        descripcion: this.descripcionCtrl.value + '',
-        direccion: this.calle + '', 
-        altura: Number(this.altura),
-        dominio: this.dominioCtrl.value + '',
-        ID_ReclamoAmbiental: 0,
-        /* ID_Vehiculo: Number(this.selectIdMarcaVehiculo), */
-        ID_Reclamo: infoRec.idReclamo,
-        longitud: this.ubicacionReclamo.longitud + '',
-        latitud: this.ubicacionReclamo.latitud + '',
-        ID_Localidad:Number(this.idlocalidadReclamo)
-      };
-      /* DETALLE RECLAMO */
-      this.service.postDetalleReclamo(RegistroDetReclamo).subscribe(
-        (resDetRecla) => {
-          this.ID_DetReclamo =
-            resDetRecla.idDetalleReclamo; /* se guarda el ID del detalle de reclamo recien creado
-          para no perder el dato y despues insertarlo en RegVehiculoxDetalle*/
-          this.RegVehiculo(); /* Se procede a realizar el registro del vehiculo  */
-        },
-        (err) => console.error(err)
-      );
-    }else{
-      debugger
-      this.toastr.info(
-        'En estos momentos no se pueden realizar reclamos con el tipo de reclamo que seleccionó',
-        'Seleccione Ambiental o Vial'
-      );
-      
-    
-    }
   }
   RegVehiculo() {
 
