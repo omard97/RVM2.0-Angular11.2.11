@@ -81,16 +81,19 @@
                 <fieldset>
                     <div class="row" style="margin: 0 auto">
                         <!-- Estados Reclamos -->
-                        <div class="col-12 pt-2 pb-2"
+
+                        <div class="col-12 mt-2 pt-2 pb-3 rounded-3 border border-2 listaEstados"
                             *ngIf="banderaEdicionReclamo==true && (this.usuario.idRol==1 || this.usuario.idRol==2)">
                             <!-- <h5 class="text-center">Estados del reclamo</h5> -->
-                            <div class="form-check form-check-inline pt-2 pb-2" *ngFor="let item of Tiporecla">
+                            <div class="form-check form-check-inline pt-2 pb-2" *ngFor="let item of Tiporecla;let i = index">
+
                                 <input class="form-check-input" (change)="dataChangedEstadoReclamo($event)" type="radio"
-                                    name="EstadosRec" [id]="item.idTipoReclamo" [value]="item.idTipoReclamo">
+                                    name="EstadosRec" [id]="item.idTipoReclamo" [value]="item.idTipoReclamo" [disabled]="i > 1">
                                 <!-- [disabled]="this.arregloDetalleReclamo[0]?.nombreTRec != item.nombre" -->
                                 <label class="form-check-label" for="{{item.idTipoReclamo}}">{{item.nombre}}</label>
-                            </div>
 
+                            </div>
+                            
                             <div class="input-group flex-nowrap" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="Estado Reclamo">
 
@@ -106,9 +109,8 @@
                                 </select>
 
                             </div>
-
-
                         </div>
+
                     </div>
                     <div class="row" style="margin: 0 auto">
                         <div class="col-12 col-md-12 col-lg-5">
@@ -312,8 +314,8 @@
 
                         <!-- Mapa -->
                         <div
-                            class="form-group input_reclamo shadow-lg p-3 rounded border border-2 animate__animated animate__fadeIn ">
-                            <div *ngIf="banderaVerMapa!='editar'" class="col-12  ">
+                            class="form-group input_reclamo shadow-lg p-3 rounded-4 border border-2 animate__animated animate__fadeIn contenedor__MapaReclamo ">
+                            <div *ngIf="banderaVerMapa!='editar'" class="col-12 ">
                                 <app-map-screen-reclamo></app-map-screen-reclamo>
                             </div>
                             <div *ngIf="banderaVerMapa=='editar'" class="col-12  ">
