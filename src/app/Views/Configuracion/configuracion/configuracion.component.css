@@ -1,10 +1,19 @@
 :host {
   --colorPrincipal: #e6621f;
+  --azulMarino: #25556b;
 }
 
 *{
   transition-duration: 0.5s;
 }
+
+.accordion-button{
+  background-color: var(--azulMarino) ;
+  color: #ececec;
+  border-top-left-radius: 5px!important;
+  border-top-right-radius: 5px!important;
+}
+
 
 .titulo_config{
   color: var(--colorPrincipal);
