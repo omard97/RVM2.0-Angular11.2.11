@@ -38,10 +38,12 @@
     
     margin: 0.7rem 0 1rem 0;
   }
-
+  .boxShadow{
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  }
   .row_2{
     margin-bottom: 1rem;
-    background-color: #e4e4e4;
+    background-color: #f8f8f8da;
   }
   
   .dashboard__tiposReclamos  {
@@ -57,20 +59,18 @@
     background-color: rgb(224, 224, 224);
   } */
   
-  .dashboard__tablaAnio {
-    height: 100%; /* Alto */
-    background-color: rgb(224, 224, 224);
-  }
+/*   .dashboard__tablaAnio {
+    height: 100%; 
+    background-color: #f8f8f8da;
+  } */
 
-  .input_busquedaAnio{
+/*   .input_busquedaAnio{
     display: flex;
     justify-content: left;
     align-items:center;
-  }
+  } */
   
-  .contenedor__tablaAnio{
-    height: 300px;
-  }
+  
   .opciones{
     border-style: solid;
     border-width: medium;
@@ -99,3 +99,44 @@
     height: 430px;
   } */
   
+
+  .dashboard__tablaAnio {
+    padding: 20px;
+}
+
+
+
+.input-group-text {
+    background-color: #f0f0f0;
+    border: 1px solid #ced4da;
+    border-right: 0;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.Centrado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor__tablaAnio {
+    padding: 20px;
+    height: 300px;
+}
+
+.tipoReclamo{
+  height: 300px!important;
+}
