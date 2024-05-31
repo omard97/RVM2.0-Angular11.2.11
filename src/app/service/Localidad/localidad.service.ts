@@ -20,4 +20,13 @@ export class LocalidadService {
     return this.http.get<getLocalidadRec[]>('https://localhost:44363/obtenerLocalidad?nombreLoc='+nombreLoc);
    }
 
+
+
+   PostLocalidad(localidad:any):Observable<any>{
+    return this.http.post('https://localhost:44363/ObtenerLocalidad', localidad, this.httpOptions);
+  }
+   
+  /* postInicioSesionUsuario(usuarioLogueado: any): Observable<any> {
+    return this.http.post('https://localhost:44363/sesion', usuarioLogueado, this.httpOptions);
+  } */
 }
