@@ -35,7 +35,7 @@ export class EstadisticaService {
 
   //Metodo para rellenar el primer grafico de torta y las tarjetas
   getEstadisticaGeneral(IDUsuario:number, idRol:number){ 
-    debugger
+    
     return this.http.get<estadisticaGeneral[]>('https://localhost:44363/EstPorcentajeCalleXLocalidad/'+IDUsuario+'/'+idRol);
   }
 
@@ -81,13 +81,13 @@ export class EstadisticaService {
 
   //V_EstadisticaXmes - Filtro grafico de barras horizontales
   V_EstadisticaXmesFiltro(idUsuario:number,idRol:number,anio:number, idLocalidad:number){
-    debugger
+    
     return this.http.get<V_EstadisticaXmes[]>('https://localhost:44363/V_EstadisticaXmesFiltro/'+idUsuario+'/'+idRol+'/'+anio+'/'+idLocalidad)
   }
 
   // v_ReclamosEnLaSemana - cuando selecciona el mes del grafico busca los reclamos de ese mes seleccionado
   v_ReclamosEnLaSemanaFiltro(idRol:number,idUsuario:number, nombreMes:string,anio:number,idLocalidad:number){
-    debugger
+    
      return this.http.get<v_ReclamosEnLaSemana[]>('https://localhost:44363/v_ReclamosEnLaSemanaFiltro?idRol='+idRol+'&idUsuario='+idUsuario+'&nombreMes='+nombreMes+'&anio='+ anio+'&idLocalidad='+idLocalidad)
   }
 
