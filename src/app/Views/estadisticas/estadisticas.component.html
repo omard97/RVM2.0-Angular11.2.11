@@ -7,47 +7,49 @@
     </div>
   </div> -->
   <div class="row">
-    <div class="col-12 col-sm-5">
-
+    <div class="col-12 col-md-12 col-lg-5">
+  
       <div class="form-floating m-2">
         <select class="form-select d-inline-block seleccionFiltros  " data-bs-toggle="tooltip" data-bs-placement="top"
           title="Localidades" placeholder="Clic para abrir" (change)="obtenerIDLocalidad($event)"
           [formControl]="localidadCtrl" id="floatingSelect" aria-label="Floating label select example">
           <!-- Default select example -->
           <option value="" disabled>- Localidad no seleccionada -</option>
-          <option  *ngFor="let item of tarjetasLocalidades" value="{{item.idLocalidad}}" selected>{{item.localidad}}
+          <option *ngFor="let item of tarjetasLocalidades" value="{{item.idLocalidad}}" selected>{{item.localidad}}
           </option>
-          
+  
         </select>
         <label for="floatingSelect">Localidades</label>
       </div>
-
-
+  
+  
     </div>
-    <div class="col-12 col-sm-5">
+    <div class="col-12 col-md-12 col-lg-5">
       <div class="form-floating m-2">
         <select class="form-select d-inline-block seleccionFiltros   " data-bs-toggle="tooltip" data-bs-placement="top"
-          title="Año" placeholder="Clic para abrir" (change)="obtenerAnio($event)"
-          [formControl]="anioCtrl" id="floatingSelect" aria-label="Floating label select example">
+          title="Año" placeholder="Clic para abrir" (change)="obtenerAnio($event)" [formControl]="anioCtrl"
+          id="floatingSelect" aria-label="Floating label select example">
           <!-- Default select example -->
           <option value="" disabled>- Año no seleccionado -</option>
           <option value="2024" selected>2024
           <option value="2023" selected>2023
           </option>
-          
+  
         </select>
         <label for="floatingSelect">Años</label>
       </div>
     </div>
-
-    <div class="col-12 col-sm-2 text-center mt-2">
-    <div class="m-2">
-      <button class="btn btn-primary d-inline-block btnBuscar" (click)="filtrarEstadistica(usuario.idUsuario,usuario.idRol,selectAnioLocalidad,selectIDLocalidad)" data-bs-toggle="tooltip" data-bs-placement="top"
-        title="Buscar Estadísticas"><i class="bi bi-search me-2"></i>Buscar</button>
+  
+    <div class="col-12 col-md-12  col-lg-2 text-center mt-2">
+      <div class="m-2">
+        <button class="btn btn-primary d-inline-block btnBuscar"
+          (click)="filtrarEstadistica(usuario.idUsuario,usuario.idRol,selectAnioLocalidad,selectIDLocalidad)"
+          data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar Estadísticas"><i
+            class="bi bi-search me-2"></i>Buscar</button>
+      </div>
+  
     </div>
-
-  </div>
-
+  
   </div>
   
 
@@ -70,37 +72,26 @@
 </div>
 
 <!-- dona de porcentajes de localidades -->
-<div class="general container-fluid ">
-  <div class="row rounded rounded-4 shadow-lg height_row colorFondo">
-    <div class="col-4">
-
-
+<div class=" container-fluid pe-0">
+  <div class="row rounded rounded-4 shadow-lg colorFondo flexx-colum torta">
+    <div class="col-12 col-md-6   flexx espacioEntreGraficos">
       <!-- estadistica de dona para las localidades - no se modifica -->
-      <ngx-charts-advanced-pie-chart class="torta"  [scheme]="colorSchemePie" [results]="estadisticaGeneral"
+      <ngx-charts-advanced-pie-chart class="" [scheme]="colorSchemePie" [results]="estadisticaGeneral"
         [gradient]="gradient" [animations]="animacionBarras" [label]="label1">
       </ngx-charts-advanced-pie-chart>
-
-
     </div>
-
-    <div class="col-8 ">
-
-
+    <div class="col-12 col-md-6 flexx espacioEntreGraficos">
       <!-- estadistica de dona de las calles de la localidad que se selecciona -->
-      <ngx-charts-advanced-pie-chart [viewPie2]="viewPie2" [scheme]="colorSchemePie2" [results]="callesDeLaLocalidad"
+      <ngx-charts-advanced-pie-chart class="" [viewPie2]="viewPie2" [scheme]="colorSchemePie2" [results]="callesDeLaLocalidad"
         [gradient]="gradient" [animations]="animacionBarras2" [label]="label2">
       </ngx-charts-advanced-pie-chart>
-
-
     </div>
-
-
   </div>
 </div>
 
 <div class=" container-fluid mt-3 ">
-  <div class="row rounded rounded-4 shadow-lg row_height">
-    <div class="col-4">
+  <div class="row rounded rounded-4 shadow-lg row_height barras">
+    <div class="col-12 col-md-12 col-lg-4 graficobarras">
 
         <ngx-charts-bar-horizontal
         [scheme]="colorScheme3"
@@ -117,7 +108,7 @@
         (select)="selectMes($event)">
       </ngx-charts-bar-horizontal>
     </div>
-    <div class="col-4">
+    <div class="col-12 col-md-12 col-lg-4 graficobarras">
 
       <ngx-charts-bar-vertical
         [view5]="view5"
@@ -126,7 +117,7 @@
         [gradient]="gradient"
         [xAxis]="showXAxis4"
         [yAxis]="showYAxis4"
-        [legend]="showLegend4"
+      
         [showXAxisLabel]="showXAxisLabel4"
         [showYAxisLabel]="showYAxisLabel4"
         [xAxisLabel]="xAxisLabel4"
@@ -137,7 +128,7 @@
         <!--      <small> Gráfico de líneas de reclamos por día de la semana: Crea un gráfico de líneas que muestre la cantidad de reclamos recibidos en cada día de la semana. Esto podría revelar patrones de comportamiento, como si hay días específicos con más reclamos que otros. </small>
             <smal>Cuando seleccione una barra del mes se desplegaran 4 graficos correspondientes al mes seleccionado</smal> -->
     </div>
-    <div class="col-4">
+    <div class="col-12 col-md-12 col-lg-4 graficobarras">
         
       <ngx-charts-bar-vertical
         [view5]="view5"
@@ -153,7 +144,7 @@
         [xAxisLabel]="xAxisLabel5"
         [yAxisLabel]="yAxisLabel5"
         [showDataLabel]="showDataLabel5">
-        []
+       
       </ngx-charts-bar-vertical>
 
         <!--      <small> Gráfico de líneas de reclamos por día de la semana: Crea un gráfico de líneas que muestre la cantidad de reclamos recibidos en cada día de la semana. Esto podría revelar patrones de comportamiento, como si hay días específicos con más reclamos que otros. </small>
@@ -163,23 +154,27 @@
   </div>
 </div>
 
-<div class="container-fluid mt-3">
-  <div class="row rounded rounded-4 shadow-lg row_height">
+<div class="container-fluid mt-3 contenedorHora">
+  <div class="row rounded rounded-4 row_heightHora shadow-lg">
 
-    <ngx-charts-bar-vertical
-    [view5]="view6"
-    [scheme]="colorScheme6"
-    [results]="V_ReclamosEnElTiempoo"
-    [gradient]="gradient6"
-    [xAxis]="showXAxis6"
-    [yAxis]="showYAxis6"
-   
-    [showXAxisLabel]="showXAxisLabel6"
-    [showYAxisLabel]="showYAxisLabel6"
-    [xAxisLabel]="xAxisLabel6"
-    [yAxisLabel]="yAxisLabel6"
-    [showDataLabel]="showDataLabel6">
-  </ngx-charts-bar-vertical>
+    <div class="col">
+      <ngx-charts-bar-vertical
+      [view5]="view6"
+      [scheme]="colorScheme6"
+      [results]="V_ReclamosEnElTiempoo"
+      [gradient]="gradient6"
+      [xAxis]="showXAxis6"
+      [yAxis]="showYAxis6"
+     
+      [showXAxisLabel]="showXAxisLabel6"
+      [showYAxisLabel]="showYAxisLabel6"
+      [xAxisLabel]="xAxisLabel6"
+      [yAxisLabel]="yAxisLabel6"
+      [showDataLabel]="showDataLabel6">
+    </ngx-charts-bar-vertical>
+    </div>
+
+    
 
   </div>
 </div>
