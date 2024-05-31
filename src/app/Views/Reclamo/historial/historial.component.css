@@ -291,7 +291,9 @@ table td.r,
 table th.r {
   text-align: center
 }
-
+.table100-head{
+  background-color: #235065;
+}
 .table100-head th {
   font-family: OpenSans-Regular;
   font-size: 16px;
