@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { estadoReclamoAdmin } from 'src/app/model/filtrosHistorial/estadoReclamo';
+import { EstadoReclamo, estadoReclamoAdmin } from 'src/app/model/filtrosHistorial/estadoReclamo';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,12 @@ export class EstadosService {
   //trae todos los estados una unica vez
   //utilizado en FiltrosHistorialController - EstadoReclamoController
   getEstados(id:number){
+    debugger
     return this.http.get<estadoReclamoAdmin[]>('https://localhost:44363/estadoreclamo?id='+id);
+  }
+
+  getEstadoPorNombre(nombreTipoReclamo:string){
+    return this.http.get<EstadoReclamo[]>('https://localhost:44363/EstadoReclamoEditar/'+nombreTipoReclamo);
   }
 
 
