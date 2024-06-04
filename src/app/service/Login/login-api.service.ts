@@ -5,6 +5,8 @@ import { Observable, of } from 'rxjs';
 import { formulario, idInicioSesionUsuario } from 'src/app/model/InicioSesion';
 import { sesionUsuario } from 'src/app/model/sesion';
 import { nickUsuario } from 'src/app/model/usuario';
+import { ApiService } from '../API/api.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +15,19 @@ export class LoginApiService {
 
   private isLoggedIn = false;
 
+  urlApi:string ='';
+
   //cabeceras http
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private apiService: ApiService) { 
 
     
     this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+    this.urlApi = this.apiService.getBaseUrl();
 
   }
 
@@ -37,9 +43,10 @@ export class LoginApiService {
 
     } else {
 
-      
+
       this.isLoggedIn = true;
       localStorage.setItem('isLoggedIn', 'true');
+      debugger
       return this.http.get<sesionUsuario[]>('https://localhost:44363/sesion?' + "email=" + email + "&" + "password=" + pass); /* email=example@hotmail.com&password=123'); */
 
     }
