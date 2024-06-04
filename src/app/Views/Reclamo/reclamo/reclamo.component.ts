@@ -250,7 +250,7 @@ export class ReclamoComponent implements OnInit, OnExit {
       (err) => console.error(err)
     );
   }
-  getListEstadosReclamos(): void {
+ /*  getListEstadosReclamos(): void {
     this.service.getTipoReclamo().subscribe(
       (res) => {
         this.Tiporecla = res;
@@ -258,7 +258,7 @@ export class ReclamoComponent implements OnInit, OnExit {
       },
       (err) => console.error(err)
     );
-  }
+  } */
 
   getListReclamoAmbiental(): void {
     this.service.getReclamoAmbiental().subscribe(
@@ -754,13 +754,16 @@ ambiental */
 
   dataChangedEstadoReclamo(ev: any) {
     /* Capturo el id del tipo de reclamo y luego lo uso para traer sus estados */
+    debugger
     this.idEstadoReclamo = ev.target.value;
-   
-    this.serviceEstado.getEstados(this.idEstadoReclamo).subscribe(
+    let nombre = ev.target.getAttribute('data-nombre');
+    //buscar por el nombre 
+    this.serviceEstado.getEstadoPorNombre(nombre).subscribe(
       (data) => {
         console.log("Estados de los tipos de reclamos seleccionados")
         console.log(data)
         this.objetEstadoReclamo = data;
+        debugger
         
       },
       (error) => {
