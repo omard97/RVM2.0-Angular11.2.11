@@ -88,7 +88,12 @@
                             <div class="form-check form-check-inline pt-2 pb-2" *ngFor="let item of Tiporecla;let i = index">
 
                                 <input class="form-check-input" (change)="dataChangedEstadoReclamo($event)" type="radio"
-                                    name="EstadosRec" [id]="item.idTipoReclamo" [value]="item.idTipoReclamo" [disabled]="i > 1">
+                                        name="EstadosRec" 
+                                        [id]="item.idTipoReclamo" 
+                                        [value]="item.idTipoReclamo" 
+                                        [attr.data-nombre]="item.nombre"> <!-- Atributo data-nombre -->
+                                        
+                                         <!-- [disabled]="i > 1" -->
                                 <!-- [disabled]="this.arregloDetalleReclamo[0]?.nombreTRec != item.nombre" -->
                                 <label class="form-check-label" for="{{item.idTipoReclamo}}">{{item.nombre}}</label>
 
@@ -104,7 +109,7 @@
                                     <option value="" disabled> --- Tipo de Estado no selecionado ---</option>
                                     <option value="{{item.idEstado}}" name="Esta"
                                         *ngFor="let item of objetEstadoReclamo">
-                                        {{item.estadoNombre}}
+                                        {{item.nombre}}
                                     </option>
                                 </select>
 
