@@ -11,11 +11,14 @@
 
 /* contenedor del mapa en donde se ven los marcadores */
 .map-container {
-    position: fixed;
+  /*   position: fixed;
     top: 195px;
     right: 0px;
     width: 100vw;
-    height: 79%;
+    height: 79%; */
+   
+   
+    height: 80vh; /* Ocupa toda la altura de la pantalla */
     
 }
 *{
@@ -23,7 +26,7 @@
 }
 
 /* cuando se usa en un monitor 24 pulgadas ya que el alto del mapa no se ajusta al cambiar de monitor */
-@media screen and (max-width: 1400px){
+/* @media screen and (max-width: 1400px){
     .map-container {
       top: 270px; 
     }
@@ -31,8 +34,18 @@
 @media screen and (max-width: 768px){
   .map-container {
     top: 370px; 
+    height: 70vh; 
   }
 }
+
+
+@media screen and (max-width: 576px) {
+  .map-container {
+    top: 400px; 
+    height: 60vh;
+    width: 50vh;
+  }
+} */
 
 
 #coordenadas {     
@@ -59,7 +72,7 @@
 .main__Filtros{
   border-radius: 10px;
   padding: 20px 0px;
-  background-color: #235065!important;
+  background-color: #efefef!important;
   /* background-color: #f4f4f476!important; */
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }

@@ -175,6 +175,8 @@ export class MapViewComponent implements AfterViewInit, OnInit {
                         class="fas fa-car"></i> <span class="span-text"> Dominio: </span>${coordenada.dominio}</p>
                 <p style="margin: 0"><i class="fas fa-map-signs"></i><span class="span-text"> Dirección:
                     </span>${coordenada.direccion} </p>
+                     <p style="margin: 0"><i class="bi bi-123"></i><span class="span-text"> Altura:
+                    </span>${coordenada.altura} </p>
                 <!-- <p style="margin: 0"><i class="fas fa-sort-numeric-up-alt"></i> <span class="span-text"> Altura: </span>${coordenada.altura}</p> -->
             </div> <!-- .tarjeta--informacion -->
             
