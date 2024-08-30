@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { estadoReclamoPost } from 'src/app/model/filtrosHistorial/estadoReclamo';
 import { getLocalidadRec } from 'src/app/model/localidad';
+import { ApiService } from '../API/api.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,12 @@ export class LocalidadService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-  constructor(private http: HttpClient) { }
+
+  urlApi: string = '' ;
+  constructor(private http: HttpClient, private apiService:ApiService) { 
+
+    this.urlApi = this.apiService.getBaseUrl();
+  }
 
 
 

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiService } from '../API/api.service';
 
 
 
@@ -13,9 +14,10 @@ export class MarcadoresService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-  constructor(private http: HttpClient) {
+  urlApi: string = '' ;
+  constructor(private http: HttpClient, private apiService:ApiService) {
 
-
+    this.urlApi = this.apiService.getBaseUrl();
 
    }
 

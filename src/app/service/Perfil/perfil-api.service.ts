@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { datosperfil } from 'src/app/model/perfil';
+import { ApiService } from '../API/api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,11 @@ export class PerfilApiService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { }
+  urlApi: string = '' ;
+
+  constructor(private http: HttpClient, private apiService:ApiService) {
+    this.urlApi = this.apiService.getBaseUrl();
+   }
 
   /*Obtener los datos del usuario segun el ID*/
   getdatosPerfil(id: any): Observable<datosperfil[]> {
