@@ -41,7 +41,7 @@ img {
 
 /* botones de la tabla resumida */
 .btn__opciones {
-  margin: 0px 10px 0px 10px;
+  margin: 5px 10px 5px 10px;
   transition-duration: 0.5s;
   
 }
