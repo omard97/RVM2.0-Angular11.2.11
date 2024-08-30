@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MapReclamoService, PlacesReclamoService } from '../../services';
 
 @Component({
@@ -7,11 +7,19 @@ import { MapReclamoService, PlacesReclamoService } from '../../services';
   styleUrls: ['./btn-ubicacion-reclamo.component.css']
 })
 export class BtnUbicacionReclamoComponent {
+  isSmallScreen!: boolean;
+  constructor(private placesReclamoServices: PlacesReclamoService,private mapaReclamoService: MapReclamoService) { 
+    this.checkScreenSize();
+  }
 
-  constructor(private placesReclamoServices: PlacesReclamoService,private mapaReclamoService: MapReclamoService) { }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkScreenSize();
+  }
 
-  
-
+  checkScreenSize() {
+    this.isSmallScreen = window.innerWidth < 576;
+  }
 miUbicacion() {
     if (!this.placesReclamoServices.isUserLocationReady) throw Error('No hay ubicacion del usuario');
     if (!this.mapaReclamoService.isMapReady) throw Error('No hay mapa disponible para el usuario')
