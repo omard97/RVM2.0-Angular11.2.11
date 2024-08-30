@@ -247,7 +247,11 @@ export class ReclamoComponent implements OnInit, OnExit {
         this.Tiporecla = res;
         
       },
-      (err) => console.error(err)
+      (err) => console.error(this.toastr.info(
+        'No fue posible cargar la lista de tipos de reclamos',
+        'Atención!'
+      )
+     )
     );
   }
  /*  getListEstadosReclamos(): void {
@@ -266,7 +270,10 @@ export class ReclamoComponent implements OnInit, OnExit {
        
         this.ReclamoAmbie = res;
       },
-      (err) => console.error(err)
+      (err) => console.error(this.toastr.info(
+        'No fue posible cargar la lista de Reclamos Ambientales',
+        'Atención!'
+      ))
     );
   }
 
@@ -275,7 +282,10 @@ export class ReclamoComponent implements OnInit, OnExit {
       (res) => {
         this.Mar = res;
       },
-      (err) => console.error(err)
+      (err) => console.error(this.toastr.info(
+        'No fue posible cargar la lista de Marca de los vehículos',
+        'Atención!'
+      ))
     );
   }
 
@@ -285,7 +295,10 @@ export class ReclamoComponent implements OnInit, OnExit {
         this.Mod = res;
         
       },
-      (err) => console.error(err)
+      (err) => console.error(this.toastr.info(
+        'No fue posible cargar la lista de los modelos de vehículos',
+        'Atención!'
+      ))
     );
   }
 
@@ -345,7 +358,13 @@ export class ReclamoComponent implements OnInit, OnExit {
           (res) => {          
             this.registrarDetalleReclamo(res); /* metodo para registrar el detalle */
           },
-          (err) => console.error(err)
+          (err) => console.error(
+            this.toastr.info(
+              'Ocurrió un error al crear el reclamo, verifique que los datos sean correctos.',
+              'Atención'
+            ) 
+
+          )
         );
       }else{
         this.toastr.info(
@@ -393,7 +412,7 @@ export class ReclamoComponent implements OnInit, OnExit {
       this.validarLocalidad(this.localidadUnica)
 
       
-     alert('Usted esta en '+ this.localidad)
+     //alert('Usted esta en '+ this.localidad)
     }else{
       this.toastr.info(
         'Ingrese la altura de la dirección deseada',
@@ -495,7 +514,12 @@ export class ReclamoComponent implements OnInit, OnExit {
                   console.clear(); /* limpio la consola */
                   this.limpiarPantalla();
                 },
-                (err) => console.error(err)
+                (err) => console.error(
+                  this.toastr.info(
+                    'Ocurrio un error al cargar el detalle del reclamo',
+                    'Atención'
+                  ) 
+                )
               );
           
           } else if(this.selectIdTipoReclamo == 2){
@@ -521,7 +545,11 @@ export class ReclamoComponent implements OnInit, OnExit {
                 para no perder el dato y despues insertarlo en RegVehiculoxDetalle*/
                 this.RegVehiculo(); /* Se procede a realizar el registro del vehiculo  */
               },
-              (err) => console.error(err)
+              (err) => console.error(this.toastr.info(
+                'Ocurrio un error al cargar el detalle del reclamo',
+                'Atención!'
+              ) 
+            )
             );
           }else{
             debugger
@@ -591,7 +619,10 @@ export class ReclamoComponent implements OnInit, OnExit {
          para no perder el dato y despues insertarlo en RegVehiculoxDetalle*/
         this.RegVehiculoxDetalle();
       },
-      (err) => console.error(err)
+      (err) => console.error(this.toastr.info(
+        'Ocurrio un error al cargar el reclamo vial',
+        'Atención!'
+      ) )
     );
   }
   RegVehiculoxDetalle() {
@@ -608,7 +639,10 @@ export class ReclamoComponent implements OnInit, OnExit {
         console.clear(); /* limpio la consola */
         this.limpiarPantalla();
       },
-      (err) => console.error(err)
+      (err) => console.error(this.toastr.info(
+        'Ocurrio un error al cargar el detalle del reclamo vial',
+        'Atención!'
+      ) )
     );
   }
 

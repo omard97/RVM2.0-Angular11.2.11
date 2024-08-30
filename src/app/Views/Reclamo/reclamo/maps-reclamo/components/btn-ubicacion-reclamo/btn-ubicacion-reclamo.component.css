@@ -5,3 +5,10 @@
     z-index: 999;
 }
 
+
+@media (max-width: 575.98px) {
+    .miUbicacion {
+      top: 80%; /* Ajusta según sea necesario */
+      right: 10px; /* Ajusta según sea necesario */
+    }
+  }

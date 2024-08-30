@@ -1,2 +1,6 @@
-<button class="btn btn-primary miUbicacion " (click)="miUbicacion()"><i class="bi bi-geo-alt"></i>  Mi Ubicación</button>
-
+<!-- <button class="btn btn-primary miUbicacion " (click)="miUbicacion()"><i class="bi bi-geo-alt"></i>  Mi Ubicación</button>
+ -->
+<button class="btn btn-primary miUbicacion" (click)="miUbicacion()">
+    <i class="bi bi-geo-alt"></i>
+    <span *ngIf="!isSmallScreen">Mi Ubicación</span>
+  </button>
