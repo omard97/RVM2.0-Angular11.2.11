@@ -19,7 +19,7 @@
                         <h3>Estados</h3>
                     </div>
                     <div class="container-fluid Centrado mb-1">
-                        <small>Seleccione el <b>Tipo de Estado</b> para poder realizar las configuraciones
+                        <small class="small_subtitulo" >Seleccione el <b>Tipo de Estado</b> para poder realizar las configuraciones
                             necesarias</small>
                     </div>
                     <div class="container">
@@ -119,7 +119,7 @@
                             <div class="row">
                                 <div class="col-12  col-lg-5 padding_Vechiculos">
                                     <div class="container-fluid Centrado mb-1">
-                                        <small>Seleccione la <b>Marca</b> para realizar las configuraciones
+                                        <small class="small_subtitulo">Seleccione la <b>Marca</b> para realizar las configuraciones
                                             necesarias</small>
                                     </div>
                                     <select class="form-select form-select-sm " aria-label=".form-select-sm example"
@@ -133,7 +133,7 @@
                                 </div>
                                 <div class="col-12 col-lg-5 padding_Vechiculos">
                                     <div class="container-fluid Centrado mb-1">
-                                        <small>Seleccione el <b>Modelo</b> para realizar las configuraciones
+                                        <small class="small_subtitulo">Seleccione el <b>Modelo</b> para realizar las configuraciones
                                             necesarias
                                         </small>
                                     </div>
@@ -157,10 +157,10 @@
                                         class="bi bi-search"></i>Nuevo</button>
                                 </div> -->
 
-                                <div class="col-12 col-md-12 col-lg-2  padding_Vechiculos hstack gap-3 ">
-                                    <button type="button" class="btn btn-primary"  (click)="GetBuscarVehiculos()"><i class="bi bi-plus-square"></i></button>
+                                <div class="col-12 col-md-12 col-lg-2  padding_Vechiculos btnVehiculo hstack gap-3 ">
+                                    <button type="button" class="btn btn-primary"  (click)="visualizarModalVehiculos(modalVehiculos)"><i class="bi bi-plus-square"></i></button>
                                     <div class="vr"></div>
-                                    <button type="button" class="btn btn-success" (click)="visualizarModalVehiculos(modalVehiculos)"><i
+                                    <button type="button" class="btn btn-success" (click)="GetBuscarVehiculos()"><i
                                         class="bi bi-search"></i></button>
                                 </div>
 
@@ -249,7 +249,7 @@
                         <h3>Marcas</h3>
                     </div>
                     <div class="container-fluid Centrado mb-1">
-                        <small>Seleccione la <b>Marca</b> para realizar las configuraciones
+                        <small class="small_subtitulo">Seleccione la <b>Marca</b> para realizar las configuraciones
                             necesarias</small>
                     </div>
                     <div class="row">
@@ -338,7 +338,7 @@
                         <h3>Modelos</h3>
                     </div>
                     <div class="container-fluid Centrado mb-1">
-                        <small>Seleccione el <b>Modelo</b> para realizar las configuraciones
+                        <small class="small_subtitulo">Seleccione el <b>Modelo</b> para realizar las configuraciones
                             necesarias</small>
                     </div>
 
@@ -424,7 +424,7 @@
                         <h3>Perfiles</h3>
                     </div>
                     <div class="container-fluid Centrado mb-1">
-                        <small>Seleccione el<b>Tipo de Perfil</b> para poder realizar las configuraciones
+                        <small class="small_subtitulo">Seleccione el<b>Tipo de Perfil</b> para poder realizar las configuraciones
                             necesarias</small>
                     </div>
                     <div class="row">
@@ -509,7 +509,7 @@
                         <h3>Tipos de Reclamos</h3>
                     </div>
                     <div class="container-fluid Centrado mb-1">
-                        <small>Seleccione el <b>Tipo de Reclamo</b> para poder realizar las configuraciones
+                        <small class="small_subtitulo">Seleccione el <b>Tipo de Reclamo</b> para poder realizar las configuraciones
                             necesarias</small>
                     </div>
                     <div class="row">
@@ -590,7 +590,7 @@
                         <h3>Tipos de Vehículo</h3>
                     </div>
                     <div class="container-fluid Centrado mb-1">
-                        <small>Seleccione el <b>Tipo de Vehículo</b> para poder realizar las configuraciones
+                        <small class="small_subtitulo">Seleccione el <b>Tipo de Vehículo</b> para poder realizar las configuraciones
                             necesarias</small>
                     </div>
                     <div class="row">
@@ -726,7 +726,7 @@
                         <h3>Usuarios</h3>
                     </div>
                     <div class="container-fluid Centrado mb-1">
-                        <small>Busque al <b>usuario</b> que desea para realizar las configuraciones
+                        <small class="small_subtitulo">Busque al <b>usuario</b> que desea para realizar las configuraciones
                             necesarias</small>
                     </div>
                     <div class="row">
@@ -841,7 +841,7 @@
                         <h3>Localidades</h3>
                     </div>
                     <div class="container-fluid Centrado mb-1">
-                        <small>Busque la <b>localidad</b> que desea para realizar las configuraciones
+                        <small class="small_subtitulo">Busque la <b>localidad</b> que desea para realizar las configuraciones
                             necesarias</small>
                     </div>
                     <div class="container-fluid">
@@ -960,7 +960,7 @@
                                 <input class="form-check-input" type="checkbox" role="switch"
                                     id="flexSwitchCheckDefault" (click)="switchTipoEstadoModal()"
                                     value="animacionSwitch" [formControl]="switchTipoEstadoCtrl">
-                                <label class="form-check-label" for="flexSwitchCheckDefault"> <small>Agregar un tipo de
+                                <label class="form-check-label" for="flexSwitchCheckDefault"> <small class="small_subtitulo">Agregar un tipo de
                                         estado</small></label>
                             </div>
                         </div>
