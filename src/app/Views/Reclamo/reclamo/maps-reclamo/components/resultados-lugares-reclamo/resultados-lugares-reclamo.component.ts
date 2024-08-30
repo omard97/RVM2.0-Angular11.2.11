@@ -48,7 +48,7 @@ export class ResultadosLugaresReclamoComponent implements OnInit {
     this.localidad = place.place_name;
     this.ubicacionCompleta = this.calle + ' ' + this.altura; 
     debugger
-  /*   if(this.localidad.includes(this.nombreLocalidad) || this.localidad.includes('Villa Maria')){ */
+     if(this.localidad.includes(this.nombreLocalidad) || this.localidad.includes('Villa Maria')){ 
       if(this.altura !=undefined && this.calle!=undefined){
 
       
@@ -69,12 +69,12 @@ export class ResultadosLugaresReclamoComponent implements OnInit {
           ''
         );
       }
-  /*   }else{
+    }else{
       this.toastr.info(
         'Realice la busqueda dentro de la localidad de ' + this.nombreLocalidad,
         ''
       );
-    } */
+    }
 
 
    
