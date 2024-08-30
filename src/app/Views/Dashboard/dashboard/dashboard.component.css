@@ -51,8 +51,39 @@
     /* background-color: rgb(224, 224, 224); */
   }
 
-  
-  
+
+/* Aplica el tamaño de fuente relativo utilizando unidades vw o vh */
+/* ::ng-deep ngx-charts-number-card ngx-charts-chart div svg g g g g text {
+  font-size: 2vw !important;
+} */
+/* ::ng-deep ngx-charts-number-card ngx-charts-chart div svg g g g g title {
+  font-size: 100vw !important; 
+} */
+/* Tamaño de fuente para pantallas grandes */
+/* @media (min-width: 1200px) {
+  ::ng-deep ngx-charts-number-card ngx-charts-chart div svg g g g g text {
+    font-size: 2vw !important;
+  }
+} */
+
+/* Tamaño de fuente para pantallas medianas */
+/* @media (min-width: 768px) and (max-width: 1199px) {
+  ::ng-deep ngx-charts-number-card ngx-charts-chart div svg g g g g text {
+    font-size: 3vw !important;
+  }
+} */
+
+/* Tamaño de fuente para pantallas pequeñas */
+/* @media (max-width: 767px) {
+  ::ng-deep ngx-charts-number-card ngx-charts-chart div svg g g g g text {
+    font-size: 4vw !important;
+  }
+} */
+
+/* Cambia el color del texto (si es necesario) */
+/* ::ng-deep ngx-charts-number-card .cell .value-text {
+  color: red !important;
+} */
   
 /*   .cajaTercera {
     height: 430px; 

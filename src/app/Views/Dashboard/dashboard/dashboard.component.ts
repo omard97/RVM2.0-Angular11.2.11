@@ -402,10 +402,26 @@ export class DashboardComponent implements OnInit {
           (dato)=>{
             
             this.arregloReclamosDeMesesyAnio=dato;
-            
+            if(dato.length==0){
+              this.toastr.info(
+                'No se encuentran datos registrados para el año ingresado',
+                'Atención',
+                {
+                  timeOut: 5000,
+                  progressBar: true,
+                }
+              );
+            }
           },
           (error) => {
-            console.log(error);
+            this.toastr.warning(
+              'Ocurrio un error al ingresar el año deseado',
+              'Atención',
+              {
+                timeOut: 5000,
+                progressBar: true,
+              }
+            );
           }
         )
       
